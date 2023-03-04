@@ -1,0 +1,310 @@
+{
+	"collection_configuration": {
+		"columns": [
+			{
+				"column_name": "trick",
+				"column_description": "Truco",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "abbreviation",
+				"column_description": "Abreviación",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "trick_type",
+				"column_description": "Tipo de Truco",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "skill_level",
+				"column_description": "Dificultad",
+				"is_visible": true,
+				"typeof": "int"
+			},
+			{
+				"column_name": "can_i_perform_it",
+				"column_description": "¿Puedo realizarlo?",
+				"is_visible": true,
+				"typeof": "bool"
+			},
+			{
+				"column_name": "how_to_perform_it",
+				"column_description": "Tutorial",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "where_to_see",
+				"column_description": "plataforma",
+				"is_visible": false,
+				"typeof": "string"
+			}
+		],
+		"data": {
+			"snippets": [
+				{
+					"column_name": "trick",
+					"method": "replace",
+					"replace_with": "<i class='fa-regular fa-futbol'></i> {value}",
+					"column_related": ""
+				},
+				{
+					"column_name": "trick_type",
+					"method": "case",
+					"replace_with": [
+						{
+							"case": "Inferior",
+							"replace": "<i class='fa-solid fa-person-walking'></i> {value}"
+						},
+						{
+							"case": "Medio",
+							"replace": "<i class='fa-solid fa-person-running'></i> {value}"
+						},
+						{
+							"case": "Superior",
+							"replace": "<i class='fa-solid fa-person-falling'></i> {value}"
+						}
+					],
+					"column_related": ""
+				},
+				{
+					"column_name": "can_i_perform_it",
+					"method": "case",
+					"replace_with": [
+						{
+							"case": true,
+							"replace": "<i class='fa-solid fa-face-laugh-beam'></i> Si"
+						},
+						{
+							"case": false,
+							"replace": "<i class='fa-solid fa-face-sad-cry'></i> No"
+						}
+					],
+					"column_related": ""
+				},
+				{
+					"column_name": "skill_level",
+					"method": "for",
+					"replace_with": "<i class='fa-solid fa-star'></i>",
+					"column_related": ""
+				}
+			],
+			"conditions": [
+				{
+					"column_name": "abbreviation",
+					"operator": "==",
+					"value_to_compare": "",
+					"replace_with": "No Tiene"
+				}
+			]
+		}
+	},
+	"collection_name": "freestyle_soccer_tricks",
+	"collection_description": "Trucos de FreeStyle Soccer",
+	"collection_items": [
+		{
+			"trick": "Around the World",
+			"abbreviation": "ATW",
+			"trick_type": "Inferior",
+			"skill_level": 2,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Outside Around the World",
+			"abbreviation": "OATW",
+			"trick_type": "Inferior",
+			"skill_level": 2,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Half Around the World",
+			"abbreviation": "HATW",
+			"trick_type": "Inferior",
+			"skill_level": 2,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Hop the World",
+			"abbreviation": "HTW",
+			"trick_type": "Inferior",
+			"skill_level": 2,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Reverse Hop the World",
+			"abbreviation": "RHTW",
+			"trick_type": "Inferior",
+			"skill_level": 2,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Cross Over",
+			"abbreviation": "CO",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Reverse Cross Over",
+			"abbreviation": "RCO",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "X-Over",
+			"abbreviation": "",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Touzani Around the World",
+			"abbreviation": "TATW",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Alternative Touzani Around the World",
+			"abbreviation": "ATATW",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Mitch Around the World",
+			"abbreviation": "MATW",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Alternative Mitch Around the World",
+			"abbreviation": "AMATW",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+
+		{
+			"trick": "Lemmens Around the World",
+			"abbreviation": "LATW",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Alternative Lemmens Around the World",
+			"abbreviation": "ALATW",
+			"trick_type": "Inferior",
+			"skill_level": 4,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Palle Around the World",
+			"abbreviation": "PATW",
+			"trick_type": "Inferior",
+			"skill_level": 4,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Alternative Palle Around the World",
+			"abbreviation": "APATW",
+			"trick_type": "Inferior",
+			"skill_level": 4,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+
+		{
+			"trick": "Foot Stall",
+			"abbreviation": "",
+			"trick_type": "Inferior",
+			"skill_level": 1,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Knee Stall",
+			"abbreviation": "",
+			"trick_type": "Medio",
+			"skill_level": 3,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Head Stall",
+			"abbreviation": "",
+			"trick_type": "Superior",
+			"skill_level": 4,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Dragon Stall",
+			"abbreviation": "",
+			"trick_type": "Inferior",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "V-Stall",
+			"abbreviation": "",
+			"trick_type": "Inferior",
+			"skill_level": 4,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "J-Stall",
+			"abbreviation": "",
+			"trick_type": "Superior",
+			"skill_level": 5,
+			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		}
+	]
+}

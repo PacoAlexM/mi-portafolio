@@ -1,0 +1,791 @@
+{
+	"collection_configuration": {
+		"columns": [
+			{
+				"column_name": "song_name",
+				"column_description": "Canción",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "artist_name",
+				"column_description": "Artista",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "album_name",
+				"column_description": "Album",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "track_number",
+				"column_description": "Número de Pista",
+				"is_visible": true,
+				"typeof": "int"
+			},
+			{
+				"column_name": "released_year",
+				"column_description": "Año de Lanzamiento",
+				"is_visible": true,
+				"typeof": "int"
+			},
+			{
+				"column_name": "gender",
+				"column_description": "Género",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "length",
+				"column_description": "Duración",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "rating",
+				"column_description": "Calificación Personal",
+				"is_visible": true,
+				"typeof": "int"
+			}
+		],
+		"data": {
+			"snippets": [
+				{
+					"column_name": "song_name",
+					"method": "replace",
+					"replace_with": "<i class='fa-solid fa-music'></i> {value}",
+					"column_related": ""
+				},
+				{
+					"column_name": "album_name",
+					"method": "replace",
+					"replace_with": "<i class='fa-solid fa-record-vinyl'></i> {value}",
+					"column_related": ""
+				},
+				{
+					"column_name": "rating",
+					"method": "for",
+					"replace_with": "<i class='fa-solid fa-star'></i>",
+					"column_related": ""
+				}
+			],
+			"conditions": []
+		}
+	},
+	"collection_name": "songs_i_like",
+	"collection_description": "Rolas Favoritas",
+	"collection_items": [
+		{
+			"song_name": "Intro",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 1,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "1:15",
+			"rating": 2
+		},
+		{
+			"song_name": "Fixed Income (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 2,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "6:00",
+			"rating": 4
+		},
+		{
+			"song_name": "What Does Your Soul Look Like (Medley), Pt. 2",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 3,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "3:16",
+			"rating": 5
+		},
+		{
+			"song_name": "In Flux (In Tune And On Time)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 4,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "3:19",
+			"rating": 5
+		},
+		{
+			"song_name": "Un Autre Introduction (In Tune And On Time)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 5,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "0:24",
+			"rating": 2
+		},
+		{
+			"song_name": "Walkie Talkie (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 6,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "3:54",
+			"rating": 4
+		},
+		{
+			"song_name": "Drums Of Death",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 7,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:09",
+			"rating": 4
+		},
+		{
+			"song_name": "Lonely Soul (In Tune And On Time)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 8,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:54",
+			"rating": 5
+		},
+		{
+			"song_name": "Lost & Found (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 9,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:57",
+			"rating": 3
+		},
+		{
+			"song_name": "What Does Your Soul Look Like (In Tune And On Time), Pt. 3",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 10,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "3:08",
+			"rating": 4
+		},
+		{
+			"song_name": "Mutual Slump (In Tune And On Time)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 11,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:47",
+			"rating": 5
+		},
+		{
+			"song_name": "Stem / Long Stem (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 12,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "3:26",
+			"rating": 2
+		},
+		{
+			"song_name": "Reconstruction (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 13,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:05",
+			"rating": 3
+		},
+		{
+			"song_name": "Holy Calamity (Bear Witness II)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 14,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:35",
+			"rating": 5
+		},
+		{
+			"song_name": "The Third Decade, Our Move",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 15,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:49",
+			"rating": 4
+		},
+		{
+			"song_name": "Halfway Home",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 16,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:18",
+			"rating": 4
+		},
+		{
+			"song_name": "The Number Song (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 17,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "2:59",
+			"rating": 4
+		},
+		{
+			"song_name": "Organ Donor (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 18,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "4:21",
+			"rating": 5
+		},
+		{
+			"song_name": "Mashin’ On The Motorway",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 19,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "3:45",
+			"rating": 5
+		},
+		{
+			"song_name": "Blood On The Motorway (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 20,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "10:00",
+			"rating": 2
+		},
+		{
+			"song_name": "Napalm Brain / Outro (Medley)",
+			"artist_name": "Dj Shadow",
+			"album_name": "In Tune And On Time",
+			"track_number": 21,
+			"released_year": 2004,
+			"gender": "Hip Hop",
+			"length": "12:07",
+			"rating": 5
+		},
+		{
+			"song_name": "Chasmal Fires",
+			"artist_name": "Ethereal Shroud",
+			"album_name": "Trisagion",
+			"track_number": 1,
+			"released_year": 2021,
+			"gender": "Black Metal",
+			"length": "27:47",
+			"rating": 5
+		},
+		{
+			"song_name": "Discarnate",
+			"artist_name": "Ethereal Shroud",
+			"album_name": "Trisagion",
+			"track_number": 2,
+			"released_year": 2021,
+			"gender": "Black Metal",
+			"length": "13:55",
+			"rating": 5
+		},
+		{
+			"song_name": "Astral Mariner",
+			"artist_name": "Ethereal Shroud",
+			"album_name": "Trisagion",
+			"track_number": 3,
+			"released_year": 2021,
+			"gender": "Black Metal",
+			"length": "22:35",
+			"rating": 5
+		},
+		{
+			"song_name": "I",
+			"artist_name": "Echtra",
+			"album_name": "A War For Wonder",
+			"track_number": 1,
+			"released_year": 2009,
+			"gender": "Black Metal",
+			"length": "23:00",
+			"rating": 4
+		},
+		{
+			"song_name": "II",
+			"artist_name": "Echtra",
+			"album_name": "A War For Wonder",
+			"track_number": 2,
+			"released_year": 2009,
+			"gender": "Black Metal",
+			"length": "23:00",
+			"rating": 5
+		},
+		{
+			"song_name": "Electro World",
+			"artist_name": "Perfume",
+			"album_name": "Electro World",
+			"track_number": 1,
+			"released_year": 2006,
+			"gender": "Hyper Pop",
+			"length": "3:51",
+			"rating": 5
+		},
+		{
+			"song_name": "Wonder2",
+			"artist_name": "Perfume",
+			"album_name": "Electro World",
+			"track_number": 2,
+			"released_year": 2006,
+			"gender": "Hyper Pop",
+			"length": "3:49",
+			"rating": 5
+		},
+		{
+			"song_name": "Computer City",
+			"artist_name": "Perfume",
+			"album_name": "Computer City",
+			"track_number": 1,
+			"released_year": 2006,
+			"gender": "Hyper Pop",
+			"length": "4:43",
+			"rating": 5
+		},
+		{
+			"song_name": "Secret Secret",
+			"artist_name": "Perfume",
+			"album_name": "Game",
+			"track_number": 9,
+			"released_year": 2008,
+			"gender": "Hyper Pop",
+			"length": "4:57",
+			"rating": 5
+		},
+		{
+			"song_name": "One More Night",
+			"artist_name": "Maroon 5",
+			"album_name": "Overexposed",
+			"track_number": 1,
+			"released_year": 2012,
+			"gender": "Pop Rock",
+			"length": "3:40",
+			"rating": 4
+		},
+		{
+			"song_name": "After Dark",
+			"artist_name": "Mr.Kitty",
+			"album_name": "Time",
+			"track_number": 9,
+			"released_year": 2014,
+			"gender": "Dance",
+			"length": "4:19",
+			"rating": 3
+		},
+		{
+			"song_name": "Haunting Memories",
+			"artist_name": "Andy James",
+			"album_name": "Telling It Like It Is",
+			"track_number": 1,
+			"released_year": 1999,
+			"gender": "Guitar Hero",
+			"length": "3:23",
+			"rating": 5
+		},
+		{
+			"song_name": "Enter Through Fire",
+			"artist_name": "Andy James",
+			"album_name": "Arrival",
+			"track_number": 1,
+			"released_year": 2018,
+			"gender": "Guitar Hero",
+			"length": "2:42",
+			"rating": 5
+		},
+		{
+			"song_name": "As I Fall",
+			"artist_name": "Andy James",
+			"album_name": "Arrival",
+			"track_number": 2,
+			"released_year": 2018,
+			"gender": "Guitar Hero",
+			"length": "3:32",
+			"rating": 5
+		},
+		{
+			"song_name": "A Plan For Us",
+			"artist_name": "Andy James",
+			"album_name": "Arrival",
+			"track_number": 6,
+			"released_year": 2018,
+			"gender": "Guitar Hero",
+			"length": "4:47",
+			"rating": 4
+		},
+		{
+			"song_name": "'85",
+			"artist_name": "Andy James",
+			"album_name": "Arrival",
+			"track_number": 11,
+			"released_year": 2018,
+			"gender": "Guitar Hero",
+			"length": "4:52",
+			"rating": 4
+		},
+		{
+			"song_name": "Warmth Trance Reversal",
+			"artist_name": "Yellow Eyes",
+			"album_name": "Rare Field Ceiling",
+			"track_number": 1,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "8:07",
+			"rating": 4
+		},
+		{
+			"song_name": "No Dust",
+			"artist_name": "Yellow Eyes",
+			"album_name": "Rare Field Ceiling",
+			"track_number": 2,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "7:48",
+			"rating": 5
+		},
+		{
+			"song_name": "Light Delusion Curtain",
+			"artist_name": "Yellow Eyes",
+			"album_name": "Rare Field Ceiling",
+			"track_number": 3,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "7:10",
+			"rating": 5
+		},
+		{
+			"song_name": "Nutrient Painting",
+			"artist_name": "Yellow Eyes",
+			"album_name": "Rare Field Ceiling",
+			"track_number": 4,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "8:27",
+			"rating": 4
+		},
+		{
+			"song_name": "Rare Field Ceiling",
+			"artist_name": "Yellow Eyes",
+			"album_name": "Rare Field Ceiling",
+			"track_number": 5,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "7:48",
+			"rating": 4
+		},
+		{
+			"song_name": "Maritime Flare",
+			"artist_name": "Yellow Eyes",
+			"album_name": "Rare Field Ceiling",
+			"track_number": 6,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "6:31",
+			"rating": 3
+		},
+		{
+			"song_name": "Yekteniya 1",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 1,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "5:46",
+			"rating": 4
+		},
+		{
+			"song_name": "Yekteniya 2",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 2,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "4:23",
+			"rating": 4
+		},
+		{
+			"song_name": "Yekteniya 3",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 3,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "4:51",
+			"rating": 5
+		},
+		{
+			"song_name": "Yekteniya 4",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 4,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "5:20",
+			"rating": 5
+		},
+		{
+			"song_name": "Yekteniya 5",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 5,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "6:00",
+			"rating": 4
+		},
+		{
+			"song_name": "Yekteniya 6",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 6,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "4:13",
+			"rating": 5
+		},
+		{
+			"song_name": "Yekteniya 7",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 7,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "5:35",
+			"rating": 3
+		},
+		{
+			"song_name": "Yekteniya 8",
+			"artist_name": "Batushka",
+			"album_name": "Litourgiya",
+			"track_number": 8,
+			"released_year": 2015,
+			"gender": "Black Metal",
+			"length": "5:10",
+			"rating": 4
+		},
+		{
+			"song_name": "Pecn 1",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 1,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "4:09",
+			"rating": 5
+		},
+		{
+			"song_name": "Pecn 2",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 2,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "7:36",
+			"rating": 5
+		},
+		{
+			"song_name": "Pecn 3",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 3,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "4:39",
+			"rating": 3
+		},
+		{
+			"song_name": "Pecn 4",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 4,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "4:42",
+			"rating": 4
+		},
+		{
+			"song_name": "Pecn 5",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 5,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "5:35",
+			"rating": 4
+		},
+		{
+			"song_name": "Pecn 6",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 6,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "5:18",
+			"rating": 3
+		},
+		{
+			"song_name": "Pecn 7",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 7,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "3:55",
+			"rating": 3
+		},
+		{
+			"song_name": "Pecn 8",
+			"artist_name": "(Derph's) Batushka",
+			"album_name": "Panihida",
+			"track_number": 8,
+			"released_year": 2019,
+			"gender": "Black Metal",
+			"length": "6:20",
+			"rating": 5
+		},
+		{
+			"song_name": "A Portion Of Pulpified Leftovers",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 1,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "1:27",
+			"rating": 5
+		},
+		{
+			"song_name": "Fungating Sexual Orifice",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 2,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:12",
+			"rating": 5
+		},
+		{
+			"song_name": "Multiple &amp; Increased Lividious Layers Of Skin",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 3,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:45",
+			"rating": 5
+		},
+		{
+			"song_name": "In Advanced Haemorrhaging Conditions",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 4,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:23",
+			"rating": 5
+		},
+		{
+			"song_name": "Prefering Acidious Formats Of Discharche",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 5,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:30",
+			"rating": 5
+		},
+		{
+			"song_name": "Fluidfilled Contents Exposed From The Abdominal Disfunctioning Section",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 6,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:27",
+			"rating": 5
+		},
+		{
+			"song_name": "Obscene Compulsion Towards Fecal Digestion",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 7,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "1:40",
+			"rating": 5
+		},
+		{
+			"song_name": "Frozen Remnants Collections",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 8,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:32",
+			"rating": 5
+		},
+		{
+			"song_name": "Suppurated Secretion Through Gestation",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 9,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "0:26",
+			"rating": 5
+		},
+		{
+			"song_name": "Oozing Saprogenic Scrotal Liquids",
+			"artist_name": "Last Days of Humanity",
+			"album_name": "In Advanced Haemorrhaging Conditions",
+			"track_number": 10,
+			"released_year": 2005,
+			"gender": "Goregrind",
+			"length": "1:05",
+			"rating": 5
+		},
+		{
+			"song_name": "Edënohhdlha Hálgra Tu Majtranlh'ha",
+			"artist_name": "Celestial Sword",
+			"album_name": "Edënohhdlha Hálgra Tu Majtranlh'ha / Ga Nëcëcta Mon Idlhi",
+			"track_number": 1,
+			"released_year": 2021,
+			"gender": "Black Metal",
+			"length": "15:58",
+			"rating": 5
+		},
+		{
+			"song_name": "Ga Nëcëcta Mon Idlhi",
+			"artist_name": "Trhä",
+			"album_name": "Edënohhdlha Hálgra Tu Majtranlh'ha / Ga Nëcëcta Mon Idlhi",
+			"track_number": 2,
+			"released_year": 2021,
+			"gender": "Black Metal",
+			"length": "7:33",
+			"rating": 5
+		}
+	]
+}

@@ -1,0 +1,814 @@
+{
+	"collection_configuration": {
+		"columns": [
+			{
+				"column_name": "name",
+				"column_description": "Nombre",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "specie",
+				"column_description": "Especie",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "gender",
+				"column_description": "Género",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "age",
+				"column_description": "Edad",
+				"is_visible": true,
+				"typeof": "int"
+			},
+			{
+				"column_name": "author",
+				"column_description": "Autor / Productor",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "appear_in",
+				"column_description": "Aparece En",
+				"is_visible": true,
+				"typeof": "string"
+			},
+			{
+				"column_name": "appear_format",
+				"column_description": "Formato en Donde Aparece",
+				"is_visible": false,
+				"typeof": "string"
+			},
+			{
+				"column_name": "created_date",
+				"column_description": "Fecha de Creación",
+				"is_visible": false,
+				"typeof": "date"
+			}
+		],
+		"data": {
+			"snippets": [
+				{
+					"column_name": "name",
+					"method": "replace",
+					"replace_with": "<i class='fa-solid fa-heart'></i> {value}",
+					"column_related": ""
+				},
+				{
+					"column_name": "gender",
+					"method": "case",
+					"replace_with": [
+						{
+							"case": "Masculino",
+							"replace": "<i class='fa-solid fa-mars'></i> {value}"
+						},
+						{
+							"case": "Femenino",
+							"replace": "<i class='fa-solid fa-venus'></i> {value}"
+						}
+					],
+					"column_related": ""
+				},
+				{
+					"column_name": "appear_in",
+					"method": "when",
+					"replace_with": [
+						{
+							"case": "videogame",
+							"replace": "<i class='fa-solid fa-gamepad'></i> {value}"
+						},
+						{
+							"case": "comic",
+							"replace": "<i class='fa-solid fa-book-open'></i> {value}"
+						},
+						{
+							"case": "original",
+							"replace": "<i class='fa-solid fa-paintbrush'></i> {value}"
+						},
+						{
+							"case": "serie",
+							"replace": "<i class='fa-solid fa-tv'></i> {value}"
+						},
+						{
+							"case": "movie",
+							"replace": "<i class='fa-solid fa-film'></i> {value}"
+						}
+					],
+					"column_related": "appear_format"
+				}
+			],
+			"conditions": [
+				{
+					"column_name": "age",
+					"operator": "==",
+					"value_to_compare": "0",
+					"replace_with": "Desconocida"
+				},
+				{
+					"column_name": "author",
+					"operator": "==",
+					"value_to_compare": "",
+					"replace_with": "Desconocido"
+				}
+			]
+		}
+	},
+	"collection_name": "furry_characters",
+	"collection_description": "Mis Furrys Favoritos",
+	"collection_items": [
+		{
+			"name": "Fox Mccloud",
+			"specie": "Zorro",
+			"gender": "Masculino",
+			"age": 31,
+			"author": "Nintendo",
+			"appear_in": "Star Fox",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Krystal",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 21,
+			"author": "Nintendo",
+			"appear_in": "Star Fox Adventures",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Wolf O'Donnell",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 38,
+			"author": "Nintendo",
+			"appear_in": "Star Fox",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Panther Caroso",
+			"specie": "Pantera",
+			"gender": "Masculino",
+			"age": 35,
+			"author": "Nintendo",
+			"appear_in": "Star Fox",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Miles Prower Tails",
+			"specie": "Zorro",
+			"gender": "Masculino",
+			"age": 8,
+			"author": "Sega",
+			"appear_in": "Sonic the Hedgehog",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Crash",
+			"specie": "Bandicoot",
+			"gender": "Masculino",
+			"age": 26,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Crash Bandicoot N. Sane Trilogy",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Tawna",
+			"specie": "Bandicoot",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Crash Bandicoot N. Sane Trilogy",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Coco",
+			"specie": "Bandicoot",
+			"gender": "Femenino",
+			"age": 24,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Crash Bandicoot N. Sane Trilogy",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ami",
+			"specie": "Bandicoot",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Crash Team Racing: Nitro-Fueled",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Megumi",
+			"specie": "Bandicoot",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Crash Team Racing: Nitro-Fueled",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Spyro",
+			"specie": "Dragón",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Spyro Reignited Trilogy",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Elora",
+			"specie": "Fauno",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Spyro Reignited Trilogy",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Bianca",
+			"specie": "Conejo",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Activision / Vicarious Visions / Beenox",
+			"appear_in": "Spyro Reignited Trilogy",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Legoshi",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 18,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Juno",
+			"specie": "Lobo",
+			"gender": "Femenino",
+			"age": 18,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Agata",
+			"specie": "León",
+			"gender": "Masculino",
+			"age": 26,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Melon",
+			"specie": "Gacela / Leopardo",
+			"gender": "Masculino",
+			"age": 24,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Collot",
+			"specie": "Perro",
+			"gender": "Masculino",
+			"age": 33,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ten",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 33,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Cassandra",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 22,
+			"author": "TailsRulz",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Felicia",
+			"specie": "Tigre",
+			"gender": "Femenino",
+			"age": 21,
+			"author": "TailsRulz",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Carrisa",
+			"specie": "Tigre",
+			"gender": "Femenino",
+			"age": 18,
+			"author": "TailsRulz",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Luminara",
+			"specie": "Pikachu (Pokémon)",
+			"gender": "Femenino",
+			"age": 18,
+			"author": "TailsRulz",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Valencia",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 19,
+			"author": "TailsRulz",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ariana",
+			"specie": "Arcanine (Pokémon)",
+			"gender": "Femenino",
+			"age": 20,
+			"author": "TailsRulz",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Cherry",
+			"specie": "Tigre",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Macmegagerc",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Arleana",
+			"specie": "Panda Rojo",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Macmegagerc",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "R-mk",
+			"specie": "Absol (Pokémon)",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "R-mk",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Catherine",
+			"specie": "Absol (Pokémon)",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "R-mk",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Katherine",
+			"specie": "Absol (Pokémon)",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "R-mk",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Michelle Lewis",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 17,
+			"author": "Truemac",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Lapis",
+			"specie": "Vaporeon (Pokémon)",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Chowdie",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Jay",
+			"specie": "Eevee (Pokémon)",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Chowdie",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ruby",
+			"specie": "Espeon (Pokémon)",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Chowdie",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Chowdie",
+			"specie": "Tanuki",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Chowdie",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Cox",
+			"specie": "Zorro",
+			"gender": "Masculino",
+			"age": 15,
+			"author": "Gideon",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ruger Whitetail",
+			"specie": "Reno",
+			"gender": "Masculino",
+			"age": 16,
+			"author": "Gideon",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Reggie",
+			"specie": "Ratón",
+			"gender": "Masculino",
+			"age": 26,
+			"author": "Whygena",
+			"appear_in": "(Personaje Propio)",
+			"appear_format": "original",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Kuromi",
+			"specie": "Conejo",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Sanrio",
+			"appear_in": "Onegai My Melody",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "My Melody",
+			"specie": "Conejo",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Sanrio",
+			"appear_in": "Onegai My Melody",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Baku",
+			"specie": "Tapir",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Sanrio",
+			"appear_in": "Onegai My Melody",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Loona",
+			"specie": "Lobo Infernal",
+			"gender": "Femenino",
+			"age": 22,
+			"author": "Vivziepop",
+			"appear_in": "Helluva Boss",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Nick Wilde",
+			"specie": "Zorro",
+			"gender": "Masculino",
+			"age": 32,
+			"author": "Walt Disney Animation Studios",
+			"appear_in": "Zootopia",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Gideon Grey",
+			"specie": "Zorro",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Walt Disney Animation Studios",
+			"appear_in": "Zootopia",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Maid Marian",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 21,
+			"author": "Walt Disney Productions",
+			"appear_in": "Robin Hood (Disney)",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Kitty Softpaws",
+			"specie": "Gato",
+			"gender": "Femenino",
+			"age": 20,
+			"author": "DreamWorks Animation",
+			"appear_in": "Puss in Boots",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Mr. Wolf",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 31,
+			"author": "DreamWorks Animation",
+			"appear_in": "The Bad Guys",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Diane Foxington",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 31,
+			"author": "DreamWorks Animation",
+			"appear_in": "The Bad Guys",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Death",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "DreamWorks Animation",
+			"appear_in": "Puss in Boots: The Last Wish",
+			"appear_format": "movie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ice Bear",
+			"specie": "Oso Polar",
+			"gender": "Masculino",
+			"age": 27,
+			"author": "Daniel Chong",
+			"appear_in": "We Bare Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Panda Bear",
+			"specie": "Panda",
+			"gender": "Masculino",
+			"age": 28,
+			"author": "Daniel Chong",
+			"appear_in": "We Bare Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Baby Ice Bear",
+			"specie": "Oso Polar",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Manny Hernandez",
+			"appear_in": "We Baby Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Baby Panda Bear",
+			"specie": "Panda",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Manny Hernandez",
+			"appear_in": "We Baby Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Unica",
+			"specie": "Unicornio",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Manny Hernandez",
+			"appear_in": "We Baby Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Wolf",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Manny Hernandez",
+			"appear_in": "We Baby Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Wolf Influencer",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Manny Hernandez",
+			"appear_in": "We Baby Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Madame Malin",
+			"specie": "Zorro",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Manny Hernandez",
+			"appear_in": "We Baby Bears",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Retsuko",
+			"specie": "Panda Rojo",
+			"gender": "Femenino",
+			"age": 25,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Haida",
+			"specie": "Hiena",
+			"gender": "Masculino",
+			"age": 25,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Fenneko",
+			"specie": "Fénec",
+			"gender": "Femenino",
+			"age": 25,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Tsunoda",
+			"specie": "Gazela",
+			"gender": "Femenino",
+			"age": 23,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Ms. Washimi",
+			"specie": "Secretario",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Tadano",
+			"specie": "Burro",
+			"gender": "Masculino",
+			"age": 0,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Manaka",
+			"specie": "Chinchilla",
+			"gender": "Femenino",
+			"age": 26,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Hidarin",
+			"specie": "Conejillo de Indias",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Migi",
+			"specie": "Conejillo de Indias",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Yeti",
+			"appear_in": "Aggretsuko",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Renamon",
+			"specie": "Renamon (Digimon)",
+			"gender": "Femenino",
+			"age": 0,
+			"author": "Akiyoshi Hongo",
+			"appear_in": "Digimon",
+			"appear_format": "videogame",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Zakumi",
+			"specie": "Leopardo",
+			"gender": "Masculino",
+			"age": 28,
+			"author": "FIFA",
+			"appear_in": "2010 FIFA World Cup South Africa",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		},
+		{
+			"name": "Zabivaka",
+			"specie": "Lobo",
+			"gender": "Masculino",
+			"age": 20,
+			"author": "FIFA",
+			"appear_in": "2018 FIFA World Cup Russia",
+			"appear_format": "serie",
+			"created_date": "1900-01-01"
+		}
+	]
+}
