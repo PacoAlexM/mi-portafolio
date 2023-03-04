@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+	<meta charset="ISO 8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Prácticas de web simples con HTML, CSS &amp; Javascript">
+	<meta name="keywords" content="HTML, CSS, JavaScript, Scrolls functions, Funciones con scroll, CSS3 fade style, Estilos de desvanecimiento con CSS3, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Strings aleatorios en php" />
+	<meta name="author" content="Paco Alex Martell" />
+	<meta name="theme-color" content="#000000" />
+	<title>Paco Alex M | HTML &amp; CSS &amp; JS</title>
+	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
+	<link rel="apple-touch-icon-precomposed" href="<?php echo $_SESSION["MAIN_URL"] ?>apple-touch-icon.png" sizes="196x196" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/fontawesome/css/all.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/style.css" />
+</head>
+<body>
+	<a href="#" id="buttonMenu" class="btn btn-dark btn-lg"><i class="fa-solid fa-bars"></i> Menú</a>
+	<a href="#" id="buttonToTop" class="return-to-top my-fade-effect-on"><i class="fa-solid fa-chevron-up"></i></a>
+
+	<header class="header" id="headerIndex">
+		<div class="vertical-center">
+			<?php $titles = [
+				"<h1>&gt; header title goes here &lt;</h1>",
+				"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
+				"<div class='col-md-8 offset-md-2' id='divDiscursoColosio'><figure class='mb-0'><blockquote class=blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Source Title'>6 de Marzo de 1994</cite></figcaption></figure></div>",
+				"<h1>\\[°_°]/ &lt;01100101 01101000?)</h1>",
+				"<h1>=(^_^)=</h1>",
+				"<div class='col-md-8 offset-md-2' id='divReggiesQuote'><figure class='mb-0'><blockquote class=blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, by <cite title='Source Title'>Whygena</cite></figcaption></figure></div>",
+				"<h1>I have a question about Batman</h1>"
+			] ?>
+			<?php echo $titles[rand(0, (count($titles) - 1))] ?>
+			<hr />
+			<div class="header-bottom">
+				<a href="#" id="slideDown" class="slide-to-content"><i class="fa-solid fa-chevron-down"></i></a>
+			</div>
+		</div>
+	</header>
+
+	<div class="container-fluid">
+		<!-- uploadFiles -->
+		<div id="uploadFiles" class="my-panel my-panel-red">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title">&gt; Carga de archivos &lt; <i>Uso de SimpleAjaxUploader.js</i></h3>
+			</div>
+			<div class="my-panel-body">
+				<h2>Cargando archivos con estilo, claro que si.</h2>
+				<p class="my-text">Este ejemplo tiene como propósito mostrar el funcionamiento de la librería de SimpleAjaxUploader (versión 2.6.6) tanto en el frontend como en el backend. También quiero aprovechar la oportunidad de mostrar el como se puede hacer una barra de progreso (o texto de porcentaje) para cada archivo cargado y una pantalla para evitar acciones por el usuario como:</p>
+				<ul>
+					<li>Pulsar en botones de redireccionamientos dentro del sitio (esto no lo evita si el usuario interactua con los controles del navegador)</li>
+					<li>Cargar más archivos antes de que termine la carga anterior.</li>
+					<li>Realizar otros procesos que entorpezca la carga de archivos.</li>
+				</ul>
+				<div class="row">
+					<div class="col">
+						<div class="alert alert-warning" role="alert">
+							<h4 class="alert-heading">Aviso</h4>
+							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos de tamaño máximo de 10MB (10240KB). Gracias por su comprención.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label class="mb-2">¿Mostrar pantalla protectora al cargar archivos?
+							<label class="my-switch">
+								<input type="checkbox" id="checkApplyScreenProtectorSimpleAjaxUploader" />
+								<span class="my-slider"></span>
+							</label>
+						</label>
+					</div>
+				</div>
+				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-borderless table-hover" id="tableFilesSimpleAjaxUploader">
+								<thead>
+									<tr>
+										<th>Archivo</th>
+										<th>Tipo</th>
+										<th>Tamaño (Aproximado)</th>
+										<th>Última Modificación</th>
+										<th>Porcentaje de Carga</th>
+										<th>Estatus</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="6" class="text-center">No hay archivos por cargar.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="d-grid gap-1">
+							<button type="button" class="btn btn-success mb-2" id="buttonSelectFilesSimpleAjaxUploader"><i class="fa-solid fa-magnifying-glass"></i> Seleccionar Archivos</button>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="d-grid gap-1">
+							<button type="button" class="btn btn-success mb-2" id="buttonUploadFilesSimpleAjaxUploader" disabled><i class="fa-solid fa-cloud-arrow-up"></i> Cargar Archivos</button>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="d-grid gap-1">
+							<button type="button" class="btn btn-light mb-2" id="buttonResetFilesSimpleAjaxUploader" disabled><i class="fa-solid fa-eraser"></i> Eliminar Archivos</button>
+						</div>
+					</div>
+				</div>
+				<samp>OUTPUT</samp>
+				<pre class="sb" id="preOutputStatusSimpleAjaxUploader">
+					<code>Selecciones archivos para cargar...</code>
+				</pre>
+				<!--
+				<div class="row">
+					<div class="col">
+						<div class="my-drop-zone" id="divFileSimpleAjaxUploader">
+							<input type="file" id="inputFileSimpleAjaxUploader" name="inputFileSimpleAjaxUploader" multiple />
+							<label for="inputFileSimpleAjaxUploader">
+								<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>
+							</label>
+						</div>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-borderless table-hover" id="tableFilesSimpleAjaxUploader">
+								<thead>
+									<tr>
+										<th>Archivo</th>
+										<th>Tipo</th>
+										<th>Tamaño (Aproximado)</th>
+										<th>Última Modificación</th>
+										<th>Porcentaje de Carga</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="5" class="text-center">No hay archivos por cargar.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 offset-md-1">
+						<div class="d-grid gap-1">
+							<button type="button" class="btn btn-success" id="buttonUploadSimpleAjaxUploader"><i class="fa-solid fa-cloud-arrow-up"></i> Cargar Archivos</button>
+						</div>
+					</div>
+					<div class="col-md-4 offset-md-2">
+						<div class="d-grid gap-1">
+							<button type="button" class="btn btn-light" id="buttonResetSimpleAjaxUploader" disabled><i class="fa-solid fa-eraser"></i> Eliminar Archivos</button>
+						</div>
+					</div>
+				</div>
+				<br />
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<div class="row">
+					<div class="col-md-7">
+						<samp>HTML</samp>
+						<pre class="sb">
+							<code><span class="comment">&lt;!-- Aquí estará el input que cargará los archivos. --&gt;</span></code>
+							<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"my-drop-zone"</span> <span class="green">id</span>=<span class="yellow">"divFile"</span>&gt;</code>
+							<code>    &lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">id</span>=<span class="yellow">"inputFile"</span> <span class="green">name</span>=<span class="yellow">"inputFile"</span> <span class="green">multiple</span> /&gt;</code>
+							<code>    &lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"inputFile"</span>&gt;</code>
+							<code>        &lt;<span class="pink">strong</span>&gt;Seleccione sus archivos&lt;/<span class="pink">strong</span>&gt</code>
+							<code>    &lt;/<span class="pink">label</span>&gt;</code>
+							<code>&lt;/<span class="pink">div</span>&gt;</code><br />
+							<code><span class="comment">&lt;!-- Tabla donde se mostrarán los archivos por cargar. --&gt;</span></code>
+							<code>&lt;<span class="pink">table</span> <span class="green">id</span>=<span class="yellow">"tableFiles"</span>&gt;</code>
+							<code>    &lt;<span class="pink">thead</span>&gt;</code>
+							<code>        &lt;<span class="pink">tr</span>&gt;</code>
+							<code>            &lt;<span class="pink">th</span>&gt;Archivo&lt;/<span class="pink">th</span>&gt;</code>
+							<code>            &lt;<span class="pink">th</span>&gt;Tipo&lt;/<span class="pink">th</span>&gt;</code>
+							<code>            &lt;<span class="pink">th</span>&gt;Tamaño (Aproximado)&lt;/<span class="pink">th</span>&gt;</code>
+							<code>            &lt;<span class="pink">th</span>&gt;Última Modificación&lt;/<span class="pink">th</span>&gt;</code>
+							<code>            &lt;<span class="pink">th</span>&gt;Porcentaje de Carga&lt;/<span class="pink">th</span>&gt;</code>
+							<code>        &lt;/<span class="pink">tr</span>&gt;</code>
+							<code>    &lt;/<span class="pink">thead</span>&gt;</code>
+							<code>    &lt;<span class="pink">tbody</span>&gt;</code>
+							<code>        &lt;<span class="pink">tr</span>&gt;</code>
+							<code>            &lt;<span class="pink">td</span> <span class="green">colspan</span>=<span class="yellow">"5"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">text-align</span>: <span class="cyan">center</span>;<span class="yellow">"</span>&gt;No hay archivos por cargar.&lt;/<span class="pink">td</span>&gt;</code>
+							<code>        &lt;/<span class="pink">tr</span>&gt;</code>
+							<code>    &lt;/<span class="pink">tbody</span>&gt;</code>
+							<code>&lt;/<span class="pink">table</span>&gt;</code><br />
+							<code><span class="comment">&lt;!-- Botones de carga y eliminación de archivos por cargar. --&gt;</span></code>
+							<code><span class="comment">&lt;!-- Estarán desactivados por defecto hasta que se seleccionen archivos por cargar. --&gt;</span></code>
+							<code>&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">id</span>=<span class="yellow">"buttonUpload"</span> <span class="green">disabled</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-cloud-arrow-up"</span>&gt;&lt;/<span class="pink">i</span>&gt; Cargar Archivos&lt;/<span class="pink">button</span>&gt;</code>
+							<code>&lt;<span class="pink">br</span> /&gt;</code>
+							<code>&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">id</span>=<span class="yellow">"buttonReset"</span> <span class="green">disabled</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-eraser"</span>&gt;&lt;/<span class="pink">i</span>&gt; Eliminar Archivos&lt;/<span class="pink">button</span>&gt;</code>
+						</pre>
+					</div>
+					<div class="col-md-5">
+						<samp>CSS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .my-drop-zone</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="green">.my-drop-zone</span> {</code>
+							<code>  <span class="cyan">padding</span>: <span class="purple">60</span><span class="cyan">px</span> <span class="purple">20</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">border</span>: <span class="purple">2</span><span class="cyan">px</span> <span class="cyan">solid</span> <span class="purple">#ccc</span>;</code>
+							<code>  <span class="cyan">border-radius</span>: <span class="purple">.25</span><span class="cyan">rem</span>;</code>
+							<code>  <span class="cyan">min-height</span>: <span class="purple">1</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">text-align</span>: <span class="cyan">center</span>;</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="cyan">all</span> <span class="purple">.3</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="cyan">all</span> <span class="purple">.3</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#000</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-drop-zone</span> <span class="pink">&gt; input</span> {</code>
+							<code>  <span class="cyan">display</span>: <span class="cyan">none</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-drop-zone</span> <span class="pink">&gt; label</span> {</code>
+							<code>  <span class="cyan">cursor</span>: <span class="cyan">pointer</span>;</code>
+							<code>  <span class="cyan">margin</span>: <span class="purple">0</span>;</code>
+							<code>}</code>
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Los colores de los bordes, textos y fondos</span></code>
+							<code> <span class="comment">* fueron tomados de la librería de estilos de</span></code>
+							<code> <span class="comment">* Bootstrap 5.</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="green">.my-drop-zone.my-drop-zone-blue</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#cfe2ff</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#0a58ca</span>;</code>
+							<code>  <span class="cyan">border-color</span>: <span class="purple">#9ec5fe</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-drop-zone.my-drop-zone-green</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#d1e7dd</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#146c43</span>;</code>
+							<code>  <span class="cyan">border-color</span>: <span class="purple">#a3cfbb</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-drop-zone.my-drop-zone-red</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#f8d7da</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#b02a37</span>;</code>
+							<code>  <span class="cyan">border-color</span>: <span class="purple">#f1aeb5</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-drop-zone.my-drop-zone-yellow</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#fff3cd</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#997404</span>;</code>
+							<code>  <span class="cyan">border-color</span>: <span class="purple">#ffe69c</span>;</code>
+							<code>}</code>
+						</pre>
+					</div>
+				</div>
+				<samp>JS</samp>
+				<pre class="sb">
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Antes que nada, debo mencionar que este</span></code>
+					<code> <span class="comment">* ejemplo lo hice con modalidad para arrastrar</span></code>
+					<code> <span class="comment">* y soltar también, y no me había percatado de</span></code>
+					<code> <span class="comment">* que la librería de SimpleAjaxUploader solo</span></code>
+					<code> <span class="comment">* funciona con elementos inputs y/o elementos</span></code>
+					<code> <span class="comment">* con dragAndDrop habilitado y no con arreglos.</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Afortunadamente un héroe o heroína sin capa</span></code>
+					<code> <span class="comment">* comentó una <a href="https://stackoverflow.com/a/70485949" target="_blank">respuesta muy buena</a> en Stack Overflow.</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Postdata: Si alguien lo o la vé, diganle</span></code>
+					<code> <span class="comment">* que le debo una cerveza bien fría.</span></code>
+					<code> <span class="comment">*/</span></code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* _files: Variable que contendría los blob's pero este lo sustituye la variable "_dataTransferFiles".</span></code>
+					<code> <span class="comment">* _dataTransferFiles: Variable que contendrá los blob's y establecerá el valor del input de archivos por cargar.</span></code>
+					<code> <span class="comment">* _MAXSIZE: Constante del tamaño máximo por archivo.</span></code>
+					<code> <span class="comment">* _DAYSOFTHEWEEK: Constante de días de la semana.</span></code>
+					<code> <span class="comment">* _MONTHS: Constante de meses del año.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="comment">// var _files = [];</span></code>
+					<code><span class="cyan">var</span> _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code>
+					<code><span class="cyan">const</span> _MAXSIZE <span class="pink">=</span> ((<span class="comment">/*byte*/</span> <span class="purple">1</span> <span class="pink">*</span> <span class="comment">/*bytes*/</span> <span class="purple">1024</span>) <span class="comment">/* = kilobyte*/</span> <span class="pink">*</span> <span class="comment">/*kilobytes*/</span> <span class="purple">1024</span>) <span class="comment">/* = megabyte*/</span>;</code>
+					<code><span class="cyan">const</span> _DAYSOFTHEWEEK <span class="pink">=</span> [<span class="yellow">'Domingo'</span>, ...];</code>
+					<code><span class="cyan">const</span> _MONTHS <span class="pink">=</span> [<span class="yellow">'Enero'</span>, ...];</code><br />
+					<code><span class="comment">// Función para llenar la tabla de archivos por cargar.</span></code>
+					<code><span class="cyan">function</span> <span class="green">fillTable</span> (<span class="orange">files</span> <span class="pink">=</span> []) {</code>
+					<code>    <span class="cyan">let</span> $tbody <span class="pink">= $</span>(<span class="yellow">'#tableFiles &gt; tbody'</span>);</code><br />
+					<code>    <span class="comment">// Limpiamos la tabla por completo.</span></code>
+					<code>    $tbody.<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
+					<code>    <span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
+					<code>        <span class="pink">$</span>.<span class="cyan">each</span>(files, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>            <span class="cyan">let</span> date <span class="pink">= new</span> <span class="cyan">Date</span>(value.lastModified);</code>
+					<code>            <span class="cyan">let</span> fileName <span class="pink">=</span> value.name; <span class="comment">// Nombre del archivo.</span></code>
+					<code>            <span class="cyan">let</span> fileType <span class="pink">=</span> value.type; <span class="comment">// Tipo de archivo.</span></code>
+					<code>            <span class="cyan">let</span> fileSize <span class="pink">=</span> <span class="cyan">Math</span>.<span class="cyan">round</span>((value.size <span class="pink">/</span> _MAXSIZE) <span class="pink">*</span> <span class="purple">100</span>) <span class="pink">/</span> <span class="purple">100</span>; <span class="comment">// Calcular el tamaño aproximado del archivo.</span></code>
+					<code>            <span class="cyan">let</span> fileLastModified <span class="pink">=</span> <span class="yellow">`</span>${_DAYSOFTHEWEEK[date.<span class="cyan">getDay</span>()]}<span class="yellow">,</span> ${date.<span class="cyan">getDate</span>()} <span class="yellow">de</span> ${_MONTHS[date.<span class="cyan">getMonth</span>()]} <span class="yellow">de</span> ${date.<span class="cyan">getFullYear</span>()} <span class="yellow">a las</span> ${date.<span class="cyan">getHours</span>()}<span class="yellow">:</span>${date.<span class="cyan">getMinutes</span>()}<span class="yellow">:</span>${date.<span class="cyan">getSeconds</span>()}<span class="yellow">`</span>; <span class="comment">// Y la fecha de la última modificación del archivo.</span></code><br />
+					<code>            <span class="comment">// Y con las variables declaradas agregamos cada renglon a la tabla.</span></code>
+					<code>            $tbody.<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span></code>
+					<code>                <span class="yellow">&lt;td&gt;</span>${fileName}<span class="yellow">&lt;/td&gt;</span></code>
+					<code>                <span class="yellow">&lt;td&gt;</span>${fileType}<span class="yellow">&lt;/td&gt;</span></code>
+					<code>                <span class="yellow">&lt;td&gt;</span>${fileSize}<span class="yellow">MB&lt;/td&gt;</span></code>
+					<code>                <span class="yellow">&lt;td&gt;</span>${fileLastModified}<span class="yellow">&lt;/td&gt;</span></code>
+					<code>                <span class="yellow">&lt;td&gt;0%&lt;/td&gt;</span></code>
+					<code>            <span class="yellow">&lt;/tr>`</span>);</code>
+					<code>        });</code>
+					<code>    } <span class="pink">else</span> $tbody</code>
+					<code>        .<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td colspan="5" style="text-align: center;"&gt;No hay archivos por cargar.&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>}</code><br />
+					<code><span class="comment">// Función para validar cada archivo.</span></code>
+					<code><span class="cyan">function</span> <span class="green">onChangeHandler</span> (<span class="orange">files</span> <span class="pink">=</span> []) {</code>
+					<code>    <span class="cyan">let</span> $divInput <span class="pink">= $</span>(<span class="yellow">'#divFile'</span>);</code><br />
+					<code>    <span class="comment">// Removemos cualquier clase del contenedor del input.</span></code>
+					<code>    $divInput</code>
+					<code>        .<span class="cyan">removeClass</span>(<span class="yellow">'my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow'</span>);</code><br />
+					<code>    <span class="comment">// Validamos que la cantidad de archivos sea la indicada.</span></code>
+					<code>    <span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span> <span class="pink">&amp;&amp;</span> files.length <span class="pink">&lt;=</span> <span class="purple">5</span>) {</code>
+					<code>        <span class="cyan">let</span> areFilesValid <span class="pink">=</span> <span class="purple">true</span>; <span class="comment">// Bandera de validación de archivos.</span></code>
+					<code>        <span class="cyan">let</span> filesToAdd <span class="pink">=</span> []; <span class="comment">// Este arreglo reemplazará la variable de "_files" en caso de que "areFilesValid" siga siendo true.</span></code><br />
+					<code>        <span class="comment">// Descomentar esta línea para ver comportamiento de "files".</span></code>
+					<code>        <span class="comment">// console.log(files);</span></code><br />
+					<code>        <span class="comment">// Ciclo para validar cada archivo.</span></code>
+					<code>        <span class="pink">for</span> (<span class="cyan">var</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> files.length; i<span class="pink">++</span>) {</code>
+					<code>            <span class="pink">if</span> (files[i].size <span class="pink">&gt;</span> _MAXSIZE) {</code>
+					<code>                areFilesValid <span class="pink">=</span> <span class="purple">false</span>;</code>
+					<code>                <span class="pink">break</span>;</code>
+					<code>            } <span class="pink">else</span> filesToAdd.<span class="cyan">push</span>(files[i]);</code>
+					<code>        }</code><br />
+					<code>        <span class="pink">if</span> (areFilesValid) {</code>
+					<code>            <span class="comment">// _files = filesToAdd;</span></code><br />
+					<code>            _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
+					<code>            <span class="pink">$</span>.<span class="cyan">each</span>(filesToAdd, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>                _dataTransferFiles.items.<span class="cyan">add</span>(<span class="pink">new</span> File([value], value.name, {</code>
+					<code>                    type: value.type,</code>
+					<code>                    lastModified: value.lastModified</code>
+					<code>                }));</code>
+					<code>            });</code><br />
+					<code>            $divInput</code>
+					<code>                .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-green'</span>)</code>
+					<code>                .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+					<code>                .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-check"&gt;&lt;/i&gt;</span> ${files.length} <span class="yellow">archivo</span>${files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>} <span class="yellow">cargado</span>${files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>}<span class="yellow">`</span>);</code><br />
+					<code>            <span class="comment">// Habilitamos los botones de subida y borrado de archivos.</span></code>
+					<code>            <span class="pink">$</span>(<span class="yellow">'#buttonUpload, #buttonReset'</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">false</span>);</code>
+					<code>        } <span class="pink">else</span> $divInput</code>
+					<code>            .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-red'</span>)</code>
+					<code>            .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+					<code>            .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Uno o más archivos excede el tamaño permitido de 1MB`</span>);</code>
+					<code>    } <span class="pink">else if</span> (files.length <span class="pink">&gt;</span> <span class="purple">5</span>) $divInput</code>
+					<code>        .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-red'</span>)</code>
+					<code>        .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+					<code>        .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Solo se permite la carga de 5 archivos`</span>);</code>
+					<code>    <span class="pink">else</span> {</code>
+					<code>        <span class="comment">/**</span></code>
+					<code>         <span class="comment">*</span></code>
+					<code>         <span class="comment">* Debido a que el comportamiento del evento "onChange"</span></code>
+					<code>         <span class="comment">* del input de carga de archivos, agregué esta condición</span></code>
+					<code>         <span class="comment">* puesto a que cambia su valor cada vez que se lanza el</span></code>
+					<code>         <span class="comment">* evento. Es decir puede pasar de tener mil archivos a</span></code>
+					<code>         <span class="comment">* ninguno en cualquier momento.</span></code>
+					<code>         <span class="comment">*/</span></code>
+					<code>        <span class="comment">// if (_files.length &gt; 0) $divInput</span></code>
+					<code>        <span class="pink">if</span> (_dataTransferFiles.files.length <span class="pink">&gt;</span> <span class="purple">0</span>) $divInput</code>
+					<code>            .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-green'</span>)</code>
+					<code>            .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+					<code>            <span class="comment">// .html(`&lt;i class="fa-solid fa-check"&gt;&lt;/i&gt; ${_files.length} archivo${_files.length &gt; 1 ? 's' : ''} cargado${_files.length &gt; 1 ? 's' : ''}`);</span></code>
+					<code>            .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-check"&gt;&lt;/i&gt;</span> ${_dataTransferFiles.files.length} <span class="yellow">archivo</span>${_dataTransferFiles.files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>} <span class="yellow">cargado</span>${_dataTransferFiles.files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>}<span class="yellow">`</span>);</code>
+					<code>        <span class="pink">else</span> {</code>
+					<code>            $divInput</code>
+					<code>                .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+					<code>                .<span class="cyan">html</span>(<span class="yellow">`&lt;strong&gt;Seleccione sus archivos&lt;/strong&gt;`</span>);</code><br />
+					<code>            <span class="comment">// Deshabilitamos los botones de subida y borrado de archivos.</span></code>
+					<code>            <span class="pink">$</span>(<span class="yellow">'#buttonUpload, #buttonReset'</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code>
+					<code>        }</code>
+					<code>    }</code><br />
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* Sea el resultado que sea, válido</span></code>
+					<code>     <span class="comment">* o no, el input tomará la colección</span></code>
+					<code>     <span class="comment">* de la propiedad "files" de la variable</span></code>
+					<code>     <span class="comment">* global "_dataTransferFiles".</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>    <span class="pink">$</span>(<span class="yellow">'#inputFile'</span>)[<span class="purple">0</span>].files <span class="pink">=</span> _dataTransferFiles.files;</code><br />
+					<code>    <span class="comment">// fillTable(_files);</span></code><br />
+					<code>    <span class="cyan">fillTable</span>(_dataTransferFiles.files);</code>
+					<code>}</code><br />
+					<code><span class="comment">// Evento del input al cargar archivos.</span></code>
+					<code><span class="pink">$</span>(<span class="yellow">'#inputFile'</span>).<span class="cyan">on</span>(<span class="yellow">'change'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
+					<code>    e.<span class="cyan">preventDefault</span>();</code><br />
+					<code>    <span class="cyan">onChangeHandler</span>(e.target.files);</code>
+					<code>});</code><br />
+					<code><span class="comment">// Evento para quitar archivos por cargar.</span></code>
+					<code><span class="pink">$</span>(<span class="yellow">'#buttonReset'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+					<code>    <span class="comment">// _files = [];</span></code><br />
+					<code>    _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
+					<code>    <span class="cyan">onChangeHandler</span>();</code>
+					<code>});</code>
+				</pre>
+				<samp>OUTPUT</samp>
+				<pre class="sb" id="preOutPutSimpleAjaxUploader">
+					<code><a href="#">Verificar si el input tiene archivos cargados</a></code>
+				</pre>
+				<p class="my-text">Hasta este punto solo he mostrado la parte del frontend y su lógica, ahora continuare con la lógica para la subida de archivos y el comportamiento del backend.</p>
+				<div class="row">
+					<div class="col-md-6">
+						<samp>JS</samp>
+						<pre class="sb">
+							<code><span class="comment">// Declaramos la variable de "ss.SimpleUpload"</span></code>
+						</pre>
+					</div>
+					<div class="col-md-6"></div>
+				</div>
+				-->
+			</div>
+		</div>
+		<!-- ./uploadFiles -->
+
+		<!-- dropZone -->
+		<div id="dropZone" class="my-panel my-panel-light-blue">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title">Número de archivos por cargar</h3>
+			</div>
+			<div class="my-panel-body">
+				<pre class="sb">
+					<code>Debo una codificación.</code>
+				</pre>
+				<h1>No hay archivos seleccionados...</h1>
+				<input name="to-load" id="to-load" type="file" multiple />
+			</div>
+		</div>
+		<!-- ./dropZone -->
+
+		<!-- collections -->
+		<div id="collections" class="my-panel my-panel-light-yellow">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title"><del>Conteo de elementos en tabla</del> colecciones.json</h3>
+			</div>
+			<div class="my-panel-body">
+				<h2><var>$jsonFile</var> = <var>file_get_contents(</var>../collection.json<var>);</var></h2>
+				<p class="my-text">Desde hace un buen rato que esta sección la he dejado olvidada (creo que por allá en el 2016 o 2017, no recuerdo bien) y no había tenido alguna idea de que hacer aquí. Hasta que vi algo interesante que se pueden hacer con los json's y objetos en PHP. A continuación lo que les mostraré es algo muy especial para mi, porque no solo pone a prueba mis habilidades en PHP, si no que también puedo crear configuraciones con los mismos json's. Y no, no me he olvidado de dejar código para contar los renglones en la tabla.</p>
+				<div class="table-responsive">
+					<table class="table table-borderless table-hover caption-top" id="tableCollection">
+						<?php $description = $jsonCollectionRawHTML->description ?>
+						<?php $dataHeaders = $jsonCollectionRawHTML->dataHeaders ?>
+						<?php $dataRows = $jsonCollectionRawHTML->dataRows ?>
+						<caption><?php echo $description ?></caption>
+						<thead>
+							<tr>
+								<?php foreach ($dataHeaders as $dataHeadersKey => $dataHeadersValue) : ?>
+								<?php if ($dataHeadersValue->is_visible) : ?>
+								<th><?php echo $dataHeadersValue->column_description ?></th>
+								<?php endif ?>
+								<?php endforeach ?>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($dataRows as $dataRowsKey => $dataRowsValue) : ?>
+							<tr>
+							<?php foreach ($dataRowsValue as $dataCellKey => $dataCellValue) : ?>
+							<?php if (array_column($dataHeaders, "is_visible", "column_name")[$dataCellKey]) : ?>
+							<td><?php echo $dataCellValue ?></td>
+							<?php endif ?>
+							<?php endforeach ?>
+							</tr>
+							<?php endforeach ?>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-md-4 offset-md-4">
+						<div class="d-grid gap-1">
+							<button type="button" class="btn btn-success" id="buttonReloadTableCollection"><i class="fa-solid fa-rotate-right"></i> Recargar Tabla</button>
+						</div>
+					</div>
+				</div>
+				<p class="my-text">Por lo visto, la tabla cambia cada vez que se refresca la página. Eso es porque desde el backend se esta recolectando desde una colección datos de manera aleatoria. Ya explico porque en codificación.</p>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<p class="my-text"><b>Primero:</b> el JSON dónde se cargarán todos los datos y sus respectivas configuraciones para ser mostrados en la interfaz y estos sean mas atractivos o en su defecto para mejor comprensión por el usuario en turno. Cabe a destacar que las configuraciones en este JSON son solo un ejemplo de lo que se puede crear, configurar y/o validar con el mismo, claro, siempre y cuando exista un lenguaje (en este caso: PHP), framework o api que los interprete.</p>
+				<samp>JSON</samp>
+				<pre class="sb">
+					<?php $columns = $jsonCollection->collection_configuration->columns ?>
+					<?php $snippets = $jsonCollection->collection_configuration->data->snippets ?>
+					<?php $conditions = $jsonCollection->collection_configuration->data->conditions ?>
+					<?php $collectionItems = $jsonCollection->collection_items ?>
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Este solo es un extracto de la colección de datos almacenados en este sitio.</span></code>
+					<code> <span class="comment">* Las validaciones y los formateos pueden ser mejorados, por esa razón solo los muestro como ejemplo del alcance que tienen estos mismos.</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* NOTA: La colección mostrada aquí no se actualiza dinámicamente al refrescar la tabla.</span></code>
+					<code><span class="comment"> */</span></code>
+					<code>{</code>
+					<code>    <span class="yellow">"collection_configuration"</span>: {</code>
+					<code>        <span class="yellow">"columns"</span>: [</code>
+					<code>            <span class="comment">/**</span></code>
+					<code>             <span class="comment">*</span></code>
+					<code>             <span class="comment">* Aquí se obtienen las configuraciones de las columnas a mostrar en la interfaz.</span></code>
+					<code>             <span class="comment">* Estas mismas se pueden adaptar a la modalidad de cada usuario o desarrollador.</span></code>
+					<code>             <span class="comment">* En este ejemplo se tiene la clave de y el nombre de la columna, si se muestra o no y su tipo de dato.</span></code>
+					<code>             <span class="comment">*/</span></code>
+					<?php foreach ($columns as $columnKey => $columnValue) : ?>
+					<code>            {</code>
+					<?php foreach ($columnValue as $columAttrKey => $columAttrValue) : ?>
+					<code>                <span class="yellow">"<?php echo $columAttrKey ?>"</span>: <?php echo is_bool($columAttrValue) ? "<span class='purple'>" . var_export($columAttrValue, true) . "</span>" : (is_int($columAttrValue) ? "<span class='purple'>$columAttrValue</span>" : "<span class='yellow'>\"$columAttrValue\"</span>") ?><?php echo array_key_last((array)$columnValue) != $columAttrKey ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>            }<?php echo $columnKey < (count($columns) - 1) ? ",": "" ?></code>
+					<?php endforeach ?>
+					<code>        ],</code>
+					<code>        <span class="yellow">"data"</span>: {</code>
+					<?php if (count($snippets) > 0) : ?>
+					<code>            <span class="yellow">"snippets"</span>: [</code>
+					<code>                <span class="comment">/**</span></code>
+					<code>                 <span class="comment">*</span></code>
+					<code>                 <span class="comment">* Los snippets son configuraciones para formatear los datos de modo que estos se muestren con un mejor formato y atractivo para el usuario.</span></code>
+					<code>                 <span class="comment">* En mi caso desarrollé 4 tipos de snippets los cuales se representan con la clave "method", de los cuales son:</span></code>
+					<code>                 <span class="comment">* - "replace": En el caso de "replace" agrega contenido al dato donde el dato estará siempre representado por "{value}".</span></code>
+					<code>                 <span class="comment">* - "for": En el caso de "for" este solo funcionará con valores numéricos, este reemplaza por completo el dato y agrega n (según sea el dato) catidad de veces el elemento.</span></code>
+					<code>                 <span class="comment">* - "case": En el caso de "case" agrega contenido dependiendo del dato, vease como si este dato fuese una constante.</span></code>
+					<code>                 <span class="comment">* - "when": En el caso de "when" el funcionamiento es identico al de "case", solo que este reemplaza en función del dato de la columna relacionada ("column_related")</span></code>
+					<code>                 <span class="comment">*/</span></code>
+					<?php foreach ($snippets as $snippetsKey => $snippetsValue) : ?>
+					<code>                {</code>
+					<?php foreach ($snippetsValue as $snippetKey => $snippetValue) : ?>
+					<?php if (is_array($snippetValue)) : ?>
+					<code>                    <span class="yellow">"<?php echo $snippetKey ?>"</span>: [</code>
+					<?php foreach ($snippetValue as $replacesKey => $replacesValue) : ?>
+					<code>                        {</code>
+					<?php foreach ($replacesValue as $replaceKey => $replaceValue) : ?>
+					<code>                            <span class="yellow">"<?php echo $replaceKey ?>"</span>: <span class="yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $replaceValue) ?>"</span><?php echo array_key_last((array)$replacesValue) != $replaceKey ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>                        }<?php echo $replacesKey < (count($snippetValue) - 1) ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>                    ]<?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
+					<?php else : ?>
+					<code>                    <span class="yellow">"<?php echo $snippetKey ?>"</span>: <span class="yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $snippetValue) ?>"</span><?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
+					<?php endif ?>
+					<?php endforeach ?>
+					<code>                }<?php echo $snippetsKey < (count($snippets) - 1) ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>            ],</code>
+					<?php else : ?>
+					<code>            <span class="yellow">"snippets"</span>: [],</code>
+					<?php endif ?>
+					<?php if (count($conditions) > 0) : ?>
+					<code>            <span class="yellow">"conditions"</span>: [</code>
+					<code>                <span class="comment">/**</span></code>
+					<code>                <span class="comment"> *</span></code>
+					<code>                <span class="comment"> * Las condiciones no tienen mucha ciencia, estos comparan el dato y reemplazan el mismo dato con un valor default.</span></code>
+					<code>                <span class="comment"> */</span></code>
+					<?php foreach ($conditions as $conditionsKey => $conditionsValue) : ?>
+					<code>                {</code>
+					<?php foreach ($conditionsValue as $conditionKey => $conditionValue) : ?>
+					<code>                    <span class="yellow">"<?php echo $conditionKey ?>"</span>: <span class="yellow">"<?php echo $conditionValue ?>"</span><?php echo array_key_last((array)$conditionsValue) != $conditionKey ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>                }<?php echo $conditionsKey < (count($conditions) - 1) ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>            ]</code>
+					<?php else : ?>
+					<code>            <span class="yellow">"conditions"</span>: []</code>
+					<?php endif ?>
+					<code>        }</code>
+					<code>    },</code>
+					<code>    <span class="yellow">"collection_name"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_name ?>"</span>, <span class="comment">// Nombre del archivo JSON.</span></code>
+					<code>    <span class="yellow">"collection_description"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_description ?>"</span>, <span class="comment">// Descripción GUI del archivo.</span></code>
+					<code>    <span class="yellow">"collection_items"</span>: [</code>
+					<code>        <span class="comment">/**</span></code>
+					<code>        <span class="comment"> *</span></code>
+					<code>        <span class="comment"> * Aquí se obtienen todos los datos principales del JSON sin formatear.</span></code>
+					<code>        <span class="comment"> * El formateo lo hará la lógica del lenguaje a usar, framework o api de acuerdo a las configuraciones de los snippets y conditions.</span></code>
+					<code>        <span class="comment"> */</span></code>
+					<?php foreach ($collectionItems as $collectionKey => $collectionValue) : ?>
+					<code>        {</code>
+					<?php foreach ($collectionValue as $columnKey => $columnValue) : ?>
+					<code>            <span class="yellow">"<?php echo $columnKey ?>"</span>: <?php echo is_int($columnValue) ? "<span class='purple'>$columnValue</span>" : "<span class='yellow'>\"$columnValue\"</span>" ?><?php echo array_key_last((array)$collectionValue) != $columnKey ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>        }<?php echo ($collectionKey < (count($collectionItems) - 1)) ? "," : "" ?></code>
+					<?php endforeach ?>
+					<code>    ]</code>
+					<code>}</code>
+				</pre>
+				<p class="my-text">Por supuesto que en este ejemplo solo se muestra un puñado de datos de las colecciones almacedanas en este sitio, pero de todas formas este ejemplo da incapie a desarrollar configuraciones usando json's. También debo mencionar que la estructura de "collection_configuration" del json es igual para todas las colecciones que pueda agregar en un futuro, solo variarían las columnas, los snippets y sus condiciones.</p>
+				<p class="my-text"><b>Segundo:</b> la lógica del backend que traerá los datos de la colección (en este caso de forma aleatoria). Para este caso he desarrollado 2 funciones: una para obtener una cantidad específica de datos de la colección y la otra para darle formato para mostrarse en el frontend.</p>
+				<samp>PHP</samp>
+				<pre class="sb">
+					<code>&lt;?php</code>
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Esta función se encargará entregar una</span></code>
+					<code> <span class="comment">* coleccion de datos traidos desde archivos</span></code>
+					<code> <span class="comment">* .json de forma aleatoria y segun la cantidad</span></code>
+					<code> <span class="comment">* especificada por la variable $take.</span></code>
+					<code> <span class="comment">*/</code>
+					<code><span class="cyan">function</span> <span class="green">initCollection</span> (<span class="orange">$take</span> <span class="pink">=</span> <span class="purple">0</span>) {</code>
+					<code>    $jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/<?php echo $jsonCollection->collection_name ?>.json"</span>); <span class="comment">// NOTA: El nombre del archivo json no se actualiza dinámicamente al refrescar la tabla.</span></code>
+					<code>    $isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>; <span class="comment">// Esto indica que será un objeto en lugar de un arreglo asociativo</span></code>
+					<code>    $jsonData <span class="pink">=</span> <span class="cyan">json_decode</span>($jsonFile, $isArrayAssociative);</code><br />
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* En esta sección se seleccionarán</span></code>
+					<code>     <span class="comment">* los registros del json a mostrar</span></code>
+					<code>     <span class="comment">* aleatoriamente.</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>    $newCollection <span class="pink">=</span> [];</code>
+					<code>    $collectionItemsLength <span class="pink">=</span> <span class="cyan">count</span>($jsonData-&gt;collection_items);</code><br />
+					<code>    <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> ($take <span class="pink">&gt;</span> <span class="purple">0</span> <span class="pink">&&</span> $take <span class="pink">&lt;</span> $collectionItemsLength <span class="pink">?</span> $take <span class="pink">:</span> $collectionItemsLength); $i<span class="pink">++</span>) {</code>
+					<code>        $indexOfItem <span class="pink">=</span> <span class="cyan">rand</span>(<span class="purple">0</span>, (<span class="cyan">count</span>($jsonData-&gt;collection_items) <span class="pink">-</span> <span class="purple">1</span>));</code><br />
+					<code>        <span class="comment">/**</span></code>
+					<code>         <span class="comment">*</span></code>
+					<code>         <span class="comment">* Si en el $newCollection no se</span></code>
+					<code>         <span class="comment">* encuentra el objeto seleccionado</span></code>
+					<code>         <span class="comment">* por el $indexOfItem, se agrega a</span></code>
+					<code>         <span class="comment">* la colección. Caso contrario se</span></code>
+					<code>         <span class="comment">* se vuelve a seleccionar</span></code>
+					<code>         <span class="comment">* aleatoriamente otro objeto.</span></code>
+					<code>         <span class="comment">*/</span></code>
+					<code>        <span class="pink">if</span> (<span class="pink">!</span><span class="cyan">in_array</span>($jsonData-&gt;collection_items[$indexOfItem], $newCollection))</code>
+					<code>            $newCollection[] <span class="pink">=</span> $jsonData-&gt;collection_items[$indexOfItem];</code>
+					<code>        <span class="pink">else</span> $i<span class="pink">--</span>;</code>
+					<code>    }</code><br />
+					<code>    $jsonData-&gt;collection_items <span class="pink">=</span> $newCollection;</code><br />
+					<code>    <span class="pink">return</span> $jsonData;</code>
+					<code>}</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Esta función se encargará de llenar y</span></code>
+					<code> <span class="comment">* darle formato a los datos de la colección</span></code>
+					<code> <span class="comment">* proporcionada.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="cyan">function</span> <span class="green">initCollectionRawHTML</span> (<span class="orange">$sourceCollection</span>) {</code>
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* Coleccion formateada para retornar.</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>     $newCollection <span class="pink">=</span> [</code>
+					<code>         <span class="yellow">"description"</span> =&gt; $sourceCollection-&gt;collection_description,</code>
+					<code>         <span class="yellow">"dataHeaders"</span> =&gt; [],</code>
+					<code>         <span class="yellow">"dataRows"</span> =&gt; []</code>
+					<code>     ];</code><br />
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* Cargar configuraciones de la coleccion.</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>    $columns <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;columns;</code>
+					<code>    $snippets <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;snippets;</code>
+					<code>    $conditions <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;conditions;</code>
+					<code>    $collectionItems <span class="pink">=</span> $sourceCollection-&gt;collection_items;</code><br />
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* Lista de operadores logicos.</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>    $operators <span class="pink">=</span> [</code>
+					<code>        <span class="yellow">"=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">==</span> $b; },</code>
+					<code>        <span class="yellow">"==="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">===</span> $b; },</code>
+					<code>        <span class="yellow">"!="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">!=</span> $b; },</code>
+					<code>        <span class="yellow">"!=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">!==</span> $b; },</code>
+					<code>        <span class="yellow">"&gt;"</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&gt;</span> $b; },</code>
+					<code>        <span class="yellow">"&gt;="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&gt;=</span> $b; },</code>
+					<code>        <span class="yellow">"&lt;"</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&lt;</span> $b; },</code>
+					<code>        <span class="yellow">"&lt;="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&lt;=</span> $b; }</code>
+					<code>    ];</code><br />
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* Inicia ciclo para cargar los nombres de las</span></code>
+					<code>     <span class="comment">* columnas de la coleccion.</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>    <span class="pink">foreach</span> ($columns <span class="pink">as</span> $columnsKey =&gt; $columnsValue) $newCollection[<span class="yellow">"dataHeaders"</span>][] <span class="pink">=</span> $columnsValue;</code><br />
+					<code>    <span class="comment">/**</span></code>
+					<code>     <span class="comment">*</span></code>
+					<code>     <span class="comment">* Inicia ciclo para darle formato HTML</span></code>
+					<code>     <span class="comment">* de acuerdo a la configuración de los</span></code>
+					<code>     <span class="comment">* snippets.</span></code>
+					<code>     <span class="comment">*/</span></code>
+					<code>    $dataRow <span class="pink">=</span> [];</code><br />
+					<code>    <span class="pink">foreach</span> ($collectionItems <span class="pink">as</span> $collectionItemsIndex =&gt; $collectionItemsValue) {</code>
+					<code>        $dataCells <span class="pink">=</span> [];</code><br />
+					<code>        <span class="comment">/**</span></code>
+					<code>         <span class="comment">*</span></code>
+					<code>         <span class="comment">* $collectionItemKey = Columna</span></code>
+					<code>         <span class="comment">* $collectionItemValue = Valor</span></code>
+					<code>         <span class="comment">*/</span></code>
+					<code>        <span class="pink">foreach</span> ($collectionItemsValue <span class="pink">as</span> $collectionItemKey =&gt; $collectionItemValue) {</code>
+					<code>            $column <span class="pink">=</span> $collectionItemKey;</code>
+					<code>            $data <span class="pink">=</span> $collectionItemValue;</code><br />
+					<code>            <span class="comment">/**</span></code>
+					<code>             <span class="comment">*</span></code>
+					<code>             <span class="comment">* Ciclo para formatear la coleccion</span></code>
+					<code>             <span class="comment">* de acuerdo a los snippets configurados.</span></code>
+					<code>             <span class="comment">*/</span></code>
+					<code>            <span class="pink">foreach</span> ($snippets <span class="pink">as</span> $snippetsIndex =&gt; $snippetsValue) {</code>
+					<code>                <span class="pink">if</span> ($snippetsValue-&gt;column_name <span class="pink">==</span> $column) {</code>
+					<code>                    <span class="pink">switch</span> ($snippetsValue-&gt;method) {</code>
+					<code>                        <span class="pink">case</span> <span class="yellow">"replace"</span>:</code>
+					<code>                            $data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with);</code>
+					<code>                            <span class="pink">break</span>;</code>
+					<code>                        <span class="pink">case</span> <span class="yellow">"for"</span>:</code>
+					<code>                            $newValue <span class="pink">=</span> <span class="yellow">""</span>;</code>
+					<code>                            <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> $data; $i<span class="pink">++</span>) $newValue <span class="pink">.=</span> $snippetsValue-&gt;replace_with;</code>
+					<code>                            $data <span class="pink">=</span> $newValue;</code>
+					<code>                            <span class="pink">break</span>;</code>
+					<code>                        <span class="pink">case</span> <span class="yellow">"case"</span>:</code>
+					<code>                            <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> <span class="cyan">count</span>($snippetsValue-&gt;replace_with); $i<span class="pink">++</span>) {</code>
+					<code>                                <span class="pink">if</span> ($snippetsValue-&gt;replace_with[$i]-&gt;case <span class="pink">==</span> $data) {</code>
+					<code>                                    $data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with[$i]-&gt;replace);</code>
+					<code>                                    <span class="pink">break</span>;</code>
+					<code>                                }</code>
+					<code>                            }</code>
+					<code>                            <span class="pink">break</span>;</code>
+					<code>                        <span class="pink">case</span> <span class="yellow">"when"</span>:</code>
+					<code>                            <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> <span class="cyan">count</span>($snippetsValue-&gt;replace_with); $i<span class="pink">++</span> {</code>
+					<code>                                <span class="pink">if</span> ($collectionItemsValue-&gt;{$snippetsValue-&gt;column_related} <span class="pink">==</span> $snippetsValue-&gt;replace_with[$i]-&gt;case) {</code>
+					<code>                                    $data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with[$i]-&gt;replace);</code>
+					<code>                                    <span class="pink">break</span>;</code>
+					<code>                                }</code>
+					<code>                            }</code>
+					<code>                            <span class="pink">break</span>;</code>
+					<code>                    }</code>
+					<code>                }</code>
+					<code>            }</code><br />
+					<code>            <span class="comment">/**</span></code>
+					<code>             <span class="comment">*</span></code>
+					<code>             <span class="comment">* Ciclo para formatear la coleccion</span></code>
+					<code>             <span class="comment">* de acuerdo a las condiciones de cada</span></code>
+					<code>             <span class="comment">* campo configurado.</span></code>
+					<code>             <span class="comment">*/</span></code>
+					<code>            <span class="pink">foreach</span> ($conditions <span class="pink">as</span> $conditionsKey =&gt; $conditionsValue) {</code>
+					<code>                <span class="pink">if</span> ($conditionsValue-&gt;column_name <span class="pink">==</span> $column) {</code>
+					<code>                    <span class="pink">if</span> ($operators[$conditionsValue-&gt;operator]($conditionsValue-&gt;value_to_compare, $data))</code>
+					<code>                        $data <span class="pink">=</span> <span class="yellow">"&lt;span class='badge text-bg-dark'&gt;</span>$conditionsValue-&gt;replace_with<span class="yellow">&lt;/span&gt;"</span>;</code>
+					<code>                }</code>
+					<code>            }</code><br />
+					<code>            $dataCells[$column] <span class="pink">=</span> $data;</code>
+					<code>        }</code><br />
+					<code>        $dataRow[] <span class="pink">=</span> $dataCells;</code>
+					<code>    }</code><br />
+					<code>    $newCollection[<span class="yellow">"dataRows"</span>] <span class="pink">=</span> $dataRow;</code><br />
+					<code>    <span class="pink">return</span> (<span class="cyan">object</span>)$newCollection; <span class="comment">// Lo retorno como objeto en lugar de arreglo asociativo.</span></code>
+					<code>}</code>
+				</pre>
+				<p class="my-text">Teniendo estas 2 funciones, se pueden incluir en un web service para traer datos en todo momento, o se pueden incluir directamente en el archivo HTML. De cualquier forma dará el mismo resultado.</p>
+				<p class="my-text"><b>Forma 1 - Adjuntando las funciones en el archivo HTML:</b> de esta forma solo variarán los datos cada vez que el usuario refresque la página (forma que a mi parecer es muy anticuada y cansada, pero igual la incluyo por aquello del que dirán)</p>
+				<samp>PHP</samp>
+				<pre class="sb">
+					<code>&lt;?php</code>
+					<code><span class="pink">include_once</span> <span class="yellow">"collections/collections.php"</span>; <span class="comment">// Supongamos que aquí guarde todo el merequetengue del segundo paso.</span></code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Declaramos la variable para llenar la tabla.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code>$jsonDataHTML <span class="pink">=</span> <span class="cyan">initCollectionRawHTML</span>(<span class="cyan">initCollection</span>(<span class="purple">10</span>));</code>
+					<code>?&gt;</code>
+					<code>&lt;<span class="pink">table</span> <span class="green">id</span>=<span class="yellow">"tableCollection"</span>&gt;</code>
+					<code>    &lt;?php $description <span class="pink">=</span> $jsonDataHTML-&gt;description <span class="comment">// Descripción de la colección que se mostrará en el &lt;caption /&gt;</span> ?&gt;</code>
+					<code>    &lt;?php $dataHeaders <span class="pink">=</span> $jsonDataHTML-&gt;dataHeaders <span class="comment">// Descripción de las columnas.</span> ?&gt;</code>
+					<code>    &lt;?php $dataRows <span class="pink">=</span> $jsonDataHTML-&gt;dataRows <span class="comment">// Estos serán los renglones de la tabla.</span> ?&gt;</code>
+					<code>    &lt;<span class="pink">caption</span>&gt;&lt;?php <span class="cyan">echo</span> $description ?&gt;&lt;/<span class="pink">caption</span>&gt;</code>
+					<code>    &lt;<span class="pink">thead</span>&gt;</code>
+					<code>        &lt;<span class="pink">tr</span>&gt;</code>
+					<code>            &lt;?php <span class="pink">foreach</span> ($dataHeaders <span class="pink">as</span> $dataHeadersKey =&gt; $dataHeadersValue) : ?&gt;</code>
+					<code>            &lt;?php</code>
+					<code>            <span class="comment">/**</span></code>
+					<code>             <span class="comment">*</code>
+					<code>             <span class="comment">* Solo se mostrarán si está configurado para ser visible.</span></code>
+					<code>             <span class="comment">*/</span></code>
+					<code>            ?&gt;</code>
+					<code>            &lt;?php <span class="pink">if</span> ($dataHeadersValue-&gt;is_visible) : ?&gt;</code>
+					<code>            &lt;th&gt;&lt;?php <span class="cyan">echo</span> $dataHeadersValue-&gt;column_description ?&gt;&lt;/<span class="pink">th</span>&gt;</code>
+					<code>            &lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>            &lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>        &lt;/<span class="pink">tr</span>&gt;</code>
+					<code>    &lt;/<span class="pink">thead</span>&gt;</code>
+					<code>    &lt;<span class="pink">tbody</span>&gt;</code>
+					<code>        &gt;?php</code>
+					<code>        <span class="comment">/**</span></code>
+					<code>         <span class="comment">*</span></code>
+					<code>         <span class="comment">* Este foreach recorrerá la colección como si fueran renglones.</span></code>
+					<code>         <span class="comment">*/</span></code>
+					<code>        ?&gt;</code>
+					<code>        &lt;?php <span class="pink">foreach</span> ($dataRows <span class="pink">as</span> $dataRowsKey =&gt; $dataRowsValue) : ?&gt;</code>
+					<code>        &lt;<span class="pink">tr</span>&gt;</code>
+					<code>            <span class="comment">/**</span></code>
+					<code>             <span class="comment">*</span></code>
+					<code>             <span class="comment">* Y este foreach recorrerá cada renglón como si fueran columnas.</span></code>
+					<code>             <span class="comment">*/</span></code>
+					<code>            &lt;?php <span class="pink">foreach</span> ($dataRowsValue <span class="pink">as</span> $dataCellKey =&gt; $dataCellValue) : ?&gt;</code>
+					<code>            &lt;?php</code>
+					<code>            <span class="comment">/**</span></code>
+					<code>             <span class="comment">*</span></code>
+					<code>             <span class="comment">* Para esta condición fue complicado allar la lógica adecuada</span></code>
+					<code>             <span class="comment">* para que solo se muestren las columnas con la condición de visible</span></code>
+					<code>             <span class="comment">* en true.</span></code>
+					<code>             <span class="comment">*</span></code>
+					<code>             <span class="comment">* Como se puede apreciar en la condición, estoy usando la función de</span></code>
+					<code>             <span class="comment">* "array_column" el cual se encarga de devolver un arreglo asociativo</span></code>
+					<code>             <span class="comment">* de la llave indicada (2do parámetro), en este caso "is_visible", despues</span></code>
+					<code>             <span class="comment">* se indexa con un valor que nosotros elijamos (3er parámetro), en mi caso</span></code>
+					<code>             <span class="comment">* indexé el arreglo con "column_name". Esto con la finalidad de que cuando la</span></code>
+					<code>             <span class="comment">* variable del foreach: $dataCellKey (columna) sea igual a la llave con la propiedad</span></code>
+					<code>             <span class="comment">* de "is_visible" = false, esta columna sea omitida.</span></code>
+					<code>             <span class="comment">*/</span></code>
+					<code>            ?&gt;</code>
+					<code>            &lt;?php <span class="pink">if</span> (<span class="cyan">array_column</span>($dataHeaders, <span class="yellow">"is_visible"</span>, <span class="yellow">"column_name"</span>)[$dataCellKey]) : ?&gt;</code>
+					<code>            &lt;<span class="pink">td</span>&gt;&lt;?php <span class="cyan">echo</span> $dataCellValue ?&gt;&lt;/<span class="pink">td</span>&gt;</code>
+					<code>            &lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>            &lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>        &lt;/<span class="pink">tr</span>&gt;</code>
+					<code>        &lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>    &lt;/<span class="pink">tbody</span>&gt;</code>
+					<code>&lt;/<span class="pink">table</span>&gt;</code>
+				</pre>
+				<p class="my-text"><b>Forma 2 - Creando un web service:</b> esto lo que hará es que el usuario tendrá la comodidad de recargar la tabla en todo momento sin tener que refrescar la página.</p>
+				<samp>PHP</samp>
+				<pre class="sb">
+					<code>&lt;?php</code>
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* getNewCollection.php</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Este será el web service que retornará la nueva colección.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="pink">include_once</span> <span class="yellow">"collections/collections.php"</span>; <span class="comment">// Supongamos que aquí guarde todo el merequetengue del segundo paso.</span></code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Declaramos la variable para retornar</span></code>
+					<code> <span class="comment">* y retornamos con un json_encode.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code>$jsonCollection <span class="pink">=</span> <span class="cyan">initCollectionRawHTML</span>(<span class="cyan">initCollection</span>(<span class="orange">$_POST</span>[<span class="yellow">"length"</span>]));</code><br />
+					<code><span class="pink">if</span> (<span class="cyan">count</span>((<span class="cyan">array</span>)$jsonCollection) <span class="pink">&gt;</span> <span class="purple">0</span>) <span class="cyan">echo json_encode</span>([ <span class="yellow">"isOk"</span> =&gt; <span class="purple">true</span>, <span class="yellow">"message"</span> =&gt; <span class="yellow">"Ok"</span>, <span class="yellow">"data"</span> =&gt; $jsonCollection ]);</code>
+					<code><span class="pink">else</span> <span class="cyan">echo json_encode</span>([ <span class="yellow">"isOk"</span> => <span class="purple">false</span>, <span class="yellow">"message"</span> => <span class="yellow">"No hay datos disponibles."</span>, <span class="yellow">"data"</span> => <span class="purple">null</span> ]);</code>
+				</pre>
+				<samp>JS</samp>
+				<pre class="sb">
+					<code><span class="comment">// Evento para el botonsote verde de "Recargar Tabla".</span></code>
+					<code><span class="pink">$</span>(<span class="yellow">'#buttonReloadTableCollection'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+					<code>    <span class="comment">// Limpiar todo el contenido de la tabla.</span></code>
+					<code>    <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead, #tableCollection &gt; tbody, #tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
+					<code>    <span class="comment">// Petición a web service de "collections/getNewCollection.php".</span></code>
+					<code>    <span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
+					<code>        url: <span class="yellow">'collections/getNewCollection.php'</span>,</code>
+					<code>        type: <span class="yellow">'POST'</span>,</code>
+					<code>        dataType: <span class="yellow">'json'</span>,</code>
+					<code>        data: { length: <span class="purple">10</span> },</code>
+					<code>        <span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
+					<code>            <span class="comment">// Si la petición fue exitosa llenará la tabla de la misma manera de la forma estática.</span></code>
+					<code>            <span class="pink">if</span> (response.isOk) {</code>
+					<code>                <span class="cyan">let</span> headers <span class="pink">=</span> [];</code><br />
+					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(response.data.description);</code><br />
+					<code>                <span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataHeaders, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>                    <span class="pink">if</span> (value.is_visible) headers.<span class="cyan">push</span>(<span class="yellow">`&lt;th&gt;</span>${value.column_description}<span class="yellow">&lt;/th&gt;`</span>);</code>
+					<code>                });</code>
+					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span>${headers.<span class="cyan">join</span>()}<span class="yellow">&lt;/tr&gt;`</span>);</code><br />
+					<code>                <span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataRows, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>                    <span class="cyan">let</span> row <span class="pink">=</span> [];</code>
+					<code>                    <span class="cyan">let</span> indexColumn <span class="pink">=</span> <span class="purple">0</span>;</code><br />
+					<code>                    <span class="pink">$</span>.<span class="cyan">each</span>(value, <span class="cyan">function</span> (<span class="orange">index2</span>, <span class="orange">value2</span>) {</code>
+					<code>                        <span class="pink">if</span> (response.data.dataHeaders[indexColumn].is_visible) row.<span class="cyan">push</span>(<span class="yellow">`&lt;td&gt;</span>${value2}<span class="yellow">&lt;/td&gt;`</span>);</code>
+					<code>                        indexColumn<span class="pink">++</span>;</code>
+					<code>                    });</code><br />
+					<code>                    <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span>${row.<span class="cyan">join</span>()}<span class="yellow">&lt;/tr&gt;`</span>);</code>
+					<code>                });</code>
+					<code>                <span class="comment">// Caso contrario mostrará un renglón con el posible error por parte del web service.</span></code>
+					<code>            } <span class="pink">else</span> {</code>
+					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Error`</span>);</code>
+					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>);</code>
+					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td&gt;</span>${response.data.message}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>            }</code>
+					<code>        },</code>
+					<code>        <span class="green">error</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>, <span class="orange">errorThrown</span>) {}</code>
+					<code>    });</code>
+					<code>});</code>
+				</pre>
+				<p class="my-text">Bueno, eso sería toda la lógica para traer datos de archivos JSON y tomarlos como colecciones. Este código se puede mejorar, simplificar y hasta optimizar; solo que ya traia esta idea desde hace rato y había tenido la oportunidad ni el como vaciaría todo el procedimiento de manera visual y explicada (si a eso se le puede llamar explicación) pero al final, a mi parecer, creo que está muy bien elaborado como para ser algo improvisado. Como dije esto se puede mejorar y hasta con mas detalle. No te quede con un solo método forma de hacer las cosas, inspirate, crea y demuestrale a todos de lo que eres capaz.</p>
+				<p class="my-text">Y ya para terminar, lo que había dejado pendiente por mucho tiempo:</p>
+				<div class="row">
+					<div class="col">
+						<button type="button" class="btn btn-success" id="buttonRowsCount">Contar Renglones</button>
+					</div>
+				</div>
+				<br />
+				<pre class="sb">
+					<code>Renglones en la tabla: <span class="purple" id="spanRowsCount"></span></code>
+				</pre>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<samp>JS</samp>
+				<pre class="sb">
+					<code><span class="pink">$</span>(<span class="yellow">'#buttonRowsCount'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+					<code>    <span class="cyan">alert</span>(<span class="pink">$</span>(<span class="yellow">'#tableCollection > tbody > tr'</span>).length);</code>
+					<code>});</code>
+				</pre>
+			</div>
+		</div>
+		<!-- ./collections -->
+
+		<!-- vanishEfect -->
+		<div id="vanishEfect" class="my-panel my-panel-cyan">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title">Efecto de desvanecimiento</h3>
+			</div>
+			<div class="my-panel-body">
+				<h2>Efecto de desvanecimiento usando <var>opacity</var> <del>y <var>visibility</var></del></h2>
+				<p class="my-text">Este ejemplo tiene el sencillo propósito de mostrar los efectos y ventajas de la propiedad <var>transition</var> de CSS. En esta ocación será de la desaparecer y reaparecer un elemento HTML.</p>
+				<p class="my-text">También quiero aprovechar la oportunidad de mostrar un input de tipo check con estilo de iOS para este ejemplo.</p>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col">
+								<label>Aplicar efecto
+									<label class="my-switch">
+										<input type="checkbox" id="checkApplyOpacity" />
+										<span class="my-slider"></span>
+									</label>
+								</label>
+							</div>
+						</div>
+						<br />
+						<img src="<?php echo $_SESSION["MAIN_URL"]?>assets/img/vinyl-scratch.jpg" alt="img-vinyl-scratch" class="img-fluid my-fade-effect-off" id="imgTestOpacity" />
+						<h4><small class="text-muted">* Esta imagen la puedes encontrar en mi perfil de <i class="fa-brands fa-deviantart"></i> DeviantArt</small></h4>
+					</div>
+					<div class="col-md-6">
+						<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+						<samp>HTML</samp>
+						<pre class="sb">
+							<code><span class="comment">&lt;!-- Input check --&gt;</span></code>
+							<code>&lt;<span class="pink">label</span>&gt; Aplicar efecto</code>
+							<code>    &lt;<span class="pink">label</span> <span class="green">class</span>=<span class="yellow">"my-switch"</span>&gt;</code>
+							<code>        &lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"checkbox"</span> <span class="green">id</span>=<span class="yellow">"checkApplyOpacity"</span> /&gt;</code>
+							<code>        &lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"my-slider"</span>&gt;&lt;/<span class="pink">span</span>&gt;</code>
+							<code>    &lt;/<span class="pink">label</span>&gt;</code>
+							<code>&lt;/<span class="pink">label</span>&gt;</code><br />
+							<code><span class="comment">&lt;!-- Img --&gt;</span></code>
+							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"assets/img/vinyl-scratch.jpg"</span> <span class="green">alt</span>=<span class="yellow">"img-vinyl-scratch"</span> <span class="green">class</span>=<span class="yellow" id="spanApplyClass">"my-fade-effect-off"</span> <span class="green">id</span>=<span class="yellow">"imgTestOpacity"</span> /&gt;</code>
+						</pre>
+						<samp>CSS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .my-fade-effect</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="green">.my-fade-effect-off</span> {</code>
+							<code>  <span class="cyan">opacity</span>: <span class="purple">1</span>;</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="cyan">opacity</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-moz-transition</span>: <span class="cyan">opacity</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-ms-transition</span>: <span class="cyan">opacity</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-o-transition</span>: <span class="cyan">opacity</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="cyan">opacity</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-fade-effect-on</span> {</code>
+							<code>  <span class="cyan">opacity</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="cyan">opacity</span> <span class="purple">1</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-moz-transition</span>: <span class="cyan">opacity</span> <span class="purple">1</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-ms-transition</span>: <span class="cyan">opacity</span> <span class="purple">1</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-o-transition</span>: <span class="cyan">opacity</span> <span class="purple">1</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="cyan">opacity</span> <span class="purple">1</span><span class="cyan">s</span>;</code>
+							<code>}</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .my-switch</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="green">.my-switch</span> {</code>
+							<code>  <span class="cyan">position</span>: <span class="cyan">relative</span>;</code>
+							<code>  <span class="cyan">display</span>: <span class="cyan">inline-block</span>;</code>
+							<code>  <span class="cyan">width</span>: <span class="purple">54</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">height</span>: <span class="purple">24</span><span class="cyan">px</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-switch</span> <span class="pink">&gt; input</span> {</code>
+							<code>  <span class="cyan">opacity</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">width</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">height</span>: <span class="purple">0</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-slider</span> {</code>
+							<code>  <span class="cyan">position</span>: <span class="cyan">absolute</span>;</code>
+							<code>  <span class="cyan">cursor</span>: <span class="cyan">pointer</span>;</code>
+							<code>  <span class="cyan">border-radius</span>: <span class="purple">34</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">top</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">left</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">right</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">bottom</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#d71a21</span>;</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="purple">.4</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="purple">.4</span><span class="cyan">s</span>;</code>
+							<code>}</code>
+							<code><span class="green">.my-slider</span>:before {</code>
+							<code>  <span class="cyan">position</span>: <span class="cyan">absolute</span>;</code>
+							<code>  <span class="cyan">content</span>: <span class="yellow">""</span>;</code>
+							<code>  <span class="cyan">border-radius</span>: <span class="purple">50</span><span class="cyan">%</span>;</code>
+							<code>  <span class="cyan">height</span>: <span class="purple">22</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">width</span>: <span class="purple">22</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">left</span>: <span class="purple">1</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">bottom</span>: <span class="purple">1</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">background-color</span>: <span class="cyan">white</span>;</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="purple">.4</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="purple">.4</span><span class="cyan">s</span>;</code>
+							<code>}</code>
+							<code><span class="pink">input</span>:checked <span class="pink">+</span> <span class="green">.my-slider</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#5cb85c</span>;</code>
+							<code>}</code>
+							<code><span class="pink">input</span>:checked <span class="pink">+</span> <span class="green">.my-slider</span>:before {</code>
+							<code>  <span class="cyan">-webkit-transform</span>: <span class="cyan">translateX</span>(<span class="purple">30</span><span class="cyan">px</span>);</code>
+							<code>  <span class="cyan">-ms-transform</span>: <span class="cyan">translateX</span>(<span class="purple">30</span><span class="cyan">px</span>);</code>
+							<code>  <span class="cyan">transform</span>: <span class="cyan">translateX</span>(<span class="purple">30</span><span class="cyan">px</span>);</code>
+							<code>}</code>
+						</pre>
+						<samp>JS</samp>
+						<pre class="sb">
+							<code><span class="comment">// Muy fácil</span></code>
+							<code><span class="pink">$</span>(<span class="yellow">'#checkApplyOpacity'</span>).<span class="cyan">on</span>(<span class="yellow">'change'</span>, <span class="cyan">function</span> () {</code>
+							<code>    <span class="pink">$</span>(<span class="yellow">'#imgTestOpacity'</span>).<span class="cyan">toggleClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>});</code>
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ./vanishEfect -->
+
+		<!-- scrollToTop -->
+		<div id="scrollToTop" class="my-panel my-panel-dark-cyan">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title">Función para regresar al tope de la página</h3>
+			</div>
+			<div class="my-panel-body">
+				<h2>Regresando al tope...</h2>
+				<p class="my-text">Para este ejemplo no requiere de mucha explicación, solo se trata de un botón que nos regresa al inicio de la página, ya sea con o sin efecto de scroll.</p>
+				<div class="row">
+					<div class="col-md-1 col-2">
+						<a href="#" class="return-to-top"><i class="fa-solid fa-chevron-up"></i></a>
+					</div>
+					<div class="col-md-11 col-10">
+						<label>Aplicar efecto de "scroll"
+							<label class="my-switch">
+								<input type="checkbox" id="checkApplyScrolling" checked />
+								<span class="my-slider"></span>
+							</label>
+						</label>
+					</div>
+				</div>
+				<br />
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<div class="row">
+					<div class="col">
+						<samp>HTML</samp>
+						<pre class="sb">
+							<code><span class="comment">&lt;!-- En este caso yo coloqué el botón al inicio del "body". --&gt;</span></code>
+							<code>&lt;<span class="pink">body</span>&gt;</code>
+							<code>    <span class="comment">&lt;!-- Inicio el botón con la clase de "my-fade-effect-on" para que esté invisible. --&gt;</span></code>
+							<code>    &lt;<span class="pink">a</span> <span class="green">href</span>=<span class="yellow">"#"</span> <span class="green">id</span>=<span class="yellow">"buttonToTop"</span> <span class="green">class</span>=<span class="yellow">"return-to-top my-fade-effect-on"</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-chevron-up"</span>&gt;&lt;/<span class="pink">i</span>&gt;&lt;/<span class="pink">a</span>&gt;</code><br />
+							<code>    <span class="comment">&lt;!-- Resto del sitio... --&gt;</span></code>
+							<code>&lt;/<span class="pink">body</span>&gt;</code>
+						</pre>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5">
+						<samp>CSS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .my-fade-effect</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Vease el ejemplo de: <a href="#vanishEfect">Efecto de desvanecimiento</a></span></code>
+							<code> <span class="comment">*/</span></code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .return-to-top</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="green">.return-to-top</span> {</code>
+							<code>  <span class="cyan">display</span>: <span class="cyan">inline-flex</span>;</code>
+							<code>  <span class="cyan">padding</span>: <span class="purple">15</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#fff</span>;</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#000</span>;</code>
+							<code>  <span class="cyan">border-radius</span>: <span class="purple">5</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">font-size</span>: <span class="purple">20</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">text-decoration</span>: <span class="cyan">none</span>;</code>
+							<code>}</code>
+							<code><span class="green">.return-to-top</span>:focus,</code>
+							<code><span class="green">.return-to-top</span>:hover {</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#fff</span>;</code>
+							<code>}</code>
+							<code><span class="green">#buttonToTop</span> {</code>
+							<code>  <span class="cyan">z-index</span>: <span class="purple">999</span>;</code>
+							<code>  <span class="cyan">position</span>: <span class="cyan">fixed</span>;</code>
+							<code>  <span class="cyan">margin</span>: <span class="purple">0 15</span><span class="cyan">px</span> <span class="purple">15</span><span class="cyan">px</span> <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">bottom</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">right</span>: <span class="purple">0</span>;</code>
+							<code>}</code>
+						</pre>
+					</div>
+					<div class="col-md-7">
+						<samp>JS</samp>
+						<pre class="sb">
+							<code><span class="comment">// Despues: el evento del bóton.</span></code>
+							<code><span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
+							<code>    e.<span class="cyan">preventDefault</span>();</code><br />
+							<code>    <span class="comment">// Con efecto de "scroll":</span></code>
+							<code>    <span class="pink">$</span>(<span class="yellow">'html, body'</span>).<span class="cyan">animate</span>({ scrollTop: <span class="purple">0</span> }, <span class="purple">1000</span>);</code><br />
+							<code>    <span class="comment">// Sin efecto de "scroll":</span></code>
+							<code>    <span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">scrollTop</span>(<span class="purple">0</span>);</code>
+							<code>});</code><br />
+							<code><span class="comment">// Y por último: la función para mostrar / ocultar el boton.</span></code>
+							<code><span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">on</span>(<span class="yellow">'scroll'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
+							<code>    <span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>    <span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
+							<code>});</code><br />
+							<code><span class="comment">// Este último es para en caso de que el usuario refresque la página y el botón aparesca sin necesidad de hacer scroll.</span></code>
+							<code><span class="pink">$</span>(<span class="cyan">document</span>).<span class="cyan">ready</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
+							<code>    <span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>    <span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
+							<code>});</code>
+						</pre>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="alert alert-warning" role="alert">
+							<h4 class="alert-heading">Algo que Debo Mencionar</h4>
+							<p>Debido a que este sitio usa la versión 5.2.3 de la librería de estilos de Bootstrap, este ejemplo puede tener conflictos, por ejemplo: al hacer el efecto de "scroll" se atasque en ciertas zonas del sitio; a la hora de ponerse en práctica cuando se incluye la mencionda librería. Esto se debe a que la misma tiene configurada la propiedad <var>scroll-behavior</var> como <var>smooth</var> provocando conflictos en la función <var>$.animate()</var> de la librería de jQuery.</p>
+							<hr />
+							<p>Este conflicto puede ser resuelto fácilmente agregando la siguiente línea a nuestra hoja de estilos:</p>
+							<pre class="sb">
+								<code><span class="comment">/**</span></code>
+								<code> <span class="comment">*</span></code>
+								<code> <span class="comment">* Así se encuentra actualmente la librería de estilos de Bootstrap</span></code>
+								<code> <span class="comment">* (yo opté por evitar su modificación)</span></code>
+								<code> <span class="comment">*/</span></code>
+								<code><span class="pink">@media</span> (<span class="cyan">prefers-reduced-motion</span>:no-preference){:root{<span class="cyan">scroll-behavior</span>:<span class="cyan">smooth</span>}}</code><br />
+								<code><span class="comment">/**</span></code>
+								<code> <span class="comment">*</span></code>
+								<code> <span class="comment">* Agregamos el @media de la librería de bootstrap a nuestra hoja</span></code>
+								<code> <span class="comment">* de estilos y cambiamos el valor de la propiedad "scroll-behavior"</span></code>
+								<code> <span class="comment">* de "smooth" a "unset".</span></code>
+								<code> <span class="comment">*/</span></code>
+								<code><span class="pink">@media</span> (<span class="cyan">prefers-reduced-motion</span>:no-preference){:root{<span class="cyan">scroll-behavior</span>:<span class="cyan">unset</span><span class="pink">!important</span>}}</code>
+							</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ./scrollToTop -->
+
+		<!-- grayScaleScrolling -->
+		<div id="grayScaleScrolling" class="my-panel my-panel-dark-blue">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title">Cambiar colores de una imagen a escala de grises haciendo scroll</h3>
+			</div>
+			<div class="my-panel-body">
+				<p class="my-text">Vaya título mas largo.</p>
+			</div>
+		</div>
+		<!-- ./grayScaleScrolling -->
+	</div>
+
+	<footer class="my-footer">
+		<p>Desarrollado desde el 2016 con mucho <i class="fa-solid fa-heart"></i> y <i class="fa-solid fa-music"></i> por: Paco Alex Martell</p>
+	</footer>
+	
+	<script src="<?php echo $_SESSION["MAIN_URL"] ?>js/jquery.min.js"></script>
+	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/bootstrap.min.js"></script>
+	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/bootstrap.bundle.min.js"></script>
+	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/SimpleAjaxUploader.min.js"></script>
+	<script type="text/javascript">
+	var _dataTransferFiles = new DataTransfer();
+	const _DATATRANSFERNULL = new DataTransfer();
+	// const _MAXSIZE = ((/*byte*/ 1 * /*bytes*/ 1024) /* = kilobyte*/ * /*kilobytes*/ 1024) /* = megabyte*/;
+	const _MAXSIZE = 1024 * 10;
+	const _MAXFILESTOUPLOAD = 5;
+	const _DAYSOFTHEWEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+	const _MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+	var _simpleAjaxUploader = new ss.SimpleUpload({
+		button: $('#buttonSelectFilesSimpleAjaxUploader'),
+		url: 'uploadFilesSimpleAjaxUploader',
+		name: 'inputUploadFilesSimpleAjaxUploader',
+		multiple: true,
+		multipleSelect: true,
+		maxUploads: _MAXFILESTOUPLOAD,
+		maxSize: _MAXSIZE,
+		// queue: false,
+		autoSubmit: false,
+		responseType: 'json',
+		// debug: true,
+		// progressUrl: 'progressUrlSimpleAjaxUploader',
+		// sessionProgressUrl: 'sessionProgressUrlSimpleAjaxUploader',
+		// checkProgressInterval: 50,
+		onChange: function (filename, extension, uploadBtn, fileSize, file) {
+			let _isValidToUpload = true;
+			let _$preStatus = _dataTransferFiles.files.length == 0 ? $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>') : $('#preOutputStatusSimpleAjaxUploader');
+
+			/**
+			 *
+			 * Para este ejemplo valido 2 puntos
+			 * escenciales para la carga de archivos
+			 * y poder controlarlas.
+			 *
+			 * 1.- Validar si la propiedad Queue
+			 * es menor o igual al límite establecido
+			 * por la constante "_MAXFILESTOUPLOAD".
+			 */
+			if (_dataTransferFiles.files.length == _MAXFILESTOUPLOAD) _isValidToUpload = false;
+
+			/**
+			 *
+			 * 2.- Validar si cumple con el tamaño
+			 * permitido sobre la constante de
+			 * "_MAXSIZE".
+			 */
+			else if (fileSize > _MAXSIZE) {
+				_$preStatus
+					.append(`<code> - [<span class="pink">ERROR</span>] ${filename} excede el límite de ${_MAXSIZE}KB permitidos</code>`);
+
+				_isValidToUpload = false;
+			}
+
+			if (_isValidToUpload) {
+				_dataTransferFiles.items.add(new File([file], file.name, {
+					type: file.type,
+					lastModified: file.lastModified
+				}));
+
+				fillTableSimpleAjaxUploader(_dataTransferFiles.files);
+
+				_$preStatus
+					.append(`<code> - [<span class="green">OK</span>] ${filename}</code>`);
+
+				$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
+					.attr('disabled', false);
+			}
+
+			/**
+			 *
+			 * Al terminar esta instrucción,
+			 * el valor de "Queue" se auto
+			 * incrementa si se retorna true.
+			 */
+			return _isValidToUpload;
+		},
+		onSubmit: function(filename, extension, uploadBtn, fileSize) {
+			console.log(`onSubmit: ${filename}`);
+
+			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+
+			$trow.find('td.ss-status').html(`<span class="badge text-bg-primary">Cargando</span>`);
+
+			$('#preOutputStatusSimpleAjaxUploader')
+				.append(`<code> - ${filename}</code>`);
+
+			/*
+			$('#preOutputStatusSimpleAjaxUploader')
+				.append(`<code> - Progreso: <span class="purple" id="pct-${sanitizaStringSimpleAjaxUploader(filename)}">0</span><span class="cyan">%</span></code>`);
+			*/
+
+			this.setPctBox($trow.find('td.ss-pct'));
+
+			// return false;
+		},
+		onProgress: function (pct) {
+			console.log(`onProgress: ${pct}`);
+
+			/*
+			$('#preOutputStatusSimpleAjaxUploader')
+				.append(`<code> - Progreso: <span class="purple">${pct}</span><span class="cyan">%</span></code>`);
+			*/
+		},
+		onComplete: function(filename, response, uploadBtn, fileSize) {
+			console.log(`onComplete: ${filename}`);
+
+			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+
+			if (response.success === true) {
+				$trow.find('td.ss-status').html(`<span class="badge text-bg-success">Cargado</span>`);
+
+				$('#preOutputStatusSimpleAjaxUploader')
+					.append(`<code> - Estus de carga: [<span class="green">OK</span>]</code>`);
+			} else {
+				$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
+
+				$('#preOutputStatusSimpleAjaxUploader')
+					.append(`<code> - Estus de carga: [<span class="pink">ERROR</span>] ${response.msg}</code>`);
+			}
+
+			$('#preOutputStatusSimpleAjaxUploader')
+				.find(`#pct-${sanitizaStringSimpleAjaxUploader(filename)}`).text('100');
+
+			$trow.find('td.ss-pct').html('100%');
+		},
+		onDone: function (filename, status, statusText, response, uploadBtn, fileSize) {
+			console.log(`onDone: ${filename}`);
+
+			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+		},
+		onError: function (filename, errorType, status, statusText, response, uploadBtn, fileSize) {
+			console.log(`onError: ${filename}; ErrorType: ${errorType}; Status: ${status}; StatusText: ${statusText}: Response: ${response}`);
+
+			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+
+			$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
+
+			$('#preOutputStatusSimpleAjaxUploader')
+				.find(`#pct-${sanitizaStringSimpleAjaxUploader(filename)}`).text('100');
+
+			$trow.find('td.ss-pct').html('100%');
+		},
+		onSizeError: function (filename, fileSize) {
+			console.log(`onSizeError: ${filename}`);
+
+			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+
+			$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
+
+			$('#preOutputStatusSimpleAjaxUploader')
+				.find(`#pct-${sanitizaStringSimpleAjaxUploader(filename)}`).text('100');
+
+			$trow.find('td.ss-pct').html('100%');
+		}
+	});
+
+	/*
+	function onChangeHandlerSimpleAjaxUploader (files = []) {
+		let $dropZone = $('#divFileSimpleAjaxUploader');
+
+		$dropZone
+			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow');
+
+		if (files.length > 0 && files.length <= 5) {
+			let areFilesValid = true;
+			let filesToAdd = [];
+
+			// console.log(files);
+
+			for (var i = 0; i < files.length; i++) {
+				if (files[i].size > _MAXSIZE) {
+					areFilesValid = false;
+					break;
+				} else filesToAdd.push(files[i]);
+			}
+
+			if (areFilesValid) {
+				_dataTransferFiles = new DataTransfer();
+
+				$.each(filesToAdd, function (index, value) {
+					_dataTransferFiles.items.add(new File([value], value.name, {
+						type: value.type,
+						lastModified: value.lastModified
+					}));
+				});
+
+				$dropZone
+					.addClass('my-drop-zone-green')
+					.find('label')
+					.html(`<i class="fa-solid fa-check"></i> ${files.length} archivo${files.length > 1 ? 's' : ''} cargado${files.length > 1 ? 's' : ''}`);
+
+				$('#buttonUploadSimpleAjaxUploader, #buttonResetSimpleAjaxUploader').attr('disabled', false);
+			} else $dropZone
+				.addClass('my-drop-zone-red')
+				.find('label')
+				.html(`<i class="fa-solid fa-triangle-exclamation"></i> Uno o más archivos excede el tamaño permitido de 1MB`);
+		} else if (files.length > 5) $dropZone
+			.addClass('my-drop-zone-red')
+			.find('label')
+			.html(`<i class="fa-solid fa-triangle-exclamation"></i> Solo se permite la carga de 5 archivos`);
+		else {
+			if (_dataTransferFiles.files.length > 0) $dropZone
+				.addClass('my-drop-zone-green')
+				.find('label')
+				.html(`<i class="fa-solid fa-check"></i> ${_dataTransferFiles.files.length} archivo${_dataTransferFiles.files.length > 1 ? 's' : ''} cargado${_dataTransferFiles.files.length > 1 ? 's' : ''}`);
+			else {
+				$dropZone
+					.find('label')
+					.html(`<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>`);
+
+				$('#buttonUploadSimpleAjaxUploader, #buttonResetSimpleAjaxUploader').attr('disabled', true);
+			}
+		}
+
+		$('#inputFileSimpleAjaxUploader')[0].files = _dataTransferFiles.files;
+
+		fillTableSimpleAjaxUploader(_dataTransferFiles.files);
+	}
+	*/
+
+	// function triggerRemoveFileSimpleAjaxUploader
+
+	function fillTableSimpleAjaxUploader (files = []) {
+		let $tbody = $('#tableFilesSimpleAjaxUploader > tbody');
+
+		$tbody.html(null);
+
+		if (files.length > 0) {
+			$.each(files, function (index, value) {
+				let date = new Date(value.lastModified);
+				let fileName = value.name;
+				let fileType = value.type;
+				let fileSize = Math.round(value.size / _MAXSIZE) / 100;
+				let fileLastModified = `${_DAYSOFTHEWEEK[date.getDay()]}, ${date.getDate()} de ${_MONTHS[date.getMonth()]} de ${date.getFullYear()} a las ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+				$tbody.append(`<tr data-file="${sanitizaStringSimpleAjaxUploader(fileName)}">
+					<td>${fileName}</td>
+					<td>${fileType}</td>
+					<td>${fileSize}MB</td>
+					<td>${fileLastModified}</td>
+					<td class="text-center ss-pct">0%</td>
+					<td class="ss-status"><span class="badge text-bg-dark">Por Cargar</span></td>
+				</tr>`);
+			});
+		} else $tbody
+			.html(`<tr><td colspan="6" class="text-center">No hay archivos por cargar.</td></tr>`);
+	}
+
+	function sanitizaStringSimpleAjaxUploader (stringToSanitize) {
+		let newString = stringToSanitize.replace(/[\x20-\x2f\x3a-\x40\x5b-\x60\x7b-\xff]/g, '');
+
+		return newString;
+	}
+
+	$(document).ready(function (e) {
+		if ($(window).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
+		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
+	});
+
+	$('#buttonMenu').click(function (e) {
+		e.preventDefault();
+	});
+
+	$('#slideDown').click(function (e) {
+		e.preventDefault();
+	});
+
+	/*
+	$('#inputFileSimpleAjaxUploader').on('change', function (e) {
+		e.preventDefault();
+
+		onChangeHandlerSimpleAjaxUploader(e.target.files);
+	});
+
+	$('#divFileSimpleAjaxUploader').on('drop', function (e) {
+		e.preventDefault();
+
+		onChangeHandlerSimpleAjaxUploader(e.originalEvent.dataTransfer.files);
+	});
+
+	$('#divFileSimpleAjaxUploader').on('dragover', function (e) {
+		e.preventDefault();
+
+		$(this)
+			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow')
+			.addClass('my-drop-zone-blue')
+			.find('label')
+			.html(`<strong>Suelte aquí sus archivos</strong> <i class="fa-solid fa-hand"></i>`);
+	});
+
+	$('#divFileSimpleAjaxUploader').on('dragleave', function (e) {
+		e.preventDefault();
+
+		$(this)
+			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow')
+
+		if (_dataTransferFiles.files.length > 0) $(this)
+			.addClass('my-drop-zone-green')
+			.find('label')
+			.html(`<i class="fa-solid fa-check"></i> ${_dataTransferFiles.files.length} archivo${_dataTransferFiles.files.length > 1 ? 's' : ''} cargado${_dataTransferFiles.files.length > 1 ? 's' : ''}`);
+		else $(this)
+			.find('label')
+			.html(`<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>`);
+	});
+
+	$('#preOutPutSimpleAjaxUploader').on('click', 'a', function (e) {
+		e.preventDefault();
+
+		$('#preOutPutSimpleAjaxUploader').html(`<code><a href="#">Verificar si el input tiene archivos cargados</a></code>`);
+		$('#preOutPutSimpleAjaxUploader').append(`<code>Número de archivos que contiene: <span class="purple">${$('#inputFileSimpleAjaxUploader')[0].files.length}</span></code>`);
+
+		if ($('#inputFileSimpleAjaxUploader')[0].files.length > 0) {
+			$('#preOutPutSimpleAjaxUploader').append(`<code>[<span class="yellow">"files"</span>] =&gt; [</code>`);
+
+			$.each($('#inputFileSimpleAjaxUploader')[0].files, function (index, value) {
+				$('#preOutPutSimpleAjaxUploader')
+					.append(`<code>    [<span class="purple">${index}</span>] =&gt; {</code>`)
+					.append(`<code>        [<span class="yellow">"name"</span>] =&gt; <span class="yellow">"${value.name}"</span>,</code>`)
+					.append(`<code>        [<span class="yellow">"type"</span>] =&gt; <span class="yellow">"${value.type}"</span>,</code>`)
+					.append(`<code>        [<span class="yellow">"size"</span>] =&gt; <span class="purple">${value.size}</span>,</code>`)
+					.append(`<code>        [<span class="yellow">"lastModified"</span>] =&gt; <span class="purple">${value.lastModified}</span></code>`)
+					.append(`<code>    }${index < $('#inputFileSimpleAjaxUploader')[0].files.length - 1 ? ',' : '' }</code>`);
+			});
+
+			$('#preOutPutSimpleAjaxUploader').append(`<code>]</code>`);
+		}
+	});
+	*/
+
+	$('#buttonUploadFilesSimpleAjaxUploader').click(function () {
+		$('#preOutputStatusSimpleAjaxUploader').html(`<code>Archivos en cola:</code>`);
+
+		for (var i = 0; i < _dataTransferFiles.files.length; i++) _simpleAjaxUploader.submit();
+	});
+
+	$('#buttonResetFilesSimpleAjaxUploader').click(function () {
+		// _dataTransferFiles = new DataTransfer();
+
+		// onChangeHandlerSimpleAjaxUploader();
+
+		// if (_simpleAjaxUploader !== null) _simpleAjaxUploader.clearQueue();
+
+		// console.log(`Cantidad de archivos antes de borrar: ${_simpleAjaxUploader.getQueueSize()}`);
+
+		$('#preOutputStatusSimpleAjaxUploader')
+			.html(`<code>Selecciones archivos para cargar...</code>`);
+
+		_simpleAjaxUploader.clearQueue();
+
+		_dataTransferFiles = new DataTransfer();
+
+		fillTableSimpleAjaxUploader();
+
+		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
+			.attr('disabled', true);
+
+		// console.log(`Cantidad de archivos despues de borrar: ${_simpleAjaxUploader.getQueueSize()}`);
+	});
+
+	$('#buttonReloadTableCollection').click(function () {
+		$('#tableCollection > thead, #tableCollection > tbody, #tableCollection > caption').html(null);
+
+		$.ajax({
+			url: 'getNewCollection',
+			type: 'POST',
+			dataType: 'json',
+			data: { length: 10 },
+			beforeSend: function (jqXHR, settings) {
+				$('#tableCollection > thead').removeClass('table-dark');
+				$('#buttonReloadTableCollection').html(`<i class="fa-solid fa-rotate-right fa-spin"></i> Cargando...`).attr('disabled', true);
+			},
+			success: function (response) {
+				if (response.isOk) {
+					let headers = [];
+
+					$('#tableCollection > caption').html(response.data.description);
+
+					$.each(response.data.dataHeaders, function (index, value) {
+						if (value.is_visible) headers.push(`<th>${value.column_description}</th>`);
+					});
+					$('#tableCollection > thead').append(`<tr>${headers.join()}</tr>`);
+
+					$.each(response.data.dataRows, function (index, value) {
+						let row = [];
+						let indexColumn = 0;
+
+						$.each(value, function (index2, value2) {
+							if (response.data.dataHeaders[indexColumn].is_visible) row.push(`<td>${value2}</td>`);
+							indexColumn++;
+						});
+
+						$('#tableCollection > tbody').append(`<tr>${row.join()}</tr>`);
+					});
+				} else {
+					$('#tableCollection > caption').html(`<i class="fa-solid fa-triangle-exclamation"></i> Error`);
+					$('#tableCollection > thead').html(`<tr><th>Message</th></tr>`).addClass('table-dark');
+					$('#tableCollection > tbody').html(`<tr class="table-danger"><td>${response.data.message}</td></tr>`);
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				$('#tableCollection > caption').html(`<i class="fa-solid fa-triangle-exclamation"></i> Error`);
+				$('#tableCollection > thead').html(`<tr><th>Message</th></tr>`).addClass('table-dark');
+				$('#tableCollection > tbody').html(`<tr class="table-danger"><td>${jqXHR.status} - ${jqXHR.statusText}</td></tr>`);
+			},
+			complete: function (jqXHR, textStatus) {
+				$('#buttonReloadTableCollection').html(`<i class="fa-solid fa-rotate-right"></i> Recargar Tabla`).attr('disabled', false);
+			}
+		});
+	});
+
+	$('#buttonRowsCount').click(function () {
+		$('#spanRowsCount').html($('#tableCollection > tbody > tr').length);
+	});
+
+	$('#checkApplyOpacity').on('change', function () {
+		$('#imgTestOpacity').toggleClass('my-fade-effect-on');
+
+		$('#spanApplyClass').html($(this).is(':checked') ? `"my-fade-effect-off my-fade-effect-on"` : `"my-fade-effect-off"`);
+	});
+
+	$('.return-to-top').click(function (e) {
+		e.preventDefault();
+		
+		if ($('#checkApplyScrolling').is(':checked')) $('html, body').animate({ scrollTop: 0 }, 1000);
+		else $(window).scrollTop(0);
+	});
+
+	$(window).on('scroll', function (e) {
+		if ($(this).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
+		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
+	});
+	</script>
+</body>
+</html>
