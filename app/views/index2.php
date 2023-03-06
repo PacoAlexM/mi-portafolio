@@ -1156,6 +1156,7 @@
 	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/SimpleAjaxUploader.min.js"></script>
 	<script type="text/javascript">
 	var _dataTransferFiles = new DataTransfer();
+	var _arrayInfoFiles = new Array();
 	const _DATATRANSFERNULL = new DataTransfer();
 	// const _MAXSIZE = ((/*byte*/ 1 * /*bytes*/ 1024) /* = kilobyte*/ * /*kilobytes*/ 1024) /* = megabyte*/;
 	const _MAXSIZE = 1024 * 10;
@@ -1163,11 +1164,12 @@
 	const _DAYSOFTHEWEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const _MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-	var _$tdProgressPct = null;
-	var _$preProgressPct = null;
+	// var _$tdProgressPct = null;
+	// var _$preProgressPct = null;
 	var _startNext = true;
 	var _pct = 0;
 	var _idFile = 0;
+	var _startFrom = 0;
 
 	var _simpleAjaxUploader = new ss.SimpleUpload({
 		button: $('#buttonSelectFilesSimpleAjaxUploader'),
@@ -1186,7 +1188,8 @@
 		// checkProgressInterval: 50,
 		onChange: function (filename, extension, uploadBtn, fileSize, file) {
 			let _isValidToUpload = true;
-			let _$preStatus = _dataTransferFiles.files.length == 0 ? $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>') : $('#preOutputStatusSimpleAjaxUploader');
+			// let _$preStatus = _dataTransferFiles.files.length == 0 ? $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>') : $('#preOutputStatusSimpleAjaxUploader');
+			let _$preStatus = $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>');
 
 			/**
 			 *
@@ -1198,7 +1201,8 @@
 			 * es menor o igual al límite establecido
 			 * por la constante "_MAXFILESTOUPLOAD".
 			 */
-			if (_dataTransferFiles.files.length == _MAXFILESTOUPLOAD) _isValidToUpload = false;
+			// if (_dataTransferFiles.files.length == _MAXFILESTOUPLOAD) _isValidToUpload = false;
+			if (_arrayInfoFiles.length == _MAXFILESTOUPLOAD) _isValidToUpload = false;
 
 			/**
 			 *
@@ -1214,15 +1218,41 @@
 			}
 
 			if (_isValidToUpload) {
+				/*
 				_dataTransferFiles.items.add(new File([file], file.name, {
 					type: file.type,
 					lastModified: file.lastModified
 				}));
+				*/
 
-				fillTableSimpleAjaxUploader(_dataTransferFiles.files);
+				_arrayInfoFiles.push({
+					name: file.name,
+					type: file.type,
+					size: file.size,
+					lastModified: file.lastModified
+				});
 
-				_$preStatus
-					.append(`<code> - [<span class="green">OK</span>] ${filename}</code>`);
+				/**
+				 *
+				 * Ordenar archivos por tamaño.
+				 */
+				/*
+				sortBySizeSimpleAjaxUploader().then(res => {
+					_dataTransferFiles = res;
+
+					fillTableSimpleAjaxUploader(_dataTransferFiles.files);
+				});
+				*/
+
+				_arrayInfoFiles = sortBySizeSimpleAjaxUploader();
+
+				$.each(_arrayInfoFiles, function (index, value) {
+					_$preStatus.append(`<code> - [<span class="green">OK</span>] ${value.name}</code>`);
+				});
+
+				fillTableSimpleAjaxUploader(_arrayInfoFiles);
+
+				// _$preStatus.append(`<code> - [<span class="green">OK</span>] ${filename}</code>`);
 
 				$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
 					.attr('disabled', false);
@@ -1237,7 +1267,7 @@
 			return _isValidToUpload;
 		},
 		onSubmit: function(filename, extension, uploadBtn, fileSize) {
-			console.log(`onSubmit: ${filename}, con el id de ${_idFile}, tamaño de queue: ${this.getQueueSize()}`);
+			// console.log(`onSubmit: ${filename}, con el id de ${_idFile}, tamaño de queue: ${this.getQueueSize()}`);
 
 			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile}`);
 
@@ -1246,15 +1276,14 @@
 			$(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile} > td#tdStatusFile_${_idFile}`)
 				.html(`<span class="badge text-bg-primary">Cargando</span>`);
 
-			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code id="code_${_idFile}"> - ${filename} - <span class="purple prePct">0</span><span class="cyan">%</span> - <span class="preStatus">Cargando</span> [<span class="preResult"></span>]</code>`);
+			// $('#preOutputStatusSimpleAjaxUploader').append(`<code id="code_${_idFile}"> - ${filename} - <span class="purple prePct">0</span><span class="cyan">%</span> - <span class="preStatus">Cargando</span> [<span class="preResult"></span>]</code>`);
 
-			// _$tdProgressPct = $trow.find(`td#tdPct${sanitizaStringSimpleAjaxUploader(filename)}`);
-			// _$preProgressPct = $(`#preOutputStatusSimpleAjaxUploader #prePct${sanitizaStringSimpleAjaxUploader(filename)}`);
+			// _$tdProgressPct = $trow.find(`td#tdPct${sanitizeStringSimpleAjaxUploader(filename)}`);
+			// _$preProgressPct = $(`#preOutputStatusSimpleAjaxUploader #prePct${sanitizeStringSimpleAjaxUploader(filename)}`);
 
 			/*
 			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code> - Progreso: <span class="purple" id="pct-${sanitizaStringSimpleAjaxUploader(filename)}">0</span><span class="cyan">%</span></code>`);
+				.append(`<code> - Progreso: <span class="purple" id="pct-${sanitizeStringSimpleAjaxUploader(filename)}">0</span><span class="cyan">%</span></code>`);
 			*/
 
 			// this.setPctBox($trow.find('td.ss-pct'));
@@ -1263,35 +1292,71 @@
 
 			// _idFile += _idFile < _MAXFILESTOUPLOAD - 1  ? 1 : 0;
 
+			this.setPctBox($(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile} > td#tdPctFile_${_idFile}`));
+
 			_idFile++;
 		},
+		/*
 		onProgress: function (pct) {
-			if (_idFile == _MAXFILESTOUPLOAD && this.getQueueSize() == 0) _idFile = 0;
+			// if (_idFile == _MAXFILESTOUPLOAD && this.getQueueSize() == 0) _idFile = 0;
+
+			// if (this.getQueueSize() == 0) console.log(`onProgress: ${pct}, con el id de ${_idFile}`);
 
 			// console.log(`onProgress: ${pct}`);
 
 			// _$preProgressPct.text(pct);
 
-			/*
-			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code> - Progreso: <span class="purple">${pct}</span><span class="cyan">%</span></code>`);
-			*/
+			// $('#preOutputStatusSimpleAjaxUploader').append(`<code> - Progreso: <span class="purple">${pct}</span><span class="cyan">%</span></code>`);
 
-			console.log(`onProgress: ${_idFile}, progress: ${pct}, tamaño de queue: ${this.getQueueSize()}`);
+			// console.log(`onProgress: ${_idFile}, progress: ${pct}, tamaño de queue: ${this.getQueueSize()}`);
 
-			$(`#preOutputStatusSimpleAjaxUploader code#code_${_idFile}`)
-				.find('.prePct').text(pct);
+			// if (this.getQueueSize() == 0) {
+				// if (_idFile >= _MAXFILESTOUPLOAD) _idFile = _startFrom;
 
-			if (this.getQueueSize() == 0 && pct == 100) _idFile++;
+				// console.log(`onProgress: ${pct}, con el id de ${_idFile}`);
+
+				// console.log(`onProgress: ${pct}`);
+
+				// $(`#preOutputStatusSimpleAjaxUploader code#code_${_idFile}`).find('.prePct').text(pct);
+
+				// if (pct == 100) _startFrom++;
+
+				// _idFile++;
+
+				// $(`#preOutputStatusSimpleAjaxUploader code#code_${_idFile}`).find('.prePct').text(pct);
+
+				// if (pct == 100) {
+					// console.log(`Complete: ${_arrayInfoFiles[_idFile].name}`);
+					// _startFrom++;
+				// }
+
+				// _idFile++;
+
+				// console.log(`onProgress: ${pct}, con el id de ${_idFile}`);
+
+				// console.log(this);
+			// } else console.log(`Aun no inicia el progress, valor de _startFrom: ${_startFrom}, con el id de ${_idFile}`);
+
+			// if (pct == 100) _idFile = _initIndex++;
+			// else _idFile++;
+
+			// if (this.getQueueSize() == 0 && pct == 100) _idFile++;
 		},
+		*/
 		onComplete: function(filename, response, uploadBtn, fileSize) {
-			console.log(`onComplete: ${filename}, tamaño de queue: ${this.getQueueSize()}`);
+			// _startFrom++;
 
-			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
-			// let $code = $(`#preOutputStatusSimpleAjaxUploader #code${sanitizaStringSimpleAjaxUploader(filename)}`);
+			if (this.getQueueSize() == 0 && _idFile >= _MAXFILESTOUPLOAD) _idFile = 0;
+
+			console.log(`onComplete: ${filename}, con el id de ${_idFile}, tamaño de queue: ${this.getQueueSize()}`);
+
+			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
+			// let $code = $(`#preOutputStatusSimpleAjaxUploader #code${sanitizeStringSimpleAjaxUploader(filename)}`);
 
 			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile}`);
 			let $code = $(`#preOutputStatusSimpleAjaxUploader #code_${_idFile}`);
+
+			$trow.find(`#tdPctFile_${_idFile}`).text('100%');
 
 			if (response.success === true) {
 				$trow.find(`#tdStatusFile_${_idFile}`).html(`<span class="badge text-bg-success">Cargado</span>`);
@@ -1309,40 +1374,40 @@
 				$code.find('.preResult').addClass('pink').text('ERROR');
 			}
 
-			$code.find('.prePct').text('100');
+			// $code.find('.prePct').text('100');
 
-			// $('#preOutputStatusSimpleAjaxUploader').find(`#pct-${sanitizaStringSimpleAjaxUploader(filename)}`).text('100');
+			// $('#preOutputStatusSimpleAjaxUploader').find(`#pct-${sanitizeStringSimpleAjaxUploader(filename)}`).text('100');
 
-			$trow.find(`#tdPctFile_${_idFile}`).html('100%');
+			_idFile++;
 		},
 		onDone: function (filename, status, statusText, response, uploadBtn, fileSize) {
-			console.log(`onDone: ${filename}`);
+			// console.log(`onDone: ${filename}, con el id de ${_idFile}`);
 
 			// _startNext = true;
 
-			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
 		},
 		onError: function (filename, errorType, status, statusText, response, uploadBtn, fileSize) {
 			console.log(`onError: ${filename}; ErrorType: ${errorType}; Status: ${status}; StatusText: ${statusText}: Response: ${response}`);
 
-			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
 
 			$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
 
 			$('#preOutputStatusSimpleAjaxUploader')
-				.find(`#pct-${sanitizaStringSimpleAjaxUploader(filename)}`).text('100');
+				.find(`#pct-${sanitizeStringSimpleAjaxUploader(filename)}`).text('100');
 
 			$trow.find('td.ss-pct').html('100%');
 		},
 		onSizeError: function (filename, fileSize) {
 			console.log(`onSizeError: ${filename}`);
 
-			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizaStringSimpleAjaxUploader(filename)}"]`);
+			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
 
 			$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
 
 			$('#preOutputStatusSimpleAjaxUploader')
-				.find(`#pct-${sanitizaStringSimpleAjaxUploader(filename)}`).text('100');
+				.find(`#pct-${sanitizeStringSimpleAjaxUploader(filename)}`).text('100');
 
 			$trow.find('td.ss-pct').html('100%');
 		}
@@ -1440,18 +1505,48 @@
 			.html(`<tr><td colspan="6" class="text-center">No hay archivos por cargar.</td></tr>`);
 	}
 
-	function sanitizaStringSimpleAjaxUploader (stringToSanitize) {
+	function sanitizeStringSimpleAjaxUploader (stringToSanitize) {
 		let newString = stringToSanitize.replace(/[\x20-\x2f\x3a-\x40\x5b-\x60\x7b-\xff]/g, '');
 
 		return newString;
 	}
 
+	/*
 	async function onSubmitSimpleAjaxUploader () {
-
 		await _simpleAjaxUploader.submit();
 
 		return true;
+	}
+	*/
 
+	/*async*/ function sortBySizeSimpleAjaxUploader () {
+		// let filesToSort = Array.from(_dataTransferFiles.files);
+		// let sortedFiles = new DataTransfer();
+
+		let filesToSort = _arrayInfoFiles;
+
+		for (var i = 0; i < filesToSort.length; i++) {
+			for (var j = 0; j < (filesToSort.length - 1); j++) {
+				if (filesToSort[j].size > filesToSort[j + 1].size) {
+					let first = filesToSort[j];
+					let next = filesToSort[j + 1];
+					filesToSort[j] = next;
+					filesToSort[j + 1] = first;
+				}
+			}
+		}
+
+		/*
+		for (var i = 0; i < filesToSort.length; i++)
+			await sortedFiles.items.add(new File([filesToSort[i]], filesToSort[i].name, {
+				type: filesToSort[i].type,
+				lastModified: filesToSort[i].lastModified
+			}));
+		*/
+
+		// return sortedFiles;
+
+		return filesToSort;
 	}
 
 	$(document).ready(function (e) {
@@ -1532,17 +1627,27 @@
 	$('#buttonUploadFilesSimpleAjaxUploader').click(function () {
 		$('#preOutputStatusSimpleAjaxUploader').html(`<code>Archivos en cola:</code>`);
 
-		for (var i = 0; i < _dataTransferFiles.files.length; i++) {
+		$.each(_arrayInfoFiles, function (index, value) {
+			$('#preOutputStatusSimpleAjaxUploader')
+				.append(`<code id="code_${index}"> - ${value.name} - <span class="preStatus">Cargando</span> [<span class="preResult"></span>]</code>`);
+		});
+
+		_idFile = 0;
+
+		// for (var i = 0; i < _dataTransferFiles.files.length; i++) {
+		for (var i = 0; i < _arrayInfoFiles.length; i++) {
 			_simpleAjaxUploader.submit();
+
+			// console.log(`Loop: ${i}`);
 		}
 
 		// _simpleAjaxUploader.setOptions({ autoSubmit: true });
 
 		// _simpleAjaxUploader.submit();
 
-		// console.log(sanitizaStringSimpleAjaxUploader(_dataTransferFiles.files[_dataTransferFiles.files.length - (_simpleAjaxUploader.getQueueSize() + 1)].name));
+		// console.log(sanitizeStringSimpleAjaxUploader(_dataTransferFiles.files[_dataTransferFiles.files.length - (_simpleAjaxUploader.getQueueSize() + 1)].name));
 
-		// var id = sanitizaStringSimpleAjaxUploader(.fileName);
+		// var id = sanitizeStringSimpleAjaxUploader(.fileName);
 
 		// console(id);
 

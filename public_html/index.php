@@ -270,12 +270,6 @@ $_post = [
 	},
 	"uploadFilesSimpleAjaxUploader" => function () {
 		include_once "../app/ws/uploadFiles.php";
-	},
-	"progressUrlSimpleAjaxUploader" => function () {
-		require "../app/ws/SimpleAjaxUploader/uploadProgress.php";
-	},
-	"sessionProgressUrlSimpleAjaxUploader" => function () {
-		require "../app/ws/SimpleAjaxUploader/sessionProgress.php";
 	}
 ];
 
