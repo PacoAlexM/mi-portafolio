@@ -62,9 +62,19 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						<label class="mb-2">¿Mostrar pantalla protectora al cargar archivos?
+						<label class="mb-3">¿Mostrar pantalla protectora al cargar archivos?
 							<label class="my-switch">
 								<input type="checkbox" id="checkApplyScreenProtectorSimpleAjaxUploader" />
+								<span class="my-slider"></span>
+							</label>
+						</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label class="mb-3">¿Mostrar barra de progreso de carga general?
+							<label class="my-switch">
+								<input type="checkbox" id="checkApplyProgressBarSimpleAjaxUploader" />
 								<span class="my-slider"></span>
 							</label>
 						</label>
@@ -94,20 +104,27 @@
 						</div>
 					</div>
 				</div>
+				<div class="row" id="rowProgressbarSimpleAjaxUploader" style="display: none;">
+					<div class="col">
+						<div class="progress mb-3" id="generalProgressbarSimpleAjaxUploader" role="progressbar" aria-label="Progreso de carga general" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 30px;">
+							<div class="progress-bar" style="width: 0%">0%</div>
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-4">
 						<div class="d-grid gap-1">
-							<button type="button" class="btn btn-success mb-2" id="buttonSelectFilesSimpleAjaxUploader"><i class="fa-solid fa-magnifying-glass"></i> Seleccionar Archivos</button>
+							<button type="button" class="btn btn-success mb-3" id="buttonSelectFilesSimpleAjaxUploader"><i class="fa-solid fa-magnifying-glass"></i> Seleccionar Archivos</button>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="d-grid gap-1">
-							<button type="button" class="btn btn-success mb-2" id="buttonUploadFilesSimpleAjaxUploader" disabled><i class="fa-solid fa-cloud-arrow-up"></i> Cargar Archivos</button>
+							<button type="button" class="btn btn-success mb-3" id="buttonUploadFilesSimpleAjaxUploader" disabled><i class="fa-solid fa-cloud-arrow-up"></i> Cargar Archivos</button>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="d-grid gap-1">
-							<button type="button" class="btn btn-light mb-2" id="buttonResetFilesSimpleAjaxUploader" disabled><i class="fa-solid fa-eraser"></i> Eliminar Archivos</button>
+							<button type="button" class="btn btn-light mb-3" id="buttonResetFilesSimpleAjaxUploader" disabled><i class="fa-solid fa-eraser"></i> Eliminar Archivos</button>
 						</div>
 					</div>
 				</div>
@@ -1155,21 +1172,16 @@
 	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/bootstrap.bundle.min.js"></script>
 	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/SimpleAjaxUploader.min.js"></script>
 	<script type="text/javascript">
-	var _dataTransferFiles = new DataTransfer();
+	// var _dataTransferFiles = new DataTransfer();
 	var _arrayInfoFiles = new Array();
-	const _DATATRANSFERNULL = new DataTransfer();
+	var _generalPct = 0;
+	var _filesToUpload = 0;
+	// const _DATATRANSFERNULL = new DataTransfer();
 	// const _MAXSIZE = ((/*byte*/ 1 * /*bytes*/ 1024) /* = kilobyte*/ * /*kilobytes*/ 1024) /* = megabyte*/;
 	const _MAXSIZE = 1024 * 10;
 	const _MAXFILESTOUPLOAD = 5;
 	const _DAYSOFTHEWEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const _MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-	// var _$tdProgressPct = null;
-	// var _$preProgressPct = null;
-	var _startNext = true;
-	var _pct = 0;
-	var _idFile = 0;
-	var _startFrom = 0;
 
 	var _simpleAjaxUploader = new ss.SimpleUpload({
 		button: $('#buttonSelectFilesSimpleAjaxUploader'),
@@ -1179,17 +1191,11 @@
 		multipleSelect: true,
 		maxUploads: _MAXFILESTOUPLOAD,
 		maxSize: _MAXSIZE,
-		// queue: false,
 		autoSubmit: false,
 		responseType: 'json',
-		// debug: true,
-		// progressUrl: 'progressUrlSimpleAjaxUploader',
-		// sessionProgressUrl: 'sessionProgressUrlSimpleAjaxUploader',
-		// checkProgressInterval: 50,
 		onChange: function (filename, extension, uploadBtn, fileSize, file) {
 			let _isValidToUpload = true;
-			// let _$preStatus = _dataTransferFiles.files.length == 0 ? $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>') : $('#preOutputStatusSimpleAjaxUploader');
-			let _$preStatus = $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>');
+			let $code = $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>');
 
 			/**
 			 *
@@ -1201,7 +1207,6 @@
 			 * es menor o igual al límite establecido
 			 * por la constante "_MAXFILESTOUPLOAD".
 			 */
-			// if (_dataTransferFiles.files.length == _MAXFILESTOUPLOAD) _isValidToUpload = false;
 			if (_arrayInfoFiles.length == _MAXFILESTOUPLOAD) _isValidToUpload = false;
 
 			/**
@@ -1211,20 +1216,13 @@
 			 * "_MAXSIZE".
 			 */
 			else if (fileSize > _MAXSIZE) {
-				_$preStatus
-					.append(`<code> - [<span class="pink">ERROR</span>] ${filename} excede el límite de ${_MAXSIZE}KB permitidos</code>`);
+				$code
+					.append(`<code> - [<span class="pink">ERROR</span>] ${filename} excede el límite de ${_MAXSIZE / 1024}MB permitidos</code>`);
 
 				_isValidToUpload = false;
 			}
 
 			if (_isValidToUpload) {
-				/*
-				_dataTransferFiles.items.add(new File([file], file.name, {
-					type: file.type,
-					lastModified: file.lastModified
-				}));
-				*/
-
 				_arrayInfoFiles.push({
 					name: file.name,
 					type: file.type,
@@ -1232,31 +1230,15 @@
 					lastModified: file.lastModified
 				});
 
-				/**
-				 *
-				 * Ordenar archivos por tamaño.
-				 */
-				/*
-				sortBySizeSimpleAjaxUploader().then(res => {
-					_dataTransferFiles = res;
-
-					fillTableSimpleAjaxUploader(_dataTransferFiles.files);
-				});
-				*/
-
-				_arrayInfoFiles = sortBySizeSimpleAjaxUploader();
-
-				$.each(_arrayInfoFiles, function (index, value) {
-					_$preStatus.append(`<code> - [<span class="green">OK</span>] ${value.name}</code>`);
-				});
-
 				fillTableSimpleAjaxUploader(_arrayInfoFiles);
-
-				// _$preStatus.append(`<code> - [<span class="green">OK</span>] ${filename}</code>`);
 
 				$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
 					.attr('disabled', false);
 			}
+
+			$.each(_arrayInfoFiles, function (index, value) {
+				$code.append(`<code> - [<span class="green">OK</span>] ${value.name}</code>`);
+			});
 
 			/**
 			 *
@@ -1267,149 +1249,70 @@
 			return _isValidToUpload;
 		},
 		onSubmit: function(filename, extension, uploadBtn, fileSize) {
-			// console.log(`onSubmit: ${filename}, con el id de ${_idFile}, tamaño de queue: ${this.getQueueSize()}`);
+			if (_filesToUpload < this.getQueueSize()) _filesToUpload = this.getQueueSize();
 
-			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile}`);
+			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
 
-			// $trow.find(`#tdStatusFile_${_idFile}`).html(`<span class="badge text-bg-primary">Cargando</span>`);
+			$tr.find('.td-status').html(`<span class="badge text-bg-primary">Cargando</span>`);
 
-			$(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile} > td#tdStatusFile_${_idFile}`)
-				.html(`<span class="badge text-bg-primary">Cargando</span>`);
-
-			// $('#preOutputStatusSimpleAjaxUploader').append(`<code id="code_${_idFile}"> - ${filename} - <span class="purple prePct">0</span><span class="cyan">%</span> - <span class="preStatus">Cargando</span> [<span class="preResult"></span>]</code>`);
-
-			// _$tdProgressPct = $trow.find(`td#tdPct${sanitizeStringSimpleAjaxUploader(filename)}`);
-			// _$preProgressPct = $(`#preOutputStatusSimpleAjaxUploader #prePct${sanitizeStringSimpleAjaxUploader(filename)}`);
-
-			/*
-			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code> - Progreso: <span class="purple" id="pct-${sanitizeStringSimpleAjaxUploader(filename)}">0</span><span class="cyan">%</span></code>`);
-			*/
-
-			// this.setPctBox($trow.find('td.ss-pct'));
-
-			// return false;
-
-			// _idFile += _idFile < _MAXFILESTOUPLOAD - 1  ? 1 : 0;
-
-			this.setPctBox($(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile} > td#tdPctFile_${_idFile}`));
-
-			_idFile++;
+			this.setPctBox($tr.find('.td-pct'));
 		},
-		/*
 		onProgress: function (pct) {
-			// if (_idFile == _MAXFILESTOUPLOAD && this.getQueueSize() == 0) _idFile = 0;
+			if (this.getQueueSize() == 0) {
+				if (pct == 100) {
+					_generalPct += pct / _filesToUpload;
 
-			// if (this.getQueueSize() == 0) console.log(`onProgress: ${pct}, con el id de ${_idFile}`);
+					$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', _generalPct);
 
-			// console.log(`onProgress: ${pct}`);
-
-			// _$preProgressPct.text(pct);
-
-			// $('#preOutputStatusSimpleAjaxUploader').append(`<code> - Progreso: <span class="purple">${pct}</span><span class="cyan">%</span></code>`);
-
-			// console.log(`onProgress: ${_idFile}, progress: ${pct}, tamaño de queue: ${this.getQueueSize()}`);
-
-			// if (this.getQueueSize() == 0) {
-				// if (_idFile >= _MAXFILESTOUPLOAD) _idFile = _startFrom;
-
-				// console.log(`onProgress: ${pct}, con el id de ${_idFile}`);
-
-				// console.log(`onProgress: ${pct}`);
-
-				// $(`#preOutputStatusSimpleAjaxUploader code#code_${_idFile}`).find('.prePct').text(pct);
-
-				// if (pct == 100) _startFrom++;
-
-				// _idFile++;
-
-				// $(`#preOutputStatusSimpleAjaxUploader code#code_${_idFile}`).find('.prePct').text(pct);
-
-				// if (pct == 100) {
-					// console.log(`Complete: ${_arrayInfoFiles[_idFile].name}`);
-					// _startFrom++;
-				// }
-
-				// _idFile++;
-
-				// console.log(`onProgress: ${pct}, con el id de ${_idFile}`);
-
-				// console.log(this);
-			// } else console.log(`Aun no inicia el progress, valor de _startFrom: ${_startFrom}, con el id de ${_idFile}`);
-
-			// if (pct == 100) _idFile = _initIndex++;
-			// else _idFile++;
-
-			// if (this.getQueueSize() == 0 && pct == 100) _idFile++;
+					$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', `${_generalPct}%`).text(`${_generalPct}%`)
+				}
+			}
 		},
-		*/
 		onComplete: function(filename, response, uploadBtn, fileSize) {
-			// _startFrom++;
-
-			if (this.getQueueSize() == 0 && _idFile >= _MAXFILESTOUPLOAD) _idFile = 0;
-
-			console.log(`onComplete: ${filename}, con el id de ${_idFile}, tamaño de queue: ${this.getQueueSize()}`);
-
-			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
-			// let $code = $(`#preOutputStatusSimpleAjaxUploader #code${sanitizeStringSimpleAjaxUploader(filename)}`);
-
-			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr#trFile_${_idFile}`);
-			let $code = $(`#preOutputStatusSimpleAjaxUploader #code_${_idFile}`);
-
-			$trow.find(`#tdPctFile_${_idFile}`).text('100%');
+			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
+			let $code = $(`#preOutputStatusSimpleAjaxUploader #code_${sanitizeStringSimpleAjaxUploader(filename)}`);
 
 			if (response.success === true) {
-				$trow.find(`#tdStatusFile_${_idFile}`).html(`<span class="badge text-bg-success">Cargado</span>`);
+				$tr.find('.td-status').html(`<span class="badge text-bg-success">Cargado</span>`);
 
-				// $('#preOutputStatusSimpleAjaxUploader').append(`<code> - Estus de carga: [<span class="green">OK</span>]</code>`);
-
-				$code.find('.preStatus').text('Cargado')
-				$code.find('.preResult').addClass('green').text('OK');
+				$code.find('.pre-status').text('CARGADO');
+				$code.find('.pre-result').addClass('green').text('OK');
 			} else {
-				$trow.find(`#tdStatusFile_${_idFile}`).html(`<span class="badge text-bg-danger">Error</span>`);
+				$tr.find('.td-status').html(`<span class="badge text-bg-danger">Error</span>`);
 
-				// $('#preOutputStatusSimpleAjaxUploader').append(`<code> - Estus de carga: [<span class="pink">ERROR</span>] ${response.msg}</code>`);
-
-				$code.find('.preStatus').text('No Cargado')
-				$code.find('.preResult').addClass('pink').text('ERROR');
+				$code.find('.pre-status').text('NO_CARGADO');
+				$code.find('.pre-result').addClass('pink').text('ERROR');
+				$code.find('.pre-message').text(` ${response.msg}`);
 			}
-
-			// $code.find('.prePct').text('100');
-
-			// $('#preOutputStatusSimpleAjaxUploader').find(`#pct-${sanitizeStringSimpleAjaxUploader(filename)}`).text('100');
-
-			_idFile++;
 		},
 		onDone: function (filename, status, statusText, response, uploadBtn, fileSize) {
-			// console.log(`onDone: ${filename}, con el id de ${_idFile}`);
+			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
 
-			// _startNext = true;
-
-			// let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
+			$tr.find('.td-pct').text('100%');
+		},
+		onAllDone: function () {
+			_arrayInfoFiles = new Array();
 		},
 		onError: function (filename, errorType, status, statusText, response, uploadBtn, fileSize) {
 			console.log(`onError: ${filename}; ErrorType: ${errorType}; Status: ${status}; StatusText: ${statusText}: Response: ${response}`);
 
-			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
+			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
+			let $code = $(`#preOutputStatusSimpleAjaxUploader #code_${sanitizeStringSimpleAjaxUploader(filename)}`);
 
-			$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
+			$tr.find('.td-status').html(`<span class="badge text-bg-danger">Error</span>`);
 
-			$('#preOutputStatusSimpleAjaxUploader')
-				.find(`#pct-${sanitizeStringSimpleAjaxUploader(filename)}`).text('100');
-
-			$trow.find('td.ss-pct').html('100%');
+			$code.find('.pre-status').text('NO_CARGADO');
+			$code.find('.pre-result').addClass('pink').text('ERROR');
 		},
 		onSizeError: function (filename, fileSize) {
-			console.log(`onSizeError: ${filename}`);
+			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
+			let $code = $(`#preOutputStatusSimpleAjaxUploader #code_${sanitizeStringSimpleAjaxUploader(filename)}`);
 
-			let $trow = $(`#tableFilesSimpleAjaxUploader > tbody tr[data-file="${sanitizeStringSimpleAjaxUploader(filename)}"]`);
+			$tr.find('.td-status').html(`<span class="badge text-bg-danger">Error</span>`);
 
-			$trow.find('td.ss-status').html(`<span class="badge text-bg-danger">Error</span>`);
-
-			$('#preOutputStatusSimpleAjaxUploader')
-				.find(`#pct-${sanitizeStringSimpleAjaxUploader(filename)}`).text('100');
-
-			$trow.find('td.ss-pct').html('100%');
+			$code.find('.pre-status').text('NO_CARGADO');
+			$code.find('.pre-result').addClass('pink').text('ERROR');
+			$code.find('.pre-message').text(` el archivo excede el límite de ${_MAXSIZE / 1024}MB permitidos`);
 		}
 	});
 
@@ -1477,8 +1380,6 @@
 	}
 	*/
 
-	// function triggerRemoveFileSimpleAjaxUploader
-
 	function fillTableSimpleAjaxUploader (files = []) {
 		let $tbody = $('#tableFilesSimpleAjaxUploader > tbody');
 
@@ -1492,13 +1393,13 @@
 				let fileSize = Math.round(value.size / _MAXSIZE) / 100;
 				let fileLastModified = `${_DAYSOFTHEWEEK[date.getDay()]}, ${date.getDate()} de ${_MONTHS[date.getMonth()]} de ${date.getFullYear()} a las ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
-				$tbody.append(`<tr id="trFile_${index}">
+				$tbody.append(`<tr id="tr_${sanitizeStringSimpleAjaxUploader(fileName)}">
 					<td>${fileName}</td>
 					<td>${fileType}</td>
 					<td>${fileSize}MB</td>
 					<td>${fileLastModified}</td>
-					<td class="text-center" id="tdPctFile_${index}">0%</td>
-					<td id="tdStatusFile_${index}"><span class="badge text-bg-dark">Por Cargar</span></td>
+					<td class="text-center td-pct">0%</td>
+					<td class="td-status"><span class="badge text-bg-dark">Por Cargar</span></td>
 				</tr>`);
 			});
 		} else $tbody
@@ -1511,20 +1412,13 @@
 		return newString;
 	}
 
-	/*
-	async function onSubmitSimpleAjaxUploader () {
-		await _simpleAjaxUploader.submit();
-
-		return true;
-	}
-	*/
-
-	/*async*/ function sortBySizeSimpleAjaxUploader () {
+	// /*async*/ function sortBySizeSimpleAjaxUploader () {
 		// let filesToSort = Array.from(_dataTransferFiles.files);
 		// let sortedFiles = new DataTransfer();
 
-		let filesToSort = _arrayInfoFiles;
+		// let filesToSort = _arrayInfoFiles;
 
+		/*
 		for (var i = 0; i < filesToSort.length; i++) {
 			for (var j = 0; j < (filesToSort.length - 1); j++) {
 				if (filesToSort[j].size > filesToSort[j + 1].size) {
@@ -1535,6 +1429,7 @@
 				}
 			}
 		}
+		*/
 
 		/*
 		for (var i = 0; i < filesToSort.length; i++)
@@ -1546,8 +1441,8 @@
 
 		// return sortedFiles;
 
-		return filesToSort;
-	}
+		// return filesToSort;
+	// }
 
 	$(document).ready(function (e) {
 		if ($(window).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
@@ -1624,72 +1519,36 @@
 	});
 	*/
 
+	$('#checkApplyProgressBarSimpleAjaxUploader').on('change', function () {
+		if ($(this).is(':checked')) $('#rowProgressbarSimpleAjaxUploader').show();
+		else $('#rowProgressbarSimpleAjaxUploader').hide();
+	});
+
 	$('#buttonUploadFilesSimpleAjaxUploader').click(function () {
 		$('#preOutputStatusSimpleAjaxUploader').html(`<code>Archivos en cola:</code>`);
 
 		$.each(_arrayInfoFiles, function (index, value) {
 			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code id="code_${index}"> - ${value.name} - <span class="preStatus">Cargando</span> [<span class="preResult"></span>]</code>`);
+				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - ${value.name} - <span class="purple pre-status">CARGANDO</span> [<span class="pre-result"></span>]<span class="yellow pre-message"></span></code>`);
 		});
 
-		_idFile = 0;
-
-		// for (var i = 0; i < _dataTransferFiles.files.length; i++) {
-		for (var i = 0; i < _arrayInfoFiles.length; i++) {
-			_simpleAjaxUploader.submit();
-
-			// console.log(`Loop: ${i}`);
-		}
-
-		// _simpleAjaxUploader.setOptions({ autoSubmit: true });
-
-		// _simpleAjaxUploader.submit();
-
-		// console.log(sanitizeStringSimpleAjaxUploader(_dataTransferFiles.files[_dataTransferFiles.files.length - (_simpleAjaxUploader.getQueueSize() + 1)].name));
-
-		// var id = sanitizeStringSimpleAjaxUploader(.fileName);
-
-		// console(id);
-
-		// for (var i = 0; i < _dataTransferFiles.files.length; i++) _simpleAjaxUploader.submit();
-
-		// while (_startNext) _simpleAjaxUploader.submit();
-
-		// for (var i = 0; i < _dataTransferFiles.files.length;) {
-			// console.log(_simpleAjaxUploader.getQueueSize());
-			/*
-			if (_pct == 0) {
-				_simpleAjaxUploader.submit();
-			} else i--;
-			*/
-			// onSubmitSimpleAjaxUploader().then((res) => i++);
-		// }
-
-		// console.log(_simpleAjaxUploader.submit());
+		for (var i = 0; i < _arrayInfoFiles.length; i++) _simpleAjaxUploader.submit();
+		
 	});
 
 	$('#buttonResetFilesSimpleAjaxUploader').click(function () {
-		// _dataTransferFiles = new DataTransfer();
-
-		// onChangeHandlerSimpleAjaxUploader();
-
-		// if (_simpleAjaxUploader !== null) _simpleAjaxUploader.clearQueue();
-
-		// console.log(`Cantidad de archivos antes de borrar: ${_simpleAjaxUploader.getQueueSize()}`);
 
 		$('#preOutputStatusSimpleAjaxUploader')
 			.html(`<code>Selecciones archivos para cargar...</code>`);
 
 		_simpleAjaxUploader.clearQueue();
 
-		_dataTransferFiles = new DataTransfer();
+		_arrayInfoFiles = new Array();
 
 		fillTableSimpleAjaxUploader();
 
 		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
 			.attr('disabled', true);
-
-		// console.log(`Cantidad de archivos despues de borrar: ${_simpleAjaxUploader.getQueueSize()}`);
 	});
 
 	$('#buttonReloadTableCollection').click(function () {
