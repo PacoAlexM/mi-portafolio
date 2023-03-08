@@ -46,7 +46,7 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Cargando archivos con estilo, claro que si.</h2>
-				<p class="my-text">Este ejemplo tiene como propósito mostrar el funcionamiento de la librería de SimpleAjaxUploader (versión 2.6.6) tanto en el frontend como en el backend. También quiero aprovechar la oportunidad de mostrar el como se puede hacer una barra de progreso (o texto de porcentaje) para cada archivo cargado y una pantalla para evitar acciones por el usuario como:</p>
+				<p class="my-text">Este ejemplo tiene como propósito mostrar el funcionamiento de la librería de SimpleAjaxUploader (versión 2.6.6) tanto en el frontend como en el backend. También quiero aprovechar la oportunidad de mostrar como se puede hacer una barra de progreso de carga general, porcentaje de carga para cada archivo cargado y un protector de interfaz (o pantalla) para evitar acciones por el usuario como:</p>
 				<ul>
 					<li>Pulsar en botones de redireccionamientos dentro del sitio (esto no lo evita si el usuario interactua con los controles del navegador)</li>
 					<li>Cargar más archivos antes de que termine la carga anterior.</li>
@@ -56,7 +56,7 @@
 					<div class="col">
 						<div class="alert alert-warning" role="alert">
 							<h4 class="alert-heading">Aviso</h4>
-							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos de tamaño máximo de 10MB (10240KB). Gracias por su comprención.</p>
+							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos de tamaño máximo de 10MB. Gracias por su comprención.</p>
 						</div>
 					</div>
 				</div>
@@ -80,7 +80,6 @@
 						</label>
 					</div>
 				</div>
-				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
 				<div class="row">
 					<div class="col">
 						<div class="table-responsive">
@@ -132,6 +131,47 @@
 				<pre class="sb" id="preOutputStatusSimpleAjaxUploader">
 					<code>Selecciones archivos para cargar...</code>
 				</pre>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<samp>JS</samp>
+				<pre class="sb">
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Primero lo más difícil porque fue una odisea</span></code>
+					<code> <span class="comment">* encontrar la forma de mostrar controlar la carga</span></code>
+					<code> <span class="comment">* y mostrar el progreso de cada archivo.</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Paso 1: crear las variables y constantes para controlar</span></code>
+					<code> <span class="comment">* las cargas y el progressBar.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="cyan">var</span> _arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>(); <span class="comment">// Arreglo de la información de los archivos por cargar.</span></code>
+					<code><span class="cyan">var</span> _generalPct <span class="pink">=</span> <span class="purple">0</span>; <span class="comment">// Porcentaje de carga general.</span></code>
+					<code><span class="cyan">var</span> _uploadedFiles <span class="pink">=</span> <span class="purple">0</span>; <span class="comment">// Cantidad de archivos por cargar.</span></code>
+					<code><span class="cyan">const</span> _MAXSIZE <span class="pink">=</span> <span class="comment">/*kilobytes*/</span> <span class="purple">1024</span> <span class="pink">*</span> <span class="comment">/*megabytes*/</span> <span class="purple">10</span>; <span class="comment">// Tamaño máximo en megabytes permitos por cada archivo.</span></code>
+					<code><span class="cyan">const</span> _MAXFILESTOUPLOAD <span class="pink">=</span> <span class="purple">5</span>; <span class="comment">// Número de archivos permitidos por carga.</span></code>
+					<code><span class="cyan">const</span> _DAYSOFTHEWEEK <span class="pink">=</span> [<span class="yellow">'Domingo'</span>, <span class="yellow">'Lunes'</span>, <span class="yellow">'Martes'</span>, <span class="yellow">'Miércoles'</span>, <span class="yellow">'Jueves'</span>, <span class="yellow">'Viernes'</span>, <span class="yellow">'Sábado'</span>];</code>
+					<code><span class="cyan">const</span> _MONTHS <span class="pink">=</span> [<span class="yellow">'Enero'</span>, <span class="yellow">'Febrero'</span>, <span class="yellow">'Marzo'</span>, <span class="yellow">'Abril'</span>, <span class="yellow">'Mayo'</span>, <span class="yellow">'Junio'</span>, <span class="yellow">'Julio'</span>, <span class="yellow">'Agosto'</span>, <span class="yellow">'Septiembre'</span>, <span class="yellow">'Octubre'</span>, <span class="yellow">'Noviembre'</span>, <span class="yellow">'Diciembre'</span>];</code><br />
+					<code><span class="comment">// Para más información consulte la <a href="https://www.lpology.com/code/ajaxuploader/docs.php" target="_blank">documentación de Simple Ajax Uploader</a>.</code>
+					<code><span class="cyan">var</span> _simpleAjaxUploader <span class="pink">= new</span> ss.<span class="cyan">SimpleUpload</span>({</code>
+					<code>    button: <span class="pink">$</span>(<span class="yellow">'#buttonSelectFiles'</span>),</code>
+					<code>    url: <span class="yellow">'uploadFiles'</span>,</code>
+					<code>    name: <span class="yellow">'inputUpload'</span>,</code>
+					<code>    multiple: <span class="purple">true</span>,</code>
+					<code>    multipleSelect: <span class="purple">true</span>,</code>
+					<code>    maxUploads: _MAXFILESTOUPLOAD,</code>
+					<code>    maxSize: _MAXSIZE,</code>
+					<code>    autoSubmit: <span class="purple">false</span>,</code>
+					<code>    responseType: <span class="yellow">'json'</span>,</code>
+					<code>    <span class="green">onChange</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>, <span class="orange">file</span>) {},</code>
+					<code>    <span class="green">onSubmit</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>    <span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {},</code>
+					<code>    <span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>    <span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>    <span class="green">onAllDone</span>: <span class="cyan">function</span> () {},</code>
+					<code>    <span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>    <span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {}</code>
+					<code>});</code>
+				</pre>
+				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
 				<!--
 				<div class="row">
 					<div class="col">
@@ -1161,10 +1201,25 @@
 			</div>
 		</div>
 		<!-- ./grayScaleScrolling -->
+
+		<!-- panelCode -->
+		<!-- ./panelCode -->
+
+		<!-- gaussJordanCalculator -->
+		<!-- ./gaussJordanCalculator -->
+
+		<!-- randomStringsGenerator -->
+		<!-- ./randomStringsGenerator -->
+
+		<!-- calculator -->
+		<!-- ./calculator -->
+
+		<!-- sublimeText3Monokai -->
+		<!-- ./sublimeText3Monokai -->
 	</div>
 
 	<footer class="my-footer">
-		<p>Desarrollado desde el 2016 con mucho <i class="fa-solid fa-heart"></i> y <i class="fa-solid fa-music"></i> por: Paco Alex Martell</p>
+		<p>Desarrollado desde el 2016 con mucho <i class="fa-solid fa-heart" title="amor"></i> al <i class="fa-solid fa-code" title="código"></i>, <i class="fa-solid fa-music" title="música"></i> y ayuda de <i class="fa-brands fa-stack-overflow" title="StackOverflow"></i> por: Paco Alex Martell</p>
 	</footer>
 	
 	<script src="<?php echo $_SESSION["MAIN_URL"] ?>js/jquery.min.js"></script>
@@ -1175,10 +1230,10 @@
 	// var _dataTransferFiles = new DataTransfer();
 	var _arrayInfoFiles = new Array();
 	var _generalPct = 0;
-	var _filesToUpload = 0;
+	var _uploadedFiles = 0;
 	// const _DATATRANSFERNULL = new DataTransfer();
 	// const _MAXSIZE = ((/*byte*/ 1 * /*bytes*/ 1024) /* = kilobyte*/ * /*kilobytes*/ 1024) /* = megabyte*/;
-	const _MAXSIZE = 1024 * 10;
+	const _MAXSIZE = /*kilobytes*/ 1024 * /*megabytes*/ 10;
 	const _MAXFILESTOUPLOAD = 5;
 	const _DAYSOFTHEWEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const _MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -1249,7 +1304,7 @@
 			return _isValidToUpload;
 		},
 		onSubmit: function(filename, extension, uploadBtn, fileSize) {
-			if (_filesToUpload < this.getQueueSize()) _filesToUpload = this.getQueueSize();
+			if (_uploadedFiles < this.getQueueSize()) _uploadedFiles = this.getQueueSize();
 
 			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
 
@@ -1260,7 +1315,7 @@
 		onProgress: function (pct) {
 			if (this.getQueueSize() == 0) {
 				if (pct == 100) {
-					_generalPct += pct / _filesToUpload;
+					_generalPct += (pct / _uploadedFiles);
 
 					$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', _generalPct);
 
@@ -1292,6 +1347,9 @@
 		},
 		onAllDone: function () {
 			_arrayInfoFiles = new Array();
+
+			$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
+				.attr('disabled', true);
 		},
 		onError: function (filename, errorType, status, statusText, response, uploadBtn, fileSize) {
 			console.log(`onError: ${filename}; ErrorType: ${errorType}; Status: ${status}; StatusText: ${statusText}: Response: ${response}`);
@@ -1532,8 +1590,7 @@
 				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - ${value.name} - <span class="purple pre-status">CARGANDO</span> [<span class="pre-result"></span>]<span class="yellow pre-message"></span></code>`);
 		});
 
-		for (var i = 0; i < _arrayInfoFiles.length; i++) _simpleAjaxUploader.submit();
-		
+		for (let i = 0; i < _arrayInfoFiles.length; i++) _simpleAjaxUploader.submit();
 	});
 
 	$('#buttonResetFilesSimpleAjaxUploader').click(function () {
