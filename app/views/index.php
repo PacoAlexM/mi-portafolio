@@ -46,7 +46,7 @@
 				<a href="#count-files" onclick="scrollToSect(this)">Numero de archivos</a>
 			</li>
 			<li>
-				<a href="#collections" onclick="scrollToSect(this)">colecciones.json</a>
+				<a href="#count-table" onclick="scrollToSect(this)">Conteo de elementos</a>
 			</li>
 			<li>
 				<a href="#animate" onclick="scrollToSect(this)">Animación</a>
@@ -303,136 +303,74 @@
 		</div>
 		<!-- #/count-files -->
 
-		<!-- collections -->
-		<div id="collections" class="card card-green">
+		<!-- count-table -->
+		<div id="count-table" class="card card-green">
 			<div class="card-header">
-				<h3><s>Conteo de elementos en tabla</s> colecciones.json</h3>
+				<h3>Conteo de elementos en tabla</h3>
 				<div id="table-info"></div>
 			</div>
 			<div class="card-body">
-				<h2><var>$json</var> = <var>file_get_contents(</var>../collection.json<var>);</var></h2>
-				<p class="tell">Desde hace un buen rato que esta sección la he dejado olvidada (creo que por allá en el 2016 o 2017, no recuerdo bien) y no había tenido alguna idea de que hacer aquí. Hasta que vi algo interesante que se pueden hacer con los json's y objetos en PHP. A continuación lo que les mostraré es algo muy especial para mi, porque no solo pone a prueba mis habilidades en PHP, si no que también puedo crear configuraciones con los mismos json's. Y no, no me he olvidado de dejar código para contar los renglones en la tabla.</p>
+				<pre class="sb">
+					<code>Debo una codificación.</code>
+				</pre>
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">
-						<caption><?php echo $jsonCollectionRawHTML->description ?></caption>
+					<table class="table table-hover">
 						<thead>
 							<tr>
-								<?php foreach ($jsonCollectionRawHTML->dataHeaders as $headersKey => $headersValue) : ?>
-								<?php if ($headersValue->is_visible) : ?>
-								<th><?php echo $headersValue->column_description ?></th>
-								<?php endif ?>
-								<?php endforeach ?>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Second Name</th>
+								<th>Last Name</th>
 							</tr>
 						</thead>
-						<tbody>
-							<?php foreach ($jsonCollectionRawHTML->dataRows as $dataRowsKey => $dataRowsValue) : ?>
+						<tbody id="datos">
 							<tr>
-							<?php foreach ($dataRowsValue as $dataCellKey => $dataCellValue) : ?>
-							<?php if (array_column($jsonCollectionRawHTML->dataHeaders, "is_visible", "column_name")[$dataCellKey]) : ?>
-							<td><?php echo $dataCellValue ?></td>
-							<?php endif ?>
-							<?php endforeach ?>
+								<th>1</th>
+								<td>Fancy Name 1</td>
+								<td>Fancy Second Name 1</td>
+								<td>Fancy Last Name 1</td>
 							</tr>
-							<?php endforeach ?>
+							<tr>
+								<th>2</th>
+								<td>Fancy Name 2</td>
+								<td>Fancy Second Name 2</td>
+								<td>Fancy Last Name 2</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td>Fancy Name 3</td>
+								<td>Fancy Second Name 3</td>
+								<td>Fancy Last Name 3</td>
+							</tr>
+							<tr>
+								<th>4</th>
+								<td>Fancy Name 4</td>
+								<td>Fancy Second Name 4</td>
+								<td>Fancy Last Name 4</td>
+							</tr>
+							<tr>
+								<th>5</th>
+								<td>Fancy Name 5</td>
+								<td>Fancy Second Name 5</td>
+								<td>Fancy Last Name 5</td>
+							</tr>
 						</tbody>
+						<tfoot>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Second Name</th>
+								<th>Last Name</th>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
-				<p class="tell">Por lo visto, la tabla cambia cada vez que se refresca la página. Eso es porque desde el backend se esta recolectando desde una colección datos de manera aleatoria. Ya explico porque en codificación.</p>
-				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
-				<p class="tell">Primero: el JSON dónde se cargarán todos los datos y sus respectivas configuraciones para ser mostrados en la interfaz y estos sean mas atractivos o en su defecto para mejor comprensión por el usuario en turno. Cabe a destacar que las configuraciones en este JSON son solo un ejemplo de lo que se puede crear, configurar y/o validar con el mismo, claro, siempre y cuando exista un lenguaje (en este caso: PHP), framework o api que los interprete.</p>
-				<p>JSON</p>
-				<pre class="sb">
-					<?php $columns = $jsonCollection->collection_configuration->columns ?>
-					<?php $snippets = $jsonCollection->collection_configuration->data->snippets ?>
-					<?php $conditions = $jsonCollection->collection_configuration->data->conditions ?>
-					<?php $collectionItems = $jsonCollection->collection_items ?>
-					<code><span class="comment">/**</span></code>
-					<code><span class="comment"> *</span></code>
-					<code><span class="comment"> * Este solo es un extracto de la colección de datos almacenados en este sitio.</span></code>
-					<code><span class="comment"> * Las validaciones y los formateos pueden ser mejorados, por esa razón solo los muestro como ejemplo del alcance que tienen estos mismos.</span></code>
-					<code><span class="comment"> */</span></code>
-					<code>{</code>
-					<code>    <span class="sb-yellow">"collection_configuration"</span>: {</code>
-					<code>        <span class="sb-yellow">"columns"</span>: [</code>
-					<code>            <span class="comment">/**</span></code>
-					<code>            <span class="comment"> *</span></code>
-					<code>            <span class="comment"> * Aquí se obtienen las configuraciones de las columnas a mostrar en la interfaz.</span></code>
-					<code>            <span class="comment"> * Estas mismas se pueden adaptar a la modalidad de cada usuario o desarrollador.</span></code>
-					<code>            <span class="comment"> * En este ejemplo se tiene la clave de y el nombre de la columna, si se muestra o no y su tipo de dato.</span></code>
-					<code>            <span class="comment"> */</span></code>
-					<?php foreach ($columns as $columnKey => $columnValue) : ?>
-					<code>            {</code>
-					<?php foreach ($columnValue as $columAttrKey => $columAttrValue) : ?>
-					<code>                <span class="sb-yellow">"<?php echo $columAttrKey ?>"</span>: <?php echo is_bool($columAttrValue) ? "<span class='sb-purple'>" . var_export($columAttrValue, true) . "</span>" : (is_int($columAttrValue) ? "<span class='sb-purple'>$columAttrValue</span>" : "<span class='sb-yellow'>\"$columAttrValue\"</span>") ?><?php echo array_key_last((array)$columnValue) != $columAttrKey ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>            }<?php echo $columnKey < (count($columns) - 1) ? ",": "" ?></code>
-					<?php endforeach ?>
-					<code>        ],</code>
-					<code>        <span class="sb-yellow">"data"</span>: {</code>
-					<?php if (count($snippets) > 0) : ?>
-					<code>            <span class="sb-yellow">"snippets"</span>: [</code>
-					<?php foreach ($snippets as $snippetsKey => $snippetsValue) : ?>
-					<code>                {</code>
-					<?php foreach ($snippetsValue as $snippetKey => $snippetValue) : ?>
-					<?php if (is_array($snippetValue)) : ?>
-					<code>                    <span class="sb-yellow">"<?php echo $snippetKey ?>"</span>: [</code>
-					<?php foreach ($snippetValue as $replacesKey => $replacesValue) : ?>
-					<code>                        {</code>
-					<?php foreach ($replacesValue as $replaceKey => $replaceValue) : ?>
-					<code>                            <span class="sb-yellow">"<?php echo $replaceKey ?>"</span>: <span class="sb-yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $replaceValue) ?>"</span><?php echo array_key_last((array)$replacesValue) != $replaceKey ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>                        }<?php echo $replacesKey < (count($snippetValue) - 1) ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>                    ]<?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
-					<?php else : ?>
-					<code>                    <span class="sb-yellow">"<?php echo $snippetKey ?>"</span>: <span class="sb-yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $snippetValue) ?>"</span><?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
-					<?php endif ?>
-					<?php endforeach ?>
-					<code>                }<?php echo $snippetsKey < (count($snippets) - 1) ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>            ],</code>
-					<?php else : ?>
-					<code>            <span class="sb-yellow">"snippets"</span>: [],</code>
-					<?php endif ?>
-					<?php if (count($conditions) > 0) : ?>
-					<code>            <span class="sb-yellow">"conditions"</span>: [</code>
-					<?php foreach ($conditions as $conditionsKey => $conditionsValue) : ?>
-					<code>                {</code>
-					<?php foreach ($conditionsValue as $conditionKey => $conditionValue) : ?>
-					<code>                    <span class="sb-yellow">"<?php echo $conditionKey ?>"</span>: <span class="sb-yellow">"<?php echo $conditionValue ?>"</span><?php echo array_key_last((array)$conditionsValue) != $conditionKey ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>                }<?php echo $conditionsKey < (count($conditions) - 1) ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>            ]</code>
-					<?php else : ?>
-					<code>            <span class="sb-yellow">"conditions"</span>: []</code>
-					<?php endif ?>
-					<code>        }</code>
-					<code>    },</code>
-					<code>    <span class="sb-yellow">"collection_name"</span>: <span class="sb-yellow">"<?php echo $jsonCollection->collection_name ?>"</span>, <span class="comment">// Nombre del archivo JSON.</span></code>
-					<code>    <span class="sb-yellow">"collection_description"</span>: <span class="sb-yellow">"<?php echo $jsonCollection->collection_description ?>"</span>, <span class="comment">// Descripción GUI del archivo.</span></code>
-					<code>    <span class="sb-yellow">"collection_items"</span>: [</code>
-					<code>        <span class="comment">/**</span></code>
-					<code>        <span class="comment"> *</span></code>
-					<code>        <span class="comment"> * Aquí se obtienen todos los datos principales del JSON sin formatear.</span></code>
-					<code>        <span class="comment"> * El formateo lo hará la lógica del lenguaje a usar, framework o api de acuerdo a las configuraciones de los snippets y conditions.</span></code>
-					<code>        <span class="comment"> */</span></code>
-					<?php foreach ($collectionItems as $collectionKey => $collectionValue) : ?>
-					<code>        {</code>
-					<?php foreach ($collectionValue as $columnKey => $columnValue) : ?>
-					<code>            <span class="sb-yellow">"<?php echo $columnKey ?>"</span>: <?php echo is_int($columnValue) ? "<span class='sb-purple'>$columnValue</span>" : "<span class='sb-yellow'>\"$columnValue\"</span>" ?><?php echo array_key_last((array)$collectionValue) != $columnKey ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>        }<?php echo ($collectionKey < (count($collectionItems) - 1)) ? "," : "" ?></code>
-					<?php endforeach ?>
-					<code>    ]</code>
-					<code>}</code>
-				</pre>
 			</div>
 			<div class="card-footer">
 				<button class="btn btn-success" onclick="contarElemnt()">Contar renglones</button>
 			</div>
 		</div>
-		<!-- #/collections -->
+		<!-- #/count-table -->
 
 		<!-- p-modal -->
 		<!-- ( No existe mas ) -->
