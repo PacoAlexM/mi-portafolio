@@ -137,8 +137,8 @@
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Primero lo más difícil porque fue una odisea</span></code>
-					<code> <span class="comment">* encontrar la forma de mostrar controlar la carga</span></code>
-					<code> <span class="comment">* y mostrar el progreso de cada archivo.</span></code>
+					<code> <span class="comment">* encontrar la forma de mostrar el progreso de la</span></code>
+					<code> <span class="comment">* carga de cada archivo y controlar las validaciones.</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Paso 1: crear las variables y constantes para controlar</span></code>
 					<code> <span class="comment">* las cargas y el progressBar.</span></code>
@@ -150,25 +150,80 @@
 					<code><span class="cyan">const</span> _MAXFILESTOUPLOAD <span class="pink">=</span> <span class="purple">5</span>; <span class="comment">// Número de archivos permitidos por carga.</span></code>
 					<code><span class="cyan">const</span> _DAYSOFTHEWEEK <span class="pink">=</span> [<span class="yellow">'Domingo'</span>, <span class="yellow">'Lunes'</span>, <span class="yellow">'Martes'</span>, <span class="yellow">'Miércoles'</span>, <span class="yellow">'Jueves'</span>, <span class="yellow">'Viernes'</span>, <span class="yellow">'Sábado'</span>];</code>
 					<code><span class="cyan">const</span> _MONTHS <span class="pink">=</span> [<span class="yellow">'Enero'</span>, <span class="yellow">'Febrero'</span>, <span class="yellow">'Marzo'</span>, <span class="yellow">'Abril'</span>, <span class="yellow">'Mayo'</span>, <span class="yellow">'Junio'</span>, <span class="yellow">'Julio'</span>, <span class="yellow">'Agosto'</span>, <span class="yellow">'Septiembre'</span>, <span class="yellow">'Octubre'</span>, <span class="yellow">'Noviembre'</span>, <span class="yellow">'Diciembre'</span>];</code><br />
-					<code><span class="comment">// Para más información consulte la <a href="https://www.lpology.com/code/ajaxuploader/docs.php" target="_blank">documentación de Simple Ajax Uploader</a>.</code>
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Paso 2: crear una instancia de SimpleAjaxUploader.</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Para más información consulte la <a href="https://www.lpology.com/code/ajaxuploader/docs.php" target="_blank">documentación de Simple Ajax Uploader</a>.</span></code>
+					<code> <span class="comment">*/</span></code>
 					<code><span class="cyan">var</span> _simpleAjaxUploader <span class="pink">= new</span> ss.<span class="cyan">SimpleUpload</span>({</code>
-					<code>    button: <span class="pink">$</span>(<span class="yellow">'#buttonSelectFiles'</span>),</code>
-					<code>    url: <span class="yellow">'uploadFiles'</span>,</code>
-					<code>    name: <span class="yellow">'inputUpload'</span>,</code>
-					<code>    multiple: <span class="purple">true</span>,</code>
-					<code>    multipleSelect: <span class="purple">true</span>,</code>
-					<code>    maxUploads: _MAXFILESTOUPLOAD,</code>
-					<code>    maxSize: _MAXSIZE,</code>
-					<code>    autoSubmit: <span class="purple">false</span>,</code>
-					<code>    responseType: <span class="yellow">'json'</span>,</code>
-					<code>    <span class="green">onChange</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>, <span class="orange">file</span>) {},</code>
-					<code>    <span class="green">onSubmit</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
-					<code>    <span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {},</code>
-					<code>    <span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
-					<code>    <span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
-					<code>    <span class="green">onAllDone</span>: <span class="cyan">function</span> () {},</code>
-					<code>    <span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
-					<code>    <span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {}</code>
+					<code>	button: <span class="pink">$</span>(<span class="yellow">'#buttonSelectFiles'</span>),</code>
+					<code>	url: <span class="yellow">'uploadFiles.php'</span>,</code>
+					<code>	name: <span class="yellow">'inputUpload'</span>,</code>
+					<code>	multiple: <span class="purple">true</span>,</code>
+					<code>	multipleSelect: <span class="purple">true</span>,</code>
+					<code>	maxUploads: _MAXFILESTOUPLOAD,</code>
+					<code>	maxSize: _MAXSIZE,</code>
+					<code>	autoSubmit: <span class="purple">false</span>,</code>
+					<code>	responseType: <span class="yellow">'json'</span>,</code>
+					<code>	<span class="green">onChange</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>, <span class="orange">file</span>) {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Esta variable servirá para validar si</span></code>
+					<code>		 <span class="comment">* el archivo estrará al arreglo interno de</span></code>
+					<code>		 <span class="comment">* archivos por cargar de a propia libreía.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="cyan">let</span> _isValidToUpload <span class="pink">=</span> <span class="purple">true</span>;</code><br />
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Resetear la barra de progreso de carga.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
+					<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code><br />
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Para este ejemplo valido 2 puntos</span></code>
+					<code>		 <span class="comment">* escenciales para la carga de archivos</span></code>
+					<code>		 <span class="comment">* y poder controlarlas.</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 1.- Validar si la propiedad Queue</span></code>
+					<code>		 <span class="comment">* es menor o igual al límite establecido</span></code>
+					<code>		 <span class="comment">* por la constante "_MAXFILESTOUPLOAD".</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">if</span> (_arrayInfoFiles.length <span class="pink">==</span> _MAXFILESTOUPLOAD) _isValidToUpload <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 2.- Validar si cumple con el tamaño</span></code>
+					<code>		 <span class="comment">* permitido sobre la constante de</span></code>
+					<code>		 <span class="comment">* "_MAXSIZE".</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">else if</span> (fileSize <span class="pink">&gt;</span> _MAXSIZE) _isValidToUpload <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+					<code>		<span class="pink">if</span> (_isValidToUpload) {</code>
+					<code>			_arrayInfoFiles.<span class="cyan">push</span>({</code>
+					<code>				name: file.name,</code>
+					<code>				type: file.type,</code>
+					<code>				size: file.size,</code>
+					<code>				lastModified: file.lastModified</code>
+					<code>			});</code><br />
+					<code>			<span class="cyan">fillTable</span>(_arrayInfoFiles);</code><br />
+					<code>			<span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles, #buttonResetFiles'</span>)</code>
+					<code>				.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">false</span>);</code>
+					<code>		}</code><br />
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Al terminar esta instrucción,</span></code>
+					<code>		 <span class="comment">* el valor de "Queue" se auto</span></code>
+					<code>		 <span class="comment">* incrementa si retorna true.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">return</span> _isValidToUpload;</code>
+					<code>	},</code>
+					<code>	<span class="green">onSubmit</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>	<span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {},</code>
+					<code>	<span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>	<span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>	<span class="green">onAllDone</span>: <span class="cyan">function</span> () {},</code>
+					<code>	<span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>	<span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {}</code>
 					<code>});</code>
 				</pre>
 				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
@@ -1254,6 +1309,13 @@
 
 			/**
 			 *
+			 * Resetear la barra de progreso de carga.
+			 */
+			$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
+			$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
+
+			/**
+			 *
 			 * Para este ejemplo valido 2 puntos
 			 * escenciales para la carga de archivos
 			 * y poder controlarlas.
@@ -1299,7 +1361,7 @@
 			 *
 			 * Al terminar esta instrucción,
 			 * el valor de "Queue" se auto
-			 * incrementa si se retorna true.
+			 * incrementa si retorna true.
 			 */
 			return _isValidToUpload;
 		},
@@ -1319,7 +1381,7 @@
 
 					$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', _generalPct);
 
-					$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', `${_generalPct}%`).text(`${_generalPct}%`)
+					$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', `${_generalPct}%`).text(`${_generalPct}%`);
 				}
 			}
 		},
@@ -1587,7 +1649,7 @@
 
 		$.each(_arrayInfoFiles, function (index, value) {
 			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - ${value.name} - <span class="purple pre-status">CARGANDO</span> [<span class="pre-result"></span>]<span class="yellow pre-message"></span></code>`);
+				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - <span class="yellow">"${value.name}"</span> <span class="pink">|</span> <span class="purple pre-status">CARGANDO</span> [<span class="pre-result"></span>]<span class="yellow pre-message"></span></code>`);
 		});
 
 		for (let i = 0; i < _arrayInfoFiles.length; i++) _simpleAjaxUploader.submit();
@@ -1606,6 +1668,9 @@
 
 		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
 			.attr('disabled', true);
+
+		$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
+		$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
 	});
 
 	$('#buttonReloadTableCollection').click(function () {
