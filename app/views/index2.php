@@ -164,7 +164,7 @@
 					<code>	multipleSelect: <span class="purple">true</span>,</code>
 					<code>	maxUploads: _MAXFILESTOUPLOAD,</code>
 					<code>	maxSize: _MAXSIZE,</code>
-					<code>	autoSubmit: <span class="purple">false</span>,</code>
+					<code>	autoSubmit: <span class="purple">false</span>, <span class="comment">// Previene que se carguen al momento de que el evento "onChange" del input generado por la librería se active.</span></code>
 					<code>	responseType: <span class="yellow">'json'</span>,</code>
 					<code>	<span class="green">onChange</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>, <span class="orange">file</span>) {</code>
 					<code>		<span class="comment">/**</span></code>
@@ -176,17 +176,11 @@
 					<code>		<span class="cyan">let</span> _isValidToUpload <span class="pink">=</span> <span class="purple">true</span>;</code><br />
 					<code>		<span class="comment">/**</span></code>
 					<code>		 <span class="comment">*</span></code>
-					<code>		 <span class="comment">* Resetear la barra de progreso de carga.</span></code>
-					<code>		 <span class="comment">*/</span></code>
-					<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
-					<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code><br />
-					<code>		<span class="comment">/**</span></code>
-					<code>		 <span class="comment">*</span></code>
 					<code>		 <span class="comment">* Para este ejemplo valido 2 puntos</span></code>
 					<code>		 <span class="comment">* escenciales para la carga de archivos</span></code>
 					<code>		 <span class="comment">* y poder controlarlas.</span></code>
 					<code>		 <span class="comment">*</span></code>
-					<code>		 <span class="comment">* 1.- Validar si la propiedad Queue</span></code>
+					<code>		 <span class="comment">* 1.- Validar si "_arrayInfoFiles.length"</span></code>
 					<code>		 <span class="comment">* es menor o igual al límite establecido</span></code>
 					<code>		 <span class="comment">* por la constante "_MAXFILESTOUPLOAD".</span></code>
 					<code>		 <span class="comment">*/</span></code>
@@ -221,9 +215,87 @@
 					<code>	<span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {},</code>
 					<code>	<span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
 					<code>	<span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
-					<code>	<span class="green">onAllDone</span>: <span class="cyan">function</span> () {},</code>
+					<code>	<span class="green">onAllDone</span>: <span class="cyan">function</span> () {</code>
+					<code>		_arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>();</code>
+					<code>	},</code>
 					<code>	<span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
 					<code>	<span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {}</code>
+					<code>});</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Paso 2.1: crear la función que llenará</span></code>
+					<code> <span class="comment">* la tabla de archivos por cargar.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="cyan">function</span> <span class="green">fillTable</span> (<span class="orange">files</span> <span class="pink">=</span> []) {</code>
+					<code>	<span class="cyan">let</span> $tbody <span class="pink">= $</span>(<span class="yellow">'#tableFiles &gt; tbody'</span>);</code><br />
+					<code>	$tbody.<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
+					<code>	<span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
+					<code>		<span class="pink">$</span>.<span class="cyan">each</span>(files, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>			<span class="cyan">let</span> date <span class="pink">= new</span> <span class="cyan">Date</span>(value.lastModified);</code>
+					<code>			<span class="cyan">let</span> fileName <span class="pink">=</span> value.name;</code>
+					<code>			<span class="cyan">let</span> fileType <span class="pink">=</span> value.type;</code>
+					<code>			<span class="cyan">let</span> fileSize <span class="pink">=</span> <span class="cyan">Math</span>.<span class="cyan">round</span>(value.size <span class="pink">/</span> _MAXSIZE) <span class="pink">/</span> <span class="purple">100</span>;</code>
+					<code>			<span class="cyan">let</span> fileLastModified <span class="pink">=</span> <span class="yellow">`</span>${_DAYSOFTHEWEEK[date.<span class="cyan">getDay</span>()]}<span class="yellow">, </span>${date.<span class="cyan">getDate</span>()}<span class="yellow"> de </span>${_MONTHS[date.<span class="cyan">getMonth</span>()]}<span class="yellow"> de </span>${date.<span class="cyan">getFullYear</span>()}<span class="yellow"> a las </span>${date.<span class="cyan">getHours</span>()}<span class="yellow">:</span>${date.<span class="cyan">getMinutes</span>()}<span class="yellow">:</span>${date.<span class="cyan">getSeconds</span>()}<span class="yellow">`</span>;</code><br />
+					<code>			$tbody.append(<span class="yellow">`&lt;tr id="tr_</span>${<span class="cyan">sanitizeString</span>(fileName)}<span class="yellow">"&gt;</span></code>
+					<code>				<span class="yellow">&lt;td&gt;</span>${fileName}<span class="yellow">&lt;/td&gt;</span></code>
+					<code>				<span class="yellow">&lt;td&gt;</span>${fileType}<span class="yellow">&lt;/td&gt;</span></code>
+					<code>				<span class="yellow">&lt;td&gt;</span>${fileSize}<span class="yellow">MB&lt;/td&gt;</span></code>
+					<code>				<span class="yellow">&lt;td&gt;</span>${fileLastModified}&lt;/td&gt;</span></code>
+					<code>				<span class="yellow">&lt;td class="text-center td-pct"&gt;0%&lt;/td&gt;</span></code>
+					<code>				<span class="yellow">&lt;td class="td-status"&gt;&lt;span class="badge text-bg-dark"&gt;Por Cargar&lt;/span&gt;&lt;/td&gt;</span></code>
+					<code>			<span class="yellow">&lt;/tr&gt;`</span>);</code>
+					<code>		});</code>
+					<code>	} <span class="pink">else</span> $tbody</code>
+					<code>		.<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td colspan="6" class="text-center"&gt;No hay archivos por cargar.&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>}</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Paso 2.2: crear la función para limpiar</span></code>
+					<code> <span class="comment">* el nombre de cada archivo que será asignado</span></code>
+					<code> <span class="comment">* como identificador de cada renglón de la tabla.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="cyan">function</span> <span class="green">sanitizeString</span> (<span class="orange">stringToSanitize</span>) {</code>
+					<code>	<span class="cyan">let</span> newString <span class="pink">=</span> stringToSanitize.<span class="cyan">replace</span>(<span class="yellow">/</span><span class="purple">[\x20-\x2f\x3a-\x40\x5b-\x60\x7b-\xff]</span><span class="yellow">/</span><span class="pink">g</span>, <span class="yellow">''</span>);</code><br />
+					<code>	<span class="pink">return</span> newString;</code>
+					<code>}</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Paso 3: crear el evento del botón que</span></code>
+					<code> <span class="comment">* accionará el evento submit del objeto</span></code>
+					<code> <span class="comment">* de SimpleAjaxUploader.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Por cada elemento en el arreglo</span></code>
+					<code>	 <span class="comment">* de archivos por cargar, se lanzará</span></code>
+					<code>	 <span class="comment">* el evento de "submit".</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* También desactivar los botones de</span></code>
+					<code>	 <span class="comment">* iniciar carga y limpiar carga.</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Y resetear la barra de progreso de</span></code>
+					<code>	 <span class="comment">* de carga general.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	<span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles, #buttonResetFiles'</span>)</code>
+					<code>		.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code><br>
+					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
+					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code><br />
+					<code>	<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> _arrayInfoFiles.length; i<span class="pink">++</span>) _simpleAjaxUploader.<span class="cyan">submit</span>();</code>
+					<code>});</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Paso 4: crear el evento del botón que</span></code>
+					<code> <span class="comment">* reseteará la carga.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="pink">$</span>(<span class="yellow">'#buttonResetFiles'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+					<code>	_simpleAjaxUploader.<span class="cyan">clearQueue</span>();</code><br />
+					<code>	_arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>();</code><br />
+					<code>	<span class="cyan">fillTable</span>();</code><br />
+					<code>	<span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles, #buttonResetFiles'</span>)</code>
+					<code>		.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code><br />
+					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
+					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code>
 					<code>});</code>
 				</pre>
 				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
@@ -857,64 +929,66 @@
 					<code> <span class="comment">*/</span></code>
 					<code>$jsonDataHTML <span class="pink">=</span> <span class="cyan">initCollectionRawHTML</span>(<span class="cyan">initCollection</span>(<span class="purple">10</span>));</code>
 					<code>?&gt;</code>
-					<code>&lt;<span class="pink">table</span> <span class="green">id</span>=<span class="yellow">"tableCollection"</span>&gt;</code>
-					<code>	&lt;?php $description <span class="pink">=</span> $jsonDataHTML-&gt;description <span class="comment">// Descripción de la colección que se mostrará en el &lt;caption /&gt;</span> ?&gt;</code>
-					<code>	&lt;?php $dataHeaders <span class="pink">=</span> $jsonDataHTML-&gt;dataHeaders <span class="comment">// Descripción de las columnas.</span> ?&gt;</code>
-					<code>	&lt;?php $dataRows <span class="pink">=</span> $jsonDataHTML-&gt;dataRows <span class="comment">// Estos serán los renglones de la tabla.</span> ?&gt;</code>
-					<code>	&lt;<span class="pink">caption</span>&gt;&lt;?php <span class="cyan">echo</span> $description ?&gt;&lt;/<span class="pink">caption</span>&gt;</code>
-					<code>	&lt;<span class="pink">thead</span>&gt;</code>
-					<code>		&lt;<span class="pink">tr</span>&gt;</code>
-					<code>			&lt;?php <span class="pink">foreach</span> ($dataHeaders <span class="pink">as</span> $dataHeadersKey =&gt; $dataHeadersValue) : ?&gt;</code>
-					<code>			&lt;?php</code>
-					<code>			<span class="comment">/**</span></code>
-					<code>			 <span class="comment">*</code>
-					<code>			 <span class="comment">* Solo se mostrarán si está configurado para ser visible.</span></code>
-					<code>			 <span class="comment">*/</span></code>
-					<code>			?&gt;</code>
-					<code>			&lt;?php <span class="pink">if</span> ($dataHeadersValue-&gt;is_visible) : ?&gt;</code>
-					<code>			&lt;th&gt;&lt;?php <span class="cyan">echo</span> $dataHeadersValue-&gt;column_description ?&gt;&lt;/<span class="pink">th</span>&gt;</code>
-					<code>			&lt;?php <span class="pink">endif</span> ?&gt;</code>
-					<code>			&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
-					<code>		&lt;/<span class="pink">tr</span>&gt;</code>
-					<code>	&lt;/<span class="pink">thead</span>&gt;</code>
-					<code>	&lt;<span class="pink">tbody</span>&gt;</code>
-					<code>		&lt;?php</code>
-					<code>		<span class="comment">/**</span></code>
-					<code>		 <span class="comment">*</span></code>
-					<code>		 <span class="comment">* Este foreach recorrerá la colección como si fueran renglones.</span></code>
-					<code>		 <span class="comment">*/</span></code>
-					<code>		?&gt;</code>
-					<code>		&lt;?php <span class="pink">foreach</span> ($dataRows <span class="pink">as</span> $dataRowsKey =&gt; $dataRowsValue) : ?&gt;</code>
-					<code>		&lt;<span class="pink">tr</span>&gt;</code>
-					<code>			<span class="comment">/**</span></code>
-					<code>			 <span class="comment">*</span></code>
-					<code>			 <span class="comment">* Y este foreach recorrerá cada renglón como si fueran columnas.</span></code>
-					<code>			 <span class="comment">*/</span></code>
-					<code>			&lt;?php <span class="pink">foreach</span> ($dataRowsValue <span class="pink">as</span> $dataCellKey =&gt; $dataCellValue) : ?&gt;</code>
+					<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"table-responsive"</span>&gt;</code>
+					<code>	&lt;<span class="pink">table</span> <span class="green">class</span>=<span class="yellow">"table table-borderless table-hover caption-top"</span> <span class="green">id</span>=<span class="yellow">"tableCollection"</span>&gt;</code>
+					<code>		&lt;?php $description <span class="pink">=</span> $jsonDataHTML-&gt;description <span class="comment">// Descripción de la colección que se mostrará en el &lt;caption /&gt;</span> ?&gt;</code>
+					<code>		&lt;?php $dataHeaders <span class="pink">=</span> $jsonDataHTML-&gt;dataHeaders <span class="comment">// Descripción de las columnas.</span> ?&gt;</code>
+					<code>		&lt;?php $dataRows <span class="pink">=</span> $jsonDataHTML-&gt;dataRows <span class="comment">// Estos serán los renglones de la tabla.</span> ?&gt;</code>
+					<code>		&lt;<span class="pink">caption</span>&gt;&lt;?php <span class="cyan">echo</span> $description ?&gt;&lt;/<span class="pink">caption</span>&gt;</code>
+					<code>		&lt;<span class="pink">thead</span>&gt;</code>
+					<code>			&lt;<span class="pink">tr</span>&gt;</code>
+					<code>				&lt;?php <span class="pink">foreach</span> ($dataHeaders <span class="pink">as</span> $dataHeadersKey =&gt; $dataHeadersValue) : ?&gt;</code>
+					<code>				&lt;?php</code>
+					<code>				<span class="comment">/**</span></code>
+					<code>				 <span class="comment">*</code>
+					<code>				 <span class="comment">* Solo se mostrarán si está configurado para ser visible.</span></code>
+					<code>				 <span class="comment">*/</span></code>
+					<code>				?&gt;</code>
+					<code>				&lt;?php <span class="pink">if</span> ($dataHeadersValue-&gt;is_visible) : ?&gt;</code>
+					<code>				&lt;th&gt;&lt;?php <span class="cyan">echo</span> $dataHeadersValue-&gt;column_description ?&gt;&lt;/<span class="pink">th</span>&gt;</code>
+					<code>				&lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>				&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>			&lt;/<span class="pink">tr</span>&gt;</code>
+					<code>		&lt;/<span class="pink">thead</span>&gt;</code>
+					<code>		&lt;<span class="pink">tbody</span>&gt;</code>
 					<code>			&lt;?php</code>
 					<code>			<span class="comment">/**</span></code>
 					<code>			 <span class="comment">*</span></code>
-					<code>			 <span class="comment">* Para esta condición fue complicado allar la lógica adecuada</span></code>
-					<code>			 <span class="comment">* para que solo se muestren las columnas con la condición de visible</span></code>
-					<code>			 <span class="comment">* en true.</span></code>
-					<code>			 <span class="comment">*</span></code>
-					<code>			 <span class="comment">* Como se puede apreciar en la condición, estoy usando la función de</span></code>
-					<code>			 <span class="comment">* "array_column" el cual se encarga de devolver un arreglo asociativo</span></code>
-					<code>			 <span class="comment">* de la llave indicada (2do parámetro), en este caso "is_visible", despues</span></code>
-					<code>			 <span class="comment">* se indexa con un valor que nosotros elijamos (3er parámetro), en mi caso</span></code>
-					<code>			 <span class="comment">* indexé el arreglo con "column_name". Esto con la finalidad de que cuando la</span></code>
-					<code>			 <span class="comment">* variable del foreach: $dataCellKey (columna) sea igual a la llave con la propiedad</span></code>
-					<code>			 <span class="comment">* de "is_visible" = false, esta columna sea omitida.</span></code>
+					<code>			 <span class="comment">* Este foreach recorrerá la colección como si fueran renglones.</span></code>
 					<code>			 <span class="comment">*/</span></code>
 					<code>			?&gt;</code>
-					<code>			&lt;?php <span class="pink">if</span> (<span class="cyan">array_column</span>($dataHeaders, <span class="yellow">"is_visible"</span>, <span class="yellow">"column_name"</span>)[$dataCellKey]) : ?&gt;</code>
-					<code>			&lt;<span class="pink">td</span>&gt;&lt;?php <span class="cyan">echo</span> $dataCellValue ?&gt;&lt;/<span class="pink">td</span>&gt;</code>
-					<code>			&lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>			&lt;?php <span class="pink">foreach</span> ($dataRows <span class="pink">as</span> $dataRowsKey =&gt; $dataRowsValue) : ?&gt;</code>
+					<code>			&lt;<span class="pink">tr</span>&gt;</code>
+					<code>				<span class="comment">/**</span></code>
+					<code>				 <span class="comment">*</span></code>
+					<code>				 <span class="comment">* Y este foreach recorrerá cada renglón como si fueran columnas.</span></code>
+					<code>				 <span class="comment">*/</span></code>
+					<code>				&lt;?php <span class="pink">foreach</span> ($dataRowsValue <span class="pink">as</span> $dataCellKey =&gt; $dataCellValue) : ?&gt;</code>
+					<code>				&lt;?php</code>
+					<code>				<span class="comment">/**</span></code>
+					<code>				 <span class="comment">*</span></code>
+					<code>				 <span class="comment">* Para esta condición fue complicado allar la lógica adecuada</span></code>
+					<code>				 <span class="comment">* para que solo se muestren las columnas con la condición de visible</span></code>
+					<code>				 <span class="comment">* en true.</span></code>
+					<code>				 <span class="comment">*</span></code>
+					<code>				 <span class="comment">* Como se puede apreciar en la condición, estoy usando la función de</span></code>
+					<code>				 <span class="comment">* "array_column" el cual se encarga de devolver un arreglo asociativo</span></code>
+					<code>				 <span class="comment">* de la llave indicada (2do parámetro), en este caso "is_visible", despues</span></code>
+					<code>				 <span class="comment">* se indexa con un valor que nosotros elijamos (3er parámetro), en mi caso</span></code>
+					<code>				 <span class="comment">* indexé el arreglo con "column_name". Esto con la finalidad de que cuando la</span></code>
+					<code>				 <span class="comment">* variable del foreach: $dataCellKey (columna) sea igual a la llave con la propiedad</span></code>
+					<code>				 <span class="comment">* de "is_visible" = false, esta columna sea omitida.</span></code>
+					<code>				 <span class="comment">*/</span></code>
+					<code>				?&gt;</code>
+					<code>				&lt;?php <span class="pink">if</span> (<span class="cyan">array_column</span>($dataHeaders, <span class="yellow">"is_visible"</span>, <span class="yellow">"column_name"</span>)[$dataCellKey]) : ?&gt;</code>
+					<code>				&lt;<span class="pink">td</span>&gt;&lt;?php <span class="cyan">echo</span> $dataCellValue ?&gt;&lt;/<span class="pink">td</span>&gt;</code>
+					<code>				&lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>				&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>			&lt;/<span class="pink">tr</span>&gt;</code>
 					<code>			&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
-					<code>		&lt;/<span class="pink">tr</span>&gt;</code>
-					<code>		&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
-					<code>	&lt;/<span class="pink">tbody</span>&gt;</code>
-					<code>&lt;/<span class="pink">table</span>&gt;</code>
+					<code>		&lt;/<span class="pink">tbody</span>&gt;</code>
+					<code>	&lt;/<span class="pink">table</span>&gt;</code>
+					<code>&lt;/<span class="pink">div</span>&gt;</code>
 				</pre>
 				<p class="my-text"><b>Forma 2 - Creando un web service:</b> esto lo que hará es que el usuario tendrá la comodidad de recargar la tabla en todo momento sin tener que refrescar la página.</p>
 				<samp>PHP</samp>
@@ -948,6 +1022,10 @@
 					<code>		type: <span class="yellow">'POST'</span>,</code>
 					<code>		dataType: <span class="yellow">'json'</span>,</code>
 					<code>		data: { length: <span class="purple">10</span> },</code>
+					<code>		<span class="green">beforeSend</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">settings</span>) {</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'table-dark'</span>);</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#buttonReloadTableCollection'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-rotate-right fa-spin"&gt;&lt;/i&gt; Cargando...`</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code>
+					<code>		},</code>
 					<code>		<span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
 					<code>			<span class="comment">// Si la petición fue exitosa llenará la tabla de la misma manera de la forma estática.</span></code>
 					<code>			<span class="pink">if</span> (response.isOk) {</code>
@@ -969,14 +1047,17 @@
 					<code>				<span class="comment">// Caso contrario mostrará un renglón con el posible error por parte del web service.</span></code>
 					<code>			} <span class="pink">else</span> {</code>
 					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Error`</span>);</code>
-					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>);</code>
-					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td&gt;</span>${response.data.message}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>).<span class="cyan">addClass</span>(<span class="yellow">'table-dark'</span>);</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr class="table-danger"&gt;&lt;td&gt;</span>${response.data.message}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
 					<code>			}</code>
 					<code>		},</code>
 					<code>		<span class="green">error</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>, <span class="orange">errorThrown</span>) {</code>
 					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Error`</span>);</code>
-					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>);</code>
-					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td&gt;</span>${jqXHR.status}<span class="yellow"> - </span>${jqXHR.statusText}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>).<span class="cyan">addClass</span>(<span class="yellow">'table-dark'</span>);</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr class="table-danger"&gt;&lt;td&gt;</span>${jqXHR.status}<span class="yellow"> - </span>${jqXHR.statusText}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>		},</code>
+					<code>		<span class="green">complete</span>: <span class="cyan">function<7span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>) {</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#buttonReloadTableCollection'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-rotate-right"&gt;&lt;/i&gt; Recargar Tabla`</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">false</span>);</code>
 					<code>		}</code>
 					<code>	});</code>
 					<code>});</code>
@@ -1313,18 +1394,11 @@
 
 			/**
 			 *
-			 * Resetear la barra de progreso de carga.
-			 */
-			$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
-			$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
-
-			/**
-			 *
 			 * Para este ejemplo valido 2 puntos
 			 * escenciales para la carga de archivos
 			 * y poder controlarlas.
 			 *
-			 * 1.- Validar si la propiedad Queue
+			 * 1.- Validar si "_arrayInfoFiles.length"
 			 * es menor o igual al límite establecido
 			 * por la constante "_MAXFILESTOUPLOAD".
 			 */
@@ -1413,9 +1487,6 @@
 		},
 		onAllDone: function () {
 			_arrayInfoFiles = new Array();
-
-			$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
-				.attr('disabled', true);
 		},
 		onError: function (filename, errorType, status, statusText, response, uploadBtn, fileSize) {
 			console.log(`onError: ${filename}; ErrorType: ${errorType}; Status: ${status}; StatusText: ${statusText}: Response: ${response}`);
@@ -1656,11 +1727,13 @@
 				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - <span class="yellow">"${value.name}"</span> <span class="pink">|</span> <span class="purple pre-status">CARGANDO</span> [<span class="pre-result"></span>]<span class="yellow pre-message"></span></code>`);
 		});
 
+		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
+			.attr('disabled', true);
+
 		for (let i = 0; i < _arrayInfoFiles.length; i++) _simpleAjaxUploader.submit();
 	});
 
 	$('#buttonResetFilesSimpleAjaxUploader').click(function () {
-
 		$('#preOutputStatusSimpleAjaxUploader')
 			.html(`<code>Selecciones archivos para cargar...</code>`);
 
