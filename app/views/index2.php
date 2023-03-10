@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="Prácticas de web simples con HTML, CSS &amp; Javascript">
-	<meta name="keywords" content="HTML, CSS, JavaScript, Scrolls functions, Funciones con scroll, CSS3 fade style, Estilos de desvanecimiento con CSS3, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Strings aleatorios en php" />
+	<meta name="keywords" content="HTML, CSS, JavaScript, Scrolling functions, Funciones con scroll, CSS3 fade style, Estilos de desvanecimiento con CSS3, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Strings aleatorios en php" />
 	<meta name="author" content="Paco Alex Martell" />
 	<meta name="theme-color" content="#000000" />
 	<title>Paco Alex M | HTML &amp; CSS &amp; JS</title>
@@ -599,92 +599,92 @@
 					<code> <span class="comment">* NOTA: La colección mostrada aquí no se actualiza dinámicamente al refrescar la tabla.</span></code>
 					<code><span class="comment"> */</span></code>
 					<code>{</code>
-					<code>    <span class="yellow">"collection_configuration"</span>: {</code>
-					<code>        <span class="yellow">"columns"</span>: [</code>
-					<code>            <span class="comment">/**</span></code>
-					<code>             <span class="comment">*</span></code>
-					<code>             <span class="comment">* Aquí se obtienen las configuraciones de las columnas a mostrar en la interfaz.</span></code>
-					<code>             <span class="comment">* Estas mismas se pueden adaptar a la modalidad de cada usuario o desarrollador.</span></code>
-					<code>             <span class="comment">* En este ejemplo se tiene la clave de y el nombre de la columna, si se muestra o no y su tipo de dato.</span></code>
-					<code>             <span class="comment">*/</span></code>
+					<code>	<span class="yellow">"collection_configuration"</span>: {</code>
+					<code>		<span class="yellow">"columns"</span>: [</code>
+					<code>			<span class="comment">/**</span></code>
+					<code>			 <span class="comment">*</span></code>
+					<code>			 <span class="comment">* Aquí se obtienen las configuraciones de las columnas a mostrar en la interfaz.</span></code>
+					<code>			 <span class="comment">* Estas mismas se pueden adaptar a la modalidad de cada usuario o desarrollador.</span></code>
+					<code>			 <span class="comment">* En este ejemplo se tiene la clave de y el nombre de la columna, si se muestra o no y su tipo de dato.</span></code>
+					<code>			 <span class="comment">*/</span></code>
 					<?php foreach ($columns as $columnKey => $columnValue) : ?>
-					<code>            {</code>
+					<code>			{</code>
 					<?php foreach ($columnValue as $columAttrKey => $columAttrValue) : ?>
-					<code>                <span class="yellow">"<?php echo $columAttrKey ?>"</span>: <?php echo is_bool($columAttrValue) ? "<span class='purple'>" . var_export($columAttrValue, true) . "</span>" : (is_int($columAttrValue) ? "<span class='purple'>$columAttrValue</span>" : "<span class='yellow'>\"$columAttrValue\"</span>") ?><?php echo array_key_last((array)$columnValue) != $columAttrKey ? "," : "" ?></code>
+					<code>				<span class="yellow">"<?php echo $columAttrKey ?>"</span>: <?php echo is_bool($columAttrValue) ? "<span class='purple'>" . var_export($columAttrValue, true) . "</span>" : (is_int($columAttrValue) ? "<span class='purple'>$columAttrValue</span>" : "<span class='yellow'>\"$columAttrValue\"</span>") ?><?php echo array_key_last((array)$columnValue) != $columAttrKey ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>            }<?php echo $columnKey < (count($columns) - 1) ? ",": "" ?></code>
+					<code>			}<?php echo $columnKey < (count($columns) - 1) ? ",": "" ?></code>
 					<?php endforeach ?>
-					<code>        ],</code>
-					<code>        <span class="yellow">"data"</span>: {</code>
+					<code>		],</code>
+					<code>		<span class="yellow">"data"</span>: {</code>
 					<?php if (count($snippets) > 0) : ?>
-					<code>            <span class="yellow">"snippets"</span>: [</code>
-					<code>                <span class="comment">/**</span></code>
-					<code>                 <span class="comment">*</span></code>
-					<code>                 <span class="comment">* Los snippets son configuraciones para formatear los datos de modo que estos se muestren con un mejor formato y atractivo para el usuario.</span></code>
-					<code>                 <span class="comment">* En mi caso desarrollé 4 tipos de snippets los cuales se representan con la clave "method", de los cuales son:</span></code>
-					<code>                 <span class="comment">* - "replace": En el caso de "replace" agrega contenido al dato donde el dato estará siempre representado por "{value}".</span></code>
-					<code>                 <span class="comment">* - "for": En el caso de "for" este solo funcionará con valores numéricos, este reemplaza por completo el dato y agrega n (según sea el dato) catidad de veces el elemento.</span></code>
-					<code>                 <span class="comment">* - "case": En el caso de "case" agrega contenido dependiendo del dato, vease como si este dato fuese una constante.</span></code>
-					<code>                 <span class="comment">* - "when": En el caso de "when" el funcionamiento es identico al de "case", solo que este reemplaza en función del dato de la columna relacionada ("column_related")</span></code>
-					<code>                 <span class="comment">*/</span></code>
+					<code>			<span class="yellow">"snippets"</span>: [</code>
+					<code>				<span class="comment">/**</span></code>
+					<code>				 <span class="comment">*</span></code>
+					<code>				 <span class="comment">* Los snippets son configuraciones para formatear los datos de modo que estos se muestren con un mejor formato y atractivo para el usuario.</span></code>
+					<code>				 <span class="comment">* En mi caso desarrollé 4 tipos de snippets los cuales se representan con la clave "method", de los cuales son:</span></code>
+					<code>				 <span class="comment">* - "replace": En el caso de "replace" agrega contenido al dato donde el dato estará siempre representado por "{value}".</span></code>
+					<code>				 <span class="comment">* - "for": En el caso de "for" este solo funcionará con valores numéricos, este reemplaza por completo el dato y agrega n (según sea el dato) catidad de veces el elemento.</span></code>
+					<code>				 <span class="comment">* - "case": En el caso de "case" agrega contenido dependiendo del dato, vease como si este dato fuese una constante.</span></code>
+					<code>				 <span class="comment">* - "when": En el caso de "when" el funcionamiento es identico al de "case", solo que este reemplaza en función del dato de la columna relacionada ("column_related")</span></code>
+					<code>				 <span class="comment">*/</span></code>
 					<?php foreach ($snippets as $snippetsKey => $snippetsValue) : ?>
-					<code>                {</code>
+					<code>				{</code>
 					<?php foreach ($snippetsValue as $snippetKey => $snippetValue) : ?>
 					<?php if (is_array($snippetValue)) : ?>
-					<code>                    <span class="yellow">"<?php echo $snippetKey ?>"</span>: [</code>
+					<code>					<span class="yellow">"<?php echo $snippetKey ?>"</span>: [</code>
 					<?php foreach ($snippetValue as $replacesKey => $replacesValue) : ?>
-					<code>                        {</code>
+					<code>						{</code>
 					<?php foreach ($replacesValue as $replaceKey => $replaceValue) : ?>
-					<code>                            <span class="yellow">"<?php echo $replaceKey ?>"</span>: <span class="yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $replaceValue) ?>"</span><?php echo array_key_last((array)$replacesValue) != $replaceKey ? "," : "" ?></code>
+					<code>							<span class="yellow">"<?php echo $replaceKey ?>"</span>: <span class="yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $replaceValue) ?>"</span><?php echo array_key_last((array)$replacesValue) != $replaceKey ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>                        }<?php echo $replacesKey < (count($snippetValue) - 1) ? "," : "" ?></code>
+					<code>						}<?php echo $replacesKey < (count($snippetValue) - 1) ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>                    ]<?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
+					<code>					]<?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
 					<?php else : ?>
-					<code>                    <span class="yellow">"<?php echo $snippetKey ?>"</span>: <span class="yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $snippetValue) ?>"</span><?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
+					<code>					<span class="yellow">"<?php echo $snippetKey ?>"</span>: <span class="yellow">"<?php echo str_replace(["<", ">"], ["&lt;", "&gt;"], $snippetValue) ?>"</span><?php echo array_key_last((array)$snippetsValue) != $snippetKey ? "," : "" ?></code>
 					<?php endif ?>
 					<?php endforeach ?>
-					<code>                }<?php echo $snippetsKey < (count($snippets) - 1) ? "," : "" ?></code>
+					<code>				}<?php echo $snippetsKey < (count($snippets) - 1) ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>            ],</code>
+					<code>			],</code>
 					<?php else : ?>
-					<code>            <span class="yellow">"snippets"</span>: [],</code>
+					<code>			<span class="yellow">"snippets"</span>: [],</code>
 					<?php endif ?>
 					<?php if (count($conditions) > 0) : ?>
-					<code>            <span class="yellow">"conditions"</span>: [</code>
-					<code>                <span class="comment">/**</span></code>
-					<code>                <span class="comment"> *</span></code>
-					<code>                <span class="comment"> * Las condiciones no tienen mucha ciencia, estos comparan el dato y reemplazan el mismo dato con un valor default.</span></code>
-					<code>                <span class="comment"> */</span></code>
+					<code>			<span class="yellow">"conditions"</span>: [</code>
+					<code>				<span class="comment">/**</span></code>
+					<code>				 <span class="comment">*</span></code>
+					<code>				 <span class="comment">* Las condiciones no tienen mucha ciencia, estos comparan el dato y reemplazan el mismo dato con un valor default.</span></code>
+					<code>				 <span class="comment">*/</span></code>
 					<?php foreach ($conditions as $conditionsKey => $conditionsValue) : ?>
-					<code>                {</code>
+					<code>				{</code>
 					<?php foreach ($conditionsValue as $conditionKey => $conditionValue) : ?>
-					<code>                    <span class="yellow">"<?php echo $conditionKey ?>"</span>: <span class="yellow">"<?php echo $conditionValue ?>"</span><?php echo array_key_last((array)$conditionsValue) != $conditionKey ? "," : "" ?></code>
+					<code>					<span class="yellow">"<?php echo $conditionKey ?>"</span>: <span class="yellow">"<?php echo $conditionValue ?>"</span><?php echo array_key_last((array)$conditionsValue) != $conditionKey ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>                }<?php echo $conditionsKey < (count($conditions) - 1) ? "," : "" ?></code>
+					<code>				}<?php echo $conditionsKey < (count($conditions) - 1) ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>            ]</code>
+					<code>			]</code>
 					<?php else : ?>
-					<code>            <span class="yellow">"conditions"</span>: []</code>
+					<code>			<span class="yellow">"conditions"</span>: []</code>
 					<?php endif ?>
-					<code>        }</code>
-					<code>    },</code>
-					<code>    <span class="yellow">"collection_name"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_name ?>"</span>, <span class="comment">// Nombre del archivo JSON.</span></code>
-					<code>    <span class="yellow">"collection_description"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_description ?>"</span>, <span class="comment">// Descripción GUI del archivo.</span></code>
-					<code>    <span class="yellow">"collection_items"</span>: [</code>
-					<code>        <span class="comment">/**</span></code>
-					<code>        <span class="comment"> *</span></code>
-					<code>        <span class="comment"> * Aquí se obtienen todos los datos principales del JSON sin formatear.</span></code>
-					<code>        <span class="comment"> * El formateo lo hará la lógica del lenguaje a usar, framework o api de acuerdo a las configuraciones de los snippets y conditions.</span></code>
-					<code>        <span class="comment"> */</span></code>
+					<code>		}</code>
+					<code>	},</code>
+					<code>	<span class="yellow">"collection_name"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_name ?>"</span>, <span class="comment">// Nombre del archivo JSON.</span></code>
+					<code>	<span class="yellow">"collection_description"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_description ?>"</span>, <span class="comment">// Descripción GUI del archivo.</span></code>
+					<code>	<span class="yellow">"collection_items"</span>: [</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Aquí se obtienen todos los datos principales del JSON sin formatear.</span></code>
+					<code>		 <span class="comment">* El formateo lo hará la lógica del lenguaje a usar, framework o api de acuerdo a las configuraciones de los snippets y conditions.</span></code>
+					<code>		 <span class="comment">*/</span></code>
 					<?php foreach ($collectionItems as $collectionKey => $collectionValue) : ?>
-					<code>        {</code>
+					<code>		{</code>
 					<?php foreach ($collectionValue as $columnKey => $columnValue) : ?>
-					<code>            <span class="yellow">"<?php echo $columnKey ?>"</span>: <?php echo is_int($columnValue) ? "<span class='purple'>$columnValue</span>" : "<span class='yellow'>\"$columnValue\"</span>" ?><?php echo array_key_last((array)$collectionValue) != $columnKey ? "," : "" ?></code>
+					<code>			<span class="yellow">"<?php echo $columnKey ?>"</span>: <?php echo is_int($columnValue) ? "<span class='purple'>$columnValue</span>" : "<span class='yellow'>\"$columnValue\"</span>" ?><?php echo array_key_last((array)$collectionValue) != $columnKey ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>        }<?php echo ($collectionKey < (count($collectionItems) - 1)) ? "," : "" ?></code>
+					<code>		}<?php echo ($collectionKey < (count($collectionItems) - 1)) ? "," : "" ?></code>
 					<?php endforeach ?>
-					<code>    ]</code>
+					<code>	]</code>
 					<code>}</code>
 				</pre>
 				<p class="my-text">Por supuesto que en este ejemplo solo se muestra un puñado de datos de las colecciones almacedanas en este sitio, pero de todas formas este ejemplo da incapie a desarrollar configuraciones usando json's. También debo mencionar que la estructura de "collection_configuration" del json es igual para todas las colecciones que pueda agregar en un futuro, solo variarían las columnas, los snippets y sus condiciones.</p>
@@ -700,34 +700,34 @@
 					<code> <span class="comment">* especificada por la variable $take.</span></code>
 					<code> <span class="comment">*/</code>
 					<code><span class="cyan">function</span> <span class="green">initCollection</span> (<span class="orange">$take</span> <span class="pink">=</span> <span class="purple">0</span>) {</code>
-					<code>    $jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/<?php echo $jsonCollection->collection_name ?>.json"</span>); <span class="comment">// NOTA: El nombre del archivo json no se actualiza dinámicamente al refrescar la tabla.</span></code>
-					<code>    $isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>; <span class="comment">// Esto indica que será un objeto en lugar de un arreglo asociativo</span></code>
-					<code>    $jsonData <span class="pink">=</span> <span class="cyan">json_decode</span>($jsonFile, $isArrayAssociative);</code><br />
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* En esta sección se seleccionarán</span></code>
-					<code>     <span class="comment">* los registros del json a mostrar</span></code>
-					<code>     <span class="comment">* aleatoriamente.</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>    $newCollection <span class="pink">=</span> [];</code>
-					<code>    $collectionItemsLength <span class="pink">=</span> <span class="cyan">count</span>($jsonData-&gt;collection_items);</code><br />
-					<code>    <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> ($take <span class="pink">&gt;</span> <span class="purple">0</span> <span class="pink">&&</span> $take <span class="pink">&lt;</span> $collectionItemsLength <span class="pink">?</span> $take <span class="pink">:</span> $collectionItemsLength); $i<span class="pink">++</span>) {</code>
-					<code>        $indexOfItem <span class="pink">=</span> <span class="cyan">rand</span>(<span class="purple">0</span>, (<span class="cyan">count</span>($jsonData-&gt;collection_items) <span class="pink">-</span> <span class="purple">1</span>));</code><br />
-					<code>        <span class="comment">/**</span></code>
-					<code>         <span class="comment">*</span></code>
-					<code>         <span class="comment">* Si en el $newCollection no se</span></code>
-					<code>         <span class="comment">* encuentra el objeto seleccionado</span></code>
-					<code>         <span class="comment">* por el $indexOfItem, se agrega a</span></code>
-					<code>         <span class="comment">* la colección. Caso contrario se</span></code>
-					<code>         <span class="comment">* se vuelve a seleccionar</span></code>
-					<code>         <span class="comment">* aleatoriamente otro objeto.</span></code>
-					<code>         <span class="comment">*/</span></code>
-					<code>        <span class="pink">if</span> (<span class="pink">!</span><span class="cyan">in_array</span>($jsonData-&gt;collection_items[$indexOfItem], $newCollection))</code>
-					<code>            $newCollection[] <span class="pink">=</span> $jsonData-&gt;collection_items[$indexOfItem];</code>
-					<code>        <span class="pink">else</span> $i<span class="pink">--</span>;</code>
-					<code>    }</code><br />
-					<code>    $jsonData-&gt;collection_items <span class="pink">=</span> $newCollection;</code><br />
-					<code>    <span class="pink">return</span> $jsonData;</code>
+					<code>	$jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/<?php echo $jsonCollection->collection_name ?>.json"</span>); <span class="comment">// NOTA: El nombre del archivo json no se actualiza dinámicamente al refrescar la tabla.</span></code>
+					<code>	$isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>; <span class="comment">// Esto indica que será un objeto en lugar de un arreglo asociativo</span></code>
+					<code>	$jsonData <span class="pink">=</span> <span class="cyan">json_decode</span>($jsonFile, $isArrayAssociative);</code><br />
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* En esta sección se seleccionarán</span></code>
+					<code>	 <span class="comment">* los registros del json a mostrar</span></code>
+					<code>	 <span class="comment">* aleatoriamente.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	$newCollection <span class="pink">=</span> [];</code>
+					<code>	$collectionItemsLength <span class="pink">=</span> <span class="cyan">count</span>($jsonData-&gt;collection_items);</code><br />
+					<code>	<span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> ($take <span class="pink">&gt;</span> <span class="purple">0</span> <span class="pink">&&</span> $take <span class="pink">&lt;</span> $collectionItemsLength <span class="pink">?</span> $take <span class="pink">:</span> $collectionItemsLength); $i<span class="pink">++</span>) {</code>
+					<code>		$indexOfItem <span class="pink">=</span> <span class="cyan">rand</span>(<span class="purple">0</span>, (<span class="cyan">count</span>($jsonData-&gt;collection_items) <span class="pink">-</span> <span class="purple">1</span>));</code><br />
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Si en el $newCollection no se</span></code>
+					<code>		 <span class="comment">* encuentra el objeto seleccionado</span></code>
+					<code>		 <span class="comment">* por el $indexOfItem, se agrega a</span></code>
+					<code>		 <span class="comment">* la colección. Caso contrario se</span></code>
+					<code>		 <span class="comment">* se vuelve a seleccionar</span></code>
+					<code>		 <span class="comment">* aleatoriamente otro objeto.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">in_array</span>($jsonData-&gt;collection_items[$indexOfItem], $newCollection))</code>
+					<code>			$newCollection[] <span class="pink">=</span> $jsonData-&gt;collection_items[$indexOfItem];</code>
+					<code>		<span class="pink">else</span> $i<span class="pink">--</span>;</code>
+					<code>	}</code><br />
+					<code>	$jsonData-&gt;collection_items <span class="pink">=</span> $newCollection;</code><br />
+					<code>	<span class="pink">return</span> $jsonData;</code>
 					<code>}</code><br />
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
@@ -736,113 +736,113 @@
 					<code> <span class="comment">* proporcionada.</span></code>
 					<code> <span class="comment">*/</span></code>
 					<code><span class="cyan">function</span> <span class="green">initCollectionRawHTML</span> (<span class="orange">$sourceCollection</span>) {</code>
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* Coleccion formateada para retornar.</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>     $newCollection <span class="pink">=</span> [</code>
-					<code>         <span class="yellow">"description"</span> =&gt; $sourceCollection-&gt;collection_description,</code>
-					<code>         <span class="yellow">"dataHeaders"</span> =&gt; [],</code>
-					<code>         <span class="yellow">"dataRows"</span> =&gt; []</code>
-					<code>     ];</code><br />
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* Cargar configuraciones de la coleccion.</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>    $columns <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;columns;</code>
-					<code>    $snippets <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;snippets;</code>
-					<code>    $conditions <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;conditions;</code>
-					<code>    $collectionItems <span class="pink">=</span> $sourceCollection-&gt;collection_items;</code><br />
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* Lista de operadores logicos.</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>    $operators <span class="pink">=</span> [</code>
-					<code>        <span class="yellow">"=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">==</span> $b; },</code>
-					<code>        <span class="yellow">"==="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">===</span> $b; },</code>
-					<code>        <span class="yellow">"!="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">!=</span> $b; },</code>
-					<code>        <span class="yellow">"!=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">!==</span> $b; },</code>
-					<code>        <span class="yellow">"&gt;"</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&gt;</span> $b; },</code>
-					<code>        <span class="yellow">"&gt;="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&gt;=</span> $b; },</code>
-					<code>        <span class="yellow">"&lt;"</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&lt;</span> $b; },</code>
-					<code>        <span class="yellow">"&lt;="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&lt;=</span> $b; }</code>
-					<code>    ];</code><br />
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* Inicia ciclo para cargar los nombres de las</span></code>
-					<code>     <span class="comment">* columnas de la coleccion.</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>    <span class="pink">foreach</span> ($columns <span class="pink">as</span> $columnsKey =&gt; $columnsValue) $newCollection[<span class="yellow">"dataHeaders"</span>][] <span class="pink">=</span> $columnsValue;</code><br />
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* Inicia ciclo para darle formato HTML</span></code>
-					<code>     <span class="comment">* de acuerdo a la configuración de los</span></code>
-					<code>     <span class="comment">* snippets.</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>    $dataRow <span class="pink">=</span> [];</code><br />
-					<code>    <span class="pink">foreach</span> ($collectionItems <span class="pink">as</span> $collectionItemsIndex =&gt; $collectionItemsValue) {</code>
-					<code>        $dataCells <span class="pink">=</span> [];</code><br />
-					<code>        <span class="comment">/**</span></code>
-					<code>         <span class="comment">*</span></code>
-					<code>         <span class="comment">* $collectionItemKey = Columna</span></code>
-					<code>         <span class="comment">* $collectionItemValue = Valor</span></code>
-					<code>         <span class="comment">*/</span></code>
-					<code>        <span class="pink">foreach</span> ($collectionItemsValue <span class="pink">as</span> $collectionItemKey =&gt; $collectionItemValue) {</code>
-					<code>            $column <span class="pink">=</span> $collectionItemKey;</code>
-					<code>            $data <span class="pink">=</span> $collectionItemValue;</code><br />
-					<code>            <span class="comment">/**</span></code>
-					<code>             <span class="comment">*</span></code>
-					<code>             <span class="comment">* Ciclo para formatear la coleccion</span></code>
-					<code>             <span class="comment">* de acuerdo a los snippets configurados.</span></code>
-					<code>             <span class="comment">*/</span></code>
-					<code>            <span class="pink">foreach</span> ($snippets <span class="pink">as</span> $snippetsIndex =&gt; $snippetsValue) {</code>
-					<code>                <span class="pink">if</span> ($snippetsValue-&gt;column_name <span class="pink">==</span> $column) {</code>
-					<code>                    <span class="pink">switch</span> ($snippetsValue-&gt;method) {</code>
-					<code>                        <span class="pink">case</span> <span class="yellow">"replace"</span>:</code>
-					<code>                            $data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with);</code>
-					<code>                            <span class="pink">break</span>;</code>
-					<code>                        <span class="pink">case</span> <span class="yellow">"for"</span>:</code>
-					<code>                            $newValue <span class="pink">=</span> <span class="yellow">""</span>;</code>
-					<code>                            <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> $data; $i<span class="pink">++</span>) $newValue <span class="pink">.=</span> $snippetsValue-&gt;replace_with;</code>
-					<code>                            $data <span class="pink">=</span> $newValue;</code>
-					<code>                            <span class="pink">break</span>;</code>
-					<code>                        <span class="pink">case</span> <span class="yellow">"case"</span>:</code>
-					<code>                            <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> <span class="cyan">count</span>($snippetsValue-&gt;replace_with); $i<span class="pink">++</span>) {</code>
-					<code>                                <span class="pink">if</span> ($snippetsValue-&gt;replace_with[$i]-&gt;case <span class="pink">==</span> $data) {</code>
-					<code>                                    $data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with[$i]-&gt;replace);</code>
-					<code>                                    <span class="pink">break</span>;</code>
-					<code>                                }</code>
-					<code>                            }</code>
-					<code>                            <span class="pink">break</span>;</code>
-					<code>                        <span class="pink">case</span> <span class="yellow">"when"</span>:</code>
-					<code>                            <span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> <span class="cyan">count</span>($snippetsValue-&gt;replace_with); $i<span class="pink">++</span> {</code>
-					<code>                                <span class="pink">if</span> ($collectionItemsValue-&gt;{$snippetsValue-&gt;column_related} <span class="pink">==</span> $snippetsValue-&gt;replace_with[$i]-&gt;case) {</code>
-					<code>                                    $data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with[$i]-&gt;replace);</code>
-					<code>                                    <span class="pink">break</span>;</code>
-					<code>                                }</code>
-					<code>                            }</code>
-					<code>                            <span class="pink">break</span>;</code>
-					<code>                    }</code>
-					<code>                }</code>
-					<code>            }</code><br />
-					<code>            <span class="comment">/**</span></code>
-					<code>             <span class="comment">*</span></code>
-					<code>             <span class="comment">* Ciclo para formatear la coleccion</span></code>
-					<code>             <span class="comment">* de acuerdo a las condiciones de cada</span></code>
-					<code>             <span class="comment">* campo configurado.</span></code>
-					<code>             <span class="comment">*/</span></code>
-					<code>            <span class="pink">foreach</span> ($conditions <span class="pink">as</span> $conditionsKey =&gt; $conditionsValue) {</code>
-					<code>                <span class="pink">if</span> ($conditionsValue-&gt;column_name <span class="pink">==</span> $column) {</code>
-					<code>                    <span class="pink">if</span> ($operators[$conditionsValue-&gt;operator]($conditionsValue-&gt;value_to_compare, $data))</code>
-					<code>                        $data <span class="pink">=</span> <span class="yellow">"&lt;span class='badge text-bg-dark'&gt;</span>$conditionsValue-&gt;replace_with<span class="yellow">&lt;/span&gt;"</span>;</code>
-					<code>                }</code>
-					<code>            }</code><br />
-					<code>            $dataCells[$column] <span class="pink">=</span> $data;</code>
-					<code>        }</code><br />
-					<code>        $dataRow[] <span class="pink">=</span> $dataCells;</code>
-					<code>    }</code><br />
-					<code>    $newCollection[<span class="yellow">"dataRows"</span>] <span class="pink">=</span> $dataRow;</code><br />
-					<code>    <span class="pink">return</span> (<span class="cyan">object</span>)$newCollection; <span class="comment">// Lo retorno como objeto en lugar de arreglo asociativo.</span></code>
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Coleccion formateada para retornar.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	$newCollection <span class="pink">=</span> [</code>
+					<code>		<span class="yellow">"description"</span> =&gt; $sourceCollection-&gt;collection_description,</code>
+					<code>		<span class="yellow">"dataHeaders"</span> =&gt; [],</code>
+					<code>		<span class="yellow">"dataRows"</span> =&gt; []</code>
+					<code>	];</code><br />
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Cargar configuraciones de la coleccion.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	$columns <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;columns;</code>
+					<code>	$snippets <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;snippets;</code>
+					<code>	$conditions <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;conditions;</code>
+					<code>	$collectionItems <span class="pink">=</span> $sourceCollection-&gt;collection_items;</code><br />
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Lista de operadores logicos.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	$operators <span class="pink">=</span> [</code>
+					<code>		<span class="yellow">"=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">==</span> $b; },</code>
+					<code>		<span class="yellow">"==="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">===</span> $b; },</code>
+					<code>		<span class="yellow">"!="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">!=</span> $b; },</code>
+					<code>		<span class="yellow">"!=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">!==</span> $b; },</code>
+					<code>		<span class="yellow">"&gt;"</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&gt;</span> $b; },</code>
+					<code>		<span class="yellow">"&gt;="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&gt;=</span> $b; },</code>
+					<code>		<span class="yellow">"&lt;"</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&lt;</span> $b; },</code>
+					<code>		<span class="yellow">"&lt;="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">&lt;=</span> $b; }</code>
+					<code>	];</code><br />
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Inicia ciclo para cargar los nombres de las</span></code>
+					<code>	 <span class="comment">* columnas de la coleccion.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	<span class="pink">foreach</span> ($columns <span class="pink">as</span> $columnsKey =&gt; $columnsValue) $newCollection[<span class="yellow">"dataHeaders"</span>][] <span class="pink">=</span> $columnsValue;</code><br />
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Inicia ciclo para darle formato HTML</span></code>
+					<code>	 <span class="comment">* de acuerdo a la configuración de los</span></code>
+					<code>	 <span class="comment">* snippets.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	$dataRow <span class="pink">=</span> [];</code><br />
+					<code>	<span class="pink">foreach</span> ($collectionItems <span class="pink">as</span> $collectionItemsIndex =&gt; $collectionItemsValue) {</code>
+					<code>		$dataCells <span class="pink">=</span> [];</code><br />
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* $collectionItemKey = Columna</span></code>
+					<code>		 <span class="comment">* $collectionItemValue = Valor</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">foreach</span> ($collectionItemsValue <span class="pink">as</span> $collectionItemKey =&gt; $collectionItemValue) {</code>
+					<code>			$column <span class="pink">=</span> $collectionItemKey;</code>
+					<code>			$data <span class="pink">=</span> $collectionItemValue;</code><br />
+					<code>			<span class="comment">/**</span></code>
+					<code>			 <span class="comment">*</span></code>
+					<code>			 <span class="comment">* Ciclo para formatear la coleccion</span></code>
+					<code>			 <span class="comment">* de acuerdo a los snippets configurados.</span></code>
+					<code>			 <span class="comment">*/</span></code>
+					<code>			<span class="pink">foreach</span> ($snippets <span class="pink">as</span> $snippetsIndex =&gt; $snippetsValue) {</code>
+					<code>				<span class="pink">if</span> ($snippetsValue-&gt;column_name <span class="pink">==</span> $column) {</code>
+					<code>					<span class="pink">switch</span> ($snippetsValue-&gt;method) {</code>
+					<code>						<span class="pink">case</span> <span class="yellow">"replace"</span>:</code>
+					<code>							$data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with);</code>
+					<code>							<span class="pink">break</span>;</code>
+					<code>						<span class="pink">case</span> <span class="yellow">"for"</span>:</code>
+					<code>							$newValue <span class="pink">=</span> <span class="yellow">""</span>;</code>
+					<code>							<span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> $data; $i<span class="pink">++</span>) $newValue <span class="pink">.=</span> $snippetsValue-&gt;replace_with;</code>
+					<code>							$data <span class="pink">=</span> $newValue;</code>
+					<code>							<span class="pink">break</span>;</code>
+					<code>						<span class="pink">case</span> <span class="yellow">"case"</span>:</code>
+					<code>							<span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> <span class="cyan">count</span>($snippetsValue-&gt;replace_with); $i<span class="pink">++</span>) {</code>
+					<code>								<span class="pink">if</span> ($snippetsValue-&gt;replace_with[$i]-&gt;case <span class="pink">==</span> $data) {</code>
+					<code>									$data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with[$i]-&gt;replace);</code>
+					<code>									<span class="pink">break</span>;</code>
+					<code>								}</code>
+					<code>							}</code>
+					<code>							<span class="pink">break</span>;</code>
+					<code>						<span class="pink">case</span> <span class="yellow">"when"</span>:</code>
+					<code>							<span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> <span class="cyan">count</span>($snippetsValue-&gt;replace_with); $i<span class="pink">++</span> {</code>
+					<code>								<span class="pink">if</span> ($collectionItemsValue-&gt;{$snippetsValue-&gt;column_related} <span class="pink">==</span> $snippetsValue-&gt;replace_with[$i]-&gt;case) {</code>
+					<code>									$data <span class="pink">=</span> <span class="cyan">str_replace</span>(<span class="yellow">"{value}"</span>, $data, $snippetsValue-&gt;replace_with[$i]-&gt;replace);</code>
+					<code>									<span class="pink">break</span>;</code>
+					<code>								}</code>
+					<code>							}</code>
+					<code>							<span class="pink">break</span>;</code>
+					<code>					}</code>
+					<code>				}</code>
+					<code>			}</code><br />
+					<code>			<span class="comment">/**</span></code>
+					<code>			 <span class="comment">*</span></code>
+					<code>			 <span class="comment">* Ciclo para formatear la coleccion</span></code>
+					<code>			 <span class="comment">* de acuerdo a las condiciones de cada</span></code>
+					<code>			 <span class="comment">* campo configurado.</span></code>
+					<code>			 <span class="comment">*/</span></code>
+					<code>			<span class="pink">foreach</span> ($conditions <span class="pink">as</span> $conditionsKey =&gt; $conditionsValue) {</code>
+					<code>				<span class="pink">if</span> ($conditionsValue-&gt;column_name <span class="pink">==</span> $column) {</code>
+					<code>					<span class="pink">if</span> ($operators[$conditionsValue-&gt;operator]($conditionsValue-&gt;value_to_compare, $data))</code>
+					<code>						$data <span class="pink">=</span> <span class="yellow">"&lt;span class='badge text-bg-dark'&gt;</span>$conditionsValue-&gt;replace_with<span class="yellow">&lt;/span&gt;"</span>;</code>
+					<code>				}</code>
+					<code>			}</code><br />
+					<code>			$dataCells[$column] <span class="pink">=</span> $data;</code>
+					<code>		}</code><br />
+					<code>		$dataRow[] <span class="pink">=</span> $dataCells;</code>
+					<code>	}</code><br />
+					<code>	$newCollection[<span class="yellow">"dataRows"</span>] <span class="pink">=</span> $dataRow;</code><br />
+					<code>	<span class="pink">return</span> (<span class="cyan">object</span>)$newCollection; <span class="comment">// Lo retorno como objeto en lugar de arreglo asociativo.</span></code>
 					<code>}</code>
 				</pre>
 				<p class="my-text">Teniendo estas 2 funciones, se pueden incluir en un web service para traer datos en todo momento, o se pueden incluir directamente en el archivo HTML. De cualquier forma dará el mismo resultado.</p>
@@ -858,62 +858,62 @@
 					<code>$jsonDataHTML <span class="pink">=</span> <span class="cyan">initCollectionRawHTML</span>(<span class="cyan">initCollection</span>(<span class="purple">10</span>));</code>
 					<code>?&gt;</code>
 					<code>&lt;<span class="pink">table</span> <span class="green">id</span>=<span class="yellow">"tableCollection"</span>&gt;</code>
-					<code>    &lt;?php $description <span class="pink">=</span> $jsonDataHTML-&gt;description <span class="comment">// Descripción de la colección que se mostrará en el &lt;caption /&gt;</span> ?&gt;</code>
-					<code>    &lt;?php $dataHeaders <span class="pink">=</span> $jsonDataHTML-&gt;dataHeaders <span class="comment">// Descripción de las columnas.</span> ?&gt;</code>
-					<code>    &lt;?php $dataRows <span class="pink">=</span> $jsonDataHTML-&gt;dataRows <span class="comment">// Estos serán los renglones de la tabla.</span> ?&gt;</code>
-					<code>    &lt;<span class="pink">caption</span>&gt;&lt;?php <span class="cyan">echo</span> $description ?&gt;&lt;/<span class="pink">caption</span>&gt;</code>
-					<code>    &lt;<span class="pink">thead</span>&gt;</code>
-					<code>        &lt;<span class="pink">tr</span>&gt;</code>
-					<code>            &lt;?php <span class="pink">foreach</span> ($dataHeaders <span class="pink">as</span> $dataHeadersKey =&gt; $dataHeadersValue) : ?&gt;</code>
-					<code>            &lt;?php</code>
-					<code>            <span class="comment">/**</span></code>
-					<code>             <span class="comment">*</code>
-					<code>             <span class="comment">* Solo se mostrarán si está configurado para ser visible.</span></code>
-					<code>             <span class="comment">*/</span></code>
-					<code>            ?&gt;</code>
-					<code>            &lt;?php <span class="pink">if</span> ($dataHeadersValue-&gt;is_visible) : ?&gt;</code>
-					<code>            &lt;th&gt;&lt;?php <span class="cyan">echo</span> $dataHeadersValue-&gt;column_description ?&gt;&lt;/<span class="pink">th</span>&gt;</code>
-					<code>            &lt;?php <span class="pink">endif</span> ?&gt;</code>
-					<code>            &lt;?php <span class="pink">endforeach</span> ?&gt;</code>
-					<code>        &lt;/<span class="pink">tr</span>&gt;</code>
-					<code>    &lt;/<span class="pink">thead</span>&gt;</code>
-					<code>    &lt;<span class="pink">tbody</span>&gt;</code>
-					<code>        &gt;?php</code>
-					<code>        <span class="comment">/**</span></code>
-					<code>         <span class="comment">*</span></code>
-					<code>         <span class="comment">* Este foreach recorrerá la colección como si fueran renglones.</span></code>
-					<code>         <span class="comment">*/</span></code>
-					<code>        ?&gt;</code>
-					<code>        &lt;?php <span class="pink">foreach</span> ($dataRows <span class="pink">as</span> $dataRowsKey =&gt; $dataRowsValue) : ?&gt;</code>
-					<code>        &lt;<span class="pink">tr</span>&gt;</code>
-					<code>            <span class="comment">/**</span></code>
-					<code>             <span class="comment">*</span></code>
-					<code>             <span class="comment">* Y este foreach recorrerá cada renglón como si fueran columnas.</span></code>
-					<code>             <span class="comment">*/</span></code>
-					<code>            &lt;?php <span class="pink">foreach</span> ($dataRowsValue <span class="pink">as</span> $dataCellKey =&gt; $dataCellValue) : ?&gt;</code>
-					<code>            &lt;?php</code>
-					<code>            <span class="comment">/**</span></code>
-					<code>             <span class="comment">*</span></code>
-					<code>             <span class="comment">* Para esta condición fue complicado allar la lógica adecuada</span></code>
-					<code>             <span class="comment">* para que solo se muestren las columnas con la condición de visible</span></code>
-					<code>             <span class="comment">* en true.</span></code>
-					<code>             <span class="comment">*</span></code>
-					<code>             <span class="comment">* Como se puede apreciar en la condición, estoy usando la función de</span></code>
-					<code>             <span class="comment">* "array_column" el cual se encarga de devolver un arreglo asociativo</span></code>
-					<code>             <span class="comment">* de la llave indicada (2do parámetro), en este caso "is_visible", despues</span></code>
-					<code>             <span class="comment">* se indexa con un valor que nosotros elijamos (3er parámetro), en mi caso</span></code>
-					<code>             <span class="comment">* indexé el arreglo con "column_name". Esto con la finalidad de que cuando la</span></code>
-					<code>             <span class="comment">* variable del foreach: $dataCellKey (columna) sea igual a la llave con la propiedad</span></code>
-					<code>             <span class="comment">* de "is_visible" = false, esta columna sea omitida.</span></code>
-					<code>             <span class="comment">*/</span></code>
-					<code>            ?&gt;</code>
-					<code>            &lt;?php <span class="pink">if</span> (<span class="cyan">array_column</span>($dataHeaders, <span class="yellow">"is_visible"</span>, <span class="yellow">"column_name"</span>)[$dataCellKey]) : ?&gt;</code>
-					<code>            &lt;<span class="pink">td</span>&gt;&lt;?php <span class="cyan">echo</span> $dataCellValue ?&gt;&lt;/<span class="pink">td</span>&gt;</code>
-					<code>            &lt;?php <span class="pink">endif</span> ?&gt;</code>
-					<code>            &lt;?php <span class="pink">endforeach</span> ?&gt;</code>
-					<code>        &lt;/<span class="pink">tr</span>&gt;</code>
-					<code>        &lt;?php <span class="pink">endforeach</span> ?&gt;</code>
-					<code>    &lt;/<span class="pink">tbody</span>&gt;</code>
+					<code>	&lt;?php $description <span class="pink">=</span> $jsonDataHTML-&gt;description <span class="comment">// Descripción de la colección que se mostrará en el &lt;caption /&gt;</span> ?&gt;</code>
+					<code>	&lt;?php $dataHeaders <span class="pink">=</span> $jsonDataHTML-&gt;dataHeaders <span class="comment">// Descripción de las columnas.</span> ?&gt;</code>
+					<code>	&lt;?php $dataRows <span class="pink">=</span> $jsonDataHTML-&gt;dataRows <span class="comment">// Estos serán los renglones de la tabla.</span> ?&gt;</code>
+					<code>	&lt;<span class="pink">caption</span>&gt;&lt;?php <span class="cyan">echo</span> $description ?&gt;&lt;/<span class="pink">caption</span>&gt;</code>
+					<code>	&lt;<span class="pink">thead</span>&gt;</code>
+					<code>		&lt;<span class="pink">tr</span>&gt;</code>
+					<code>			&lt;?php <span class="pink">foreach</span> ($dataHeaders <span class="pink">as</span> $dataHeadersKey =&gt; $dataHeadersValue) : ?&gt;</code>
+					<code>			&lt;?php</code>
+					<code>			<span class="comment">/**</span></code>
+					<code>			 <span class="comment">*</code>
+					<code>			 <span class="comment">* Solo se mostrarán si está configurado para ser visible.</span></code>
+					<code>			 <span class="comment">*/</span></code>
+					<code>			?&gt;</code>
+					<code>			&lt;?php <span class="pink">if</span> ($dataHeadersValue-&gt;is_visible) : ?&gt;</code>
+					<code>			&lt;th&gt;&lt;?php <span class="cyan">echo</span> $dataHeadersValue-&gt;column_description ?&gt;&lt;/<span class="pink">th</span>&gt;</code>
+					<code>			&lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>			&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>		&lt;/<span class="pink">tr</span>&gt;</code>
+					<code>	&lt;/<span class="pink">thead</span>&gt;</code>
+					<code>	&lt;<span class="pink">tbody</span>&gt;</code>
+					<code>		&lt;?php</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Este foreach recorrerá la colección como si fueran renglones.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		?&gt;</code>
+					<code>		&lt;?php <span class="pink">foreach</span> ($dataRows <span class="pink">as</span> $dataRowsKey =&gt; $dataRowsValue) : ?&gt;</code>
+					<code>		&lt;<span class="pink">tr</span>&gt;</code>
+					<code>			<span class="comment">/**</span></code>
+					<code>			 <span class="comment">*</span></code>
+					<code>			 <span class="comment">* Y este foreach recorrerá cada renglón como si fueran columnas.</span></code>
+					<code>			 <span class="comment">*/</span></code>
+					<code>			&lt;?php <span class="pink">foreach</span> ($dataRowsValue <span class="pink">as</span> $dataCellKey =&gt; $dataCellValue) : ?&gt;</code>
+					<code>			&lt;?php</code>
+					<code>			<span class="comment">/**</span></code>
+					<code>			 <span class="comment">*</span></code>
+					<code>			 <span class="comment">* Para esta condición fue complicado allar la lógica adecuada</span></code>
+					<code>			 <span class="comment">* para que solo se muestren las columnas con la condición de visible</span></code>
+					<code>			 <span class="comment">* en true.</span></code>
+					<code>			 <span class="comment">*</span></code>
+					<code>			 <span class="comment">* Como se puede apreciar en la condición, estoy usando la función de</span></code>
+					<code>			 <span class="comment">* "array_column" el cual se encarga de devolver un arreglo asociativo</span></code>
+					<code>			 <span class="comment">* de la llave indicada (2do parámetro), en este caso "is_visible", despues</span></code>
+					<code>			 <span class="comment">* se indexa con un valor que nosotros elijamos (3er parámetro), en mi caso</span></code>
+					<code>			 <span class="comment">* indexé el arreglo con "column_name". Esto con la finalidad de que cuando la</span></code>
+					<code>			 <span class="comment">* variable del foreach: $dataCellKey (columna) sea igual a la llave con la propiedad</span></code>
+					<code>			 <span class="comment">* de "is_visible" = false, esta columna sea omitida.</span></code>
+					<code>			 <span class="comment">*/</span></code>
+					<code>			?&gt;</code>
+					<code>			&lt;?php <span class="pink">if</span> (<span class="cyan">array_column</span>($dataHeaders, <span class="yellow">"is_visible"</span>, <span class="yellow">"column_name"</span>)[$dataCellKey]) : ?&gt;</code>
+					<code>			&lt;<span class="pink">td</span>&gt;&lt;?php <span class="cyan">echo</span> $dataCellValue ?&gt;&lt;/<span class="pink">td</span>&gt;</code>
+					<code>			&lt;?php <span class="pink">endif</span> ?&gt;</code>
+					<code>			&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>		&lt;/<span class="pink">tr</span>&gt;</code>
+					<code>		&lt;?php <span class="pink">endforeach</span> ?&gt;</code>
+					<code>	&lt;/<span class="pink">tbody</span>&gt;</code>
 					<code>&lt;/<span class="pink">table</span>&gt;</code>
 				</pre>
 				<p class="my-text"><b>Forma 2 - Creando un web service:</b> esto lo que hará es que el usuario tendrá la comodidad de recargar la tabla en todo momento sin tener que refrescar la página.</p>
@@ -940,41 +940,45 @@
 				<pre class="sb">
 					<code><span class="comment">// Evento para el botonsote verde de "Recargar Tabla".</span></code>
 					<code><span class="pink">$</span>(<span class="yellow">'#buttonReloadTableCollection'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
-					<code>    <span class="comment">// Limpiar todo el contenido de la tabla.</span></code>
-					<code>    <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead, #tableCollection &gt; tbody, #tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
-					<code>    <span class="comment">// Petición a web service de "collections/getNewCollection.php".</span></code>
-					<code>    <span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
-					<code>        url: <span class="yellow">'collections/getNewCollection.php'</span>,</code>
-					<code>        type: <span class="yellow">'POST'</span>,</code>
-					<code>        dataType: <span class="yellow">'json'</span>,</code>
-					<code>        data: { length: <span class="purple">10</span> },</code>
-					<code>        <span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
-					<code>            <span class="comment">// Si la petición fue exitosa llenará la tabla de la misma manera de la forma estática.</span></code>
-					<code>            <span class="pink">if</span> (response.isOk) {</code>
-					<code>                <span class="cyan">let</span> headers <span class="pink">=</span> [];</code><br />
-					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(response.data.description);</code><br />
-					<code>                <span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataHeaders, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
-					<code>                    <span class="pink">if</span> (value.is_visible) headers.<span class="cyan">push</span>(<span class="yellow">`&lt;th&gt;</span>${value.column_description}<span class="yellow">&lt;/th&gt;`</span>);</code>
-					<code>                });</code>
-					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span>${headers.<span class="cyan">join</span>()}<span class="yellow">&lt;/tr&gt;`</span>);</code><br />
-					<code>                <span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataRows, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
-					<code>                    <span class="cyan">let</span> row <span class="pink">=</span> [];</code>
-					<code>                    <span class="cyan">let</span> indexColumn <span class="pink">=</span> <span class="purple">0</span>;</code><br />
-					<code>                    <span class="pink">$</span>.<span class="cyan">each</span>(value, <span class="cyan">function</span> (<span class="orange">index2</span>, <span class="orange">value2</span>) {</code>
-					<code>                        <span class="pink">if</span> (response.data.dataHeaders[indexColumn].is_visible) row.<span class="cyan">push</span>(<span class="yellow">`&lt;td&gt;</span>${value2}<span class="yellow">&lt;/td&gt;`</span>);</code>
-					<code>                        indexColumn<span class="pink">++</span>;</code>
-					<code>                    });</code><br />
-					<code>                    <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span>${row.<span class="cyan">join</span>()}<span class="yellow">&lt;/tr&gt;`</span>);</code>
-					<code>                });</code>
-					<code>                <span class="comment">// Caso contrario mostrará un renglón con el posible error por parte del web service.</span></code>
-					<code>            } <span class="pink">else</span> {</code>
-					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Error`</span>);</code>
-					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>);</code>
-					<code>                <span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td&gt;</span>${response.data.message}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
-					<code>            }</code>
-					<code>        },</code>
-					<code>        <span class="green">error</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>, <span class="orange">errorThrown</span>) {}</code>
-					<code>    });</code>
+					<code>	<span class="comment">// Limpiar todo el contenido de la tabla.</span></code>
+					<code>	<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead, #tableCollection &gt; tbody, #tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
+					<code>	<span class="comment">// Petición a web service de "collections/getNewCollection.php".</span></code>
+					<code>	<span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
+					<code>		url: <span class="yellow">'collections/getNewCollection.php'</span>,</code>
+					<code>		type: <span class="yellow">'POST'</span>,</code>
+					<code>		dataType: <span class="yellow">'json'</span>,</code>
+					<code>		data: { length: <span class="purple">10</span> },</code>
+					<code>		<span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
+					<code>			<span class="comment">// Si la petición fue exitosa llenará la tabla de la misma manera de la forma estática.</span></code>
+					<code>			<span class="pink">if</span> (response.isOk) {</code>
+					<code>				<span class="cyan">let</span> headers <span class="pink">=</span> [];</code><br />
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(response.data.description);</code><br />
+					<code>				<span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataHeaders, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>					<span class="pink">if</span> (value.is_visible) headers.<span class="cyan">push</span>(<span class="yellow">`&lt;th&gt;</span>${value.column_description}<span class="yellow">&lt;/th&gt;`</span>);</code>
+					<code>				});</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span>${headers.<span class="cyan">join</span>()}<span class="yellow">&lt;/tr&gt;`</span>);</code><br />
+					<code>				<span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataRows, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
+					<code>					<span class="cyan">let</span> row <span class="pink">=</span> [];</code>
+					<code>					<span class="cyan">let</span> indexColumn <span class="pink">=</span> <span class="purple">0</span>;</code><br />
+					<code>					<span class="pink">$</span>.<span class="cyan">each</span>(value, <span class="cyan">function</span> (<span class="orange">index2</span>, <span class="orange">value2</span>) {</code>
+					<code>						<span class="pink">if</span> (response.data.dataHeaders[indexColumn].is_visible) row.<span class="cyan">push</span>(<span class="yellow">`&lt;td&gt;</span>${value2}<span class="yellow">&lt;/td&gt;`</span>);</code>
+					<code>						indexColumn<span class="pink">++</span>;</code>
+					<code>					});</code><br />
+					<code>					<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span>${row.<span class="cyan">join</span>()}<span class="yellow">&lt;/tr&gt;`</span>);</code>
+					<code>				});</code>
+					<code>				<span class="comment">// Caso contrario mostrará un renglón con el posible error por parte del web service.</span></code>
+					<code>			} <span class="pink">else</span> {</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Error`</span>);</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>);</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td&gt;</span>${response.data.message}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>			}</code>
+					<code>		},</code>
+					<code>		<span class="green">error</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>, <span class="orange">errorThrown</span>) {</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Error`</span>);</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>);</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td&gt;</span>${jqXHR.status}<span class="yellow"> - </span>${jqXHR.statusText}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
+					<code>		}</code>
+					<code>	});</code>
 					<code>});</code>
 				</pre>
 				<p class="my-text">Bueno, eso sería toda la lógica para traer datos de archivos JSON y tomarlos como colecciones. Este código se puede mejorar, simplificar y hasta optimizar; solo que ya traia esta idea desde hace rato y había tenido la oportunidad ni el como vaciaría todo el procedimiento de manera visual y explicada (si a eso se le puede llamar explicación) pero al final, a mi parecer, creo que está muy bien elaborado como para ser algo improvisado. Como dije esto se puede mejorar y hasta con mas detalle. No te quede con un solo método forma de hacer las cosas, inspirate, crea y demuestrale a todos de lo que eres capaz.</p>
@@ -992,7 +996,7 @@
 				<samp>JS</samp>
 				<pre class="sb">
 					<code><span class="pink">$</span>(<span class="yellow">'#buttonRowsCount'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
-					<code>    <span class="cyan">alert</span>(<span class="pink">$</span>(<span class="yellow">'#tableCollection > tbody > tr'</span>).length);</code>
+					<code>	<span class="cyan">alert</span>(<span class="pink">$</span>(<span class="yellow">'#tableCollection > tbody > tr'</span>).length);</code>
 					<code>});</code>
 				</pre>
 			</div>
