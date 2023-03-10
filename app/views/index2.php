@@ -1034,10 +1034,10 @@
 						<pre class="sb">
 							<code><span class="comment">&lt;!-- Input check --&gt;</span></code>
 							<code>&lt;<span class="pink">label</span>&gt; Aplicar efecto</code>
-							<code>    &lt;<span class="pink">label</span> <span class="green">class</span>=<span class="yellow">"my-switch"</span>&gt;</code>
-							<code>        &lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"checkbox"</span> <span class="green">id</span>=<span class="yellow">"checkApplyOpacity"</span> /&gt;</code>
-							<code>        &lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"my-slider"</span>&gt;&lt;/<span class="pink">span</span>&gt;</code>
-							<code>    &lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;<span class="pink">label</span> <span class="green">class</span>=<span class="yellow">"my-switch"</span>&gt;</code>
+							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"checkbox"</span> <span class="green">id</span>=<span class="yellow">"checkApplyOpacity"</span> /&gt;</code>
+							<code>		&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"my-slider"</span>&gt;&lt;/<span class="pink">span</span>&gt;</code>
+							<code>	&lt;/<span class="pink">label</span>&gt;</code>
 							<code>&lt;/<span class="pink">label</span>&gt;</code><br />
 							<code><span class="comment">&lt;!-- Img --&gt;</span></code>
 							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"assets/img/vinyl-scratch.jpg"</span> <span class="green">alt</span>=<span class="yellow">"img-vinyl-scratch"</span> <span class="green">class</span>=<span class="yellow" id="spanApplyClass">"my-fade-effect-off"</span> <span class="green">id</span>=<span class="yellow">"imgTestOpacity"</span> /&gt;</code>
@@ -1116,7 +1116,7 @@
 						<pre class="sb">
 							<code><span class="comment">// Muy fácil</span></code>
 							<code><span class="pink">$</span>(<span class="yellow">'#checkApplyOpacity'</span>).<span class="cyan">on</span>(<span class="yellow">'change'</span>, <span class="cyan">function</span> () {</code>
-							<code>    <span class="pink">$</span>(<span class="yellow">'#imgTestOpacity'</span>).<span class="cyan">toggleClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>	<span class="pink">$</span>(<span class="yellow">'#imgTestOpacity'</span>).<span class="cyan">toggleClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
 							<code>});</code>
 						</pre>
 					</div>
