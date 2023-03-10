@@ -1154,9 +1154,9 @@
 						<pre class="sb">
 							<code><span class="comment">&lt;!-- En este caso yo coloqué el botón al inicio del "body". --&gt;</span></code>
 							<code>&lt;<span class="pink">body</span>&gt;</code>
-							<code>    <span class="comment">&lt;!-- Inicio el botón con la clase de "my-fade-effect-on" para que esté invisible. --&gt;</span></code>
-							<code>    &lt;<span class="pink">a</span> <span class="green">href</span>=<span class="yellow">"#"</span> <span class="green">id</span>=<span class="yellow">"buttonToTop"</span> <span class="green">class</span>=<span class="yellow">"return-to-top my-fade-effect-on"</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-chevron-up"</span>&gt;&lt;/<span class="pink">i</span>&gt;&lt;/<span class="pink">a</span>&gt;</code><br />
-							<code>    <span class="comment">&lt;!-- Resto del sitio... --&gt;</span></code>
+							<code>	<span class="comment">&lt;!-- Inicio el botón con la clase de "my-fade-effect-on" para que esté invisible. --&gt;</span></code>
+							<code>	&lt;<span class="pink">a</span> <span class="green">href</span>=<span class="yellow">"#"</span> <span class="green">id</span>=<span class="yellow">"buttonToTop"</span> <span class="green">class</span>=<span class="yellow">"return-to-top my-fade-effect-on"</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-chevron-up"</span>&gt;&lt;/<span class="pink">i</span>&gt;&lt;/<span class="pink">a</span>&gt;</code><br />
+							<code>	<span class="comment">&lt;!-- Resto del sitio... --&gt;</span></code>
 							<code>&lt;/<span class="pink">body</span>&gt;</code>
 						</pre>
 					</div>
@@ -1202,21 +1202,21 @@
 						<pre class="sb">
 							<code><span class="comment">// Despues: el evento del bóton.</span></code>
 							<code><span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-							<code>    e.<span class="cyan">preventDefault</span>();</code><br />
-							<code>    <span class="comment">// Con efecto de "scroll":</span></code>
-							<code>    <span class="pink">$</span>(<span class="yellow">'html, body'</span>).<span class="cyan">animate</span>({ scrollTop: <span class="purple">0</span> }, <span class="purple">1000</span>);</code><br />
-							<code>    <span class="comment">// Sin efecto de "scroll":</span></code>
-							<code>    <span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">scrollTop</span>(<span class="purple">0</span>);</code>
+							<code>	e.<span class="cyan">preventDefault</span>();</code><br />
+							<code>	<span class="comment">// Con efecto de "scroll":</span></code>
+							<code>	<span class="pink">$</span>(<span class="yellow">'html, body'</span>).<span class="cyan">animate</span>({ scrollTop: <span class="purple">0</span> }, <span class="purple">1000</span>);</code><br />
+							<code>	<span class="comment">// Sin efecto de "scroll":</span></code>
+							<code>	<span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">scrollTop</span>(<span class="purple">0</span>);</code>
 							<code>});</code><br />
 							<code><span class="comment">// Y por último: la función para mostrar / ocultar el boton.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">on</span>(<span class="yellow">'scroll'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-							<code>    <span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
-							<code>    <span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
+							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
 							<code>});</code><br />
 							<code><span class="comment">// Este último es para en caso de que el usuario refresque la página y el botón aparesca sin necesidad de hacer scroll.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">document</span>).<span class="cyan">ready</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-							<code>    <span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
-							<code>    <span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
+							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
 							<code>});</code>
 						</pre>
 					</div>
