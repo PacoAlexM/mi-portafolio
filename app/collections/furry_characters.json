@@ -311,6 +311,16 @@
 			"created_date": "1900-01-01"
 		},
 		{
+			"name": "Pina",
+			"specie": "Carnero de Dall",
+			"gender": "Masculino",
+			"age": 18,
+			"author": "Paru Itagaki",
+			"appear_in": "Beastars",
+			"appear_format": "comic",
+			"created_date": "1900-01-01"
+		},
+		{
 			"name": "Cassandra",
 			"specie": "Zorro",
 			"gender": "Femenino",
