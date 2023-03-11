@@ -129,7 +129,7 @@
 				</div>
 				<samp>OUTPUT</samp>
 				<pre class="sb" id="preOutputStatusSimpleAjaxUploader">
-					<code>Selecciones archivos para cargar...</code>
+					<code>Seleccione archivos para cargar</code>
 				</pre>
 				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
 				<samp>JS</samp>
@@ -174,6 +174,8 @@
 					<code>		 <span class="comment">* archivos por cargar de a propia libreía.</span></code>
 					<code>		 <span class="comment">*/</span></code>
 					<code>		<span class="cyan">let</span> _isValidToUpload <span class="pink">=</span> <span class="purple">true</span>;</code><br />
+					<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
+					<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code><br />
 					<code>		<span class="comment">/**</span></code>
 					<code>		 <span class="comment">*</span></code>
 					<code>		 <span class="comment">* Para este ejemplo valido 2 puntos</span></code>
@@ -217,6 +219,8 @@
 					<code>	<span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
 					<code>	<span class="green">onAllDone</span>: <span class="cyan">function</span> () {</code>
 					<code>		_arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>();</code>
+					<code>		_generalPct <span class="pink">=</span> <span class="purple">0</span>;</code>
+					<code>		_uploadedFiles <span class="pink">=</span> <span class="purple">0</span>;</code>
 					<code>	},</code>
 					<code>	<span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
 					<code>	<span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {}</code>
@@ -273,14 +277,9 @@
 					<code>	 <span class="comment">*</span></code>
 					<code>	 <span class="comment">* También desactivar los botones de</span></code>
 					<code>	 <span class="comment">* iniciar carga y limpiar carga.</span></code>
-					<code>	 <span class="comment">*</span></code>
-					<code>	 <span class="comment">* Y resetear la barra de progreso de</span></code>
-					<code>	 <span class="comment">* de carga general.</span></code>
 					<code>	 <span class="comment">*/</span></code>
 					<code>	<span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles, #buttonResetFiles'</span>)</code>
 					<code>		.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code><br>
-					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
-					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code><br />
 					<code>	<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> _arrayInfoFiles.length; i<span class="pink">++</span>) _simpleAjaxUploader.<span class="cyan">submit</span>();</code>
 					<code>});</code><br />
 					<code><span class="comment">/**</span></code>
@@ -289,16 +288,94 @@
 					<code> <span class="comment">* reseteará la carga.</span></code>
 					<code> <span class="comment">*/</span></code>
 					<code><span class="pink">$</span>(<span class="yellow">'#buttonResetFiles'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
-					<code>	_simpleAjaxUploader.<span class="cyan">clearQueue</span>();</code><br />
-					<code>	_arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>();</code><br />
+					<code>	_simpleAjaxUploader.<span class="cyan">clearQueue</span>();</code>
+					<code>	_arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>();</code>
+					<code>	_generalPct <span class="pink">=</span> <span class="purple">0</span>;</code>
+					<code>	_uploadedFiles <span class="pink">=</span> <span class="purple">0</span>;</code><br />
 					<code>	<span class="cyan">fillTable</span>();</code><br />
 					<code>	<span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles, #buttonResetFiles'</span>)</code>
 					<code>		.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code><br />
-					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
-					<code>	<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">'0%'</span>).<span class="cyan">text</span>(<span class="yellow">'0%'</span>);</code>
 					<code>});</code>
 				</pre>
 				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
+				<samp>HTML</samp>
+				<pre class="sb">
+					<code><span class="comment">&lt;!-- Esta será la tabla donde se mostrarán los archivos por cargar. También su respectiva información, estatus de carga y porcentaje de carga. --&gt;</span></code>
+					<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"table-responsive"</span>&gt;</code>
+					<code>	&lt;<span class="pink">table</span> <span class="green">class</span>=<span class="yellow">"table table-borderless table-hover"</span> <span class="green">id</span>=<span class="yellow">"tableFiles"</span>&gt;</code>
+					<code>		&lt;<span class="pink">thead</span>&gt;</code>
+					<code>			&lt;<span class="pink">tr</span>&gt;</code>
+					<code>				&lt;<span class="pink">th</span>&gt;Archivo&lt;/<span class="pink">th</span>&gt;</code>
+					<code>				&lt;<span class="pink">th</span>&gt;Tipo&lt;/<span class="pink">th</span>&gt;</code>
+					<code>				&lt;<span class="pink">th</span>&gt;Tamaño (Aproximado)&lt;/<span class="pink">th</span>&gt;</code>
+					<code>				&lt;<span class="pink">th</span>&gt;Última Modificación&lt;/<span class="pink">th</span>&gt;</code>
+					<code>				&lt;<span class="pink">th</span>&gt;Porcentaje de Carga&lt;/<span class="pink">th</span>&gt;</code>
+					<code>				&lt;<span class="pink">th</span>&gt;Estatus&lt;/<span class="pink">th</span>&gt;</code>
+					<code>			&lt;/<span class="pink">tr</span>&gt;</code>
+					<code>		&lt;/<span class="pink">thead</span>&gt;</code>
+					<code>		&lt;<span class="pink">tbody</span>&gt;</code>
+					<code>			&lt;<span class="pink">tr</span>&gt;</code>
+					<code>				&lt;<span class="pink">td</span> <span class="green">colspan</span>=<span class="yellow">"6"</span> <span class="green">class</span>=<span class="yellow">"text-center"</span>&gt;No hay archivos por cargar.&lt;/<span class="pink">td</span>&gt;</code>
+					<code>			&lt;/<span class="pink">tr</span>&gt;</code>
+					<code>		&lt;/<span class="pink">tbody</span>&gt;</code>
+					<code>	&lt;/<span class="pink">table</span>&gt;</code>
+					<code>&lt;/<span class="pink">div</span>&gt;</code><br />
+					<code><span class="comment">&lt;!-- Barra de progreso de carga general. --&gt;</span></code>
+					<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"progress mb-3"</span> <span class="green">id</span>=<span class="yellow">"generalProgressbar"</span> <span class="green">role</span>=<span class="yellow">"progressbar"</span> <span class="green">aria-label</span>=<span class="yellow">"Progreso de carga general"</span> <span class="green">aria-valuenow</span>=<span class="yellow">"0"</span> <span class="green">aria-valuemin</span>=<span class="yellow">"0"</span> <span class="green">aria-valuemax</span>=<span class="yellow">"100"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">height</span>: <span class="purple">30</span><span class="cyan">px</span>;<span class="yellow">"</span>&gt;</code>
+					<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"progress-bar"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">width</span>: <span class="purple">0</span><span class="cyan">%</span><span class="yellow">"</span>&gt;0%&lt;/<span class="pink">div</span>&gt;</code>
+					<code>&lt;/<span class="pink">div</span>&gt;</code>
+				</pre>
+				<samp>JS</samp>
+				<pre class="sb">
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Dentro del mismo objeto de</span></code>
+					<code> <span class="comment">* SimpleAjaxUploader.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="cyan">var</span> _simpleAjaxUploader <span class="pink">= new</span> ss.<span class="cyan">SimpleUpload</span>({</code>
+					<code>	...</code>
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Todo esto ocurrirá al accionar el</span></code>
+					<code>	 <span class="comment">* botón de "#buttonUploadFiles".</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	<span class="green">onSubmit</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 1.- La variable "_uploadedFiles" tomará el valor de</span></code>
+					<code>		 <span class="comment">* máximo de "QueueSize" ya que este en cada archivo</span></code>
+					<code>		 <span class="comment">* que se procesa para su carga, este mismo va disminuyendo</span></code>
+					<code>		 <span class="comment">* su valor. De ahi la comparativa de si "_uploadedFiles"</span></code>
+					<code>		 <span class="comment">* es menor a "QueueSize", resultando en "true" en la 1ra</span></code>
+					<code>		 <span class="comment">* vuelta (archivo) y su valor será cosntante.</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 2.- Tomamos el renglon del archivo de la tabla por su nombre "sanitizado"</span></code>
+					<code>		 <span class="comment">* para su manipulación.</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 3.- Del mismo renglón que declaramos, buscamos una celda o table-data</span></code>
+					<code>		 <span class="comment">* con la clase "td-status" para asignarle en estado esta el archivo por</span></code>
+					<code>		 <span class="comment">* cargar (en este caso estará en "Cargando")</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 4.- Se manda a llamar el método de "setPctBox" o asignar elemento para</span></code>
+					<code>		 <span class="comment">* mostrar el porcentaje de cargar del archivo. El método toma como parámetro</span></code>
+					<code>		 <span class="comment">* un elemento HTML (puede ser DOM o de tipo jQuery, según la documentación)</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">if</span> (_uploadedFiles <span class="pink">&lt;</span> <span class="orange">this</span>.<span class="cyan">getQueueSize</span>()) _uploadedFiles <span class="pink">=</span> <span class="orange">this</span>.<span class="cyan">getQueueSize</span>();</code><br />
+					<code>		<span class="cyan">let</span> $tr <span class="pink">=</span> <span class="pink">$</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>);</code><br />
+					<code>		$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-primary"&gt;Cargando&lt;/span&gt;`</span>);</code><br />
+					<code>		<span class="orange">this</span>.<span class="cyan">setPctBox</span>($tr.<span class="cyan">find</span>(<span class="yellow">'.td-pct'</span>));</code>
+					<code>	},</code>
+					<code>	<span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {</code>
+					<code>		<span class="pink">if</span> (<span class="orange">this</span>.<span class="cyan">getQueueSize</span>() <span class="pink">==</span> <span class="purple">0</span>) {</code>
+					<code>			<span class="pink">if</span> (pct <span class="pink">==</span> <span class="purple">100</span>) {</code>
+					<code>				_generalPct <span class="pink">+=</span> (pct <span class="pink">/</span> _uploadedFiles);</code><br />
+					<code>				<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, _generalPct);</code><br />
+					<code>				<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">`</span>${_generalPct}<span class="yellow">%`</span>).<span class="cyan">text</span>(<span class="yellow">`</span>${_generalPct}<span class="yellow">%`</span>);</code>
+					<code>			}</code>
+					<code>		}</code>
+					<code>	},</code>
+					<code>});</code>
+				</pre>
 				<!--
 				<div class="row">
 					<div class="col">
@@ -1356,6 +1433,9 @@
 
 		<!-- sublimeText3Monokai -->
 		<!-- ./sublimeText3Monokai -->
+
+		<!-- validationWithJS -->
+		<!-- ./validationWithJS -->
 	</div>
 
 	<footer class="my-footer">
@@ -1391,6 +1471,9 @@
 		onChange: function (filename, extension, uploadBtn, fileSize, file) {
 			let _isValidToUpload = true;
 			let $code = $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>');
+
+			$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
+			$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
 
 			/**
 			 *
@@ -1432,7 +1515,7 @@
 			}
 
 			$.each(_arrayInfoFiles, function (index, value) {
-				$code.append(`<code> - [<span class="green">OK</span>] ${value.name}</code>`);
+				$code.append(`<code> - [<span class="green">OK</span>] <span class="yellow">"${value.name}"</span></code>`);
 			});
 
 			/**
@@ -1487,6 +1570,8 @@
 		},
 		onAllDone: function () {
 			_arrayInfoFiles = new Array();
+			_generalPct = 0;
+			_uploadedFiles = 0;
 		},
 		onError: function (filename, errorType, status, statusText, response, uploadBtn, fileSize) {
 			console.log(`onError: ${filename}; ErrorType: ${errorType}; Status: ${status}; StatusText: ${statusText}: Response: ${response}`);
@@ -1735,19 +1820,17 @@
 
 	$('#buttonResetFilesSimpleAjaxUploader').click(function () {
 		$('#preOutputStatusSimpleAjaxUploader')
-			.html(`<code>Selecciones archivos para cargar...</code>`);
+			.html(`<code>Seleccione archivos para cargar</code>`);
 
 		_simpleAjaxUploader.clearQueue();
-
 		_arrayInfoFiles = new Array();
+		_generalPct = 0;
+		_uploadedFiles = 0;
 
 		fillTableSimpleAjaxUploader();
 
 		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
 			.attr('disabled', true);
-
-		$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
-		$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
 	});
 
 	$('#buttonReloadTableCollection').click(function () {
