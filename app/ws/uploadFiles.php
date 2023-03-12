@@ -9,11 +9,11 @@ $simpleAjaxUploader->sizeLimit = ((/*byte*/ 1 * /*bytes*/ 1024) /* = kilobyte*/ 
 $result = $simpleAjaxUploader->handleUpload(dirname(__FILE__) . "/files");
 
 if (!$result) {
-	exit(json_encode(array("success" => false, "msg" => $simpleAjaxUploader->getErrorMsg())));
+	exit(json_encode(["success" => false, "msg" => $simpleAjaxUploader->getErrorMsg()]));
 }
 
 if (!unlink($simpleAjaxUploader->getSavedFile())) {
-	exit(json_encode(array("success" => false, "msg" => "No fue posible eliminar el archivo.")));
+	exit(json_encode(["success" => false, "msg" => "No fue posible eliminar el archivo."]));
 }
 
-echo json_encode(array("success" => true, "file" => $simpleAjaxUploader->getSavedFile()));
+echo json_encode(["success" => true, "file" => $simpleAjaxUploader->getSavedFile()]);
