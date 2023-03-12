@@ -56,7 +56,7 @@
 					<div class="col">
 						<div class="alert alert-warning" role="alert">
 							<h4 class="alert-heading">Aviso</h4>
-							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos de tamaño máximo de 10MB. Gracias por su comprención.</p>
+							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos a la vez de tamaño máximo de 10MB. Gracias por su comprención.</p>
 						</div>
 					</div>
 				</div>
@@ -418,6 +418,29 @@
 					<code>			}</code>
 					<code>		}</code>
 					<code>	},</code>
+					<code>	<span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="cyan">let</span> $tr <span class="pink">= $</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>);</code><br />
+					<code>		<span class="pink">if</span> (response.success <span class="pink">===</span> <span class="purple">true</span>)</code>
+					<code>			$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-success"&gt;Cargado&lt;/span&gt;`</span>);</code>
+					<code>		<span class="pink">else</span></code>
+					<code>			$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-danger"&gt;Error&lt;/span&gt;`</span>);</code>
+					<code>	},</code>
+					<code>	<span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="pink">$</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>)</code>
+					<code>			.<span class="cyan">find</span>(<span class="yellow">'.td-pct'</span>).<span class="cyan">text</span>(<span class="yellow">'100%'</span>);</code>
+					<code>	},</code>
+					<code>	<span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="cyan">let</span> $tr <span class="pink">= $</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>);</code><br />
+					<code>		$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-danger"&gt;Error&lt;/span&gt;`</span>);</code>
+					<code>	},</code>
+					<code>	<span class="green">onExtError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>) {</code>
+					<code>		<span class="cyan">let</span> $tr <span class="pink">= $</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>);</code><br />
+					<code>		$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-danger"&gt;Error&lt;/span&gt;`</span>);</code>
+					<code>	},</code>
+					<code>	<span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="cyan">let</span> $tr <span class="pink">= $</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>);</code><br />
+					<code>		$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-danger"&gt;Error&lt;/span&gt;`</span>);</code>
+					<code>	}</code>
 					<code>});</code>
 				</pre>
 				<!--
@@ -884,7 +907,7 @@
 				<p class="my-text"><b>Segundo:</b> la lógica del backend que traerá los datos de la colección (en este caso de forma aleatoria). Para este caso he desarrollado 2 funciones: una para obtener una cantidad específica de datos de la colección y la otra para darle formato para mostrarse en el frontend.</p>
 				<samp>PHP</samp>
 				<pre class="sb">
-					<code>&lt;?php</code>
+					<code>&lt;?php</code><br />
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Esta función se encargará entregar una</span></code>
@@ -1114,7 +1137,7 @@
 				<p class="my-text"><b>Forma 2 - Creando un web service:</b> esto lo que hará es que el usuario tendrá la comodidad de recargar la tabla en todo momento sin tener que refrescar la página.</p>
 				<samp>PHP</samp>
 				<pre class="sb">
-					<code>&lt;?php</code>
+					<code>&lt;?php</code><br />
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* getNewCollection.php</span></code>
@@ -1570,7 +1593,7 @@
 			 */
 			return _isValidToUpload;
 		},
-		onSubmit: function(filename, extension, uploadBtn, fileSize) {
+		onSubmit: function (filename, extension, uploadBtn, fileSize) {
 			if (_uploadedFiles < this.getQueueSize()) _uploadedFiles = this.getQueueSize();
 
 			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
