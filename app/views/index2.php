@@ -223,6 +223,7 @@
 					<code>		_uploadedFiles <span class="pink">=</span> <span class="purple">0</span>;</code>
 					<code>	},</code>
 					<code>	<span class="green">onError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">errorType</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {},</code>
+					<code>	<span class="green">onExtError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">extension</span>) {},</code>
 					<code>	<span class="green">onSizeError</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">fileSize</span>) {}</code>
 					<code>});</code><br />
 					<code><span class="comment">/**</span></code>
@@ -297,6 +298,31 @@
 					<code>		.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code><br />
 					<code>});</code>
 				</pre>
+				<samp>PHP</samp>
+				<pre class="sb">
+					<code>&lt;?php</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Y este será el backend para este ejemplo,</span></code>
+					<code> <span class="comment">* el cual está declarado en la propiedad de</span></code>
+					<code> <span class="comment">* "url" del objeto de SimpleAjaxUploader en</span></code>
+					<code> <span class="comment">* el archivo .js con el valor de: "uploadFiles.php"</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="pink">require</span> <span class="yellow">"SimpleAjaxUploader/Uploader.php"</span>;</code><br />
+					<code>$simpleAjaxUploader <span class="pink">= new</span> <span class="cyan">FileUpload</span>(<span class="yellow">"inputUploadFiles"</span>);</code><br />
+					<code>$simpleAjaxUploader-&gt;sizeLimit <span class="pink">=</span> ((<span class="comment">/*byte*/</span> <span class="purple">1</span> <span class="pink">*</span> <span class="comment">/*bytes*/</span> <span class="purple">1024</span>) <span class="comment">/* = kilobyte*/</span> <span class="pink">*</span> <span class="comment">/*kilobytes*/</span> <span class="purple">1024</span>) <span class="comment">/* = megabyte*/</span> <span class="pink">*</span> <span class="comment">/*megabytes*/</span> <span class="purple">10</span>;</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Para este ejemplo, yo opté por</span></code>
+					<code> <span class="comment">* permitir cualquier tipo de archivo.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="comment">// $simpleAjaxUploader-&gt;allowedExtensions = ["jpg", "jpeg", "png", "gif", "webm"];</span></code><br />
+					<code>$result <span class="pink">=</span> $simpleAjaxUploader-&gt;<span class="cyan">handleUpload</span>(<span class="cyan">dirname</span>(<span class="purple">__FILE__</span>) <span class="pink">.</span> <span class="yellow">"/files"</span>);</code><br />
+					<code><span class="pink">if</span> (<span class="pink">!</span>$result) {</code>
+					<code>	<span class="pink">exit</span>(<span class="cyan">json_encode</span>([<span class="yellow">"success"</span> =&gt; <span class="purple">false</span>, <span class="yellow">"msg"</span> =&gt; $simpleAjaxUploader-&gt;<span class="cyan">getErrorMsg</span>()]));</code>
+					<code>}</code><br />
+					<code><span class="cyan">echo json_encode</span>([<span class="yellow">"success"</span> =&gt; <span class="purple">true</span>, <span class="yellow">"file"</span> =&gt; $simpleAjaxUploader-&gt;<span class="cyan">getSavedFile</span>()]);</code>
+				</pre>
 				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
 				<samp>HTML</samp>
 				<pre class="sb">
@@ -366,10 +392,28 @@
 					<code>		<span class="orange">this</span>.<span class="cyan">setPctBox</span>($tr.<span class="cyan">find</span>(<span class="yellow">'.td-pct'</span>));</code>
 					<code>	},</code>
 					<code>	<span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 1.- La condición de "QueueSize" se aplica para</span></code>
+					<code>		 <span class="comment">* iniciar la sumatoria de la barra de progreso. El</span></code>
+					<code>		 <span class="comment">* valor de "Queue" disminuye de 1 en 1 (es decir:</span></code>
+					<code>		 <span class="comment">* por cada archivo cargado) hasta llegar a 0 desde</span></code>
+					<code>		 <span class="comment">* la función de "onSubmit".</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 2.- Si el parámetro "pct" llega a 100, este se suma</span></code>
+					<code>		 <span class="comment">* la variable global de "_generalPct", misma que se</span></code>
+					<code>		 <span class="comment">* usará en la barra de progreso.</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* 3.- La variable global "_generalPct" se le suma</span></code>
+					<code>		 <span class="comment">* la fracción de "pct" entre la variable global de</span></code>
+					<code>		 <span class="comment">* "_uploadedFiles". El resultado se asigna a las</span></code>
+					<code>		 <span class="comment">* a las propiedades de la barra de progreso y</span></code>
+					<code>		 <span class="comment">* mostrar el porcentaje correspondiente.</span></code>
+					<code>		 <span class="comment">*/</span></code>
 					<code>		<span class="pink">if</span> (<span class="orange">this</span>.<span class="cyan">getQueueSize</span>() <span class="pink">==</span> <span class="purple">0</span>) {</code>
 					<code>			<span class="pink">if</span> (pct <span class="pink">==</span> <span class="purple">100</span>) {</code>
 					<code>				_generalPct <span class="pink">+=</span> (pct <span class="pink">/</span> _uploadedFiles);</code><br />
-					<code>				<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, _generalPct);</code><br />
+					<code>				<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, _generalPct);</code>
 					<code>				<span class="pink">$</span>(<span class="yellow">'#generalProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">`</span>${_generalPct}<span class="yellow">%`</span>).<span class="cyan">text</span>(<span class="yellow">`</span>${_generalPct}<span class="yellow">%`</span>);</code>
 					<code>			}</code>
 					<code>		}</code>
@@ -1495,7 +1539,7 @@
 			 */
 			else if (fileSize > _MAXSIZE) {
 				$code
-					.append(`<code> - [<span class="pink">ERROR</span>] ${filename} excede el límite de ${_MAXSIZE / 1024}MB permitidos</code>`);
+					.append(`<code> - [<span class="pink">ERROR</span>] <span class="yellow">"${filename}"</span> error: excede el límite de ${_MAXSIZE / 1024}MB permitidos</code>`);
 
 				_isValidToUpload = false;
 			}
@@ -1541,7 +1585,6 @@
 					_generalPct += (pct / _uploadedFiles);
 
 					$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', _generalPct);
-
 					$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', `${_generalPct}%`).text(`${_generalPct}%`);
 				}
 			}
@@ -1560,13 +1603,13 @@
 
 				$code.find('.pre-status').text('NO_CARGADO');
 				$code.find('.pre-result').addClass('pink').text('ERROR');
-				$code.find('.pre-message').text(` ${response.msg}`);
+				$code.find('.pre-message').show();
+				$code.find('.yellow.pre-message').text(response.msg);
 			}
 		},
 		onDone: function (filename, status, statusText, response, uploadBtn, fileSize) {
-			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
-
-			$tr.find('.td-pct').text('100%');
+			$(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`)
+				.find('.td-pct').text('100%');
 		},
 		onAllDone: function () {
 			_arrayInfoFiles = new Array();
@@ -1583,6 +1626,19 @@
 
 			$code.find('.pre-status').text('NO_CARGADO');
 			$code.find('.pre-result').addClass('pink').text('ERROR');
+			$code.find('.pre-message').show();
+			$code.find('.yellow.pre-message').text(response.msg);
+		},
+		onExtError: function (filename, extension) {
+			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
+			let $code = $(`#preOutputStatusSimpleAjaxUploader #code_${sanitizeStringSimpleAjaxUploader(filename)}`);
+
+			$tr.find('.td-status').html(`<span class="badge text-bg-danger">Error</span>`);
+
+			$code.find('.pre-status').text('NO_CARGADO');
+			$code.find('.pre-result').addClass('pink').text('ERROR');
+			$code.find('.pre-message').show();
+			$code.find('.yellow.pre-message').text(`el tipo de archivo no está permitido (${extension})`);
 		},
 		onSizeError: function (filename, fileSize) {
 			let $tr = $(`#tableFilesSimpleAjaxUploader #tr_${sanitizeStringSimpleAjaxUploader(filename)}`);
@@ -1592,7 +1648,8 @@
 
 			$code.find('.pre-status').text('NO_CARGADO');
 			$code.find('.pre-result').addClass('pink').text('ERROR');
-			$code.find('.pre-message').text(` el archivo excede el límite de ${_MAXSIZE / 1024}MB permitidos`);
+			$code.find('.pre-message').show();
+			$code.find('.yellow.pre-message').text(`el archivo excede el límite de ${_MAXSIZE / 1024}MB permitidos`);
 		}
 	});
 
@@ -1805,11 +1862,11 @@
 	});
 
 	$('#buttonUploadFilesSimpleAjaxUploader').click(function () {
-		$('#preOutputStatusSimpleAjaxUploader').html(`<code>Archivos en cola:</code>`);
+		$('#preOutputStatusSimpleAjaxUploader').html(`<code>Estatus de carga:</code>`);
 
 		$.each(_arrayInfoFiles, function (index, value) {
 			$('#preOutputStatusSimpleAjaxUploader')
-				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - <span class="yellow">"${value.name}"</span> <span class="pink">|</span> <span class="purple pre-status">CARGANDO</span> [<span class="pre-result"></span>]<span class="yellow pre-message"></span></code>`);
+				.append(`<code id="code_${sanitizeStringSimpleAjaxUploader(value.name)}"> - [<span class="pre-result"></span>] <span class="yellow">"${value.name}"</span> | <span class="purple pre-status">CARGANDO</span><span class="pre-message" style="display: none;"> error: </span><span class="yellow pre-message" style="display: none;"></span></code>`);
 		});
 
 		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
