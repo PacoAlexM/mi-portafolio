@@ -424,6 +424,14 @@ input:checked + .my-slider:before {
   -ms-transform: translateX(30px);
   transform: translateX(30px);
 }
+input:checked:disabled + .my-slider {
+  background-color: #b0e3b0;
+  cursor: default;
+}
+input:disabled + .my-slider {
+  background-color: #fda1a5;
+  cursor: default;
+}
 
 /**
  *
