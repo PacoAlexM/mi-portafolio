@@ -419,6 +419,15 @@
 					<code>		}</code>
 					<code>	},</code>
 					<code>	<span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Apartir de esta función, así como las</span></code>
+					<code>		 <span class="comment">* funciones de "onError", "onExtError" y</span></code>
+					<code>		 <span class="comment">* "onSizeError" tienen ya la misma lógica.</span></code>
+					<code>		 <span class="comment">* Se declara una variable donde se selecciona</span></code>
+					<code>		 <span class="comment">* el renglón que mostrará el estatus de carga,</span></code>
+					<code>		 <span class="comment">* ya sea si fue correcto o con error.</span></code>
+					<code>		 <span class="comment">*/</span></code>
 					<code>		<span class="cyan">let</span> $tr <span class="pink">= $</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>);</code><br />
 					<code>		<span class="pink">if</span> (response.success <span class="pink">===</span> <span class="purple">true</span>)</code>
 					<code>			$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-success"&gt;Cargado&lt;/span&gt;`</span>);</code>
@@ -426,6 +435,14 @@
 					<code>			$tr.<span class="cyan">find</span>(<span class="yellow">'.td-status'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;span class="badge text-bg-danger"&gt;Error&lt;/span&gt;`</span>);</code>
 					<code>	},</code>
 					<code>	<span class="green">onDone</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">status</span>, <span class="orange">statusText</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Al finalizar correctamente la carga, se</span></code>
+					<code>		 <span class="comment">* cambia el porcentaje de progreso de carga</span></code>
+					<code>		 <span class="comment">* del renglón seleccionado a 100% puesto que</span></code>
+					<code>		 <span class="comment">* la función de "setPctBox" por alguna razón</span></code>
+					<code>		 <span class="comment">* deja el campo en blanco.</span></code>
+					<code>		 <span class="comment">*/</span></code>
 					<code>		<span class="pink">$</span>(<span class="yellow">`#tableFiles #tr_</span>${<span class="cyan">sanitizeString</span>(filename)}<span class="yellow">`</span>)</code>
 					<code>			.<span class="cyan">find</span>(<span class="yellow">'.td-pct'</span>).<span class="cyan">text</span>(<span class="yellow">'100%'</span>);</code>
 					<code>	},</code>
