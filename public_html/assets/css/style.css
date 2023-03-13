@@ -143,17 +143,20 @@ body::-webkit-scrollbar-thumb {
 .my-panel > .my-panel-header {
   padding: 10px 15px;
 }
+.my-panel > .my-panel-header:before,
+.my-panel > .my-panel-header:after {
+  display: table;
+  content: " ";
+}
+.my-panel > .my-panel-header:after {
+  clear: both;
+}
 .my-panel > .my-panel-header > .my-panel-header-title {
   font-family: inherit;
   color: inherit;
   margin: 10px 0 !important;
 }
 .my-panel > .my-panel-body {
-  padding: 15px;
-}
-.my-panel > .my-panel-footer {
-  background-color: #f5f5f5;
-  color: #333;
   padding: 15px;
 }
 .my-panel > .my-panel-body:before,
@@ -333,6 +336,40 @@ pre.sb > code > span.yellow {
 .my-text {
   font-size: 17px;
   margin-top: 10px;
+}
+
+/**
+ *
+ * .my-screen-protector
+ */
+.my-screen-protector {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding: 30px;
+  display: table;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+.my-screen-protector:before,
+.my-screen-protector:after {
+  display: table;
+  content: " ";
+}
+.my-screen-protector:after {
+  clear: both;
+}
+.my-screen-protector > .vertical-center {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.my-screen-protector > .vertical-center > h2 {
+  font-family: inherit;
+  color: #fff;
+}
+body.uploading-files {
+  overflow: hidden;
 }
 
 /**
