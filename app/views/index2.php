@@ -105,7 +105,7 @@
 				</div>
 				<div class="row" id="rowProgressbarSimpleAjaxUploader" style="display: none;">
 					<div class="col">
-						<div class="progress mb-3" id="generalProgressbarSimpleAjaxUploader" role="progressbar" aria-label="Progreso de carga general" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 30px;">
+						<div class="progress mb-3 generalProgressbarSimpleAjaxUploader" role="progressbar" aria-label="Progreso de carga general" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 30px;">
 							<div class="progress-bar" style="width: 0%">0%</div>
 						</div>
 					</div>
@@ -460,6 +460,124 @@
 					<code>	}</code>
 					<code>});</code>
 				</pre>
+				<p class="my-text"><b>Forma 2 - Mostrar el porcentaje general en una pantalla protectora:</b> de esta manera se podrá visualizar progreso general de carga pero no el progreso de carga de los mismos archivos. Esta forma tiene la ventaja de prevenir acciones por el usuario mencionados anteriormente.</p>
+				<samp>CSS</samp>
+				<pre class="sb">
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Primero creamos la clase en nuestra</span></code>
+					<code> <span class="comment">* hoja de estilos.</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* .my-screen-protector</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="green">.my-screen-protector</span> {</code>
+					<code>  <span class="cyan">width</span>: <span class="purple">100</span><span class="cyan">%</span>;</code>
+					<code>  <span class="cyan">height</span>: <span class="purple">100</span><span class="cyan">%</span>;</code>
+					<code>  <span class="cyan">position</span>: <span class="cyan">fixed</span>;</code>
+					<code>  <span class="cyan">padding</span>: <span class="purple">30</span><span class="cyan">px</span>;</code>
+					<code>  <span class="cyan">display</span>: <span class="cyan">table</span>;</code>
+					<code>  <span class="cyan">background-color</span>: <span class="cyan">rgba</span>(<span class="purple">0</span>, <span class="purple">0</span>, <span class="purple">0</span>, <span class="purple">0.7</span>);</code>
+					<code>  <span class="cyan">z-index</span>: <span class="purple">9999</span>;</code>
+					<code>}</code>
+					<code><span class="green">.my-screen-protector</span>:before,</code>
+					<code><span class="green">.my-screen-protector</span>:after {</code>
+					<code>  <span class="cyan">display</span>: <span class="cyan">table</span>;</code>
+					<code>  <span class="cyan">content</span>: <span class="yellow">" "</span>;</code>
+					<code>}</code>
+					<code><span class="green">.my-screen-protector</span>:after {</code>
+					<code>  <span class="cyan">clear</span>: <span class="cyan">both</span>;</code>
+					<code>}</code>
+					<code><span class="green">.my-screen-protector</span> <span class="pink">&gt;</span> <span class="green">.vertical-center</span> {</code>
+					<code>  <span class="cyan">text-align</span>: <span class="cyan">center</span>;</code>
+					<code>  <span class="cyan">display</span>: <span class="cyan">table-cell</span>;</code>
+					<code>  <span class="cyan">vertical-align</span>: <span class="cyan">middle</span>;</code>
+					<code>}</code>
+					<code><span class="green">.my-screen-protector</span> <span class="pink">&gt;</span> <span class="green">.vertical-center</span> <span class="pink">&gt; h2</span> {</code>
+					<code>  <span class="cyan">font-family</span>: <span class="cyan">inherit</span>;</code>
+					<code>  <span class="cyan">color</span>: <span class="purple">#fff</span>;</code>
+					<code>}</code>
+					<code><span class="pink">body</span><span class="green">.uploading-files</span> {</code>
+					<code>  <span class="cyan">overflow</span>: <span class="cyan">hidden</span>;</code>
+					<code>}</code>
+				</pre>
+				<samp>JS</samp>
+				<pre class="sb">
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Despues:</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Dentro del mismo objeto de</span></code>
+					<code> <span class="comment">* SimpleAjaxUploader.</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="cyan">var</span> _simpleAjaxUploader <span class="pink">= new</span> ss.<span class="cyan">SimpleUpload</span>({</code>
+					<code>	...</code>
+					<code>	<span class="green">onProgress</span>: <span class="cyan">function</span> (<span class="orange">pct</span>) {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* Para este caso, la lógica de la</span></code>
+					<code>		 <span class="comment">* función "onProgress" es similar</span></code>
+					<code>		 <span class="comment">* a la de solo la barra de progreso.</span></code>
+					<code>		 <span class="comment">* La única diferencia es el selector.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="pink">if</span> (<span class="orange">this</span>.<span class="cyan">getQueueSize</span>() <span class="pink">==</span> <span class="purple">0</span>) {</code>
+					<code>			<span class="pink">if</span> (pct <span class="pink">==</span> <span class="purple">100</span>) {</code>
+					<code>				_generalPct <span class="pink">+=</span> (pct <span class="pink">/</span> _uploadedFiles);</code><br />
+					<code>				<span class="pink">$</span>(<span class="yellow">'#screenGeneralProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, _generalPct);</code>
+					<code>				<span class="pink">$</span>(<span class="yellow">'#screenGeneralProgressbar &gt; .progress-bar'</span>).<span class="cyan">css</span>(<span class="yellow">'width'</span>, <span class="yellow">`</span>${_generalPct}<span class="yellow">%`</span>).<span class="cyan">text</span>(<span class="yellow">`</span>${_generalPct}<span class="yellow">%`</span>);</code>
+					<code>			}</code>
+					<code>		}</code>
+					<code>	},</code>
+					<code>	<span class="green">onAllDone</span>: <span class="cyan">function</span> () {</code>
+					<code>		<span class="comment">/**</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* De la misma forma de solo mostrar</span></code>
+					<code>		 <span class="comment">* la barra de progreso, al finalizar</span></code>
+					<code>		 <span class="comment">* la carga de todos los archivos, se</span></code>
+					<code>		 <span class="comment">* elimina el elemento que funge como</span></code>
+					<code>		 <span class="comment">* protector de pantalla.</span></code>
+					<code>		 <span class="comment">*</span></code>
+					<code>		 <span class="comment">* También agregué una función timer para</span></code>
+					<code>		 <span class="comment">* que la pantalla se pueda visualizar por</span></code>
+					<code>		 <span class="comment">* completo la animación de la barra de</span></code>
+					<code>		 <span class="comment">* progreso general.</span></code>
+					<code>		 <span class="comment">*/</span></code>
+					<code>		<span class="cyan">setTimeout</span>(<span class="orange">_</span> <span class="cyan">=&gt;</span> {</code>
+					<code>			<span class="pink">$</span>(<span class="yellow">'div.my-screen-protector'</span>).<span class="cyan">remove</span>();</code><br />
+					<code>			<span class="pink">$</span>(<span class="yellow">'body'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'uploading-files'</span>);</code>
+					<code>		}, <span class="purple">1000</span>);</code><br />
+					<code>		_arrayInfoFiles <span class="pink">= new</span> <span class="cyan">Array</span>();</code>
+					<code>		_generalPct <span class="pink">=</span> <span class="purple">0</span>;</code>
+					<code>		_uploadedFiles <span class="pink">=</span> <span class="purple">0</span>;</code>
+					<code>	},</code>
+					<code>	...</code>
+					<code>});</code><br />
+					<code><span class="comment">/**</span></code>
+					<code> <span class="comment">*</span></code>
+					<code> <span class="comment">* Y por último</span></code>
+					<code> <span class="comment">*/</span></code>
+					<code><span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+					<code>	<span class="comment">/**</span></code>
+					<code>	 <span class="comment">*</span></code>
+					<code>	 <span class="comment">* Aquí la lógica se mantiene igual</span></code>
+					<code>	 <span class="comment">* salvo las siguientes líneas que</span></code>
+					<code>	 <span class="comment">* agregan el elemento HTML para</span></code>
+					<code>	 <span class="comment">* cubrir el resto del sitio y</span></code>
+					<code>	 <span class="comment">* deshabilitar la barra de scroll.</span></code>
+					<code>	 <span class="comment">*/</span></code>
+					<code>	<span class="pink">$</span>(<span class="yellow">'body'</span>).<span class="cyan">prepend</span>(<span class="yellow">`&lt;div class="my-screen-protector"&gt;</span></code>
+					<code>		<span class="yellow">&lt;div class="vertical-center"&gt;</span></code>
+					<code>			<span class="yellow">&lt;h2 class="mb-3"&gt;&lt;i class="fa-solid fa-cloud-arrow-up fa-bounce"&gt;&lt;/i&gt; Cargando archivos, un momento por favor.&lt;/h2&gt;</span></code>
+					<code>			<span class="yellow">&lt;div class="progress mb-3" id="screenGeneralProgressbar" role="progressbar" aria-label="Progreso de carga general" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 30px;"&gt;</span></code>
+					<code>				<span class="yellow">&lt;div class="progress-bar" style="width: 0%"&gt;0%&lt;/div&gt;</span></code>
+					<code>			<span class="yellow">&lt;/div&gt;</span></code>
+					<code>		<span class="yellow">&lt;/div&gt;</span></code>
+					<code>	<span class="yellow">&lt;/div&gt;`</span>).<span class="cyan">addClass</span>(<span class="yellow">'uploading-files'</span>);</code><br />
+					<code>	<span class="pink">$</span>(<span class="yellow">'#buttonUploadFiles, #buttonResetFiles'</span>)</code>
+					<code>		.<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code><br>
+					<code>	<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> _arrayInfoFiles.length; i<span class="pink">++</span>) _simpleAjaxUploader.<span class="cyan">submit</span>();</code>
+					<code>});</code>
+				</pre>
+				<p class="my-text">Y para concluir con este ejemplo: solo mencionaré que a esta librería le vendría bien que en la propiedad de "onProgress" se agregara en la función un parámetro extra el cual sería el archivo que está en proceso de carga. También durate el desarrollo de este ejemplo tuve que descartar algunas funciones de la misma librería como "removeCurrent", ya que este lo usaba en la propiedad de "onChange" cuando el archivo por cargar no cumplía con las validaciones, esto debido a que "removeCurrent" solo elimina el elemento anterior, siendo que en la propia documentación se especifica que se puede usar dentro de las propiedades de "onSubmit" y "onChange". Y por último, la función de "setPctBox" sería bueno que también aceptara un arreglo de elementos HTML o un querySelectorAll para que el porcentage de carga pueda mostrase en varios lugares a la vez (por ejemplo en el output de arriba). Y eso sería todo por este ejemplo, espero que sirva de ayuda para quienes buscan desarrollar con esta librería.</p>
 				<!--
 				<div class="row">
 					<div class="col">
@@ -1353,6 +1471,14 @@
 							<code>  <span class="cyan">-ms-transform</span>: <span class="cyan">translateX</span>(<span class="purple">30</span><span class="cyan">px</span>);</code>
 							<code>  <span class="cyan">transform</span>: <span class="cyan">translateX</span>(<span class="purple">30</span><span class="cyan">px</span>);</code>
 							<code>}</code>
+							<code><span class="pink">input</span>:checked:disabled <span class="pink">+</span> <span class="green">.my-slider</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#b0e3b0</span>;</code>
+							<code>  <span class="cyan">cursor</span>: <span class="cyan">default</span>;</code>
+							<code>}</code>
+							<code><span class="pink">input</span>:disabled <span class="pink">+</span> <span class="green">.my-slider</span> {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="purple">#fda1a5</span>;</code>
+							<code>  <span class="cyan">cursor</span>: <span class="cyan">default</span>;</code>
+							<code>}</code>
 						</pre>
 						<samp>JS</samp>
 						<pre class="sb">
@@ -1556,8 +1682,8 @@
 			let _isValidToUpload = true;
 			let $code = $('#preOutputStatusSimpleAjaxUploader').html('<code>Archivos por cargar:</code>');
 
-			$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
-			$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
+			$('.generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', 0);
+			$('.generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', '0%').text('0%');
 
 			/**
 			 *
@@ -1624,8 +1750,8 @@
 				if (pct == 100) {
 					_generalPct += (pct / _uploadedFiles);
 
-					$('#generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', _generalPct);
-					$('#generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', `${_generalPct}%`).text(`${_generalPct}%`);
+					$('.generalProgressbarSimpleAjaxUploader').attr('aria-valuenow', _generalPct);
+					$('.generalProgressbarSimpleAjaxUploader > .progress-bar').css('width', `${_generalPct}%`).text(`${_generalPct}%`);
 				}
 			}
 		},
@@ -1652,6 +1778,17 @@
 				.find('.td-pct').text('100%');
 		},
 		onAllDone: function () {
+			if ($('div.my-screen-protector').length > 0) {
+				setTimeout(_ => {
+					$('div.my-screen-protector').remove();
+
+					$('body').removeClass('uploading-files');
+				}, 1000);
+			}
+
+			$('#checkApplyScreenProtectorSimpleAjaxUploader, #checkApplyProgressBarSimpleAjaxUploader')
+				.attr('disabled', false);
+
 			_arrayInfoFiles = new Array();
 			_generalPct = 0;
 			_uploadedFiles = 0;
@@ -1896,9 +2033,28 @@
 	});
 	*/
 
+	$('#checkApplyScreenProtectorSimpleAjaxUploader').on('change', function () {
+		let $chkProgressBar = $('#checkApplyProgressBarSimpleAjaxUploader');
+
+		if ($(this).is(':checked')) {
+			$chkProgressBar.prop('checked', false);
+
+			$('#rowProgressbarSimpleAjaxUploader').hide();
+		}
+
+		$chkProgressBar.attr('disabled', $(this).is(':checked'));
+	});
+
 	$('#checkApplyProgressBarSimpleAjaxUploader').on('change', function () {
-		if ($(this).is(':checked')) $('#rowProgressbarSimpleAjaxUploader').show();
-		else $('#rowProgressbarSimpleAjaxUploader').hide();
+		let $chkScreenProtector = $('#checkApplyScreenProtectorSimpleAjaxUploader');
+
+		if ($(this).is(':checked')) {
+			$chkScreenProtector.prop('checked', false);
+
+			$('#rowProgressbarSimpleAjaxUploader').show();
+		} else $('#rowProgressbarSimpleAjaxUploader').hide();
+
+		$chkScreenProtector.attr('disabled', $(this).is(':checked'));
 	});
 
 	$('#buttonUploadFilesSimpleAjaxUploader').click(function () {
@@ -1910,6 +2066,21 @@
 		});
 
 		$('#buttonUploadFilesSimpleAjaxUploader, #buttonResetFilesSimpleAjaxUploader')
+			.attr('disabled', true);
+
+		if ($('#checkApplyScreenProtectorSimpleAjaxUploader').is(':checked')) {
+			if ($('div.my-screen-protector').length == 0)
+				$('body').prepend(`<div class="my-screen-protector">
+					<div class="vertical-center">
+						<h2 class="mb-3"><i class="fa-solid fa-cloud-arrow-up fa-bounce"></i> Cargando archivos, un momento por favor.</h2>
+						<div class="progress mb-3 generalProgressbarSimpleAjaxUploader" role="progressbar" aria-label="Progreso de carga general" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 30px;">
+							<div class="progress-bar" style="width: 0%">0%</div>
+						</div>
+					</div>
+				</div>`).addClass('uploading-files');
+		}
+
+		$('#checkApplyScreenProtectorSimpleAjaxUploader, #checkApplyProgressBarSimpleAjaxUploader')
 			.attr('disabled', true);
 
 		for (let i = 0; i < _arrayInfoFiles.length; i++) _simpleAjaxUploader.submit();
