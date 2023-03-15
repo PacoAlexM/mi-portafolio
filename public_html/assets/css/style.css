@@ -79,35 +79,28 @@ body::-webkit-scrollbar-thumb {
 
 /**
  *
- * Discurso de Colisio en el header.
- * Cita de Reggie en el header.
+ * .my-div-quote
  */
-#divDiscursoColosio,
-#divReggiesQuote {
+.my-div-quote {
   padding: 0 12px;
 }
-#divDiscursoColosio > figure,
-#divReggiesQuote > figure {
+.my-div-quote > figure {
   background-color: rgba(0, 0, 0, .5);
   border-radius: 5px;
   padding: 5px;
 }
-#divDiscursoColosio > figure > blockquote > p,
-#divReggiesQuote > figure > blockquote > p {
+.my-div-quote > figure > blockquote > p {
   color: #fff;
   font-size: 25px;
 }
-#divDiscursoColosio > figure > figcaption,
-#divReggiesQuote > figure > figcaption {
+.my-div-quote > figure > figcaption {
   color: #fff;
 }
 @media (min-width: 768px) {
-  #divDiscursoColosio > figure > blockquote > p,
-  #divReggiesQuote > figure > blockquote > p {
+  .my-div-quote > figure > blockquote > p {
     font-size: 35px;
   }
-  #divDiscursoColosio > figure > figcaption,
-  #divReggiesQuote > figure > figcaption {
+  .my-div-quote > figure > figcaption {
     font-size: 18px;
   }
 }
@@ -129,7 +122,123 @@ body::-webkit-scrollbar-thumb {
   top: 0;
   left: 0;
   margin: 5px 0 0 5px;
-  z-index: 999;
+  z-index: 1002;
+}
+
+/**
+ *
+ * .sidebar-wrapper
+ */
+.sidebar-wrapper {
+  padding: 60px 0;
+  z-index: 1001;
+  position: fixed;
+  width: 0;
+  height: 100%;
+  left: 0;
+  background-color: #000;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all .4s;
+}
+.sidebar-wrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+.sidebar-wrapper::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 5px;
+}
+.sidebar-wrapper.opened {
+  width: 250px;
+}
+.sidebar-wrapper > .sidebar-menu {
+  position: relative;
+  width: 250px;
+  padding: 0;
+  list-style: none;
+}
+.sidebar-wrapper > .sidebar-menu li {
+  line-height: 40px;
+}
+.sidebar-wrapper > .sidebar-menu li.sidebar-divisor {
+  margin: 10px auto;
+  background-color: #fff;
+  height: 1px;
+  width: 80%;
+}
+.sidebar-wrapper > .sidebar-menu li a {
+  padding-left: 20px;
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}
+.sidebar-wrapper > .sidebar-menu li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #222;
+}
+.sidebar-wrapper > .sidebar-menu li a:active,
+.sidebar-wrapper > .sidebar-menu li a:focus {
+  text-decoration: none;
+}
+.sidebar-wrapper > .sidebar-menu > .sidebar-brand {
+  font-size: 18px;
+  line-height: 55px;
+}
+.sidebar-wrapper > .sidebar-menu > .sidebar-brand .with-logo {
+  display: block;
+}
+.sidebar-wrapper > .sidebar-menu > .sidebar-brand .with-logo img {
+  border-radius: 50%;
+  width: 15%;
+}
+.sidebar-wrapper > .sidebar-menu > .sidebar-brand a {
+  color: #fff;
+}
+.sidebar-wrapper > .sidebar-menu > .sidebar-brand a:hover {
+  color: #fff;
+  background: #222;
+}
+.page-cover {
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+.sidebar-wrapper > .sidebar-menu .drop-list .drop-menu {
+  height: 0;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transition: all .2s linear;
+}
+.sidebar-wrapper > .sidebar-menu .drop-list .drop-menu li a {
+  padding-left: 40px;
+}
+.sidebar-wrapper > .sidebar-menu .drop-list a .drop-icon {
+  transition: transform .2s linear;
+}
+.sidebar-wrapper > .sidebar-menu .drop-list a .drop-icon.open {
+  transform: rotate(-180deg);
+}
+body.menu-opened {
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: auto;
+}
+@media (min-width: 768px) {
+  .sidebar-wrapper.opened {
+    width: 350px;
+  }
+  .sidebar-wrapper > .sidebar-menu {
+    width: 350px;
+  }
 }
 
 /**

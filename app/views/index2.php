@@ -19,16 +19,58 @@
 	<a href="#" id="buttonMenu" class="btn btn-dark btn-lg"><i class="fa-solid fa-bars"></i> Menú</a>
 	<a href="#" id="buttonToTop" class="return-to-top my-fade-effect-on"><i class="fa-solid fa-chevron-up"></i></a>
 
+	<nav class="sidebar-wrapper" id="sidebarMenu">
+		<ul class="sidebar-menu">
+			<li class="drop-list sidebar-brand">
+				<a href="#" data-toggle="drop-list" class="with-logo"><img alt="PacOwO.jpg" src="<?php echo $_SESSION["MAIN_URL"] ?>img/logo.jpg"> Paco Alex M <i class="drop-icon fa fa-angle-down"></i></a>
+				<ul class="drop-menu">
+					<li>
+						<a href="https://github.com/PacoAlexM" target="_blank"><i class="fa-brands fa-github"></i> GitHub </a>
+					</li>
+					<li>
+						<a href="http://pacoog.deviantart.com/" target="_blank"><i class="fa-brands fa-deviantart"></i> Deviantart </a>
+					</li>
+					<li>
+						<a href="https://twitter.com/PacoAlexM5" target="_blank"><i class="fa-brands fa-twitter"></i> Twitter</a>
+					</li>
+					<li>
+						<a href="<?php echo $_SESSION["MAIN_URL"] ?>acerca/de/mi"><i class="fa-solid fa-user"></i> Acerca de Mi</a>
+					</li>
+				</ul>
+			</li>
+			<li class="sidebar-divisor"></li>
+			<li>
+				<a href="#uploadFiles">&gt; Carga de Archivos &lt;</a>
+			</li>
+			<li>
+				<a href="#dropZone">Drop Zone</a>
+			</li>
+			<li>
+				<a href="#collections">colecciones.json</a>
+			</li>
+			<li>
+				<a href="#vanishEfect">Efecto de Desvanecimiento</a>
+			</li>
+			<li>
+				<a href="#scrollToTop">Regresando al Tope...</a>
+			</li>
+			<li>
+				<a href="#grayScaleScrolling">Escala de Grises</a>
+			</li>
+		</ul>
+	</nav>
+
 	<header class="header" id="headerIndex">
 		<div class="vertical-center">
 			<?php $titles = [
 				"<h1>&gt; header title goes here &lt;</h1>",
 				"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
-				"<div class='col-md-8 offset-md-2' id='divDiscursoColosio'><figure class='mb-0'><blockquote class=blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Source Title'>6 de Marzo de 1994</cite></figcaption></figure></div>",
+				"<div class='col-md-10 offset-md-1 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Evento'>6 de Marzo de 1994</cite></figcaption></figure></div>",
 				"<h1>\\[°_°]/ &lt;01100101 01101000?)</h1>",
 				"<h1>=(^_^)=</h1>",
-				"<div class='col-md-8 offset-md-2' id='divReggiesQuote'><figure class='mb-0'><blockquote class=blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, by <cite title='Source Title'>Whygena</cite></figcaption></figure></div>",
-				"<h1>I have a question about Batman</h1>"
+				"<div class='col-md-8 offset-md-2 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, por <cite title='Autor'>Whygena</cite></figcaption></figure></div>",
+				"<h1>I have a question about Batman</h1>",
+				"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación de la obra de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
 			] ?>
 			<?php echo $titles[rand(0, (count($titles) - 1))] ?>
 			<hr />
@@ -1965,6 +2007,45 @@
 
 	$('#buttonMenu').click(function (e) {
 		e.preventDefault();
+
+		$('#sidebarMenu').toggleClass('opened');
+		$('body').toggleClass('menu-opened');
+
+		if ($('#sidebarMenu').hasClass('opened')) {
+			$(this).html(`<i class="fa-solid fa-xmark"></i> Cerrar`);
+
+			$('body').prepend(`<div class="page-cover"></div`);
+		} else {
+			$(this).html(`<i class="fa-solid fa-bars"></i> Menú`);
+
+			$('body').find('div.page-cover').remove();
+		}
+	});
+
+	$('body').on('click', 'div.page-cover', function () {
+		$('#sidebarMenu').toggleClass('opened');
+		$('body').toggleClass('menu-opened');
+		$('#buttonMenu').html(`<i class="fa-solid fa-bars"></i> Menú`);
+		$(this).remove();
+	});
+
+	$('.sidebar-brand').on('click', `a[data-toggle="drop-list"]`, function (e) {
+		e.preventDefault();
+
+		let $a = $(this);
+		let $dropList = $(`.${$a.data('toggle')}`);
+		let $dropMenu = $dropList.find('.drop-menu');
+		let ddHeight = 0;
+
+		$dropMenu.toggleClass('dropped');
+		$a.find('i.drop-icon').toggleClass('open');
+
+		if ($dropMenu.hasClass('dropped'))
+			$.each($dropMenu.find('li'), function (index, value) {
+				ddHeight += value.offsetHeight;
+			});
+
+		$dropMenu.css('height', ddHeight);
 	});
 
 	$('#slideDown').click(function (e) {
