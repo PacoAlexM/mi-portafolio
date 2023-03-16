@@ -8,7 +8,7 @@
 	<meta name="keywords" content="HTML, CSS, JavaScript, Scrolling functions, Funciones con scroll, CSS3 fade style, Estilos de desvanecimiento con CSS3, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Strings aleatorios en php" />
 	<meta name="author" content="Paco Alex Martell" />
 	<meta name="theme-color" content="#000000" />
-	<title>Paco Alex M | HTML &amp; CSS &amp; JS</title>
+	<title>Paco Alex M | Portafolio Personal de Ejemplos de Desarrollo Web</title>
 	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
 	<link rel="apple-touch-icon-precomposed" href="<?php echo $_SESSION["MAIN_URL"] ?>apple-touch-icon.png" sizes="196x196" />
 	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/bootstrap.min.css" />
@@ -39,22 +39,22 @@
 				</ul>
 			</li>
 			<li class="sidebar-divisor"></li>
-			<li>
+			<li class="list-item">
 				<a href="#uploadFiles">&gt; Carga de Archivos &lt;</a>
 			</li>
-			<li>
+			<li class="list-item">
 				<a href="#dropZone">Drop Zone</a>
 			</li>
-			<li>
+			<li class="list-item">
 				<a href="#collections">colecciones.json</a>
 			</li>
-			<li>
+			<li class="list-item">
 				<a href="#vanishEfect">Efecto de Desvanecimiento</a>
 			</li>
-			<li>
+			<li class="list-item">
 				<a href="#scrollToTop">Regresando al Tope...</a>
 			</li>
-			<li>
+			<li class="list-item">
 				<a href="#grayScaleScrolling">Escala de Grises</a>
 			</li>
 		</ul>
@@ -70,7 +70,7 @@
 				"<h1>=(^_^)=</h1>",
 				"<div class='col-md-8 offset-md-2 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, por <cite title='Autor'>Whygena</cite></figcaption></figure></div>",
 				"<h1>I have a question about Batman</h1>",
-				"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación de la obra de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
+				"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación del poema de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
 			] ?>
 			<?php echo $titles[rand(0, (count($titles) - 1))] ?>
 			<hr />
@@ -920,7 +920,7 @@
 		<!-- dropZone -->
 		<div id="dropZone" class="my-panel my-panel-light-blue">
 			<div class="my-panel-header">
-				<h3 class="my-panel-header-title">Número de archivos por cargar</h3>
+				<h3 class="my-panel-header-title"><del>Número de archivos por cargar</del> Drop Zone</h3>
 			</div>
 			<div class="my-panel-body">
 				<pre class="sb">
@@ -1666,7 +1666,11 @@
 				<h3 class="my-panel-header-title">Cambiar colores de una imagen a escala de grises haciendo scroll</h3>
 			</div>
 			<div class="my-panel-body">
-				<p class="my-text">Vaya título mas largo.</p>
+				<h2>Escala de grises</h2>
+				<p class="my-text">Vaya título mas largo. Bueno en este ejemplo no tengo mucho que decir mas que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenia una función al hacer scroll y las fotos del mismo sitio cambiaban de color, asi que decidía hacer al similar.</p>
+				<?php $imgUrl = $_SESSION["MAIN_URL"] . "assets/img/[Zakumi] Barcelona.png" ?>
+				<img src="<?php echo $imgUrl ?>" alt="img-zakumi-barcelona" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
+				<h4><small class="text-muted">* Esta imagen la puedes encontrar en mi perfil de <i class="fa-brands fa-deviantart"></i> DeviantArt</small></h4>
 			</div>
 		</div>
 		<!-- ./grayScaleScrolling -->
@@ -2029,7 +2033,7 @@
 		$(this).remove();
 	});
 
-	$('.sidebar-brand').on('click', `a[data-toggle="drop-list"]`, function (e) {
+	$('#sidebarMenu > .sidebar-menu > .sidebar-brand').on('click', `a[data-toggle="drop-list"]`, function (e) {
 		e.preventDefault();
 
 		let $a = $(this);
@@ -2046,6 +2050,14 @@
 			});
 
 		$dropMenu.css('height', ddHeight);
+	});
+
+	$('#sidebarMenu > .sidebar-menu > .list-item').on('click', 'a', function (e) {
+		e.preventDefault();
+
+		$('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top - 10 }, 1000);
+
+		$('#buttonMenu').click();
 	});
 
 	$('#slideDown').click(function (e) {
