@@ -8,7 +8,7 @@
 	<meta name="keywords" content="HTML, CSS, JavaScript, Scrolling functions, Funciones con scroll, CSS3 fade style, Estilos de desvanecimiento con CSS3, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Strings aleatorios en php" />
 	<meta name="author" content="Paco Alex Martell" />
 	<meta name="theme-color" content="#000000" />
-	<title>Paco Alex M | Portafolio Personal de Ejemplos de Desarrollo Web</title>
+	<title>Paco Alex M | Mi Portafolio Personal de Ejemplos de Desarrollo Web</title>
 	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
 	<link rel="apple-touch-icon-precomposed" href="<?php echo $_SESSION["MAIN_URL"] ?>apple-touch-icon.png" sizes="196x196" />
 	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/bootstrap.min.css" />
@@ -1667,10 +1667,56 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Escala de grises</h2>
-				<p class="my-text">Vaya título mas largo. Bueno en este ejemplo no tengo mucho que decir mas que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenia una función al hacer scroll y las fotos del mismo sitio cambiaban de color, asi que decidía hacer al similar.</p>
-				<?php $imgUrl = $_SESSION["MAIN_URL"] . "assets/img/[Zakumi] Barcelona.png" ?>
-				<img src="<?php echo $imgUrl ?>" alt="img-zakumi-barcelona" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
+				<p class="my-text">Vaya título mas largo. Bueno en este ejemplo no tengo mucho que decir mas que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenia una función al hacer scroll y las fotos del mismo sitio cambiaban de color, asi que decidí a hacer algo similar.</p>
+				<?php $imgUrl = "assets/img/zakumi-barcelona.png" ?>
+				<img src="<?php echo $_SESSION["MAIN_URL"] . $imgUrl ?>" alt="img-zakumi" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
 				<h4><small class="text-muted">* Esta imagen la puedes encontrar en mi perfil de <i class="fa-brands fa-deviantart"></i> DeviantArt</small></h4>
+				<samp>OUTPUT</samp>
+				<pre class="sb" id="preOutputGrayScale">
+					<code>Estatus de pantalla:</code>
+					<code> - Altura de la pantalla: <span class="purple" id="codeScreenHeight">0</span><span class="cyan">px</span></code>
+					<code> - Pantalla dividida en 3: <span class="purple" id="codeScreenSplitBy3">0</span><span class="cyan">px</span></code>
+					<code> - Altura de la imagen: <span class="purple">0</span><span class="cyan">px</span></code>
+					<code> - Posición absoluta donde inicia la imagen: <span class="purple">0</span><span class="cyan">px</span></code>
+					<code> - Posición absoluta donde termina la imagen: <span class="purple">0</span><span class="cyan">px</span></code>
+				</pre>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<div class="row">
+					<div class="col-md-6">
+						<samp>HTML</samp>
+						<pre class="sb">
+							<code><span class="comment">&lt;!-- Imagen a la que se le aplicará el efecto. --&gt;</span></code>
+							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"<?php echo $imgUrl ?>"</span> <span class="green">alt</span>=<span class="yellow">"img-zakumi"</span> <span class="green">class</span>=<span class="yellow">"img-fluid my-gray-scale-on"</span> <span class="green">id</span>=<span class="yellow">"imgTestGrayScale"</span> /&gt;</code>
+						</pre>
+						<samp>CSS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .my-gray-scale</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="green">.my-gray-scale-on</span> {</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-moz-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-ms-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-o-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-webkit-filter</span>: <span class="cyan">grayscale</span>(<span class="purple">100</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="green">.my-gray-scale-off</span> {</code>
+							<code>  <span class="cyan">-webkit-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-moz-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-ms-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-o-transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">transition</span>: <span class="cyan">-webkit-filter</span> <span class="purple">2</span><span class="cyan">s</span>;</code>
+							<code>  <span class="cyan">-webkit-filter</span>: <span class="cyan">grayscale</span>(<span class="purple">0</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+						</pre>
+					</div>
+					<div class="col-md-6">
+						<samp>JS</samp>
+						<pre class="sb"></pre>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- ./grayScaleScrolling -->
