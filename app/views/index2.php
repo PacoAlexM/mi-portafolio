@@ -1668,7 +1668,8 @@
 			<div class="my-panel-body">
 				<h2>Escala de grises</h2>
 				<p class="my-text">Vaya título mas largo. Bueno en este ejemplo no tengo mucho que decir mas que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenia una función al hacer scroll y las fotos del mismo sitio cambiaban de color, asi que decidí a hacer algo similar.</p>
-				<?php $imgUrl = "assets/img/zakumi-barcelona.png" ?>
+				<?php $imgs = ["zakumi-barcelona.png", "zakumi-berlin.png"] ?>
+				<?php $imgUrl = "assets/img/" . $imgs[rand(0, (count($imgs) - 1))] ?>
 				<img src="<?php echo $_SESSION["MAIN_URL"] . $imgUrl ?>" alt="img-zakumi" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
 				<h4><small class="text-muted">* Esta imagen la puedes encontrar en mi perfil de <i class="fa-brands fa-deviantart"></i> DeviantArt</small></h4>
 				<samp>OUTPUT</samp>
