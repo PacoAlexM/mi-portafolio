@@ -22,7 +22,7 @@
 	<nav class="sidebar-wrapper" id="sidebarMenu">
 		<ul class="sidebar-menu">
 			<li class="drop-list sidebar-brand">
-				<a href="#" data-toggle="drop-list" class="with-logo"><img alt="PacOwO.jpg" src="<?php echo $_SESSION["MAIN_URL"] ?>img/logo.jpg"> Paco Alex M <i class="drop-icon fa fa-angle-down"></i></a>
+				<a href="#" data-toggle="drop-list" class="with-logo"><img alt="PacOwO.jpg" src="<?php echo $_SESSION["IMG_URL"] ?>logo.jpg"> Paco Alex M <i class="drop-icon fa fa-angle-down"></i></a>
 				<ul class="drop-menu">
 					<li>
 						<a href="https://github.com/PacoAlexM" target="_blank"><i class="fa-brands fa-github"></i> GitHub </a>
@@ -1427,7 +1427,9 @@
 							</div>
 						</div>
 						<br />
-						<img src="<?php echo $_SESSION["MAIN_URL"]?>assets/img/vinyl-scratch.jpg" alt="img-vinyl-scratch" class="img-fluid my-fade-effect-off" id="imgTestOpacity" />
+						<?php $vanishEfectImgs = ["vinyl-scratch.jpg", "negas-nms.jpg"] ?>
+						<?php $vanishEfectImgUrl = $vanishEfectImgs[rand(0, (count($vanishEfectImgs) - 1))] ?>
+						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] . $vanishEfectImgUrl ?>" alt="img-vanish-efect" class="img-fluid my-fade-effect-off" id="imgTestOpacity" />
 						<h4><small class="text-muted">* Esta imagen la puedes encontrar en mi perfil de <i class="fa-brands fa-deviantart"></i> DeviantArt</small></h4>
 					</div>
 					<div class="col-md-6">
@@ -1442,7 +1444,7 @@
 							<code>	&lt;/<span class="pink">label</span>&gt;</code>
 							<code>&lt;/<span class="pink">label</span>&gt;</code><br />
 							<code><span class="comment">&lt;!-- Img --&gt;</span></code>
-							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"assets/img/vinyl-scratch.jpg"</span> <span class="green">alt</span>=<span class="yellow">"img-vinyl-scratch"</span> <span class="green">class</span>=<span class="yellow" id="spanApplyClass">"my-fade-effect-off"</span> <span class="green">id</span>=<span class="yellow">"imgTestOpacity"</span> /&gt;</code>
+							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"assets/img/<?php echo $vanishEfectImgUrl ?>"</span> <span class="green">alt</span>=<span class="yellow">"img-vanish-efect"</span> <span class="green">class</span>=<span class="yellow" id="spanApplyClass">"my-fade-effect-off"</span> <span class="green">id</span>=<span class="yellow">"imgTestOpacity"</span> /&gt;</code>
 						</pre>
 						<samp>CSS</samp>
 						<pre class="sb">
@@ -1668,18 +1670,18 @@
 			<div class="my-panel-body">
 				<h2>Escala de grises</h2>
 				<p class="my-text">Vaya título mas largo. Bueno en este ejemplo no tengo mucho que decir mas que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenia una función al hacer scroll y las fotos del mismo sitio cambiaban de color, asi que decidí a hacer algo similar.</p>
-				<?php $imgs = ["zakumi-barcelona.png", "zakumi-berlin.png"] ?>
-				<?php $imgUrl = "assets/img/" . $imgs[rand(0, (count($imgs) - 1))] ?>
-				<img src="<?php echo $_SESSION["MAIN_URL"] . $imgUrl ?>" alt="img-zakumi" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
+				<?php $grayScaleImgs = ["zakumi-barcelona.png", "zakumi-berlin.png"] ?>
+				<?php $grayScaleImgUrl = $grayScaleImgs[rand(0, (count($grayScaleImgs) - 1))] ?>
+				<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] . $grayScaleImgUrl ?>" alt="img-zakumi" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
 				<h4><small class="text-muted">* Esta imagen la puedes encontrar en mi perfil de <i class="fa-brands fa-deviantart"></i> DeviantArt</small></h4>
 				<samp>OUTPUT</samp>
 				<pre class="sb" id="preOutputGrayScale">
 					<code>Estatus de pantalla:</code>
 					<code> - Altura de la pantalla: <span class="purple" id="codeScreenHeight">0</span><span class="cyan">px</span></code>
 					<code> - Pantalla dividida en 3: <span class="purple" id="codeScreenSplitBy3">0</span><span class="cyan">px</span></code>
-					<code> - Altura de la imagen: <span class="purple">0</span><span class="cyan">px</span></code>
-					<code> - Posición absoluta donde inicia la imagen: <span class="purple">0</span><span class="cyan">px</span></code>
-					<code> - Posición absoluta donde termina la imagen: <span class="purple">0</span><span class="cyan">px</span></code>
+					<code> - Altura de la imagen: <span class="purple" id="codeImgHeight">0</span><span class="cyan">px</span></code>
+					<code> - Posición absoluta donde inicia la imagen: <span class="purple" id="codeImgStarPos">0</span><span class="cyan">px</span></code>
+					<code> - Posición absoluta donde termina la imagen: <span class="purple" id="codeImgEndPos">0</span><span class="cyan">px</span></code>
 				</pre>
 				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
 				<div class="row">
@@ -1687,7 +1689,7 @@
 						<samp>HTML</samp>
 						<pre class="sb">
 							<code><span class="comment">&lt;!-- Imagen a la que se le aplicará el efecto. --&gt;</span></code>
-							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"<?php echo $imgUrl ?>"</span> <span class="green">alt</span>=<span class="yellow">"img-zakumi"</span> <span class="green">class</span>=<span class="yellow">"img-fluid my-gray-scale-on"</span> <span class="green">id</span>=<span class="yellow">"imgTestGrayScale"</span> /&gt;</code>
+							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"<?php echo $grayScaleImgUrl ?>"</span> <span class="green">alt</span>=<span class="yellow">"img-zakumi"</span> <span class="green">class</span>=<span class="yellow">"img-fluid my-gray-scale-on"</span> <span class="green">id</span>=<span class="yellow">"imgTestGrayScale"</span> /&gt;</code>
 						</pre>
 						<samp>CSS</samp>
 						<pre class="sb">
@@ -1748,10 +1750,10 @@
 		<p>Desarrollado desde el 2016 con mucho <i class="fa-solid fa-heart" title="amor"></i> al <i class="fa-solid fa-code" title="código"></i>, <i class="fa-solid fa-music" title="música"></i> y ayuda de <i class="fa-brands fa-stack-overflow" title="StackOverflow"></i> por: Paco Alex Martell</p>
 	</footer>
 	
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>js/jquery.min.js"></script>
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/bootstrap.min.js"></script>
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/bootstrap.bundle.min.js"></script>
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>assets/js/SimpleAjaxUploader.min.js"></script>
+	<script src="<?php echo $_SESSION["JS_URL"] ?>jquery.min.js"></script>
+	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>bootstrap.min.js"></script>
+	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>bootstrap.bundle.min.js"></script>
+	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>SimpleAjaxUploader.min.js"></script>
 	<script type="text/javascript">
 	// var _dataTransferFiles = new DataTransfer();
 	var _arrayInfoFiles = new Array();
@@ -2057,6 +2059,12 @@
 	$(document).ready(function (e) {
 		if ($(window).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
+
+		$('#codeScreenHeight').text(window.innerHeight);
+		$('#codeScreenSplitBy3').text(Math.round(window.innerHeight / 3))
+		$('#codeImgHeight').text($('#imgTestGrayScale')[0].clientHeight);
+		$('#codeImgStarPos').text($('#imgTestGrayScale')[0].offsetTop);
+		$('#codeImgEndPos').text($('#imgTestGrayScale')[0].offsetTop + $('#imgTestGrayScale')[0].clientHeight);
 	});
 
 	$('#buttonMenu').click(function (e) {
@@ -2315,6 +2323,8 @@
 	$(window).on('scroll', function (e) {
 		if ($(this).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
+
+
 	});
 	</script>
 </body>

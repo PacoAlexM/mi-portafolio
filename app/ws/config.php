@@ -30,29 +30,18 @@ class Configuracion {
 	const ASSETS_FA_URL = self::MAIN_URL . "assets/fontawesome/css/";
 	const GET_METHOD = "GET";
 	const POST_METHOD = "POST";
-	const DB_HOST = "locahost";
-	const DB_PORT = "3306";
-	const DB_USER = "root";
-	const DB_PASS = "";
-	const DB_NAME = "my_database";
 
 	private $arrayGet;
 	private $arrayPost;
 	private $randomKey;
-	private $collection;
-	private $htmlCollection;
 
 	/**
 	 *
 	 * Constructor de la clase.
 	 */
 	public function __construct () {
-		$this->initRandomKey();
-		$this->initCollection(10);
-		$this->initCollectionRawHTML();
-
-		$this->initGetPost();
 		$this->initSession();
+		$this->initGetPost();
 	}
 
 	/**
@@ -69,11 +58,19 @@ class Configuracion {
 		 */
 		$this->arrayGet = [
 			self::MAIN_URL => function () {
+				$this->initRandomKey();
+
+				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
+
 				include_once self::VIEWS_URL . "index.php";
 			},
 			"indexnew" => function () {
-				$jsonCollection = $this->collection;
-				$jsonCollectionRawHTML = $this->htmlCollection;
+				$this->initRandomKey();
+
+				$jsonCollection = $this->initCollection(10);
+				$jsonCollectionRawHTML = $this->initCollectionRawHTML($jsonCollection);
+
+				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
 
 				include_once self::VIEWS_URL . "index2.php";
 			}
@@ -88,10 +85,7 @@ class Configuracion {
 				try {
 					$length = $_POST["length"];
 
-					$this->initCollection(10);
-					$this->initCollectionRawHTML();
-
-					$jsonCollection = $this->htmlCollection;
+					$jsonCollection = $this->initCollectionRawHTML($this->initCollection($length));
 
 					if (count((array)$jsonCollection) > 0) echo json_encode([ "success" => true, "message" => "Ok", "data" => $jsonCollection ]);
 					else echo json_encode([ "success" => false, "message" => "No hay datos disponibles.", "data" => null ]);
@@ -152,6 +146,11 @@ class Configuracion {
 		if (!isset($_SESSION["JS_URL"])) $_SESSION["JS_URL"] = self::JS_URL;
 		if (!isset($_SESSION["IMG_URL"])) $_SESSION["IMG_URL"] = self::IMG_URL;
 		if (!isset($_SESSION["FA_URL"])) $_SESSION["FA_URL"] = self::FA_URL;
+		if (!isset($_SESSION["ASSETS_CSS_URL"])) $_SESSION["ASSETS_CSS_URL"] = self::ASSETS_CSS_URL;
+		if (!isset($_SESSION["ASSETS_JS_URL"])) $_SESSION["ASSETS_JS_URL"] = self::ASSETS_JS_URL;
+		if (!isset($_SESSION["ASSETS_IMG_URL"])) $_SESSION["ASSETS_IMG_URL"] = self::ASSETS_IMG_URL;
+		if (!isset($_SESSION["ASSETS_FA_URL"])) $_SESSION["ASSETS_FA_URL"] = self::ASSETS_FA_URL;
+		// if (!isset($_SESSION[""])) = $_SESSION[""] = ;
 	}
 
 	/**
@@ -285,16 +284,16 @@ class Configuracion {
 
 		$jsonData->collection_items = $newCollection;
 
-		$this->collection = $jsonData;
+		return $jsonData;
 	}
 
-	public function initCollectionRawHTML () {
+	public function initCollectionRawHTML ($sourceCollection) {
 		/**
 		 *
 		 * Coleccion formateada para retornar.
 		 */
 		$newCollection = [
-			"description" => $this->collection->collection_description,
+			"description" => $sourceCollection->collection_description,
 			"dataHeaders" => [],
 			"dataRows" => []
 		];
@@ -303,10 +302,10 @@ class Configuracion {
 		 *
 		 * Cargar configuraciones de la coleccion.
 		 */
-		$columns = $this->collection->collection_configuration->columns;
-		$snippets = $this->collection->collection_configuration->data->snippets;
-		$conditions = $this->collection->collection_configuration->data->conditions;
-		$collectionItems = $this->collection->collection_items;
+		$columns = $sourceCollection->collection_configuration->columns;
+		$snippets = $sourceCollection->collection_configuration->data->snippets;
+		$conditions = $sourceCollection->collection_configuration->data->conditions;
+		$collectionItems = $sourceCollection->collection_items;
 
 		/**
 		 *
@@ -407,7 +406,7 @@ class Configuracion {
 
 		$newCollection["dataRows"] = $dataRow;
 
-		$this->htmlCollection = (object)$newCollection;
+		return (object)$newCollection;
 	}
 }
 
