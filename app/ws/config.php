@@ -14,16 +14,20 @@ class Configuracion {
 	 * de base de datos, etc.
 	 */
 	const MAIN_URL = "/";
-	const MAIN_SCRIPT = "index.php";
+	const MAIN_SCRIPT = self::MAIN_URL . "index.php";
 	const APP_URL = "../app/";
 	const BIN_URL = self::APP_URL . "bin/";
 	const WS_URL = self::APP_URL . "ws/";
 	const VIEWS_URL = self::APP_URL . "views/";
 	const EXCEPTIONS_VIEWS_URL = self::APP_URL . "httpExceptions/";
-	const CSS_URL = self::MAIN_URL . "assets/css/";
-	const JS_URL = self::MAIN_URL . "assets/js/";
-	const IMG_URL = self::MAIN_URL . "assets/img/";
-	const FA_URL = self::MAIN_URL . "assets/fontawesome/css/";
+	const CSS_URL = self::MAIN_URL . "css/";
+	const JS_URL = self::MAIN_URL . "js/";
+	const IMG_URL = self::MAIN_URL . "img/";
+	const FA_URL = self::MAIN_URL . "font-awesome/css/";
+	const ASSETS_CSS_URL = self::MAIN_URL . "assets/css/";
+	const ASSETS_JS_URL = self::MAIN_URL . "assets/js/";
+	const ASSETS_IMG_URL = self::MAIN_URL . "assets/img/";
+	const ASSETS_FA_URL = self::MAIN_URL . "assets/fontawesome/css/";
 	const GET_METHOD = "GET";
 	const POST_METHOD = "POST";
 	const DB_HOST = "locahost";
@@ -32,27 +36,71 @@ class Configuracion {
 	const DB_PASS = "";
 	const DB_NAME = "my_database";
 
-	private $arrayGet = [
-		self::MAIN_URL => function () {}
-	];
-	private $arrayPost = [
-		"" => function () {}
-	];
-
-	public $randomKey;
-	public $collection;
-	public $htmlCollection;
+	private $arrayGet;
+	private $arrayPost;
+	private $randomKey;
+	private $collection;
+	private $htmlCollection;
 
 	/**
 	 *
 	 * Constructor de la clase.
 	 */
 	public function __construct () {
-		$this->randomKey = $this->initRandomKey();
-		$this->collection = [];
-		$this->htmlCollection = [];
+		$this->initRandomKey();
+		$this->initCollection(10);
+		$this->initCollectionRawHTML();
 
+		$this->initGetPost();
 		$this->initSession();
+	}
+
+	/**
+	 *
+	 * Esta función será de utilidad
+	 * para cargarle las funciones a
+	 * los arreglos de $arrayGet
+	 * $arrayPost.
+	 */
+	private function initGetPost () {
+		/**
+		 *
+		 * Funciones del GET.
+		 */
+		$this->arrayGet = [
+			self::MAIN_URL => function () {
+				include_once self::VIEWS_URL . "index.php";
+			},
+			"indexnew" => function () {
+				$jsonCollection = $this->collection;
+				$jsonCollectionRawHTML = $this->htmlCollection;
+
+				include_once self::VIEWS_URL . "index2.php";
+			}
+		];
+
+		/**
+		 *
+		 * Funciones del POST.
+		 */
+		$this->arrayPost = [
+			"getNewCollection" => function () {
+				try {
+					$length = $_POST["length"];
+
+					$this->initCollection(10);
+					$this->initCollectionRawHTML();
+
+					$jsonCollection = $this->htmlCollection;
+
+					if (count((array)$jsonCollection) > 0) echo json_encode([ "success" => true, "message" => "Ok", "data" => $jsonCollection ]);
+					else echo json_encode([ "success" => false, "message" => "No hay datos disponibles.", "data" => null ]);
+
+				} catch (Exception $ex) {
+					echo json_encode([ "success" => false, "message" => $ex->getMessage(), "data" => null ]);
+				}
+			}
+		];
 	}
 
 	/**
@@ -66,6 +114,11 @@ class Configuracion {
 	 *
 	 * closeSession:
 	 * Elimina la sesión activa.
+	 *
+	 * setSessionKeys:
+	 * Agrega valores a la sesión
+	 * activa en base a las constantes
+	 * de la clase.
 	 */
 	private function checkSession () {
 		return session_status() === PHP_SESSION_ACTIVE;
@@ -76,6 +129,8 @@ class Configuracion {
 
 		session_start();
 
+		$this->setSessionKeys();
+
 		return true;
 	}
 
@@ -85,6 +140,18 @@ class Configuracion {
 		session_destroy();
 
 		return true;
+	}
+
+	private function setSessionKeys () {
+		if (!$this->checkSession()) session_start();
+
+		if (!isset($_SESSION["HAVE_ACCESS_TO_EASTEREGG"])) $_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
+		if ((!isset($_SESSION["KEY_TO_EASTEREGG_VALUE"]) || isset($_SESSION["KEY_TO_EASTEREGG_VALUE"])) && $_SESSION["HAVE_ACCESS_TO_EASTEREGG"] === false) $_SESSION["KEY_TO_EASTEREGG_VALUE"] = $this->initRandomKey();
+		if (!isset($_SESSION["MAIN_URL"])) $_SESSION["MAIN_URL"] = self::MAIN_URL;
+		if (!isset($_SESSION["CSS_URL"])) $_SESSION["CSS_URL"] = self::CSS_URL;
+		if (!isset($_SESSION["JS_URL"])) $_SESSION["JS_URL"] = self::JS_URL;
+		if (!isset($_SESSION["IMG_URL"])) $_SESSION["IMG_URL"] = self::IMG_URL;
+		if (!isset($_SESSION["FA_URL"])) $_SESSION["FA_URL"] = self::FA_URL;
 	}
 
 	/**
@@ -104,17 +171,36 @@ class Configuracion {
 	 * de las formas de petición,
 	 * se lanzará una excepción.
 	 */
-	private function sanitizeRequestUri ($uri) {
-		$newUri = preg_replace("/[\x20-\x2d\x3a-\x40\x5b-\x60]/g", "", $uri);
+	private function sanitizeRequestUri () {
+		$newUri = preg_replace("/[\x20-\x2d\x3a-\x40\x5b-\x60\x7b-\xff]/", "", $_SERVER["REQUEST_URI"]);
+
+		$requesUri = explode("/", trim($newUri, "/"));
+		$scriptName = explode("/", trim(self::MAIN_SCRIPT, "/"));
+
+		$parts = array_diff_assoc($requesUri, $scriptName);
+
+		if (!$parts[0]) return self::MAIN_URL;
+
+		return implode("/", $parts);
 	}
 
 	public function initRoute () {
 		$requestMethod = $_SERVER["REQUEST_METHOD"];
 
+		$url = $this->sanitizeRequestUri();
+
 		if ($requestMethod === self::GET_METHOD) {
+			if (isset($this->arrayGet[$url]) && is_callable($this->arrayGet[$url])) $this->arrayGet[$url]();
+			else {
+				header("HTTP/1.0 404 Not Found");
+
+				include_once self::EXCEPTIONS_VIEWS_URL . "404.php";
+			}
 		} else if ($requestMethod === self::POST_METHOD) {
-		} else {
-		}
+			header("Content-Type: application/json; charset=utf-8");
+			if (isset($this->arrayPost[$url]) && is_callable($this->arrayPost[$url])) $this->arrayPost[$url]();
+			else { }
+		} else { }
 	}
 
 	/**
@@ -148,10 +234,16 @@ class Configuracion {
 
 	/**
 	 *
+	 * initCollection:
 	 * Esta función se encargará entregar una
 	 * coleccion de datos traidos desde archivos
 	 * .json de forma aleatoria y segun la cantidad
 	 * especificada por la variable $take.
+	 *
+	 * initCollectionRawHTML:
+	 * Esta función se encargará de llenar y
+	 * darle formato a los datos de la colección
+	 * proporcionada.
 	 */
 	public function initCollection ($take = 0) {
 		$_collections = [
@@ -161,7 +253,7 @@ class Configuracion {
 		];
 
 		$randomJsonFile = $_collections[rand(0, (count($_collections) - 1))];
-		$jsonFile = file_get_contents("../app/collections/" . $randomJsonFile);
+		$jsonFile = file_get_contents(self::APP_URL . "collections/" . $randomJsonFile);
 		$isArrayAssociative = false;
 		$jsonData = json_decode($jsonFile, $isArrayAssociative);
 
@@ -196,12 +288,6 @@ class Configuracion {
 		$this->collection = $jsonData;
 	}
 
-	/**
-	 *
-	 * Esta función se encargará de llenar y
-	 * darle formato a los datos de la colección
-	 * proporcionada.
-	 */
 	public function initCollectionRawHTML () {
 		/**
 		 *

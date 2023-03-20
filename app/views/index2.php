@@ -1311,7 +1311,7 @@
 					<code>	&lt;/<span class="pink">table</span>&gt;</code>
 					<code>&lt;/<span class="pink">div</span>&gt;</code>
 				</pre>
-				<p class="my-text"><b>Forma 2 - Creando un web service:</b> esto lo que hará es que el usuario tendrá la comodidad de recargar la tabla en todo momento sin tener que refrescar la página.</p>
+				<p class="my-text"><b>Forma 2 - Creando el web service:</b> esto lo que hará es que el usuario tendrá la comodidad de recargar la tabla en todo momento sin tener que refrescar la página.</p>
 				<samp>PHP</samp>
 				<pre class="sb">
 					<code>&lt;?php</code><br />
@@ -1328,8 +1328,8 @@
 					<code> <span class="comment">* y retornamos con un json_encode.</span></code>
 					<code> <span class="comment">*/</span></code>
 					<code>$jsonCollection <span class="pink">=</span> <span class="cyan">initCollectionRawHTML</span>(<span class="cyan">initCollection</span>(<span class="orange">$_POST</span>[<span class="yellow">"length"</span>]));</code><br />
-					<code><span class="pink">if</span> (<span class="cyan">count</span>((<span class="cyan">array</span>)$jsonCollection) <span class="pink">&gt;</span> <span class="purple">0</span>) <span class="cyan">echo json_encode</span>([ <span class="yellow">"isOk"</span> =&gt; <span class="purple">true</span>, <span class="yellow">"message"</span> =&gt; <span class="yellow">"Ok"</span>, <span class="yellow">"data"</span> =&gt; $jsonCollection ]);</code>
-					<code><span class="pink">else</span> <span class="cyan">echo json_encode</span>([ <span class="yellow">"isOk"</span> => <span class="purple">false</span>, <span class="yellow">"message"</span> => <span class="yellow">"No hay datos disponibles."</span>, <span class="yellow">"data"</span> => <span class="purple">null</span> ]);</code>
+					<code><span class="pink">if</span> (<span class="cyan">count</span>((<span class="cyan">array</span>)$jsonCollection) <span class="pink">&gt;</span> <span class="purple">0</span>) <span class="cyan">echo json_encode</span>([ <span class="yellow">"success"</span> =&gt; <span class="purple">true</span>, <span class="yellow">"message"</span> =&gt; <span class="yellow">"Ok"</span>, <span class="yellow">"data"</span> =&gt; $jsonCollection ]);</code>
+					<code><span class="pink">else</span> <span class="cyan">echo json_encode</span>([ <span class="yellow">"success"</span> => <span class="purple">false</span>, <span class="yellow">"message"</span> => <span class="yellow">"No hay datos disponibles."</span>, <span class="yellow">"data"</span> => <span class="purple">null</span> ]);</code>
 				</pre>
 				<samp>JS</samp>
 				<pre class="sb">
@@ -1349,7 +1349,7 @@
 					<code>		},</code>
 					<code>		<span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
 					<code>			<span class="comment">// Si la petición fue exitosa llenará la tabla de la misma manera de la forma estática.</span></code>
-					<code>			<span class="pink">if</span> (response.isOk) {</code>
+					<code>			<span class="pink">if</span> (response.success) {</code>
 					<code>				<span class="cyan">let</span> headers <span class="pink">=</span> [];</code><br />
 					<code>				<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; caption'</span>).<span class="cyan">html</span>(response.data.description);</code><br />
 					<code>				<span class="pink">$</span>.<span class="cyan">each</span>(response.data.dataHeaders, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
@@ -1739,6 +1739,9 @@
 
 		<!-- validationWithJS -->
 		<!-- ./validationWithJS -->
+
+		<!-- phpRoutes -->
+		<!-- ./phpRoutes -->
 	</div>
 
 	<footer class="my-footer">
@@ -2254,7 +2257,7 @@
 				$('#buttonReloadTableCollection').html(`<i class="fa-solid fa-rotate-right fa-spin"></i> Cargando...`).attr('disabled', true);
 			},
 			success: function (response) {
-				if (response.isOk) {
+				if (response.success) {
 					let headers = [];
 
 					$('#tableCollection > caption').html(response.data.description);

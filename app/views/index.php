@@ -11,9 +11,9 @@
 	<title>Paco Alex M | HTML &amp; CSS &amp; JS</title>
 	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
 	<link rel="apple-touch-icon-precomposed" href="<?php echo $_SESSION["MAIN_URL"] ?>apple-touch-icon.png" sizes="196x196" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>css/bootstrap.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>font-awesome/css/all.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>css/style.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["CSS_URL"] ?>bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["FA_URL"] ?>all.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["CSS_URL"] ?>style.css" />
 </head>
 <body>
 	<a href="#" id="toggle-menu" class="btn btn-lg btn-dark btn-toggler"><i class="fa-solid fa-bars"></i> Menú</a>
@@ -388,7 +388,7 @@
 					<div class="col-md-6 col-md-push-6">
 						<button id="toggle-fade" class="btn btn-success"><i class="fa-solid fa-power-off"></i> Activar</button>
 						<hr>
-						<img id="test" src="<?php echo $_SESSION["MAIN_URL"] ?>img/test.jpg" alt="Ejemplo de opcidad mediante JS" class="img-responsive" />
+						<img id="test" src="<?php echo $_SESSION["IMG_URL"] ?>test.jpg" alt="Ejemplo de opcidad mediante JS" class="img-responsive" />
 						<h1><small>*Esta imagen la puedes encontrar en mi perfil de DA. <i class="fa-brands fa-deviantart"></i></small></h1>
 					</div>
 					<div class="col-md-6 col-md-pull-6">
@@ -533,7 +533,7 @@
 				<h3>Escala de grises a color por medio de CSS y Javascript</h3>
 			</div>
 			<div class="card-body">
-				<img id="test2" src="<?php echo $_SESSION["MAIN_URL"] ?>img/test2.jpg" alt="Ejemplo de escala de por JS" class="img-responsive" />
+				<img id="test2" src="<?php echo $_SESSION["IMG_URL"] ?>test2.jpg" alt="Ejemplo de escala de por JS" class="img-responsive" />
 				<h1><small>*Esta imagen la puedes encontrar en mi perfil de DA. <i class="fa-brands fa-deviantart"></i></small></h1>
 				<hr>
 				<button id="coordinate-img" class="big-button">Obtener Coordenadas</button>
@@ -590,7 +590,7 @@
 						<p class="tell">Al dividir la pantalla entre 3 resulta más fácil asignar los valores a las variables en la función de scroll, estas mismas estarán cambiando su valor conforme el usuario se vaya deslizando (o scrollee) por la página. El valor de las variables dentro de la función, son solamente coordenadas de la página entera, primero toma el tamaño de la pantalla y luego la divide en 3 partes, después el valor en coordenadas de la imagen y su altura. A todo esto, ¿Porque en 3? simple, porque se tomarían 2 secciones, la del tope y la del fondo, dejando la sección sobrante del medio libre para activar el efecto de la imagen. Pero no lo hará.</p>
 					</div>
 					<div class="col-md-5 hidden-sm hidden-xs">
-						<img src="img/scrollgrey1.gif" class="img-responsive" alt="porque-1">
+						<img src="<?php echo $_SESSION["IMG_URL"] ?>scrollgrey1.gif" class="img-responsive" alt="porque-1">
 					</div>
 					<div class="hidden-lg hidden-md col-sm-12 col-xs-12">
 						<h1><small>(IMAGEN DE EJEMPLO PARA MÓVILES AÚN NO DISPONIBLE)</small></h1>
@@ -598,7 +598,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-5 hidden-sm hidden-xs">
-						<img src="img/scrollgrey2.gif" class="img-responsive" alt="porque-2">
+						<img src="<?php echo $_SESSION["IMG_URL"] ?>scrollgrey2.gif" class="img-responsive" alt="porque-2">
 					</div>
 					<div class="col-md-7 col-sm-12 col-xs-12">
 						<h3>2. Lógica retorcida (superior)</h3>
@@ -614,7 +614,7 @@
 						<p class="tell">Para agregar el efecto pero esta vez cuando la imagen aparezca desde arriba de la pantalla. De nuevo, la función toma la coordenada de la imagen que contiene el efecto, solo que ahora también toma el tamaño de la misma y en lugar de tomar una 3ra parte de la pantalla, serán 2. Por ejemplo: la imagen mide 800px de alto, esto más 1900px (coordenada Y de la misma) resulta en 2700px, menos 320px por 2 será igual a 2060px, es en esta coordenada donde se le da el efecto a la imagen cuando el usuario se deslice desde abajo. ¿Loco no? para nada, solo es aplicar algo de lógica y clases css.</p>
 					</div>
 					<div class="col-md-5 hidden-sm hidden-xs">
-						<img src="img/scrollgrey3.gif" class="img-responsive" alt="porque-3">
+						<img src="<?php echo $_SESSION["IMG_URL"] ?>scrollgrey3.gif" class="img-responsive" alt="porque-3">
 					</div>
 					<div class="hidden-lg hidden-md col-sm-12 col-xs-12">
 						<h1><small>(IMAGEN DE EJEMPLO PARA MÓVILES AÚN NO DISPONIBLE)</small></h1>
@@ -1066,8 +1066,8 @@
 		<p>&copy; 2016 Paco Alex M</p>
 	</footer>
 
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>js/jquery.min.js"></script>
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>js/simpleajaxuploader.min.js"></script>
-	<script src="<?php echo $_SESSION["MAIN_URL"] ?>js/script.js"></script>
+	<script src="<?php echo $_SESSION["JS_URL"] ?>jquery.min.js"></script>
+	<script src="<?php echo $_SESSION["JS_URL"] ?>simpleajaxuploader.min.js"></script>
+	<script src="<?php echo $_SESSION["JS_URL"] ?>script.js"></script>
 </body>
 </html>
