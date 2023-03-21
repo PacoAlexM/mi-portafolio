@@ -1533,7 +1533,7 @@
 						</pre>
 					</div>
 				</div>
-			</div>
+			</div> 
 		</div>
 		<!-- ./vanishEfect -->
 
@@ -1627,7 +1627,7 @@
 							<code>});</code><br />
 							<code><span class="comment">// Este último es para en caso de que el usuario refresque la página y el botón aparesca sin necesidad de hacer scroll.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">document</span>).<span class="cyan">ready</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>	<span class="pink">if</span> (<span class="cyan">Math</span>.<span class="cyan">round</span>(<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>()) <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
 							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
 							<code>});</code>
 						</pre>
@@ -1682,10 +1682,12 @@
 					<code> - Altura de la imagen: <span class="purple" id="codeImgHeight">0</span><span class="cyan">px</span></code>
 					<code> - Posición absoluta donde inicia la imagen: <span class="purple" id="codeImgStarPos">0</span><span class="cyan">px</span></code>
 					<code> - Posición absoluta donde termina la imagen: <span class="purple" id="codeImgEndPos">0</span><span class="cyan">px</span></code>
+					<code> - Ubicación donde inicia el efecto de la imagen: <span class="purple" id="codeImgEfectStar">0</span><span class="cyan">px</span></code>
+					<code> - Ubicación donde termina el efecto de la imagen: <span class="purple" id="codeImgEfectEnd">0</span><span class="cyan">px</span></code>
 				</pre>
 				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<samp>HTML</samp>
 						<pre class="sb">
 							<code><span class="comment">&lt;!-- Imagen a la que se le aplicará el efecto. --&gt;</span></code>
@@ -1715,9 +1717,32 @@
 							<code>}</code>
 						</pre>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-7">
 						<samp>JS</samp>
-						<pre class="sb"></pre>
+						<pre class="sb">
+							<code><span class="comment">// Complejo, la verdad</span></code>
+							<code><span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">on</span>(<span class="yellow">'scroll'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
+							<code>	<span class="comment">/**</span></code>
+							<code>	 <span class="comment">*</span></code>
+							<code>	 <span class="comment">* Definición de cada variable</span></code>
+							<code>	 <span class="comment">* - screenTop: Posición del "scroll" o barra de desplazamiento vertical de la pantalla.</span></code>
+							<code>	 <span class="comment">* - screenSplitedBy3: Tamaño total de la pantalla dividida entre 3.</span></code>
+							<code>	 <span class="comment">* - $img: El objeto jQuery de la imagen a la que se le aplicará el efecto.</span></code>
+							<code>	 <span class="comment">* - imgOffsetTop: Posición absoluta desde el tope de la imagen.</span></code>
+							<code>	 <span class="comment">* - imgHeight: Tamaño total de la imagen.</span></code>
+							<code>	 <span class="comment">*/</span></code>
+							<code>	<span class="cyan">let</span> screenTop <span class="pink">=</span> <span class="cyan">Math</span>.<span class="cyan">round</span>(<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>());</code>
+							<code>	<span class="cyan">let</span> screenSplitedBy3 <span class="pink">=</span> <span class="cyan">Math</span>.<span class="cyan">round</span>(<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">height</span>() <span class="pink">/</span> <span class="purple">3</span>);</code>
+							<code>	<span class="cyan">let</span> $img <span class="pink">= $</span>(<span class="yellow">'#imgTestGrayScale'</span>);</code>
+							<code>	<span class="cyan">let</span> imgOffsetTop <span class="pink">=</span> $img[<span class="purple">0</span>].offsetTop;</code>
+							<code>	<span class="cyan">let</span> imgHeight <span class="pink">=</span> $img[<span class="purple">0</span>].clientHeight;</code><br />
+							<code>	<span class="pink">if</span> (screenTop <span class="pink">&gt;</span> (imgOffsetTop <span class="pink">-</span> screenSplitedBy3) <span class="pink">&amp;&amp;</span> screenTop <span class="pink">&lt;</span> ((imgOffsetTop <span class="pink">+</span> imgHeight) <span class="pink">-</span> (screenSplitedBy3 <span class="pink">*</span> <span class="purple">2</span>)) <span class="pink">&amp;&amp; !</span>$img.<span class="cyan">hasClass</span>(<span class="yellow">'my-gray-scale-off'</span>)) {</code>
+							<code>		$img.<span class="cyan">toggleClass</span>(<span class="yellow">'my-gray-scale-off'</span>);</code>
+							<code>	} <span class="pink">else if</span> (screenTop <span class="pink">&lt;</span> (imgOffsetTop <span class="pink">-</span> screenSplitedBy3) <span class="pink">&amp;&amp;</span> $img.<span class="cyan">hasClass</span>(<span class="yellow">'my-gray-scale-off'</span>) <span class="pink">||</span> screenTop <span class="pink">&amp;&amp;</span> ((imgOffsetTop <span class="pink">+</span> imgHeight) <span class="pink">-</span> (screenSplitedBy3 <span class="pink">*</span> <span class="purple">2</span>)) <span class="pink">&amp;&amp;</span> $img.<span class="cyan">hasClass</span>(<span class="yellow">'my-gray-scale-off'</span>)) {</code>
+							<code>		$img.<span class="cyan">toggleClass</span>(<span class="yellow">'my-gray-scale-off'</span>);</code>
+							<code>	}</code>
+							<code>});</code>
+						</pre>
 					</div>
 				</div>
 			</div>
@@ -2060,11 +2085,13 @@
 		if ($(window).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
 
-		$('#codeScreenHeight').text(window.innerHeight);
-		$('#codeScreenSplitBy3').text(Math.round(window.innerHeight / 3))
+		$('#codeScreenHeight').text($(window).height());
+		$('#codeScreenSplitBy3').text(Math.round($(window).height() / 3))
 		$('#codeImgHeight').text($('#imgTestGrayScale')[0].clientHeight);
 		$('#codeImgStarPos').text($('#imgTestGrayScale')[0].offsetTop);
 		$('#codeImgEndPos').text($('#imgTestGrayScale')[0].offsetTop + $('#imgTestGrayScale')[0].clientHeight);
+		$('#codeImgEfectStar').text($('#imgTestGrayScale')[0].offsetTop - (Math.round($(window).height() / 3)));
+		$('#codeImgEfectEnd').text(($('#imgTestGrayScale')[0].offsetTop + $('#imgTestGrayScale')[0].clientHeight) - ((Math.round($(window).height() / 3)) * 2));
 	});
 
 	$('#buttonMenu').click(function (e) {
@@ -2321,10 +2348,20 @@
 	});
 
 	$(window).on('scroll', function (e) {
-		if ($(this).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
+		let screenTop = Math.round($(this).scrollTop());
+		let screenSplitedBy3 = Math.round($(this).height() / 3);
+		let $img = $('#imgTestGrayScale');
+		let imgOffsetTop = $img[0].offsetTop;
+		let imgHeight = $img[0].clientHeight;
+
+		if (screenTop >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
 
-
+		if (screenTop > (imgOffsetTop - screenSplitedBy3) && screenTop < ((imgOffsetTop + imgHeight) - (screenSplitedBy3 * 2)) && !$img.hasClass('my-gray-scale-off')) {
+			$img.toggleClass('my-gray-scale-off');
+		} else if (screenTop < (imgOffsetTop - screenSplitedBy3) && $img.hasClass('my-gray-scale-off') || screenTop > ((imgOffsetTop + imgHeight) - (screenSplitedBy3 * 2)) && $img.hasClass('my-gray-scale-off')) {
+			$img.toggleClass('my-gray-scale-off');
+		}
 	});
 	</script>
 </body>
