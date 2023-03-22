@@ -1736,7 +1736,7 @@
 						<samp>HTML</samp>
 						<pre class="sb">
 							<code><span class="comment">&lt;!-- Imagen a la que se le aplicará el efecto. --&gt;</span></code>
-							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"<?php echo $grayScaleImgUrl ?>"</span> <span class="green">alt</span>=<span class="yellow">"img-zakumi"</span> <span class="green">class</span>=<span class="yellow">"img-fluid my-gray-scale-on"</span> <span class="green">id</span>=<span class="yellow">"imgTestGrayScale"</span> /&gt;</code>
+							<code>&lt;<span class="pink">img</span> <span class="green">src</span>=<span class="yellow">"assets/img/<?php echo $grayScaleImgUrl ?>"</span> <span class="green">alt</span>=<span class="yellow">"img-zakumi"</span> <span class="green">class</span>=<span class="yellow">"img-fluid my-gray-scale-on"</span> <span class="green">id</span>=<span class="yellow">"imgTestGrayScale"</span> /&gt;</code>
 						</pre>
 						<samp>CSS</samp>
 						<pre class="sb">
