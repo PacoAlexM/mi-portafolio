@@ -1790,6 +1790,35 @@
 						</pre>
 					</div>
 				</div>
+				<h2><i class="fa-regular fa-lightbulb"></i> Explicación</h2>
+				<div class="row">
+					<div class="col-md-7">
+						<h3>Primero: Dividir la pantalla en 3</h3>
+						<p class="my-text">Al dividir la pantalla entre 3 resulta más fácil asignar los valores a las variables en la función de scroll, estas mismas estarán cambiando su valor conforme el usuario se vaya deslizando (o scrollee) por la página. El valor de las variables dentro de la función, son solamente coordenadas de la página entera, primero toma el tamaño de la pantalla y luego la divide en 3 partes, después el valor en coordenadas de la imagen y su altura. A todo esto, ¿Porque en 3? simple, porque se tomarían 2 secciones, la del tope y la del fondo, dejando la sección sobrante del medio libre para activar el efecto de la imagen. Pero no lo hará.</p>
+					</div>
+					<div class="col-md-5">
+						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] ?>scroll-gray-example-1.gif" alt="scroll-example-1" class="img-fluid mb-3" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-7 order-md-2">
+						<h3>Segundo: Tomar 1/3 de la pantalla</h3>
+						<p class="my-text">Se supone que la sección sobrante haría el trabajo de accionar el efecto. Bueno en realidad quien acciona el efecto es la imagen misma. ¿Cómo pasa eso? simple (pero no tanto), al momento de deslizarse (o hacer scroll) la función pregunta por la coordenada de la imagen con el efecto, dicha coordenada se le resta la 3ra parte del tamaño de la pantalla, o sea que no tomara en si la coordina absoluta de la imagen. Por ejemplo: si la imagen está a 1900px en (Y) y la pantalla mide 960px de altura, esto entre 3 resulta en 320px, entonces la coordenada de la imagen menos la 3ra parte de la pantalla seria 1580px, es en esta coordenada donde se le da el efecto a la imagen. Y esto es solo para accionarlo cuando la imagen aparezca desde abajo de la pantalla.</p>
+					</div>
+					<div class="col-md-5 order-md-1">
+						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] ?>scroll-gray-example-2.gif" alt="scroll-example-2" class="img-fluid mb-3" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-7">
+						<h3>Tercero: Tomar los 2/3 restantes de la pantalla</h3>
+						<p class="my-text">Para agregar el efecto pero esta vez cuando la imagen aparezca desde arriba de la pantalla. De nuevo, la función toma la coordenada de la imagen que contiene el efecto, solo que ahora también toma el tamaño de la misma y en lugar de tomar una 3ra parte de la pantalla, serán 2. Por ejemplo: la imagen mide 800px de alto, esto más 1900px (coordenada Y de la misma) resulta en 2700px, menos 320px por 2 será igual a 2060px, es en esta coordenada donde se le da el efecto a la imagen cuando el usuario se deslice desde abajo. ¿Loco no? para nada, solo es aplicar algo de lógica y clases css.</p>
+					</div>
+					<div class="col-md-5">
+						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] ?>scroll-gray-example-3.gif" alt="scroll-example-3" class="img-fluid mb-3" />
+					</div>
+				</div>
+				<p class="my-text">Es tedioso y hasta un poco difícil de entender, pero no tiene pierde. Solo es dividir la pantalla en 3 partes (casi iguales) y hacer el cálculo de donde esta el elemento al que se le aplicará el efecto. Por esa razón decidí seprar todo por variables en la función de scroll de jQuery.</p>
 			</div>
 		</div>
 		<!-- ./grayScaleScrolling -->
