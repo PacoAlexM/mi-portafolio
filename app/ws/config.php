@@ -93,8 +93,31 @@ class Configuracion {
 				} catch (Exception $ex) {
 					echo json_encode([ "success" => false, "message" => $ex->getMessage(), "data" => null ]);
 				}
+			},
+			"randomString" => function () {
+				include_once self::APP_URL . self::WS_URL . "makeString.php";
 			}
 		];
+
+		/**
+		 *
+		 * Forma de distinta de obtener
+		 * url's.
+		 * 
+		 * $this->arrayGet = [
+		 * 	[
+		 * 		"url" => "/collection/{collection}",
+		 * 		"hasParameters" => true,
+		 * 		"parameters" => [
+		 * 			[
+		 * 				"parameterName" => "{colcollection}"
+		 * 				"parameterType" => string
+		 * 			]
+		 * 		],
+		 * 		"callback" => function (params = []) {}
+		 * 	]
+		 * ];
+		 */
 	}
 
 	/**
@@ -197,8 +220,9 @@ class Configuracion {
 			}
 		} else if ($requestMethod === self::POST_METHOD) {
 			header("Content-Type: application/json; charset=utf-8");
+
 			if (isset($this->arrayPost[$url]) && is_callable($this->arrayPost[$url])) $this->arrayPost[$url]();
-			else { }
+			else echo json_encode([ "success" => false, "message" => "404 - $url not found." ]);
 		} else { }
 	}
 

@@ -1844,6 +1844,25 @@
 			<div class="my-panel-header">
 				<h3 class="my-panel-header-title">Generador de cadenas de texto aleatorias</h3>
 			</div>
+			<div class="my-panel-body">
+				<h2>Generando cadenas de texto totalmente aleatorias</h2>
+				<p class="my-text">Este ejemplo sirve para mostrar como generar una cada de caracteres de manera aleatoria (incluyendo caracteres númericos y especiales) y utilizar la misma cadena para distintos propósitos: como una contraseña segura por ejemplo. El desarrollo es simple, el único detalle es que en este ejemplo omití 2 caracteres especiales (¡ y ¿) por lo tanto siento que este ejemplo no estará completo del todo pero cumple su propósito.</p>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="input-group mb-3">
+							<input type="number" class="form-control" id="inputRandomStringLength" placeholder="Elija un número del 8 al 60" value="8" />
+							<button type="button" class="btn btn-success" id="buttonRandomStringSend"><i class="fa-solid fa-pencil"></i> Generar</button>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<samp>OUTPUT</samp>
+						<pre class="sb">
+							<code>Resultado: <span class="purple" id="codeRandomStringOutput">null</span></code>
+						</pre>
+					</div>
+				</div>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+			</div>
 		</div>
 		<!-- ./randomStringsGenerator -->
 
@@ -2454,6 +2473,27 @@
 		
 		if ($('#checkApplyScrolling').is(':checked')) $('html, body').animate({ scrollTop: 0 }, 1000);
 		else $(window).scrollTop(0);
+	});
+
+	$('#buttonRandomStringSend').click(function () {
+		let length = $('#inputRandomStringLength').val();
+
+		$.ajax({
+			url: 'randomString',
+			type: 'POST',
+			dataType: 'json',
+			data: { length: length },
+			beforeSend: function (jqXHR, settings) {
+				$('#codeRandomStringOutput').removeClass('yellow, purple');
+			},
+			success: function (response) {
+				if (response.success) $('#codeRandomStringOutput').text(response.data).addClass('yellow');
+				else $('#codeRandomStringOutput').text('null').addClass('purple');
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				$('#codeRandomStringOutput').text(`${jqXHR.status} - ${jqXHR.statusText}`).addClass('yellow');
+			}
+		});
 	});
 
 	$(window).on('scroll', function (e) {

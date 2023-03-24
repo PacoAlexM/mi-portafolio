@@ -655,17 +655,17 @@ function matrixGUI (mtx, mtxres) {
 $("#set-long").click(function () {
 
 	$.ajax({
-		url: "string",
+		url: "randomString",
 		type: "POST",
 		dataType: "json",
-		data: { longitud: $("#longitud").val() },
+		data: { length: $("#longitud").val() },
 		success: function (res) {
 
 			if (res.success)
-				$("#random-str").html(res.cadena)
+				$("#random-str").html(res.data);
 
 			else
-				$("#random-str").html("null")
+				$("#random-str").html('null');
 		}
 	})
 });
