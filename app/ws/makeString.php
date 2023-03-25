@@ -9,9 +9,6 @@ try {
 
 		for ($i = 0; $i < $length; $i++) {
 			$charToAdd = substr($chars, rand(0, (strlen($chars) - 1)), 1);
-			if ($charToAdd === '>') $charToAdd = '&gt;';
-			else if ($charToAdd === '<') $charToAdd = '&lt;';
-			else if ($charToAdd === '&') $charToAdd = '&amp;';
 			$newString .= $charToAdd;
 		}
 
