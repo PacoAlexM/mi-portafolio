@@ -94,7 +94,7 @@ class Configuracion {
 					echo json_encode([ "success" => false, "message" => $ex->getMessage(), "data" => null ]);
 				}
 			},
-			"randomString" => function () {
+			"makeString" => function () {
 				include_once self::APP_URL . self::WS_URL . "makeString.php";
 			}
 		];

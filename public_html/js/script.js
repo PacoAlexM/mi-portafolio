@@ -655,7 +655,7 @@ function matrixGUI (mtx, mtxres) {
 $("#set-long").click(function () {
 
 	$.ajax({
-		url: "randomString",
+		url: "makeString",
 		type: "POST",
 		dataType: "json",
 		data: { length: $("#longitud").val() },

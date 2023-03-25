@@ -1848,20 +1848,91 @@
 				<h2>Generando cadenas de texto totalmente aleatorias</h2>
 				<p class="my-text">Este ejemplo sirve para mostrar como generar una cada de caracteres de manera aleatoria (incluyendo caracteres númericos y especiales) y utilizar la misma cadena para distintos propósitos: como una contraseña segura por ejemplo. El desarrollo es simple, el único detalle es que en este ejemplo omití 2 caracteres especiales (¡ y ¿) por lo tanto siento que este ejemplo no estará completo del todo pero cumple su propósito.</p>
 				<div class="row">
-					<div class="col-md-5">
-						<div class="input-group mb-3">
-							<input type="number" class="form-control" id="inputRandomStringLength" placeholder="Elija un número del 8 al 60" value="8" />
-							<button type="button" class="btn btn-success" id="buttonRandomStringSend"><i class="fa-solid fa-pencil"></i> Generar</button>
-						</div>
+					<div class="col-md-4">
+						<form role="form" class="needs-validation" id="formRandomString" novalidate>
+							<div class="input-group has-validation mb-3">
+								<input type="number" class="form-control" id="inputRandomStringLength" placeholder="Elija un número del 8 al 60" value="8" />
+								<button type="button" class="btn btn-success" id="buttonRandomStringSend"><i class="fa-solid fa-pencil"></i> Generar</button>
+								<div id="if-inputRandomStringLength" class="invalid-feedback"></div>
+							</div>
+						</form>
 					</div>
-					<div class="col-md-7">
-						<samp>OUTPUT</samp>
+				</div>
+				<samp>OUTPUT</samp>
+				<pre class="sb">
+					<code>Resultado: <span class="purple" id="codeRandomStringOutput">null</span></code>
+				</pre>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<div class="row">
+					<div class="col-md-6">
+						<samp>HTML</samp>
 						<pre class="sb">
-							<code>Resultado: <span class="purple" id="codeRandomStringOutput">null</span></code>
+							<code><span class="comment">&lt;!-- Input donde se asignará la longitud de la cadena a generar. Por default tiene un valor de 8. --&gt;</span></code>
+							<code>&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"number"</span> <span class="green">id</span>=<span class="yellow">"length"</span> <span class="green">placeholder</span>=<span class="yellow">"Elija un número del 8 al 60"</span> <span class="green">value</span>=<span class="yellow">"8"</span> /&gt;</code>
+							<code>&lt;<span class="pink">br</span> /&gt;</code>
+							<code>&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">id</span>=<span class="yellow">"send"</span>&gt;Generar&lt;/<span class="pink">button</span>&gt;</code>
+						</pre>
+						<samp>JS</samp>
+						<pre class="sb">
+							<code><span class="comment">// Evento del boton para generar la cade aleatoria.</span></code>
+							<code><span class="pink">$</span>(<span class="yellow">'#send'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
+							<code>	<span class="cyan">let</span> length <span class="pink">= $</span>(<span class="yellow">'#length'</span>).<span class="cyan">val</span>();</code><br />
+							<code>	<span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
+							<code>		url: <span class="yellow">'ws/makeString.php'</span>,</code>
+							<code>		type: <span class="yellow">'POST'</span>,</code>
+							<code>		dataType: <span class="yellow">'json'</span>,</code>
+							<code>		data: { length: length },</code>
+							<code>		<span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
+							<code>			<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">`Status:</span> ${response.success.<span class="cyan">toString</span>()}<span class="yellow">, String:</span> ${response.data}<span class="yellow">`</span>);</code>
+							<code>		},</code>
+							<code>		<span class="green">error</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>, <span class="orange">errorThrown</span>) {</code>
+							<code>			<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">`</span>${jqXHR.status} <span class="yellow">-</span> ${jqXHR.statusText}<span class="yellow">`</span>);</code>
+							<code>		}</code>
+							<code>	});</code>
+							<code>});</code>
+						</pre>
+					</div>
+					<div class="col-md-6">
+						<samp>PHP</samp>
+						<pre class="sb">
+							<code>&lt;?php</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Manejar las excepciones de</span></code>
+							<code> <span class="comment">* la petición.</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="pink">try</span> {</code>
+							<code>	<span class="comment">/**</span></code>
+							<code>	<span class="comment"> *</span></code>
+							<code>	<span class="comment"> * En caso de que se mande un dato no númerico</span></code>
+							<code>	<span class="comment"> * o que este tenga punto decimal, se retornará</span></code>
+							<code>	<span class="comment"> * un mensaje de error.</span></code>
+							<code>	<span class="comment"> */</span></code>
+							<code>	<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">is_numeric</span>(<span class="orange">$_POST</span>[<span class="yellow">"length"</span>]) <span class="pink">||</span> <span class="cyan">preg_match</span>(<span class="yellow">"/</span><span class="purple">\.</span><span class="yellow">/"</span>, <span class="orange">$_POST</span>[<span class="yellow">"length"</span>]) <span class="pink">===</span> <span class="purple">1</span>)</code>
+							<code>		<span class="cyan">echo json_encode</span>([ <span class="yellow">"success"</span> =&gt; <span class="purple">false</span>, <span class="yellow">"message"</span> =&gt; <span class="yellow">"Debe ser un valor númerico sin punto decimal."</span>, <span class="yellow">"data"</span> =&gt; <span class="purple">null</span> ]);</code>
+							<code>	<span class="pink">else</span> {</code>
+							<code>		<span class="comment">// El rango de "length" será de entre 8 y 60.</span></code>
+							<code>		$length <span class="pink">=</span> <span class="orange">$_POST</span>[<span class="yellow">"length"</span>] <span class="pink">&lt;</span> <span class="purple">8</span> <span class="pink">?</span> <span class="purple">8</span> <span class="pink">:</span> (<span class="orange">$_POST</span>[<span class="yellow">"length"</span>] <span class="pink">&gt;</span> <span class="purple">60</span> <span class="pink">?</span> <span class="purple">60</span> <span class="pink">:</span> <span class="orange">$_POST</span>[<span class="yellow">"length"</span>]);</code>
+							<code>		$newString <span class="pink">=</span> <span class="yellow">""</span>;</code>
+							<code>		<span class="comment">// En la variable "chars" se encuentran la mayoría de caracteres alfa-númericos y especiales (con excepción de ¡ y ¿)</span></code>
+							<code>		$chars <span class="pink">=</span> <span class="yellow">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?"</span><span class="purple">\'</span><span class="yellow">`#$%&amp;@|()[]{}^*+-/_.,:;\=&lt;&gt;'</span>;</code><br />
+							<code>		<span class="comment">/**</span></code>
+							<code>		 <span class="comment">*</span></code>
+							<code>		 <span class="comment">* Y dentro de un ciclo, se concatenan los caracteres</span></code>
+							<code>		 <span class="comment">* de "chars".</span></code>
+							<code>		 <span class="comment">* Se obtienen de manera aleatoria usando las funciones</span></code>
+							<code>		 <span class="comment">* de <a href="https://www.php.net/manual/es/function.substr.php" target="_blank">substr()</a>, <a href="https://www.php.net/manual/es/function.rand.php" target="_blank">rand()</a> y <a href="https://www.php.net/manual/es/function.strlen.php" target="_blank">strlen()</a></span></code>
+							<code>		 <span class="comment">*/</span></code>
+							<code>		<span class="pink">for</span> ($i <span class="pink">=</span> <span class="purple">0</span>; $i <span class="pink">&lt;</span> $length; $i<span class="pink">++</span>)</code>
+							<code>			$newString <span class="pink">.=</span> <span class="cyan">substr</span>($chars, <span class="cyan">rand</span>(<span class="purple">0</span>, (<span class="cyan">strlen</span>($chars) <span class="pink">-</span> <span class="purple">1</span>)), <span class="purple">1</span>);</code><br />
+							<code>		<span class="cyan">echo json_encode</span>([ <span class="yellow">"success"</span> =&gt; <span class="purple">true</span>, <span class="yellow">"message"</span> =&gt; <span class="yellow">"Se ha generado una cadena de texto."</span>, <span class="yellow">"data"</span> =&gt; $newString ]);</code>
+							<code>	}</code>
+							<code>} <span class="pink">catch</span> (<span class="cyan">Exception</span> $e) {</code>
+							<code>	<span class="cyan">echo json_encode</span>([ <span class="yellow">"success"</span> =&gt; <span class="purple">false</span>, <span class="yellow">"message"</span> =&gt; $e-&gt;<span class="cyan">getMessage</span>(), <span class="yellow">"data"</span> =&gt; <span class="purple">null</span> ]);</code>
+							<code>}</code>
 						</pre>
 					</div>
 				</div>
-				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
 			</div>
 		</div>
 		<!-- ./randomStringsGenerator -->
@@ -2476,24 +2547,60 @@
 	});
 
 	$('#buttonRandomStringSend').click(function () {
-		let length = $('#inputRandomStringLength').val();
+		let $el = $('#inputRandomStringLength');
+		let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+		let length = $el.val();
+		let isValid = true;
 
-		$.ajax({
-			url: 'randomString',
-			type: 'POST',
-			dataType: 'json',
-			data: { length: length },
-			beforeSend: function (jqXHR, settings) {
-				$('#codeRandomStringOutput').removeClass('yellow, purple');
-			},
-			success: function (response) {
-				if (response.success) $('#codeRandomStringOutput').text(response.data).addClass('yellow');
-				else $('#codeRandomStringOutput').text('null').addClass('purple');
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-				$('#codeRandomStringOutput').text(`${jqXHR.status} - ${jqXHR.statusText}`).addClass('yellow');
-			}
-		});
+		/**
+		 *
+		 * Validar el campo.
+		 */
+		$('#formRandomString').removeClass('was-validated');
+
+		$el[0].setCustomValidity('');
+
+		if ($el.val().trim().length == 0) {
+			let message = 'Este campo no debe estar vacío';
+			$el[0].setCustomValidity(message);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+			isValid = false;
+		} else if (isNaN($el.val())) {
+			let message = 'Debe ser un número';
+			$el[0].setCustomValidity(message);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+			isValid = false;
+		} else if ($el.val() < 8 || $el.val() > 60) {
+			let message = 'Debe ser un número del 8 al 60';
+			$el[0].setCustomValidity(message);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+			isValid = false;
+		} else if (/\./g.test($el.val())) {
+			let message = 'Debe ser un número sin punto decimal';
+			$el[0].setCustomValidity(message);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+			isValid = false;
+		}
+
+		$('#formRandomString').addClass('was-validated');
+
+		if (isValid)
+			$.ajax({
+				url: 'makeString',
+				type: 'POST',
+				dataType: 'json',
+				data: { length: length },
+				beforeSend: function (jqXHR, settings) {
+					$('#codeRandomStringOutput').removeClass('yellow, purple');
+				},
+				success: function (response) {
+					if (response.success) $('#codeRandomStringOutput').text(response.data).addClass('yellow');
+					else $('#codeRandomStringOutput').text('null').addClass('purple');
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					$('#codeRandomStringOutput').text(`${jqXHR.status} - ${jqXHR.statusText}`).addClass('yellow');
+				}
+			});
 	});
 
 	$(window).on('scroll', function (e) {
