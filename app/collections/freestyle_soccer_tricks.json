@@ -57,6 +57,10 @@
 					"method": "case",
 					"replace_with": [
 						{
+							"case": "Suelo",
+							"replace": "<i class='fa-regular fa-window-minimize'></i> {value}"
+						},
+						{
 							"case": "Inferior",
 							"replace": "<i class='fa-solid fa-person-walking'></i> {value}"
 						},
@@ -303,6 +307,60 @@
 			"trick_type": "Superior",
 			"skill_level": 5,
 			"can_i_perform_it": false,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Sole Juggling",
+			"abbreviation": "",
+			"trick_type": "Suelo",
+			"skill_level": 4,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Sole Stall",
+			"abbreviation": "",
+			"trick_type": "Suelo",
+			"skill_level": 4,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Sitting Down Juggling",
+			"abbreviation": "",
+			"trick_type": "Suelo",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Sitting Down Cross Over",
+			"abbreviation": "(SD) CO",
+			"trick_type": "Suelo",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Sitting Down Around the Word",
+			"abbreviation": "(SD) ATW",
+			"trick_type": "Suelo",
+			"skill_level": 3,
+			"can_i_perform_it": true,
+			"how_to_perform_it": "",
+			"where_to_see": "youtube"
+		},
+		{
+			"trick": "Sitting Down X-Over",
+			"abbreviation": "",
+			"trick_type": "Suelo",
+			"skill_level": 3,
+			"can_i_perform_it": true,
 			"how_to_perform_it": "",
 			"where_to_see": "youtube"
 		}
