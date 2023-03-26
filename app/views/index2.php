@@ -1428,7 +1428,7 @@
 						</pre>
 					</div>
 				</div>
-				<p class="my-text">Bueno, eso sería toda la lógica para traer datos de archivos JSON y tomarlos como colecciones. Este código se puede mejorar, simplificar y hasta optimizar; solo que ya traia esta idea desde hace rato y había tenido la oportunidad ni el como vaciaría todo el procedimiento de manera visual y explicada (si a eso se le puede llamar explicación) pero al final, a mi parecer, creo que está muy bien elaborado como para ser algo improvisado. Como dije esto se puede mejorar y hasta con mas detalle. No te quede con un solo método forma de hacer las cosas, inspirate, crea y demuestrale a todos de lo que eres capaz.</p>
+				<p class="my-text">Bueno, eso sería toda la lógica para traer datos de archivos JSON y tomarlos como colecciones. Este código se puede mejorar, simplificar y hasta optimizar; solo que ya traia esta idea desde hace rato y había tenido la oportunidad ni el como vaciaría todo el procedimiento de manera visual y explicada (si a eso se le puede llamar explicación) pero al final, a mi parecer, creo que está muy bien elaborado como para ser algo improvisado. Como dije esto se puede mejorar y hasta con mas detalle. No te quedes con un solo método / forma / manera de hacer las cosas, inspirate, crea y demuestrale a todos de lo que eres capaz.</p>
 				<p class="my-text">Y ya para terminar, lo que había dejado pendiente por mucho tiempo:</p>
 				<div class="row">
 					<div class="col">
@@ -1961,7 +1961,7 @@
 			<div class="my-panel-body">
 				<h2>Validando formularios y mostrando el estatus de validación distinta a la que sugiere Bootstrap</h2>
 				<p class="my-text">Para este ejemplo usaré parte de la librería de estilos de Bootstrap (versión 5.3) para solo indicar si un campo del formulario es válido o no. En la propia documentación de <a href="https://getbootstrap.com/docs/5.3/forms/validation/" target="_blank">Bootstrap/Forms/Validation</a> muestra una forma de como crear el evento para que valide todos los campos de un formulario. Pero en este ejemplo mostraré otra forma de validación.</p>
-				<p class="my-text">El formulario a continuación será para crear una <a href="https://es.wiktionary.org/wiki/fursona#:~:text=Sustantivo%20femenino,-Singular&text=Personaje%20animal%20antropom%C3%B3rfico%20que%20representa%20a%20alguien%20en%20el%20furry%20fandom." target="_blank" title="¿Que es eso?">Fursona</a> (no me critiquen por ello, solo es un ejemplo) También mi json de <var>Mis Furrys Favoritos</var> para validar algunos campos en este ejemlo.</p>
+				<p class="my-text">El formulario a continuación será para crear una <a href="https://es.wiktionary.org/wiki/fursona#:~:text=Sustantivo%20femenino,-Singular&text=Personaje%20animal%20antropom%C3%B3rfico%20que%20representa%20a%20alguien%20en%20el%20furry%20fandom." target="_blank" title="¿Que es eso?">Fursona</a> (no me critiquen por ello, solo es un ejemplo) También usaré mi json de <var>Mis Furrys Favoritos</var> para validar solo el campo de "Nombre de su Fursona" de este ejemplo con el propósito de mostrar el funcionamiento de una validación remota.</p>
 				<div class="row">
 					<div class="col-md-5">
 						<form role="form" class="needs-validation" id="formValidationJS" novalidate>
@@ -2019,30 +2019,59 @@
 								<label for="inputValidationJSFursonaDescription">* Descripción Breve de su Fursona:</label>
 								<textarea class="form-control" id="inputValidationJSFursonaDescription" rows="3" style="resize: vertical;" placeholder="Puede ser algún tipo de relato, pasatiempos, intereses, etc."></textarea>
 							</div>
+							<div class="mb-3">
+								<label for="inputValidationJSFursonaProfilePic">* Avatar de su Fursona</label>
+								<input type="file" class="form-control" id="inputValidationJSFursonaProfilePic" accept=".jpg, .png, .gif, .webm" />
+							</div>
+							<div class="mb-3 d-flex justify-content-end">
+								<button type="button" class="btn btn-success" id="buttonValidationJSFursonaCreate"><i class="fa-solid fa-circle-check"></i> Crear</button>
+							</div>
 						</form>
 					</div>
 					<div class="col-md-7">
 						<h2><i class="fa-solid fa-code"></i> Codificación</h2>
 						<samp>HTML</samp>
 						<pre class="sb">
+							<code><span class="comment">&lt;!-- Este será el formulario de ejemplo para ser validado campo por campo. --&gt;</span></code>
+							<code><span class="comment">&lt;!-- Nada de lo que se envíe aquí será registrado. --&gt;</span></code>
 							<code>&lt;<span class="pink">form</span> <span class="green">role</span>=<span class="yellow">"form"</span> <span class="green">class</span>=<span class="yellow">"needs-validation"</span> <span class="green">id</span>=<span class="yellow">"formFursona"</span> <span class="green">novalidate</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
-							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaName"</span>&gt;* Nombre de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"text"</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaName"</span> <span class="green">placeholder</span>=<span class="yellow">"Su nombre debe ser único"</span> /&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
-							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaAge"</span>&gt;Edad de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"number"</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaAge"</span> <span class="green">placeholder</span>=<span class="yellow">"(opcional)"</span> /&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
-							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaSpecie"</span>&gt;* Especie de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">select</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaSpecie"</span>&gt;</code>
+							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">""</span> <span class="green">selected</span>&gt;Seleccione la especie de su Fursona&lt;/<span class="pink">option</span>&gt;</code>
+							<code>			<span class="comment">&lt;!-- Otras opciones... --&gt;</span></code>
+							<code>		&lt;/<span class="pink">select</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
-							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaGender"</span>&gt;* Género de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">select</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaGender"</span>&gt;</code>
+							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">""</span> <span class="green">selected</span>&gt;Seleccione el género de su Fursona&lt;/<span class="pink">option</span>&gt;</code>
+							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">"male"</span>&gt;Masculino&lt;/<span class="pink">option</span>&gt;</code>
+							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">"female"</span>&gt;Femenino&lt;/<span class="pink">option</span>&gt;</code>
+							<code>		&lt;/<span class="pink">select</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
-							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaDetails"</span>&gt;* Caracteristicas de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">textarea</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaDetails"</span> <span class="green">rows</span>=<span class="yellow">"3"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">resize</span>: <span class="cyan">vertical</span>;<span class="yellow">"</span> <span class="green">placeholder</span>=<span class="yellow">"Pelaje blanco, altura baja, esbelto, orejas largas, etc."</span>&gt;&lt;/<span class="pink">textarea</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
-							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaDescription"</span>&gt;* Descripción Breve de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">textarea</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaDescription"</span> <span class="green">rows</span>=<span class="yellow">"3"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">resize</span>: <span class="cyan">vertical</span>;<span class="yellow">"</span> <span class="green">placeholder</span>=<span class="yellow">"Puede ser algún tipo de relato, pasatiempos, intereses, etc."</span>&gt;&lt;/<span class="pink">textarea</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaProfilePic"</span>&gt;* Avatar de su Fursona&lt;/<span class="pink">label</span>&gt;</code>
+							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaProfilePic"</span> <span class="green">accept</span>=<span class="yellow">".jpg, .png, .gif, .webm"</span> /&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3 d-flex justify-content-end"</span>&gt;</code>
+							<code>		&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">class</span>=<span class="yellow">"btn btn-success"</span> <span class="green">id</span>=<span class="yellow">"fursonaCreate"</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-circle-check"</span>&gt;&lt;/<span class="pink">i</span>&gt; Crear&lt;/<span class="pink">button</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>&lt;/<span class="pink">form</span>&gt;</code>
 						</pre>
