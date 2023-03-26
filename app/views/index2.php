@@ -1281,8 +1281,8 @@
 				<p class="my-text"><b>Forma 1 - Adjuntando las funciones en el archivo HTML:</b> de esta forma solo variarán los datos cada vez que el usuario refresque la página (forma que a mi parecer es muy anticuada y cansada, pero igual la incluyo por aquello del que dirán)</p>
 				<samp>PHP</samp>
 				<pre class="sb">
-					<code>&lt;?php</code>
-					<code><span class="pink">include_once</span> <span class="yellow">"collections/collections.php"</span>; <span class="comment">// Supongamos que aquí guarde todo el merequetengue del segundo paso.</span></code><br />
+					<code>&lt;?php</code><br >
+					<code><span class="pink">include_once</span> <span class="yellow">"ws/collections.php"</span>; <span class="comment">// Supongamos que aquí guarde todo el merequetengue del segundo paso.</span></code><br />
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Declaramos la variable para llenar la tabla.</span></code>
@@ -1362,7 +1362,7 @@
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Este será el web service que retornará la nueva colección.</span></code>
 							<code> <span class="comment">*/</span></code>
-							<code><span class="pink">include_once</span> <span class="yellow">"collections/collections.php"</span>; <span class="comment">// Supongamos que aquí guarde todo el merequetengue del segundo paso.</span></code><br />
+							<code><span class="pink">include_once</span> <span class="yellow">"ws/collections.php"</span>; <span class="comment">// Supongamos que aquí guarde todo el merequetengue del segundo paso.</span></code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Declaramos la variable para retornar</span></code>
@@ -1382,7 +1382,7 @@
 							<code>	<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead, #tableCollection &gt; tbody, #tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
 							<code>	<span class="comment">// Petición a web service de "collections/getNewCollection.php".</span></code>
 							<code>	<span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
-							<code>		url: <span class="yellow">'collections/getNewCollection.php'</span>,</code>
+							<code>		url: <span class="yellow">'ws/getNewCollection.php'</span>,</code>
 							<code>		type: <span class="yellow">'POST'</span>,</code>
 							<code>		dataType: <span class="yellow">'json'</span>,</code>
 							<code>		data: { length: <span class="purple">10</span> },</code>
@@ -1957,6 +1957,97 @@
 		<div id="validationWithJS" class="my-panel my-panel-dark-blue">
 			<div class="my-panel-header">
 				<h3 class="my-panel-header-title">Validación de formularios con jQuery y Bootstrap</h3>
+			</div>
+			<div class="my-panel-body">
+				<h2>Validando formularios y mostrando el estatus de validación distinta a la que sugiere Bootstrap</h2>
+				<p class="my-text">Para este ejemplo usaré parte de la librería de estilos de Bootstrap (versión 5.3) para solo indicar si un campo del formulario es válido o no. En la propia documentación de <a href="https://getbootstrap.com/docs/5.3/forms/validation/" target="_blank">Bootstrap/Forms/Validation</a> muestra una forma de como crear el evento para que valide todos los campos de un formulario. Pero en este ejemplo mostraré otra forma de validación.</p>
+				<p class="my-text">El formulario a continuación será para crear una <a href="https://es.wiktionary.org/wiki/fursona#:~:text=Sustantivo%20femenino,-Singular&text=Personaje%20animal%20antropom%C3%B3rfico%20que%20representa%20a%20alguien%20en%20el%20furry%20fandom." target="_blank" title="¿Que es eso?">Fursona</a> (no me critiquen por ello, solo es un ejemplo) También mi json de <var>Mis Furrys Favoritos</var> para validar algunos campos en este ejemlo.</p>
+				<div class="row">
+					<div class="col-md-5">
+						<form role="form" class="needs-validation" id="formValidationJS" novalidate>
+							<div class="mb-3">
+								<label for="inputValidationJSFursonaName">* Nombre de su Fursona:</label>
+								<input type="text" class="form-control" id="inputValidationJSFursonaName" placeholder="Su nombre debe ser único" />
+							</div>
+							<div class="mb-3">
+								<label for="inputValidationJSFursonaAge">Edad de su Fursona:</label>
+								<input type="number" class="form-control" id="inputValidationJSFursonaAge" placeholder="(opcional)" />
+							</div>
+							<div class="mb-3">
+								<label for="selectValidationJSFursonaSpecie">* Especie de su Fursona:</label>
+								<select class="form-control" id="selectValidationJSFursonaSpecie">
+									<option value="" selected>Seleccione la especie de su Fursona</option>
+									<option value="fox">Zorro</option>
+									<option value="dog">Perro</option>
+									<option value="wolf">Lobo</option>
+									<option value="hyena">Hiena</option>
+									<option value="cat">Gato</option>
+									<option value="lion">León</option>
+									<option value="leopard">Leopardo</option>
+									<option value="mouse">Ratón</option>
+									<option value="hamster">Hámter</option>
+									<option value="ferret">Hurón</option>
+									<option value="horse">Caballo</option>
+									<option value="pegasus">Pegaso</option>
+									<option value="unicorn">Unicornio</option>
+									<option value="gazelle">Gacela</option>
+									<option value="bat">Murcielago</option>
+									<option value="bear">Oso</option>
+									<option value="panda">Panda</option>
+									<option value="red_panda">Panda Rojo</option>
+									<option value="raccoon">Mapache</option>
+									<option value="vaporeon">Vaporeon (Pokémon)</option>
+									<option value="lopunny">Lopunny (Pokémon)</option>
+									<option value="absol">Absol (Pokémon)</option>
+									<option value="lucario">Lucario (Pokémon)</option>
+									<option value="delphox">Delphox (Pokémon)</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="selectValidationJSFursonaGender">* Género de su Fursona:</label>
+								<select class="form-control" id="selectValidationJSFursonaGender">
+									<option value="" selected>Seleccione el género de su Fursona</option>
+									<option value="male">Masculino</option>
+									<option value="female">Femenino</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="inputValidationJSFursonaDetails">* Caracteristicas de su Fursona:</label>
+								<textarea class="form-control" id="inputValidationJSFursonaDetails" rows="3" style="resize: vertical;" placeholder="Pelaje blanco, altura baja, esbelto, orejas largas, etc."></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="inputValidationJSFursonaDescription">* Descripción Breve de su Fursona:</label>
+								<textarea class="form-control" id="inputValidationJSFursonaDescription" rows="3" style="resize: vertical;" placeholder="Puede ser algún tipo de relato, pasatiempos, intereses, etc."></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-7">
+						<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+						<samp>HTML</samp>
+						<pre class="sb">
+							<code>&lt;<span class="pink">form</span> <span class="green">role</span>=<span class="yellow">"form"</span> <span class="green">class</span>=<span class="yellow">"needs-validation"</span> <span class="green">id</span>=<span class="yellow">"formFursona"</span> <span class="green">novalidate</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
+							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">""</span>&gt;&lt;/<span class="pink">label</span>&gt;</code>
+							<code>	&lt;/<span class="pink">div</span>&gt;</code>
+							<code>&lt;/<span class="pink">form</span>&gt;</code>
+						</pre>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- ./validationWithJS -->
