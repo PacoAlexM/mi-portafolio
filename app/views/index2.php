@@ -1667,12 +1667,12 @@
 							<code>});</code><br />
 							<code><span class="comment">// Y por último: la función para mostrar / ocultar el boton.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">on</span>(<span class="yellow">'scroll'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">height</span>() <span class="pink">*</span> <span class="purple">2</span>)) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
 							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
 							<code>});</code><br />
 							<code><span class="comment">// Este último es para en caso de que el usuario refresque la página y el botón aparesca sin necesidad de hacer scroll.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">document</span>).<span class="cyan">ready</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-							<code>	<span class="pink">if</span> (<span class="cyan">Math</span>.<span class="cyan">round</span>(<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>()) <span class="pink">&gt;=</span> <span class="purple">250</span>) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
+							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> (<span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">height</span>() <span class="pink">*</span> <span class="purple">2</span>)) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
 							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
 							<code>});</code>
 						</pre>
@@ -2372,7 +2372,7 @@
 	// }
 
 	$(document).ready(function (e) {
-		if ($(window).scrollTop() >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
+		if ($(window).scrollTop() >= ($(window).height() * 2)) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
 
 		$('#codeScreenHeight').text($(window).height());
@@ -2695,13 +2695,13 @@
 	});
 
 	$(window).on('scroll', function (e) {
-		let screenTop = Math.round($(this).scrollTop());
+		let screenTop = $(this).scrollTop();
 		let screenSplitedBy3 = Math.round($(this).height() / 3);
 		let $img = $('#imgTestGrayScale');
 		let imgOffsetTop = $img[0].offsetTop;
 		let imgHeight = $img[0].clientHeight;
 
-		if (screenTop >= 250) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
+		if (screenTop >= ($(this).height() * 2)) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
 
 		if (screenTop > (imgOffsetTop - screenSplitedBy3) && screenTop < ((imgOffsetTop + imgHeight) - (screenSplitedBy3 * 2)) && !$img.hasClass('my-gray-scale-off')) {
