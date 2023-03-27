@@ -39,6 +39,10 @@
 				</ul>
 			</li>
 			<li class="sidebar-divisor"></li>
+			<li>
+				<a href="old">Versión Anterior</a>
+			</li>
+			<li class="sidebar-divisor"></li>
 			<li class="list-item">
 				<a href="#uploadFiles">&gt; Carga de Archivos &lt;</a>
 			</li>
@@ -64,7 +68,7 @@
 				<a href="#gaussJordanCalculator">Calculador de Matrizes</a>
 			</li>
 			<li class="list-item">
-				<a href="#randomStringsGenerator"><var>String</var> Aleatorios</a>
+				<a href="#randomStringsGenerator"><var>String</var> Aleatorio</a>
 			</li>
 			<li class="list-item">
 				<a href="#calculator">Mi Calculadora</a>
@@ -81,19 +85,23 @@
 		</ul>
 	</nav>
 
-	<header class="header" id="headerIndex">
+	<?php $titles = [
+		"<h1>&gt; header title goes here &lt;</h1>",
+		"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
+		"<div class='col-md-10 offset-md-1 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Evento'>6 de Marzo de 1994</cite></figcaption></figure></div>",
+		"<h1>\\[°_°]/ &lt;01100101 01101000?)</h1>",
+		"<h1>=(^_^)=</h1>",
+		"<div class='col-md-8 offset-md-2 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, por <cite title='Autor'>Whygena</cite></figcaption></figure></div>",
+		"<h1>I have a question about Batman</h1>",
+		"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación del poema de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
+	] ?>
+	<?php $titleSelected = rand(0, (count($titles) - 1)) ?>
+	<?php $additionalStyle = "" ?>
+	<?php if ($titleSelected == 0) $additionalStyle = 'style="background: url(../../assets/img/header-title-goes-here.png) no-repeat center center scroll !important;"' ?>
+	<header class="header" id="headerIndex" <?php echo $additionalStyle ?>>
 		<div class="vertical-center">
-			<?php $titles = [
-				"<h1>&gt; header title goes here &lt;</h1>",
-				"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
-				"<div class='col-md-10 offset-md-1 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Evento'>6 de Marzo de 1994</cite></figcaption></figure></div>",
-				"<h1>\\[°_°]/ &lt;01100101 01101000?)</h1>",
-				"<h1>=(^_^)=</h1>",
-				"<div class='col-md-8 offset-md-2 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, por <cite title='Autor'>Whygena</cite></figcaption></figure></div>",
-				"<h1>I have a question about Batman</h1>",
-				"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación del poema de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
-			] ?>
-			<?php echo $titles[rand(0, (count($titles) - 1))] ?>
+			
+			<?php echo $titles[$titleSelected] ?>
 			<hr />
 			<div class="header-bottom">
 				<a href="#" id="slideDown" class="slide-to-content"><i class="fa-solid fa-chevron-down"></i></a>
@@ -1968,10 +1976,14 @@
 							<div class="mb-3">
 								<label for="inputValidationJSFursonaName">* Nombre de su Fursona:</label>
 								<input type="text" class="form-control" id="inputValidationJSFursonaName" placeholder="Su nombre debe ser único" />
+								<div id="vf-inputValidationJSFursonaName" class="valid-feedback"></div>
+								<div id="if-inputValidationJSFursonaName" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
 								<label for="inputValidationJSFursonaAge">Edad de su Fursona:</label>
 								<input type="number" class="form-control" id="inputValidationJSFursonaAge" placeholder="(opcional)" />
+								<div id="vf-inputValidationJSFursonaAge" class="valid-feedback"></div>
+								<div id="if-inputValidationJSFursonaAge" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
 								<label for="selectValidationJSFursonaSpecie">* Especie de su Fursona:</label>
@@ -2001,7 +2013,11 @@
 									<option value="absol">Absol (Pokémon)</option>
 									<option value="lucario">Lucario (Pokémon)</option>
 									<option value="delphox">Delphox (Pokémon)</option>
+									<option value="renamon">Renamon (Digimon)</option>
+									<option value="guilmon">Guilmon (Digimon)</option>
 								</select>
+								<div id="vf-selectValidationJSFursonaSpecie" class="valid-feedback"></div>
+								<div id="if-selectValidationJSFursonaSpecie" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
 								<label for="selectValidationJSFursonaGender">* Género de su Fursona:</label>
@@ -2010,18 +2026,26 @@
 									<option value="male">Masculino</option>
 									<option value="female">Femenino</option>
 								</select>
+								<div id="vf-selectValidationJSFursonaGender" class="valid-feedback"></div>
+								<div id="if-selectValidationJSFursonaGender" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
 								<label for="inputValidationJSFursonaDetails">* Caracteristicas de su Fursona:</label>
 								<textarea class="form-control" id="inputValidationJSFursonaDetails" rows="3" style="resize: vertical;" placeholder="Pelaje blanco, altura baja, esbelto, orejas largas, etc."></textarea>
+								<div id="vf-inputValidationJSFursonaDetails" class="valid-feedback"></div>
+								<div id="if-inputValidationJSFursonaDetails" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
 								<label for="inputValidationJSFursonaDescription">* Descripción Breve de su Fursona:</label>
 								<textarea class="form-control" id="inputValidationJSFursonaDescription" rows="3" style="resize: vertical;" placeholder="Puede ser algún tipo de relato, pasatiempos, intereses, etc."></textarea>
+								<div id="vf-inputValidationJSFursonaDescription" class="valid-feedback"></div>
+								<div id="if-inputValidationJSFursonaDescription" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
 								<label for="inputValidationJSFursonaProfilePic">* Avatar de su Fursona</label>
 								<input type="file" class="form-control" id="inputValidationJSFursonaProfilePic" accept=".jpg, .png, .gif, .webm" />
+								<div id="vf-inputValidationJSFursonaProfilePic" class="valid-feedback"></div>
+								<div id="if-inputValidationJSFursonaProfilePic" class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3 d-flex justify-content-end">
 								<button type="button" class="btn btn-success" id="buttonValidationJSFursonaCreate"><i class="fa-solid fa-circle-check"></i> Crear</button>
@@ -2038,10 +2062,14 @@
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaName"</span>&gt;* Nombre de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
 							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"text"</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaName"</span> <span class="green">placeholder</span>=<span class="yellow">"Su nombre debe ser único"</span> /&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaName"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaName"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaAge"</span>&gt;Edad de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
 							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"number"</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaAge"</span> <span class="green">placeholder</span>=<span class="yellow">"(opcional)"</span> /&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaAge"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaAge"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaSpecie"</span>&gt;* Especie de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
@@ -2049,6 +2077,8 @@
 							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">""</span> <span class="green">selected</span>&gt;Seleccione la especie de su Fursona&lt;/<span class="pink">option</span>&gt;</code>
 							<code>			<span class="comment">&lt;!-- Otras opciones... --&gt;</span></code>
 							<code>		&lt;/<span class="pink">select</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaSpecie"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaSpecie"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaGender"</span>&gt;* Género de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
@@ -2057,24 +2087,95 @@
 							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">"male"</span>&gt;Masculino&lt;/<span class="pink">option</span>&gt;</code>
 							<code>			&lt;<span class="pink">option</span> <span class="green">value</span>=<span class="yellow">"female"</span>&gt;Femenino&lt;/<span class="pink">option</span>&gt;</code>
 							<code>		&lt;/<span class="pink">select</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaGender"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaGender"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaDetails"</span>&gt;* Caracteristicas de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
 							<code>		&lt;<span class="pink">textarea</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaDetails"</span> <span class="green">rows</span>=<span class="yellow">"3"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">resize</span>: <span class="cyan">vertical</span>;<span class="yellow">"</span> <span class="green">placeholder</span>=<span class="yellow">"Pelaje blanco, altura baja, esbelto, orejas largas, etc."</span>&gt;&lt;/<span class="pink">textarea</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaDetails"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaDetails"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaDescription"</span>&gt;* Descripción Breve de su Fursona:&lt;/<span class="pink">label</span>&gt;</code>
 							<code>		&lt;<span class="pink">textarea</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaDescription"</span> <span class="green">rows</span>=<span class="yellow">"3"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">resize</span>: <span class="cyan">vertical</span>;<span class="yellow">"</span> <span class="green">placeholder</span>=<span class="yellow">"Puede ser algún tipo de relato, pasatiempos, intereses, etc."</span>&gt;&lt;/<span class="pink">textarea</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaDescription"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaDescription"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;</code>
 							<code>		&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"fursonaProfilePic"</span>&gt;* Avatar de su Fursona&lt;/<span class="pink">label</span>&gt;</code>
 							<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">class</span>=<span class="yellow">"form-control"</span> <span class="green">id</span>=<span class="yellow">"fursonaProfilePic"</span> <span class="green">accept</span>=<span class="yellow">".jpg, .png, .gif, .webm"</span> /&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"vf-fursonaProfilePic"</span> <span class="green">class</span>=<span class="yellow">"valid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
+							<code>		&lt;<span class="pink">div</span> <span class="green">id</span>=<span class="yellow">"if-fursonaProfilePic"</span> <span class="green">class</span>=<span class="yellow">"invalid-feedback"</span>&gt;&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>	&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"mb-3 d-flex justify-content-end"</span>&gt;</code>
 							<code>		&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">class</span>=<span class="yellow">"btn btn-success"</span> <span class="green">id</span>=<span class="yellow">"fursonaCreate"</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-circle-check"</span>&gt;&lt;/<span class="pink">i</span>&gt; Crear&lt;/<span class="pink">button</span>&gt;</code>
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>&lt;/<span class="pink">form</span>&gt;</code>
 						</pre>
+					</div>
+				</div>
+				<p class="my-text">De momento solo tenémos el formulario, aún no valida ni nada por el estilo. Por eso continuaré con las funciones para validar y luego el eveto que activará dichas validaciones.</p>
+				<div class="row">
+					<div class="col-md-6">
+						<samp>JS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Aquí se cargarán las funciones de</span></code>
+							<code> <span class="comment">* validación de cada campo en el</span></code>
+							<code> <span class="comment">* formulario seleccionado</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Defnición de cada parámetro:</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - $el: Representa el objeto jQuery</span></code>
+							<code> <span class="comment">* que se validará.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - message: Es el mensaje que mostrará</span></code>
+							<code> <span class="comment">* en caso de error.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - operator: Es el tipo de operador</span></code>
+							<code> <span class="comment">* lógico (sea ==, !=, >, etc.)</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - value: El valor que se evaluará</span></code>
+							<code> <span class="comment">* según el operador lógico.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - regex: Expresión regular.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - limit: Valor para medir el número</span></code>
+							<code> <span class="comment">* de caracteres de una cadema de texto.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - url: Ubicación dende se validará</span></code>
+							<code> <span class="comment">* remotamente.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - settings: Parámetros adicionales</span></code>
+							<code> <span class="comment">* para la validación remota.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - size: Tamaño del archivo.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* - extensions: Extención del archivo</span></code>
+							<code> <span class="comment">* (puede ser array o string)</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Función: isEmpty</span></code>
+							<code> <span class="comment">* Parámetros: $el, message</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="cyan">const</span> <span class="green">isEmpty</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code><br />
+							<code>	<span class="pink">if</span> ($el.<span class="cyan">val</span>().<span class="cyan">trim</span>().length <span class="pink">==</span> <span class="purple">0</span>) {</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>	}</code><br />
+							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
+							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>}</code><br />
+						</pre>
+					</div>
+					<div class="col-md-6">
+						<samp>JS</samp>
+						<pre class="sb"></pre>
 					</div>
 				</div>
 			</div>
@@ -2098,6 +2199,7 @@
 	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>bootstrap.min.js"></script>
 	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>bootstrap.bundle.min.js"></script>
 	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>SimpleAjaxUploader.min.js"></script>
+	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>myValidator.js"></script>
 	<script type="text/javascript">
 	// var _dataTransferFiles = new DataTransfer();
 	var _arrayInfoFiles = new Array();
@@ -2109,6 +2211,17 @@
 	const _MAXFILESTOUPLOAD = 5;
 	const _DAYSOFTHEWEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const _MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+	const isValid = _ => {
+		let valid = true;
+
+		$('#formValidationJS').removeClass('was-validated');
+
+		if (isEmpty($('#inputValidationJSFursonaName'), 'Este campo no debe de estar vacío')) valid = false;
+
+		$('#formValidationJS').addClass('was-validated');
+
+		return valid;
+	}
 
 	var _simpleAjaxUploader = new ss.SimpleUpload({
 		button: $('#buttonSelectFilesSimpleAjaxUploader'),
@@ -2681,7 +2794,7 @@
 		$el[0].setCustomValidity('');
 
 		if ($el.val().trim().length == 0) {
-			let message = 'Este campo no debe estar vacío';
+			let message = 'Este campo no debe de estar vacío';
 			$el[0].setCustomValidity(message);
 			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
 			isValid = false;
@@ -2722,6 +2835,8 @@
 				}
 			});
 	});
+
+	$('#buttonValidationJSFursonaCreate').click(isValid);
 
 	$(window).on('scroll', function (e) {
 		let screenTop = $(this).scrollTop();

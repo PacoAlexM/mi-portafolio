@@ -37,53 +37,66 @@
  * Función: isEmpty
  * Parámetros: $el, message
  */
-function isEmpty ($el, message) {}
+const isEmpty = ($el, message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+
+	if ($el.val().trim().length == 0) {
+		$el[0].setCustomValidity(message);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+		return true;
+	}
+
+	$validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+	return false;
+}
 
 /**
  *
  * Función: is
  * Parámetros: $el, operator, value, message
  */
-function is ($el, operator, value, message) {}
+const is = ($el, operator, value, message) => {}
 
 /**
  *
  * Función: has
  * Parámetros: $el, regex, message
  */
-function has ($el, regex, message) {}
+const has = ($el, regex, message) => {}
 
 /**
  *
  * Función: length
  * Parámetros: $el, operator, limit, message
  */
-function length ($el, operator, limit, message) {}
+const length = ($el, operator, limit, message) => {}
 
 /**
  *
  * Función: isValidOnServer
  * Parámetros: $el, url, settings (opcional), message
  */
-function isValidOnServer ($el, url, settings = [], message) {}
+const isValidOnServer = ($el, url, settings = [], message) => {}
 
 /**
  *
  * Función: isValidFileName
  * Parámetros: $el, regex, message
  */
-function isValidFileName ($el, regex, message) {}
+const isValidFileName = ($el, regex, message) => {}
 
 /**
  *
  * Función: isValidFileSize
  * Parámetros: $el, size, message
  */
-function isValidFileSize ($el, size, message) {}
+const isValidFileSize = ($el, size, message) => {}
 
 /**
  *
  * Función: isValidFileExtencion
  * Parámetros: $el, extensions, message
  */
-function isValidFileExtencion ($el, extensions, message) {}
+const isValidFileExtencion = ($el, extensions, message) => {}
