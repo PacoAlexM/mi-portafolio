@@ -60,19 +60,19 @@ class Configuracion {
 			self::MAIN_URL => function () {
 				$this->initRandomKey();
 
-				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
-
-				include_once self::VIEWS_URL . "index.php";
-			},
-			"indexnew" => function () {
-				$this->initRandomKey();
-
 				$jsonCollection = $this->initCollection(10);
 				$jsonCollectionRawHTML = $this->initCollectionRawHTML($jsonCollection);
 
 				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
 
 				include_once self::VIEWS_URL . "index2.php";
+			},
+			"old" => function () {
+				$this->initRandomKey();
+
+				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
+
+				include_once self::VIEWS_URL . "index.php";
 			}
 		];
 
