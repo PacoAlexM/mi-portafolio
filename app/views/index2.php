@@ -2171,6 +2171,38 @@
 							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
 							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
 							<code>}</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Función: is</span></code>
+							<code> <span class="comment">* Parámetros: $el, operator, value, message</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="cyan">const</span> <span class="green">is</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">operator</span>, <span class="orange">value</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> operators <span class="pink">=</span> {</code>
+							<code>		<span class="yellow">'</span><span class="green">==</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">==</span>		b },</code>
+							<code>		<span class="yellow">'</span><span class="green">===</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">===</span>	b },</code>
+							<code>		<span class="yellow">'</span><span class="green">!=</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">!=</span>		b },</code>
+							<code>		<span class="yellow">'</span><span class="green">!==</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">!==</span>	b },</code>
+							<code>		<span class="yellow">'</span><span class="green">&gt;</span><span class="yellow">'</span>		: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">&gt;</span>		b },</code>
+							<code>		<span class="yellow">'</span><span class="green">&gt;=</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">&gt;=</span>		b },</code>
+							<code>		<span class="yellow">'</span><span class="green">&lt;</span><span class="yellow">'</span>		: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">&lt;</span>		b },</code>
+							<code>		<span class="yellow">'</span><span class="green">&lt;=</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">&lt;=</span>		b }</code>
+							<code>	}</code><br />
+							<code>	<span class="pink">if</span> (<span class="pink">!</span>operator <span class="pink">in</span> operators) {</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>	}</code><br />
+							<code>	<span class="pink">if</span> (operators[operator]($el.<span class="cyan">val</span>(), value)) {</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>	}</code><br />
+							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
+							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>}</code>
 						</pre>
 					</div>
 					<div class="col-md-6">
@@ -2217,6 +2249,10 @@
 		$('#formValidationJS').removeClass('was-validated');
 
 		if (isEmpty($('#inputValidationJSFursonaName'), 'Este campo no debe de estar vacío')) valid = false;
+
+		if (is($('#selectValidationJSFursonaSpecie'), '==', '', 'Debe seleccionar una especie')) valid = false;
+
+		if (is($('#selectValidationJSFursonaGender'), '==', '', 'Debe seleccionar un género')) valid = false;
 
 		$('#formValidationJS').addClass('was-validated');
 

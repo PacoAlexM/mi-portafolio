@@ -57,7 +57,36 @@ const isEmpty = ($el, message) => {
  * Función: is
  * Parámetros: $el, operator, value, message
  */
-const is = ($el, operator, value, message) => {}
+const is = ($el, operator, value, message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+	let operators = {
+		'=='	: function (a, b) { return a ==		b },
+		'==='	: function (a, b) { return a ===	b },
+		'!='	: function (a, b) { return a !=		b },
+		'!=='	: function (a, b) { return a !==	b },
+		'>'		: function (a, b) { return a >		b },
+		'>='	: function (a, b) { return a >=		b },
+		'<'		: function (a, b) { return a <		b },
+		'<='	: function (a, b) { return a <=		b }
+	}
+
+	if (!operator in operators) {
+		$el[0].setCustomValidity(message);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+		return true;
+	}
+
+	if (operators[operator]($el.val(), value)) {
+		$el[0].setCustomValidity(message);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+		return true;
+	}
+
+	$validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+	return false;
+}
 
 /**
  *
