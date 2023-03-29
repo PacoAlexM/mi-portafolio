@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="Mi portafolio personal de prácticas de desarrollo web">
-	<meta name="keywords" content="Portafolio de Paco Alex Martell, HTML, CSS, JavaScript, Scroll functions, Funciones con scroll, CSS fade style, Estilos de desvanecimiento con CSS, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Sample with SimpleAjaxUploader, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Ramdom string with php, Strings aleatorios en php, Dropzone with javascript, Dropzone con javascript, JSON collections, Colecciones con JSONs" />
+	<meta name="keywords" content="Portafolio de Paco Alex Martell, HTML, CSS, JavaScript, Scroll functions, Funciones con scroll, CSS fade style, Estilos de desvanecimiento con CSS, Gray scale with Javascript, Escala de grises con Javascript, SimpleAjaxUploader load screen, Sample with SimpleAjaxUploader, Pantalla de carga con SimpleAjaxUploader, Practica con SimpleAjaxUploader, Scroll to up with Javascript, Regresar al tope de la página con Javascript, Sistemas de matrices por el método de Gauss Jordan, Resolución de sistemas de matrices por el método de Gauss Jordan en php, Ramdom string with php, Strings aleatorios en php, Dropzone with javascript, Dropzone con javascript, JSON collections, Colecciones con JSONs, Form validation with javascript, Validación de formularios con javascript" />
 	<meta name="author" content="Paco Alex Martell" />
 	<meta name="theme-color" content="#000000" />
 	<title>Paco Alex M | Mi Portafolio Personal de Ejemplos de Desarrollo Web</title>
@@ -2122,42 +2122,13 @@
 						<pre class="sb">
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Aquí se cargarán las funciones de</span></code>
-							<code> <span class="comment">* validación de cada campo en el</span></code>
-							<code> <span class="comment">* formulario seleccionado</span></code>
+							<code> <span class="comment">* La función "isEmpty" devolverá</span></code>
+							<code> <span class="comment">* true si el campo que se está</span></code>
+							<code> <span class="comment">* validando está vacío.</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Defnición de cada parámetro:</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - $el: Representa el objeto jQuery</span></code>
-							<code> <span class="comment">* que se validará.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - message: Es el mensaje que mostrará</span></code>
-							<code> <span class="comment">* en caso de error.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - operator: Es el tipo de operador</span></code>
-							<code> <span class="comment">* lógico (sea ==, !=, >, etc.)</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - value: El valor que se evaluará</span></code>
-							<code> <span class="comment">* según el operador lógico.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - regex: Expresión regular.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - limit: Valor para medir el número</span></code>
-							<code> <span class="comment">* de caracteres de una cadema de texto.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - url: Ubicación dende se validará</span></code>
-							<code> <span class="comment">* remotamente.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - settings: Parámetros adicionales</span></code>
-							<code> <span class="comment">* para la validación remota.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - size: Tamaño del archivo.</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* - extensions: Extención del archivo</span></code>
-							<code> <span class="comment">* (puede ser array o string)</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Función: isEmpty</span></code>
-							<code> <span class="comment">* Parámetros: $el, message</span></code>
+							<code> <span class="comment">* Parámetros esperados:</span></code>
+							<code> <span class="comment">*  - $el (jQuery object): Campo a validar</span></code>
+							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
 							<code><span class="cyan">const</span> <span class="green">isEmpty</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
 							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
@@ -2173,8 +2144,16 @@
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Función: is</span></code>
-							<code> <span class="comment">* Parámetros: $el, operator, value, message</span></code>
+							<code> <span class="comment">* La función "is" devolverá true</span></code>
+							<code> <span class="comment">* si el campo que se está validando</span></code>
+							<code> <span class="comment">* coincide con la opración de los</span></code>
+							<code> <span class="comment">* parámetros $el, operator y value.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Parámetros esperados:</span></code>
+							<code> <span class="comment">*  - $el (jQuery object): Campo a validar</span></code>
+							<code> <span class="comment">*  - operator (string): Operador lógico</span></code>
+							<code> <span class="comment">*  - value (string | number): Valor a ser comparado</span></code>
+							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
 							<code><span class="cyan">const</span> <span class="green">is</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">operator</span>, <span class="orange">value</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
 							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
@@ -2191,8 +2170,8 @@
 							<code>		<span class="yellow">'</span><span class="green">&lt;=</span><span class="yellow">'</span>	: <span class="cyan">function</span> (<span class="orange">a</span>, <span class="orange">b</span>) { <span class="pink">return</span> a <span class="pink">&lt;=</span>		b }</code>
 							<code>	}</code><br />
 							<code>	<span class="pink">if</span> (<span class="pink">!</span>operator <span class="pink">in</span> operators) {</code>
-							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
-							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El operador "</span>${operator}<span class="yellow">" no es válido`</span>);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El operador "</span>${operator}<span class="yellow">" no es válido`</span>);</code>
 							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
 							<code>	}</code><br />
 							<code>	<span class="pink">if</span> (operators[operator]($el.<span class="cyan">val</span>(), value)) {</code>
@@ -2202,6 +2181,36 @@
 							<code>	}</code><br />
 							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
 							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>}</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* La función "has" devolverá false</span></code>
+							<code> <span class="comment">* si el campo que se está validando</span></code>
+							<code> <span class="comment">* no coincide con la expresión regular</span></code>
+							<code> <span class="comment">* proporcionada en los parámetros.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Parámetros esperados:</span></code>
+							<code> <span class="comment">*  - $el (jQuery object): Campo a validar</span></code>
+							<code> <span class="comment">*  - regex (regular expresion): Expresión regular</span></code>
+							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="cyan">const</span> <span class="green">has</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">regex</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code><br />
+							<code>	<span class="pink">try</span> {</code>
+							<code>		<span class="pink">if</span> (<span class="pink">!</span>regex.<span class="cyan">test</span>($el.<span class="cyan">val</span>())) {</code>
+							<code>			$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>			$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>			<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>		}</code><br />
+							<code>		$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
+							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>	} <span class="pink">catch</span> (exception) {</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(exception.message);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${exception.message}<span class="yellow">`</span>);</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>	}</code>
 							<code>}</code>
 						</pre>
 					</div>
@@ -2249,6 +2258,10 @@
 		$('#formValidationJS').removeClass('was-validated');
 
 		if (isEmpty($('#inputValidationJSFursonaName'), 'Este campo no debe de estar vacío')) valid = false;
+
+		if ($('#inputValidationJSFursonaAge').val().trim().length > 0) {
+			if (!has($('#inputValidationJSFursonaAge'), /^\d+(\.\d+)?$/g, 'Este campo debe ser númerico')) valid = false;
+		}
 
 		if (is($('#selectValidationJSFursonaSpecie'), '==', '', 'Debe seleccionar una especie')) valid = false;
 
