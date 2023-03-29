@@ -65,14 +65,14 @@ class Configuracion {
 
 				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
 
-				include_once self::VIEWS_URL . "index2.php";
+				include_once self::VIEWS_URL . "index.php";
 			},
 			"old" => function () {
 				$this->initRandomKey();
 
 				$_SESSION["HAVE_ACCESS_TO_EASTEREGG"] = false;
 
-				include_once self::VIEWS_URL . "index.php";
+				include_once self::VIEWS_URL . "indexOld.php";
 			}
 		];
 
