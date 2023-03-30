@@ -34,6 +34,9 @@
  * - extensions: Extención del archivo
  * (puede ser array o string)
  *
+ * - callback: Función que se ejecutará
+ * en caso de true.
+ *
  * Función: isEmpty
  * Parámetros: $el, message
  */
@@ -125,9 +128,6 @@ const length = ($el, operator, limit, message) => {
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
 	let operators = {
 		'=='	: function (a, b) { return a ==		b },
-		'==='	: function (a, b) { return a ===	b },
-		'!='	: function (a, b) { return a !=		b },
-		'!=='	: function (a, b) { return a !==	b },
 		'>'		: function (a, b) { return a >		b },
 		'>='	: function (a, b) { return a >=		b },
 		'<'		: function (a, b) { return a <		b },
@@ -158,10 +158,51 @@ const length = ($el, operator, limit, message) => {
 
 /**
  *
+ * Función: hasValue
+ * Parámetros: $el, callback
+ */
+const hasValue = ($el, callback) => {
+	if ($el.val().trim().length > 0) return callback();
+
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+
+	$validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+	return false;
+}
+
+/**
+ *
  * Función: isValidOnServer
  * Parámetros: $el, url, settings (opcional), message
  */
-const isValidOnServer = ($el, url, settings = [], message) => {}
+const isValidOnServer = ($el, url, settings = [], message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+	let valid = true;
+	let sqlOperators = [ '=', '>', '<', '>=', '<=', '<>' ];
+	let serverOperators = [ '==', '===', '!=', '!==', '>', '>=', '<', '<=' ];
+
+	if (settings.length > 0) {
+		settings.every((value, index, _) => {
+			if (!value.hasOwnProperty('column')) {
+				valid = false;
+				return false;
+			} if (!value.hasOwnProperty('operator')) {
+				valid = false;
+				return false;
+			} if (!value.operator in sqlOperators && !value.operator in serverOperators) {
+				valid = false;
+				return false;
+			} if (!value.hasOwnProperty('value')) {
+				valid = false;
+				return false;
+			}
+			return true;
+		});
+	}
+}
 
 /**
  *
