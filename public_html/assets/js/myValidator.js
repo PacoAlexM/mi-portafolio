@@ -181,27 +181,57 @@ const isValidOnServer = ($el, url, settings = [], message) => {
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
 	let valid = true;
+	let settingsProperties = [ 'column', 'operator', 'value' ];
 	let sqlOperators = [ '=', '>', '<', '>=', '<=', '<>' ];
 	let serverOperators = [ '==', '===', '!=', '!==', '>', '>=', '<', '<=' ];
 
 	if (settings.length > 0) {
 		settings.every((value, index, _) => {
-			if (!value.hasOwnProperty('column')) {
-				valid = false;
-				return false;
-			} if (!value.hasOwnProperty('operator')) {
-				valid = false;
-				return false;
-			} if (!value.operator in sqlOperators && !value.operator in serverOperators) {
-				valid = false;
-				return false;
-			} if (!value.hasOwnProperty('value')) {
-				valid = false;
-				return false;
+			if (!value.hasOwnProperty(settingsProperties[0]) || !value.hasOwnProperty(settingsProperties[1]) || !value.hasOwnProperty(settingsProperties[2])) {
+				$el[0].setCustomValidity(`Para esta validación debe tener definido estos parámetros: "column", "operator" y "value"`);
+				$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Para esta validación debe tener definido estos parámetros: "column", "operator" y "value"`);
+				return (valid = false);
+			} else if (!sqlOperators.includes(value.operator) && !serverOperators.includes(value.operator)) {
+				$el[0].setCustomValidity(`El operador "${value.operator}" no es válido`);
+				$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El operador "${value.operator}" no es válido`);
+				return (valid = false);
 			}
+
 			return true;
 		});
 	}
+
+	if (valid)
+		$.ajax({
+			url: url,
+			type: 'POST',
+			dataType: 'json',
+			async: false,
+			data: {
+				toValidate: $el.val(),
+				settings: settings
+			},
+			success: function (response) {
+				if (response.success) {
+					if (!response.data.isValid) {
+						$el[0].setCustomValidity(message);
+						$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+						valid = false;
+					}
+				} else {
+					$el[0].setCustomValidity(`Ocurrió un error durante la validación: ${response.message}`);
+					$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Ocurrió un error durante la validación: ${response.message}`);
+					valid = false;
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				$el[0].setCustomValidity(`Ocurrió un error durante la validación: ${jqXHR.status} - ${jqXHR.statusText}`);
+				$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Ocurrió un error durante la validación: ${jqXHR.status} - ${jqXHR.statusText}`);
+				valid = false;
+			}
+		});
+
+	return valid;
 }
 
 /**
