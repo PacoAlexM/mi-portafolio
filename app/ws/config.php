@@ -96,6 +96,9 @@ class Configuracion {
 			},
 			"makeString" => function () {
 				include_once self::APP_URL . self::WS_URL . "makeString.php";
+			},
+			"validateFursona" => function () {
+				include_once self::APP_URL . self::WS_URL . "validateFursona.php";
 			}
 		];
 
@@ -212,18 +215,28 @@ class Configuracion {
 		$url = $this->sanitizeRequestUri();
 
 		if ($requestMethod === self::GET_METHOD) {
-			if (isset($this->arrayGet[$url]) && is_callable($this->arrayGet[$url])) $this->arrayGet[$url]();
-			else {
-				header("HTTP/1.0 404 Not Found");
+			try {
+				if (isset($this->arrayGet[$url]) && is_callable($this->arrayGet[$url])) $this->arrayGet[$url]();
+				else {
+					header("HTTP/1.0 404 Not Found");
 
-				include_once self::EXCEPTIONS_VIEWS_URL . "404.php";
+					include_once self::EXCEPTIONS_VIEWS_URL . "404.php";
+				}
+			} catch (Exception $e) {
+				header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error", true, 500);
+
+				include_once self::EXCEPTIONS_VIEWS_URL . "500.php";
 			}
 		} else if ($requestMethod === self::POST_METHOD) {
 			header("Content-Type: application/json; charset=utf-8");
 
-			if (isset($this->arrayPost[$url]) && is_callable($this->arrayPost[$url])) $this->arrayPost[$url]();
-			else echo json_encode([ "success" => false, "message" => "404 - $url not found." ]);
-		} else { }
+			try {
+				if (isset($this->arrayPost[$url]) && is_callable($this->arrayPost[$url])) $this->arrayPost[$url]();
+				else echo json_encode([ "success" => false, "message" => "404 - $url not found." ]);
+			} catch (Exception $e) {
+				echo json_encode([ "success" => false, "message" => "500 - {$e->getMessage()}." ]);
+			}
+		}
 	}
 
 	/**
