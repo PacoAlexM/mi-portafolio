@@ -6,8 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>404</title>
 	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>css/bootstrap.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>font-awesome/css/all.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_CSS_URL"] ?>bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_FA_URL"] ?>all.min.css" />
 	<style>
 	html, body {
 		width: 100%;
