@@ -1990,6 +1990,7 @@
 								<select class="form-control" id="selectValidationJSFursonaSpecie">
 									<option value="" selected>Seleccione la especie de su Fursona</option>
 									<option value="fox">Zorro</option>
+									<option value="kitsune">Kitsune</option>
 									<option value="dog">Perro</option>
 									<option value="wolf">Lobo</option>
 									<option value="hyena">Hiena</option>
@@ -2008,7 +2009,9 @@
 									<option value="panda">Panda</option>
 									<option value="red_panda">Panda Rojo</option>
 									<option value="raccoon">Mapache</option>
+									<option value="eevee">Eevee (Pokémon)</option>
 									<option value="vaporeon">Vaporeon (Pokémon)</option>
+									<option value="espeon">Espeon (Pokémon)</option>
 									<option value="umbreon">Umbreon (Pokémon)</option>
 									<option value="lopunny">Lopunny (Pokémon)</option>
 									<option value="absol">Absol (Pokémon)</option>
@@ -2321,6 +2324,7 @@
 		$('#formValidationJS').removeClass('was-validated');
 
 		if (isEmpty($('#inputValidationJSFursonaName'), 'Este campo no debe de estar vacío')) valid = false;
+		else if (!isValidOnServer($('#inputValidationJSFursonaName'), 'validateFursona', [ { 'column': 'xd', 'operator': '=', 'value': 0 } ], 'Esta fursona ya está en uso')) valid = false;
 
 		// if ($('#inputValidationJSFursonaAge').val().trim().length > 0) {
 		// 	if (!has($('#inputValidationJSFursonaAge'), /^\d+(\.\d+)?$/g, 'Este campo debe ser númerico')) valid = false;
