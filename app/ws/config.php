@@ -40,8 +40,17 @@ class Configuracion {
 	 * Constructor de la clase.
 	 */
 	public function __construct () {
+		$this->handleWarnings();
 		$this->initSession();
 		$this->initGetPost();
+	}
+
+	private function handleWarnings () {
+		set_error_handler(function ($severity, $message, $file, $line) {
+			if (!(error_reporting() & $severity)) return;
+
+			throw new ErrorException("Internal Server Error", 0, $severity, $file, $line);
+		}, E_WARNING);
 	}
 
 	/**
