@@ -78,25 +78,25 @@ const is = ($el, operator, value, message) => {
 	if (!operator in operators) {
 		$el[0].setCustomValidity(`El operador "${operator}" no es válido`);
 		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El operador "${operator}" no es válido`);
-		return true;
+		return false;
 	}
 
-	if (operators[operator]($el.val(), value)) {
+	if (!operators[operator]($el.val(), value)) {
 		$el[0].setCustomValidity(message);
 		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
-		return true;
+		return false;
 	}
 
 	$validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
-	return false;
+	return true;
 }
 
 /**
  *
- * Función: has
+ * Función: isLike
  * Parámetros: $el, regex, message
  */
-const has = ($el, regex, message) => {
+const isLike = ($el, regex, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
@@ -122,7 +122,7 @@ const has = ($el, regex, message) => {
  * Función: length
  * Parámetros: $el, operator, limit, message
  */
-const length = ($el, operator, limit, message) => {
+const hasThislength = ($el, operator, limit, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
@@ -137,31 +137,31 @@ const length = ($el, operator, limit, message) => {
 	if (isNaN(limit)) {
 		$el[0].setCustomValidity(`El límite a validar debe ser un número`);
 		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El límite a validar debe ser un número`);
-		return true;
+		return false;
 	}
 
 	if (!operator in operators) {
 		$el[0].setCustomValidity(`El operador "${operator}" no es válido`);
 		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El operador "${operator}" no es válido`);
-		return true;
+		return false;
 	}
 
-	if (operators[operator]($el.val(), value)) {
+	if (!operators[operator]($el.val(), value)) {
 		$el[0].setCustomValidity(message);
 		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
-		return true;
+		return false;
 	}
 
 	$validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
-	return false;
+	return true;
 }
 
 /**
  *
- * Función: hasValue
+ * Función: hasValueWhenIsOptional
  * Parámetros: $el, callback
  */
-const hasValue = ($el, callback) => {
+const hasValueWhenIsOptional = ($el, callback) => {
 	if ($el.val().trim().length > 0) return callback();
 
 	$el[0].setCustomValidity('');
@@ -233,6 +233,13 @@ const isValidOnServer = ($el, url, settings = [], message) => {
 
 	return valid;
 }
+
+/**
+ *
+ * Función: haveFiles
+ * Parámetros: $el, message
+ */
+const hasFiles = ($el, message) => {}
 
 /**
  *
