@@ -1,14 +1,14 @@
 <?php header("HTTP/1.0 403 Forbidden") ?>
 <!DOCTYPE html>
-<html>
+<html lang="es-mx">
 <head>
-	<meta charset="utf-8">
-	<meta httl-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta httl-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>403</title>
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>css/bootstrap.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>font-awesome/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>css/style.css" />
+	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_CSS_URL"] ?>bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_FA_URL"] ?>all.min.css" />
 	<style>
 	html, body {
 		width: 100%;
@@ -25,24 +25,21 @@
 		vertical-align: middle;
 	}
 	h1 {
-		font-size: 65px;
+		font-size: 50px;
 		color: #fff;
 	}
-	.fa-8x {
-		font-size: 8em;
-	}
-	.fa-black {
-		color: #000;
+	.fa-red {
+		color: red;
 	}
 	</style>
 </head>
 <body>
 	<header>
-		<span class="fa-stack fa-8x">
-			<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-			<i class="fa fa-ban fa-stack-1x fa-black"></i>
+		<span class="fa-stack fa-8x mb-3">
+			<i class="fa-solid fa-circle fa-stack-2x fa-red"></i>
+			<i class="fa-solid fa-ban fa-stack-1x fa-inverse"></i>
 		</span>
-		<h1>Acceso prohibido<br><small>403</small></h1>
+		<h1>Acceso Denegado<br /><small>403</small></h1>
 	</header>
 </body>
 </html>
