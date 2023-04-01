@@ -1428,7 +1428,7 @@
 							<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;th&gt;Message&lt;/th&gt;&lt;/tr&gt;`</span>).<span class="cyan">addClass</span>(<span class="yellow">'table-dark'</span>);</code>
 							<code>			<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; tbody'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;tr class="table-danger"&gt;&lt;td&gt;</span>${jqXHR.status}<span class="yellow"> - </span>${jqXHR.statusText}<span class="yellow">&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
 							<code>		},</code>
-							<code>		<span class="green">complete</span>: <span class="cyan">function<7span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>) {</code>
+							<code>		<span class="green">complete</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>) {</code>
 							<code>			<span class="pink">$</span>(<span class="yellow">'#buttonReloadTableCollection'</span>).<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-rotate-right"&gt;&lt;/i&gt; Recargar Tabla`</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">false</span>);</code>
 							<code>		}</code>
 							<code>	});</code>
@@ -2176,19 +2176,19 @@
 							<code>	<span class="pink">if</span> (<span class="pink">!</span>operator <span class="pink">in</span> operators) {</code>
 							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El operador "</span>${operator}<span class="yellow">" no es válido`</span>);</code>
 							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El operador "</span>${operator}<span class="yellow">" no es válido`</span>);</code>
-							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
 							<code>	}</code><br />
-							<code>	<span class="pink">if</span> (operators[operator]($el.<span class="cyan">val</span>(), value)) {</code>
+							<code>	<span class="pink">if</span> (<span class="pink">!</span>operators[operator]($el.<span class="cyan">val</span>(), value)) {</code>
 							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
 							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
-							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
 							<code>	}</code><br />
 							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
-							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>	<span class="pink">return</span> <span class="purple">true</span>;</code>
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* La función "has" devolverá false</span></code>
+							<code> <span class="comment">* La función "isLike" devolverá false</span></code>
 							<code> <span class="comment">* si el campo que se está validando</span></code>
 							<code> <span class="comment">* no coincide con la expresión regular</span></code>
 							<code> <span class="comment">* proporcionada en los parámetros.</span></code>
@@ -2198,7 +2198,7 @@
 							<code> <span class="comment">*  - regex (regular expresion): Expresión regular</span></code>
 							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
-							<code><span class="cyan">const</span> <span class="green">has</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">regex</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code><span class="cyan">const</span> <span class="green">isLike</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">regex</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
 							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
 							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
 							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code><br />
@@ -2218,8 +2218,8 @@
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* La función "length" devolverá según</span></code>
-							<code> <span class="comment">* la comparación de longituda enviada</span></code>
+							<code> <span class="comment">* La función "hasThislength" devolverá según</span></code>
+							<code> <span class="comment">* la comparación de longitud enviada</span></code>
 							<code> <span class="comment">* en los parámetros.</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Parámetros esperados:</span></code>
@@ -2228,7 +2228,7 @@
 							<code> <span class="comment">*  - limit (number): Límite a comparar</span></code>
 							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
-							<code><span class="cyan">const</span> <span class="green">length</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">operator</span>, <span class="orange">limit</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code><span class="cyan">const</span> <span class="green">hasThislength</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">operator</span>, <span class="orange">limit</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
 							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
 							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
 							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
@@ -2242,25 +2242,25 @@
 							<code>	<span class="pink">if</span> (<span class="cyan">isNaN</span>(limit)) {</code>
 							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El límite a validar debe ser un número`</span>);</code>
 							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El límite a validar debe ser un número`</span>);</code>
-							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
 							<code>	}</code><br />
 							<code>	<span class="pink">if</span> (<span class="pink">!</span>operator <span class="pink">in</span> operators) {</code>
 							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El operador "</span>${operator}<span class="yellow">" no es válido`</span>);</code>
 							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El operador "</span>${operator}<span class="yellow">" no es válido`</span>);</code>
-							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
 							<code>	}</code><br />
-							<code>	<span class="pink">if</span> (operators[operator]($el.<span class="cyan">val</span>(), value)) {</code>
+							<code>	<span class="pink">if</span> (<span class="pink">!</span>operators[operator]($el.<span class="cyan">val</span>(), value)) {</code>
 							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
 							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
-							<code>		<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
 							<code>	}</code><br />
 							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
-							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>	<span class="pink">return</span> <span class="purple">true</span>;</code>
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* La función "hasValue" tiene la finalidad</span></code>
-							<code> <span class="comment">* de aplicar funciones a aquellos campos</span></code>
+							<code> <span class="comment">* La función "hasValueWhenIsOptional" tiene la</span></code>
+							<code> <span class="comment">* finalidad de aplicar funciones a aquellos campos</span></code>
 							<code> <span class="comment">* sean opcionales.</span></code>
 							<code> <span class="comment">* Este devolverá una función anónima en caso de</span></code>
 							<code> <span class="comment">* tener algún valor, misma donde se pueden llamar</span></code>
@@ -2271,12 +2271,80 @@
 							<code> <span class="comment">*  - $el (jQuery object): Campo a validar</span></code>
 							<code> <span class="comment">*  - callback (function): Función a ejecutar</span></code>
 							<code> <span class="comment">*/</span></code>
-							<code><span class="cyan">const</span> <span class="green">hasValue</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">callback</span>) <span class="cyan">=&gt;</span> {</code>
+							<code><span class="cyan">const</span> <span class="green">hasValueWhenIsOptional</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">callback</span>) <span class="cyan">=&gt;</span> {</code>
 							<code>	<span class="pink">if</span> ($el.<span class="cyan">val</span>().<span class="cyan">trim</span>().length <span class="pink">&gt;</span> <span class="purple">0</span>) <span class="pink">return</span> <span class="cyan">callback</span>();</code><br />
 							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
 							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code><br />
 							<code>	$validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
 							<code>	<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>}</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* La función "isValidOnServer" tiene la finalidad</span></code>
+							<code> <span class="comment">* de validar desde un web service, ya sea si ya existe</span></code>
+							<code> <span class="comment">* o debe tener un formato especial o se valiede desde</span></code>
+							<code> <span class="comment">* una API externa.</span></code>
+							<code> <span class="comment">* Esta función devolverá true si es válido desde el</span></code>
+							<code> <span class="comment">* web service, en caso contrario devolverá false.</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Parámetros esperados:</span></code>
+							<code> <span class="comment">*  - $el (jQuery object): Campo a validar</span></code>
+							<code> <span class="comment">*  - url (string): Ruta donde se llamará el web service</span></code>
+							<code> <span class="comment">*  - settings (object's array) (opcional): Parámetros adicionales para validar desde el web service</span></code>
+							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="cyan">const</span> <span class="green">isValidOnServer</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">url</span>, <span class="orange">settings</span> <span class="pink">=</span> [], <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> valid <span class="pink">=</span> <span class="purple">true</span>;</code>
+							<code>	<span class="cyan">let</span> settingsProperties <span class="pink">=</span> [ <span class="yellow">'column'</span>, <span class="yellow">'operator'</span>, <span class="yellow">'value'</span> ];</code>
+							<code>	<span class="cyan">let</span> sqlOperators <span class="pink">=</span> [ <span class="yellow">'='</span>, <span class="yellow">'&gt;'</span>, <span class="yellow">'&lt;'</span>, <span class="yellow">'&gt;='</span>, <span class="yellow">'&lt;='</span>, <span class="yellow">'&lt;&gt;'</span> ];</code>
+							<code>	<span class="cyan">let</span> serverOperators <span class="pink">=</span> [ <span class="yellow">'=='</span>, <span class="yellow">'==='</span>, <span class="yellow">'!='</span>, <span class="yellow">'!=='</span>, <span class="yellow">'&gt;'</span>, <span class="yellow">'&gt;='</span>, <span class="yellow">'&lt;'</span>, <span class="yellow">'&lt;='</span> ];</code><br />
+							<code>	<span class="pink">if</span> (settings.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
+							<code>		settings.<span class="cyan">every</span>((<span class="orange">value</span>, <span class="orange">index</span>, <span class="orange">_</span>) <span class="cyan">=&gt;</span> {</code>
+							<code>			<span class="pink">if</span> (<span class="pink">!</span>value.<span class="cyan">hasOwnProperty</span>(settingsProperties[<span class="purple">0</span>]) <span class="pink">||</span> <span class="pink">!</span>value.<span class="cyan">hasOwnProperty</span>(settingsProperties[<span class="purple">1</span>]) <span class="pink">||</span> <span class="pink">!</span>value.<span class="cyan">hasOwnProperty</span>(settingsProperties[<span class="purple">2</span>])) {</code>
+							<code>				$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`Para esta validación debe tener definido estos parámetros: "column", "operator" y "value"`</span>);</code>
+							<code>				$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; Para esta validación debe tener definido estos parámetros: "column", "operator" y "value"`</span>);</code>
+							<code>				<span class="pink">return</span> (valid <span class="pink">=</span> <span class="purple">false</span>);</code>
+							<code>			} <span class="pink">else if</span> (<span class="pink">!</span>sqlOperators.<span class="cyan">includes</span>(value.operator) <span class="pink">&amp;&amp;</span> <span class="pink">!</span>serverOperators.<span class="cyan">includes</span>(value.operator)) {</code>
+							<code>				$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El operador "</span>${value.operator}<span class="yellow">" no es válido`</span>);</code>
+							<code>				$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El operador "</span>${value.operator}<span class="yellow">" no es válido`</span>);</code>
+							<code>				<span class="pink">return</span> (valid <span class="pink">=</span> <span class="purple">false</span>);</code>
+							<code>			}</code><br />
+							<code>			<span class="pink">return</span> <span class="purple">true</span>;</code>
+							<code>		});</code>
+							<code>	}</code><br />
+							<code>	<span class="pink">if</span> (valid)</code>
+							<code>		<span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
+							<code>			url: url,</code>
+							<code>			type: <span class="yellow">'POST'</span>,</code>
+							<code>			dataType: <span class="yellow">'json'</span>,</code>
+							<code>			async: <span class="purple">false</span>,</code>
+							<code>			data: {</code>
+							<code>				toValidate: $el.<span class="cyan">val</span>(),</code>
+							<code>				settings: settings</code>
+							<code>			},</code>
+							<code>			<span class="green">success</span>: <span class="cyan">function</span> (<span class="orange">response</span>) {</code>
+							<code>				<span class="pink">if</span> (response.success) {</code>
+							<code>					<span class="pink">if</span> (<span class="pink">!</span>response.data.isValid) {</code>
+							<code>						$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>						$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>						valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>					}</code>
+							<code>				} <span class="pink">else</span> {</code>
+							<code>					$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`Ocurrió un error durante la validación:</span> ${response.message}<span class="yellow">`</span>);</code>
+							<code>					$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; Ocurrió un error durante la validación:</span> ${response.message}<span class="yellow">`</span>);</code>
+							<code>					valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>				}</code>
+							<code>			},</code>
+							<code>			<span class="green">error</span>: <span class="cyan">function</span> (<span class="orange">jqXHR</span>, <span class="orange">textStatus</span>, <span class="orange">errorThrown</span>) {</code>
+							<code>				$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`Ocurrió un error durante la validación:</span> ${jqXHR.status} <span class="yellow">-</span> ${jqXHR.statusText}<span class="yellow">`</span>);</code>
+							<code>				$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; Ocurrió un error durante la validación:</span> ${jqXHR.status} <span class="yellow">-</span> ${jqXHR.statusText}<span class="yellow">`</span>);</code>
+							<code>				valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>			}</code>
+							<code>		});</code><br />
+							<code>	<span class="pink">return</span> valid;</code>
 							<code>}</code>
 						</pre>
 					</div>
@@ -2324,19 +2392,15 @@
 		$('#formValidationJS').removeClass('was-validated');
 
 		if (isEmpty($('#inputValidationJSFursonaName'), 'Este campo no debe de estar vacío')) valid = false;
-		else if (!isValidOnServer($('#inputValidationJSFursonaName'), 'validateFursona', [ { 'column': 'xd', 'operator': '=', 'value': 0 } ], 'Esta fursona ya está en uso')) valid = false;
+		else if (!isValidOnServer($('#inputValidationJSFursonaName'), 'validateFursona', [], 'Esta fursona ya está en uso')) valid = false;
 
-		// if ($('#inputValidationJSFursonaAge').val().trim().length > 0) {
-		// 	if (!has($('#inputValidationJSFursonaAge'), /^\d+(\.\d+)?$/g, 'Este campo debe ser númerico')) valid = false;
-		// }
-
-		if (hasValue($('#inputValidationJSFursonaAge'), () => {
-			if (!has($('#inputValidationJSFursonaAge'), /^\d+(\.\d+)?$/g, 'Este campo debe ser númerico')) valid = false;
+		if (hasValueWhenIsOptional($('#inputValidationJSFursonaAge'), () => {
+			if (!isLike($('#inputValidationJSFursonaAge'), /^\d+(\.\d+)?$/g, 'Este campo debe ser númerico')) valid = false;
 		}));
 
-		if (is($('#selectValidationJSFursonaSpecie'), '==', '', 'Debe seleccionar una especie')) valid = false;
+		if (!is($('#selectValidationJSFursonaSpecie'), '!=', '', 'Debe seleccionar una especie')) valid = false;
 
-		if (is($('#selectValidationJSFursonaGender'), '==', '', 'Debe seleccionar un género')) valid = false;
+		if (!is($('#selectValidationJSFursonaGender'), '!=', '', 'Debe seleccionar un género')) valid = false;
 
 		$('#formValidationJS').addClass('was-validated');
 
