@@ -122,7 +122,7 @@ const isLike = ($el, regex, message) => {
  * Función: length
  * Parámetros: $el, operator, limit, message
  */
-const hasThislength = ($el, operator, limit, message) => {
+const hasThisLength = ($el, operator, limit, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
@@ -213,11 +213,11 @@ const isValidOnServer = ($el, url, settings = [], message) => {
 			},
 			success: function (response) {
 				if (response.success) {
-					if (!response.data.isValid) {
+					if (!response.data.valid) {
 						$el[0].setCustomValidity(message);
 						$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
 						valid = false;
-					}
+					} else $validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
 				} else {
 					$el[0].setCustomValidity(`Ocurrió un error durante la validación: ${response.message}`);
 					$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Ocurrió un error durante la validación: ${response.message}`);
@@ -239,25 +239,68 @@ const isValidOnServer = ($el, url, settings = [], message) => {
  * Función: haveFiles
  * Parámetros: $el, message
  */
-const hasFiles = ($el, message) => {}
+const hasFiles = ($el, maxFiles = 1, message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+
+	if (isNaN(maxFiles) || !/^\d+$/g.test(maxFiles.toString())) {
+		$el[0].setCustomValidity(`El parámetro de máximo de archivos debe de ser un número sin punto decimal`);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El parámetro de máximo de archivos debe de ser un número sin punto decimal`);
+		return false;
+	}
+
+	if (maxFiles <= 0) {
+		$el[0].setCustomValidity(`El parámetro de máximo de archivos debe de ser un número mayor a 0`);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El parámetro de máximo de archivos debe de ser un número mayor a 0`);
+		return false;
+	}
+
+	if ($el[0].files.length < 1) {
+		$el[0].setCustomValidity(message);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+		return false;
+	}
+
+	if ($el[0].files.length > maxFiles) {
+		$el[0].setCustomValidity(`Se seleccionaron ${$el[0].files.length} archivos de ${maxFiles} permitido(s)`);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Se seleccionaron ${$el[0].files.length} archivos de ${maxFiles} permitido(s)`);
+		return false;
+	}
+
+	$validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+	return true;
+}
 
 /**
  *
  * Función: isValidFileName
- * Parámetros: $el, regex, message
+ * Parámetros: $el, message
  */
-const isValidFileName = ($el, regex, message) => {}
+const isValidFileName = ($el, message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+}
 
 /**
  *
  * Función: isValidFileSize
  * Parámetros: $el, size, message
  */
-const isValidFileSize = ($el, size, message) => {}
+const isValidFileSize = ($el, size, message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+}
 
 /**
  *
  * Función: isValidFileExtencion
  * Parámetros: $el, extensions, message
  */
-const isValidFileExtencion = ($el, extensions, message) => {}
+const isValidFileExtencion = ($el, extensions, message) => {
+	$el[0].setCustomValidity('');
+	let $validFeedback = $(`#vf-${$el.prop('id')}`);
+	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+}
