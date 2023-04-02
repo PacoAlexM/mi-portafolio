@@ -281,6 +281,20 @@ const isValidFileName = ($el, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+	let valid = true;
+	let regex = /^[\w\d\s-\._,\(\)\[\]]+$/g;
+
+	for (let i = 0; i < (file = $el[0].files).length; i++)
+		if (!regex.test(file[i].name)) {
+			$el[0].setCustomValidity(message);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+			valid = false;
+			break;
+		}
+
+	if (valid) $validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+
+	return valid;
 }
 
 /**
@@ -292,6 +306,25 @@ const isValidFileSize = ($el, size, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+	let valid = true;
+
+	if (isNaN(size) || !/^\d+$/g.test(size.toString())) {
+		$el[0].setCustomValidity(`El tamaño del archivoa validar debe ser un número sin punto decimal`);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El tamaño del archivo a validar debe ser un número sin punto decimal`);
+		return false;
+	}
+
+	for (let i = 0; i < (file = $el[0].files).length; i++)
+		if (file[i].size > size) {
+			$el[0].setCustomValidity(message);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+			valid = false;
+			break;
+		}
+
+	if (valid) $validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+
+	return valid;
 }
 
 /**
@@ -303,4 +336,13 @@ const isValidFileExtencion = ($el, extensions, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
+	let valid = true;
+
+	$el[0].files.every((index, value, _) => {
+		return true;
+	});
+
+	if (valid) $validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+
+	return valid;
 }
