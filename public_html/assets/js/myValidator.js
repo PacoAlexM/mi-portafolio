@@ -31,8 +31,8 @@
  *
  * - size: Tamaño del archivo.
  *
- * - extensions: Extención del archivo
- * (puede ser array o string)
+ * - extensions: Extención o extenciones
+ * del archivo.
  *
  * - callback: Función que se ejecutará
  * en caso de true.
@@ -338,11 +338,43 @@ const isValidFileExtencion = ($el, extensions, message) => {
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
 	let valid = true;
 
-	$el[0].files.every((index, value, _) => {
-		return true;
-	});
+	try {
+		if (extensions.constructor === Array) {
+			if (extensions.length > 0) {
+				extensions.every((value, index, _) => {
+					if (typeof(value) != 'string') {
+						$el[0].setCustomValidity(`Todos los elementos del array deben ser del tipo string`);
+						$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Todos los elementos del array deben ser del tipo string`);
+						return (valid = false);
+					}
+					return true
+				});
+			} else {
+				$el[0].setCustomValidity(`El array debe contener por lo menos un elemento del tipo string`);
+				$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El array debe contener almenos un elemento del tipo string`);
+				valid = false;
+			}
+		} else {
+			$el[0].setCustomValidity(`El parámetro extensions debe ser del tipo array de strings`);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El parámetro extensions debe ser del tipo array de strings`);
+			valid = false;
+		}
 
-	if (valid) $validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
-
-	return valid;
+		if (valid) {
+			for (let i = 0; i < (files = $el[0].files).length; i++)
+				if (!extensions.includes(files[i].type)) {
+					$el[0].setCustomValidity(message);
+					$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
+					valid = false;
+					break;
+				}
+		}
+	} catch (exception) {
+		$el[0].setCustomValidity(exception.message);
+		$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${exception.message}`);
+		valid = false;
+	} finally {
+		if (valid) $validFeedback.html(`<i class="fa-regular fa-thumbs-up"></i> Ok`);
+		return valid;
+	}
 }
