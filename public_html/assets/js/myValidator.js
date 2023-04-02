@@ -329,19 +329,19 @@ const isValidFileSize = ($el, size, message) => {
 
 /**
  *
- * Función: isValidFileExtencion
- * Parámetros: $el, extensions, message
+ * Función: isValidFileExtention
+ * Parámetros: $el, extentions, message
  */
-const isValidFileExtencion = ($el, extensions, message) => {
+const isValidFileExtention = ($el, extentions, message) => {
 	$el[0].setCustomValidity('');
 	let $validFeedback = $(`#vf-${$el.prop('id')}`);
 	let $invalidFeedback = $(`#if-${$el.prop('id')}`);
 	let valid = true;
 
 	try {
-		if (extensions.constructor === Array) {
-			if (extensions.length > 0) {
-				extensions.every((value, index, _) => {
+		if (extentions.constructor === Array) {
+			if (extentions.length > 0) {
+				extentions.every((value, index, _) => {
 					if (typeof(value) != 'string') {
 						$el[0].setCustomValidity(`Todos los elementos del array deben ser del tipo string`);
 						$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> Todos los elementos del array deben ser del tipo string`);
@@ -355,14 +355,14 @@ const isValidFileExtencion = ($el, extensions, message) => {
 				valid = false;
 			}
 		} else {
-			$el[0].setCustomValidity(`El parámetro extensions debe ser del tipo array de strings`);
-			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El parámetro extensions debe ser del tipo array de strings`);
+			$el[0].setCustomValidity(`El parámetro extentions debe ser del tipo array de strings`);
+			$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> El parámetro extentions debe ser del tipo array de strings`);
 			valid = false;
 		}
 
 		if (valid) {
 			for (let i = 0; i < (files = $el[0].files).length; i++)
-				if (!extensions.includes(files[i].type)) {
+				if (!extentions.includes(files[i].type)) {
 					$el[0].setCustomValidity(message);
 					$invalidFeedback.html(`<i class="fa-solid fa-exclamation"></i> ${message}`);
 					valid = false;
