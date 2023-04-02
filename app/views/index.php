@@ -2397,9 +2397,20 @@
 							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
 							<code><span class="cyan">const</span> <span class="green">isValidFileName</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
-							<code>	$el[0].<span class="cyan">setCustomValidity</span>('');</code>
-							<code>	<span class="cyan">let</span> $validFeedback = $(`#vf-${$el.prop('id')}`);</code>
-							<code>	<span class="cyan">let</span> $invalidFeedback = $(`#if-${$el.prop('id')}`);</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> valid <span class="pink">=</span> <span class="purple">true</span>;</code>
+							<code>	<span class="cyan">let</span> regex <span class="pink">=</span> <span class="yellow">/</span><span class="pink">^</span><span class="purple">[\w\d\s-\._,\(\)\[\]]</span><span class="pink">+$</span><span class="yellow">/</span><span class="pink">g</span>;</code><br />
+							<code>	<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> (file <span class="pink">=</span> $el[<span class="purple">0</span>].files).length; i<span class="pink">++</span>)</code>
+							<code>		<span class="pink">if</span> (<span class="pink">!</span>regex.<span class="cyan">test</span>(file[i].name)) {</code>
+							<code>			$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>			$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>			valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>			<span class="pink">break</span>;</code>
+							<code>		}</code><br />
+							<code>	<span class="pink">if</span> (valid) $validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code><br />
+							<code>	<span class="pink">return</span> valid;</code>
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
@@ -2413,9 +2424,24 @@
 							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
 							<code><span class="cyan">const</span> <span class="green">isValidFileSize</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">size</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
-							<code>	$el[0].<span class="cyan">setCustomValidity</span>('');</code>
-							<code>	<span class="cyan">let</span> $validFeedback = $(`#vf-${$el.prop('id')}`);</code>
-							<code>	<span class="cyan">let</span> $invalidFeedback = $(`#if-${$el.prop('id')}`);</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> valid <span class="pink">=</span> <span class="purple">true</span>;</code><br />
+							<code>	<span class="pink">if</span> (<span class="cyan">isNaN</span>(size) <span class="pink">||</span> <span class="pink">!</span><span class="yellow">/</span><span class="pink">^</span><span class="purple">\d</span><span class="pink">+$</span><span class="yellow">/</span><span class="pink">g</span>.<span class="cyan">test</span>(size.<span class="cyan">toString</span>())) {</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El tamaño del archivoa validar debe ser un número sin punto decimal`</span>);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El tamaño del archivo a validar debe ser un número sin punto decimal`</span>);</code>
+							<code>		<span class="pink">return</span> <span class="purple">false</span>;</code>
+							<code>	}</code><br />
+							<code>	<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> (file <span class="pink">=</span> $el[<span class="purple">0</span>].files).length; i<span class="pink">++</span>)</code>
+							<code>		<span class="pink">if</span> (file[i].size <span class="pink">&gt;</span> size) {</code>
+							<code>			$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>			$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>			valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>			<span class="pink">break</span>;</code>
+							<code>		}</code><br />
+							<code>	<span class="pink">if</span> (valid) $validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
+							<code>	<span class="pink">return</span> <span class="purple">valid</span>;</code>
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
@@ -2429,9 +2455,9 @@
 							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
 							<code><span class="cyan">const</span> <span class="green">isValidFileExtencion</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">extensions</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
-							<code>	$el[0].<span class="cyan">setCustomValidity</span>('');</code>
-							<code>	<span class="cyan">let</span> $validFeedback = $(`#vf-${$el.prop('id')}`);</code>
-							<code>	<span class="cyan">let</span> $invalidFeedback = $(`#if-${$el.prop('id')}`);</code>
+							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
+							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
 							<code>}</code>
 						</pre>
 					</div>
@@ -2442,6 +2468,18 @@
 							<code><span class="cyan">const</span> <span class="green">isValid</span> <span class="pink">=</span> <span class="orange">_</span> <span class="cyan">=&gt;</span> {</code>
 							<code>	<span class="cyan">let</span> valid <span class="pink">=</span> <span class="purple">true</span>;</code><br />
 							<code>	<span class="pink">$</span>(<span class="yellow">'#formFursona'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'was-validated'</span>);</code><br />
+							<code>	<span class="pink">if</span> (<span class="cyan">isEmpty</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaName'</span>), <span class="yellow">'Este campo no debe de estar vacío'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidOnServer</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaName'</span>), <span class="yellow">'ws/validateFursona.php'</span>, [], <span class="yellow">'Esta fursona ya está en uso'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+							<code>	<span class="pink">if</span> (<span class="cyan">hasValueWhenIsOptional</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaAge'</span>), () <span class="cyan">=&gt;</span> {</code>
+							<code>		<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">isLike</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaAge'</span>), <span class="yellow">/</span><span class="pink">^</span><span class="purple">\d</span><span class="pink">+</span><span class="yellow">(</span><span class="purple">\.\d</span><span class="pink">+</span><span class="yellow">)</span><span class="pink">?$</span><span class="yellow">/</span><span class="pink">g</span>, <span class="yellow">'Este campo debe ser númerico'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	}));</code><br />
+							<code>	<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">is</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaSpecie'</span>), <span class="yellow">'!='</span>, <span class="yellow">''</span>, <span class="yellow">'Debe seleccionar una especie'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+							<code>	<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">is</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaGender'</span>), <span class="yellow">'!='</span>, <span class="yellow">''</span>, <span class="yellow">'Debe seleccionar un género'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+							<code>	<span class="pink">if</span> (<span class="cyan">isEmpty</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaDetails'</span>), <span class="yellow">'Este campo no debe de estar vacío'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+							<code>	<span class="pink">if</span> (<span class="cyan">isEmpty</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaDescription'</span>), <span class="yellow">'Este campo no debe de estar vacío'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+							<code>	<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">hasFiles</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), <span class="purple">1</span>, <span class="yellow">'Debe seleccionar un avatar para su fursona'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidFileName</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), <span class="yellow">'El archivo contiene caracteres no permitidos'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidFileSize</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), (<span class="comment">/* bytes */</span> <span class="purple">1024</span> <span class="pink">*</span> <span class="comment">/* kylobytes */</span> <span class="purple">500</span>), <span class="yellow">'El archivo excede los 500KB permitidos'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
 							<code>	<span class="pink">$</span>(<span class="yellow">'#formFursona'</span>).<span class="cyan">addClass</span>(<span class="yellow">'was-validated'</span>);</code><br />
 							<code>	<span class="pink">return</span> valid;</code>
 							<code>}</code><br />
@@ -2516,6 +2554,8 @@
 		if (isEmpty($('#inputValidationJSFursonaDescription'), 'Este campo no debe de estar vacío')) valid = false;
 
 		if (!hasFiles($('#inputValidationJSFursonaProfilePic'), 1, 'Debe seleccionar un avatar para su fursona')) valid = false;
+		else if (!isValidFileName($('#inputValidationJSFursonaProfilePic'), 'El archivo contiene caracteres no permitidos')) valid = false;
+		else if (!isValidFileSize($('#inputValidationJSFursonaProfilePic'), (/* bytes */ 1024 * /* kylobytes */ 500), 'El archivo excede los 500KB permitidos')) valid = false;
 
 		$('#formValidationJS').addClass('was-validated');
 
