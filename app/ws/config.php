@@ -5,7 +5,7 @@
  * Clase para la configuración
  * entera del sitio.
  */
-class Configuracion {
+class Configuration {
 	/**
 	 *
 	 * Costantes del sitio, url's
@@ -34,6 +34,7 @@ class Configuracion {
 	private $arrayGet;
 	private $arrayPost;
 	private $randomKey;
+	private $debug = false;
 
 	/**
 	 *
@@ -49,7 +50,9 @@ class Configuracion {
 		set_error_handler(function ($severity, $message, $file, $line) {
 			if (!(error_reporting() & $severity)) return;
 
-			throw new ErrorException("Internal Server Error", 0, $severity, $file, $line);
+			$messageToShow = $this->debug ? $message : "Internal Server Error - 500";
+
+			throw new ErrorException($messageToShow, 0, $severity, $file, $line);
 		}, E_WARNING);
 	}
 
@@ -461,4 +464,4 @@ class Configuracion {
  * Crear la instancia de la
  * clase de configuración.
  */
-$config = new Configuracion();
+$config = new Configuration();
