@@ -69,13 +69,6 @@ body::-webkit-scrollbar-thumb {
   color: #fff;
   font-size: 50px;
 }
-.header#headerIndex {
-  background: url(../../assets/img/bg-index.jpg) no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
 
 /**
  *
