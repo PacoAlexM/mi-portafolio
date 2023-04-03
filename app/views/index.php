@@ -14,6 +14,38 @@
 	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/fontawesome/css/all.min.css" />
 	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/style.css" />
+	<?php $titles = [
+		"<h1>&gt; header title goes here &lt;</h1>",
+		"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
+		"<div class='col-md-10 offset-md-1 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Evento'>6 de Marzo de 1994</cite></figcaption></figure></div>",
+		"<h1>\\[°_°]/ &lt;01100101 01101000?)</h1>",
+		"<h1>=(^_^)=</h1>",
+		"<div class='col-md-8 offset-md-2 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, por <cite title='Autor'>Whygena</cite></figcaption></figure></div>",
+		"<h1>I have a question about Batman</h1>",
+		"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación del poema de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
+	] ?>
+	<?php $titleSelected = rand(0, (count($titles) - 1)) ?>
+	<?php $urlmImg = "bg-index.jpg" ?>
+	<?php switch ($titleSelected) {
+		case 0:
+			$urlmImg = "header-title-goes-here.png";
+			break;
+		case 2:
+			$urlmImg = "no-olvidamos.png";
+			break;
+		case 7:
+			$urlmImg = "nunca-mas.png";
+			break;
+	} ?>
+	<style>
+	#myHeader {
+	  background: url(../../assets/img/<?php echo $urlmImg ?>) no-repeat center center scroll;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+	}
+	</style>
 </head>
 <body>
 	<a href="#" id="buttonMenu" class="btn btn-dark btn-lg"><i class="fa-solid fa-bars"></i> Menú</a>
@@ -85,27 +117,13 @@
 		</ul>
 	</nav>
 
-	<?php $titles = [
-		"<h1>&gt; header title goes here &lt;</h1>",
-		"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
-		"<div class='col-md-10 offset-md-1 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Yo veo un México con hambre y con sed de justicia. Veo a ciudadanos angustiados por la falta de seguridad, ciudadanos que merecen mejores servicios y gobiernos que les cumplan.</p></blockquote><figcaption class='blockquote-footer mb-0'>Luis Donaldo Colosio Murrieta, <cite title='Evento'>6 de Marzo de 1994</cite></figcaption></figure></div>",
-		"<h1>\\[°_°]/ &lt;01100101 01101000?)</h1>",
-		"<h1>=(^_^)=</h1>",
-		"<div class='col-md-8 offset-md-2 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>Hi! My name is Reggie, and I like guys n///n</p></blockquote><figcaption class='blockquote-footer mb-0'>Reggie, por <cite title='Autor'>Whygena</cite></figcaption></figure></div>",
-		"<h1>I have a question about Batman</h1>",
-		"<div class='col-md-12 my-div-quote'><figure class='mb-0'><blockquote class='blockquote'><p>\"Y el gato nunca se fue.<br />Aún sigue posado y mirando a mi conciencia,<br />en la esquina de la puerta de mi cuarto<br />Y sus ojos parecen los de un demonio soñando.<br />Y la luz de la noche se derrama sobre él y tiende en el suelo su sombra.<br />Y mi alma, del fondo de esa sombra que flota sobre suelo, no podrá liberarse.<br />¡Nunca más!\"</p></blockquote><figcaption class='blockquote-footer mb-0'>Samia (adaptación del poema de \"El Cuervo\" de Edgar Alan Poe de 1845), por <cite title='Autor'>Mi</cite></figcaption></figure></div>"
-	] ?>
-	<?php $titleSelected = rand(0, (count($titles) - 1)) ?>
-	<?php $additionalStyle = "" ?>
-	<?php if ($titleSelected == 0) $additionalStyle = 'style="background: url(../../assets/img/header-title-goes-here.png) no-repeat center center scroll!important;"' ?>
-	<?php if ($titleSelected == 7) $additionalStyle = 'style="background: url(../../assets/img/nunca-mas.png) no-repeat center center scroll!important;"' ?>
-	<header class="header" id="headerIndex" <?php echo $additionalStyle ?>>
+	<header class="header" id="myHeader">
 		<div class="vertical-center">
 			
 			<?php echo $titles[$titleSelected] ?>
 			<hr />
 			<div class="header-bottom">
-				<a href="#" id="slideDown" class="slide-to-content"><i class="fa-solid fa-chevron-down"></i></a>
+				<a href="#uploadFiles" id="slideDown" class="slide-to-content"><i class="fa-solid fa-chevron-down"></i></a>
 			</div>
 		</div>
 	</header>
@@ -118,9 +136,9 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Cargando archivos con estilo, claro que si.</h2>
-				<p class="my-text">Este ejemplo tiene como propósito mostrar el funcionamiento de la librería de SimpleAjaxUploader (versión 2.6.6) tanto en el frontend como en el backend. También quiero aprovechar la oportunidad de mostrar como se puede hacer una barra de progreso de carga general, porcentaje de carga para cada archivo cargado y un protector de interfaz (o pantalla) para evitar acciones por el usuario como:</p>
+				<p class="my-text">Este ejemplo tiene como propósito mostrar el funcionamiento de la librería de SimpleAjaxUploader (versión 2.6.6) tanto en el frontend como en el backend. También quiero aprovechar la oportunidad de mostrar cómo se puede hacer una barra de progreso de carga general, porcentaje de carga para cada archivo cargado y un protector de interfaz (o pantalla) para evitar acciones por el usuario como:</p>
 				<ul>
-					<li>Pulsar en botones de redireccionamientos dentro del sitio (esto no lo evita si el usuario interactua con los controles del navegador)</li>
+					<li>Pulsar en botones de redireccionamientos dentro del sitio (esto no lo evita si el usuario interactúa con los controles del navegador)</li>
 					<li>Cargar más archivos antes de que termine la carga anterior.</li>
 					<li>Realizar otros procesos que entorpezca la carga de archivos.</li>
 				</ul>
@@ -128,7 +146,7 @@
 					<div class="col">
 						<div class="alert alert-warning" role="alert">
 							<h4 class="alert-heading">Aviso</h4>
-							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos a la vez de tamaño máximo de 10MB. Gracias por su comprención.</p>
+							<p>Por motivos de limitaciones del hosting, para este ejemplo solo permitiré la carga de 5 archivos a la vez de tamaño máximo de 10MB. Gracias por su comprensión.</p>
 						</div>
 					</div>
 				</div>
@@ -253,7 +271,7 @@
 							<code>		<span class="comment">/**</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* Para este ejemplo valido 2 puntos</span></code>
-							<code>		 <span class="comment">* escenciales para la carga de archivos</span></code>
+							<code>		 <span class="comment">* esenciales para la carga de archivos</span></code>
 							<code>		 <span class="comment">* y poder controlarlas.</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* 1.- Validar si "_arrayInfoFiles.length"</span></code>
@@ -382,7 +400,7 @@
 							<code> <span class="comment">* Y este será el backend para este ejemplo,</span></code>
 							<code> <span class="comment">* el cual está declarado en la propiedad de</span></code>
 							<code> <span class="comment">* "url" del objeto de SimpleAjaxUploader en</span></code>
-							<code> <span class="comment">* el archivo .js con el valor de: "uploadFiles.php"</span></code>
+							<code> <span class="comment">* el archivo .js con el valor de: "uploadFiles.php".</span></code>
 							<code> <span class="comment">*/</span></code>
 							<code><span class="pink">require</span> <span class="yellow">"SimpleAjaxUploader/Uploader.php"</span>;</code><br />
 							<code>$simpleAjaxUploader <span class="pink">= new</span> <span class="cyan">FileUpload</span>(<span class="yellow">"inputUploadFiles"</span>);</code><br />
@@ -401,7 +419,7 @@
 						</pre>
 					</div>
 				</div>
-				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactue con otras funciones del sitio que entorpezca el proceso de carga.</p>
+				<p class="my-text"><b>Forma 1 - Mostrar el porcentaje y estatus de carga de cada archivo en una tabla:</b> de esta forma se tendrá la visual del proceso de carga de cada archivo cargado. Pero también se corre el riesgo de que el usuario interactúe con otras funciones del sitio que entorpezca el proceso de carga.</p>
 				<div class="row">
 					<div class="col-md-5">
 						<samp>HTML</samp>
@@ -455,14 +473,14 @@
 							<code>		 <span class="comment">* que se procesa para su carga, este mismo va disminuyendo</span></code>
 							<code>		 <span class="comment">* su valor. De ahi la comparativa de si "_uploadedFiles"</span></code>
 							<code>		 <span class="comment">* es menor a "QueueSize", resultando en "true" en la 1ra</span></code>
-							<code>		 <span class="comment">* vuelta (archivo) y su valor será cosntante.</span></code>
+							<code>		 <span class="comment">* vuelta (archivo) y su valor será constante.</span></code>
 							<code>		 <span class="comment">*</span></code>
-							<code>		 <span class="comment">* 2.- Tomamos el renglon del archivo de la tabla por su nombre "sanitizado"</span></code>
+							<code>		 <span class="comment">* 2.- Tomamos el renglón del archivo de la tabla por su nombre "sanitizado"</span></code>
 							<code>		 <span class="comment">* para su manipulación.</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* 3.- Del mismo renglón que declaramos, buscamos una celda o table-data</span></code>
-							<code>		 <span class="comment">* con la clase "td-status" para asignarle en estado esta el archivo por</span></code>
-							<code>		 <span class="comment">* cargar (en este caso estará en "Cargando")</span></code>
+							<code>		 <span class="comment">* con la clase "td-status" para asignarle en que estado está el archivo</span></code>
+							<code>		 <span class="comment">* por cargar (en este caso estará en "Cargando")</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* 4.- Se manda a llamar el método de "setPctBox" o asignar elemento para</span></code>
 							<code>		 <span class="comment">* mostrar el porcentaje de cargar del archivo. El método toma como parámetro</span></code>
@@ -503,7 +521,7 @@
 							<code>	<span class="green">onComplete</span>: <span class="cyan">function</span> (<span class="orange">filename</span>, <span class="orange">response</span>, <span class="orange">uploadBtn</span>, <span class="orange">fileSize</span>) {</code>
 							<code>		<span class="comment">/**</span></code>
 							<code>		 <span class="comment">*</span></code>
-							<code>		 <span class="comment">* Apartir de esta función, así como las</span></code>
+							<code>		 <span class="comment">* A partir de esta función, así como las</span></code>
 							<code>		 <span class="comment">* funciones de "onError", "onExtError" y</span></code>
 							<code>		 <span class="comment">* "onSizeError" tienen ya la misma lógica.</span></code>
 							<code>		 <span class="comment">* Se declara una variable donde se selecciona</span></code>
@@ -544,7 +562,7 @@
 						</pre>
 					</div>
 				</div>
-				<p class="my-text"><b>Forma 2 - Mostrar el porcentaje general en una pantalla protectora:</b> de esta manera se podrá visualizar progreso general de carga pero no el progreso de carga de los mismos archivos. Esta forma tiene la ventaja de prevenir acciones por el usuario mencionados anteriormente.</p>
+				<p class="my-text"><b>Forma 2 - Mostrar el porcentaje general en una pantalla protectora:</b> de esta manera se podrá visualizar progreso general de carga, pero no el progreso de carga de los mismos archivos. Esta forma tiene la ventaja de prevenir acciones por el usuario mencionados anteriormente.</p>
 				<div class="row">
 					<div class="col-md-4">
 						<samp>CSS</samp>
@@ -592,7 +610,7 @@
 						<pre class="sb">
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Despues:</span></code>
+							<code> <span class="comment">* Después:</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Dentro del mismo objeto de</span></code>
 							<code> <span class="comment">* SimpleAjaxUploader.</span></code>
@@ -667,7 +685,23 @@
 						</pre>
 					</div>
 				</div>
-				<p class="my-text">Y para concluir con este ejemplo: solo mencionaré que a esta librería le vendría bien que en la propiedad de "onProgress" se agregara en la función un parámetro extra el cual sería el archivo que está en proceso de carga. También durate el desarrollo de este ejemplo tuve que descartar algunas funciones de la misma librería como "removeCurrent", ya que este lo usaba en la propiedad de "onChange" cuando el archivo por cargar no cumplía con las validaciones, esto debido a que "removeCurrent" solo elimina el elemento anterior, siendo que en la propia documentación se especifica que se puede usar dentro de las propiedades de "onSubmit" y "onChange". Y por último, la función de "setPctBox" sería bueno que también aceptara un arreglo de elementos HTML o un querySelectorAll para que el porcentage de carga pueda mostrase en varios lugares a la vez (por ejemplo en el output de arriba). Y eso sería todo por este ejemplo, espero que sirva de ayuda para quienes buscan desarrollar con esta librería.</p>
+				<p class="my-text">Y para concluir con este ejemplo: solo mencionaré que a esta librería le vendría bien que en la propiedad de "onProgress" se agregara en la función un parámetro extra el cual sería el archivo que está en proceso de carga. También durante el desarrollo de este ejemplo tuve que descartar algunas funciones de la misma librería como "removeCurrent", ya que este lo usaba en la propiedad de "onChange" cuando el archivo por cargar no cumplía con las validaciones, esto debido a que "removeCurrent" solo elimina el elemento anterior, siendo que en la propia documentación se especifica que se puede usar dentro de las propiedades de "onSubmit" y "onChange". Y, por último, la función de "setPctBox" sería bueno que también aceptara un arreglo de elementos HTML o un querySelectorAll para que el porcentage de carga pueda mostrase en varios lugares a la vez (por ejemplo, en el output de arriba). Y eso sería todo por este ejemplo, espero que sirva de ayuda para quienes buscan desarrollar con esta librería.</p>
+			</div>
+		</div>
+		<!-- ./uploadFiles -->
+
+		<!-- dropZone -->
+		<div id="dropZone" class="my-panel my-panel-light-blue">
+			<div class="my-panel-header">
+				<h3 class="my-panel-header-title"><del>Número de archivos por cargar</del> Drop Zone</h3>
+			</div>
+			<div class="my-panel-body">
+				<pre class="sb">
+					<code>Debo una codificación.</code>
+				</pre>
+				<h1>No hay archivos seleccionados...</h1>
+				<input name="to-load" id="to-load" type="file" multiple />
+
 				<!--
 				<div class="row">
 					<div class="col">
@@ -963,21 +997,6 @@
 				-->
 			</div>
 		</div>
-		<!-- ./uploadFiles -->
-
-		<!-- dropZone -->
-		<div id="dropZone" class="my-panel my-panel-light-blue">
-			<div class="my-panel-header">
-				<h3 class="my-panel-header-title"><del>Número de archivos por cargar</del> Drop Zone</h3>
-			</div>
-			<div class="my-panel-body">
-				<pre class="sb">
-					<code>Debo una codificación.</code>
-				</pre>
-				<h1>No hay archivos seleccionados...</h1>
-				<input name="to-load" id="to-load" type="file" multiple />
-			</div>
-		</div>
 		<!-- ./dropZone -->
 
 		<!-- collections -->
@@ -987,7 +1006,7 @@
 			</div>
 			<div class="my-panel-body">
 				<h2><var>$jsonFile</var> = <var>file_get_contents(</var>../collection.json<var>);</var></h2>
-				<p class="my-text">Desde hace un buen rato que esta sección la he dejado olvidada (creo que por allá en el 2016 o 2017, no recuerdo bien) y no había tenido alguna idea de que hacer aquí. Hasta que vi algo interesante que se pueden hacer con los json's y objetos en PHP. A continuación lo que les mostraré es algo muy especial para mi, porque no solo pone a prueba mis habilidades en PHP, si no que también puedo crear configuraciones con los mismos json's. Y no, no me he olvidado de dejar código para contar los renglones en la tabla.</p>
+				<p class="my-text">Desde hace un buen rato que esta sección la he dejado olvidada (creo que por allá en el 2016 o 2017, no recuerdo bien) y no había tenido alguna idea de que hacer aquí. Hasta que vi algo interesante que se pueden hacer con los json's y objetos en PHP. A continuación, lo que les mostraré es algo muy especial para mí, porque no solo pone a prueba mis habilidades en PHP, sino que también puedo crear configuraciones con los mismos json's. Y no, no me he olvidado de dejar código para contar los renglones en la tabla.</p>
 				<div class="table-responsive">
 					<table class="table table-borderless table-hover caption-top" id="tableCollection">
 						<?php $description = $jsonCollectionRawHTML->description ?>
@@ -1023,9 +1042,9 @@
 						</div>
 					</div>
 				</div>
-				<p class="my-text">Por lo visto, la tabla cambia cada vez que se refresca la página. Eso es porque desde el backend se esta recolectando desde una colección datos de manera aleatoria. Ya explico porque en codificación.</p>
+				<p class="my-text">Por lo visto, la tabla cambia cada vez que se refresca la página. Eso es porque desde el backend se está recolectando desde una colección datos de manera aleatoria. Ya explico porque en codificación.</p>
 				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
-				<p class="my-text"><b>Primero:</b> el JSON dónde se cargarán todos los datos y sus respectivas configuraciones para ser mostrados en la interfaz y estos sean mas atractivos o en su defecto para mejor comprensión por el usuario en turno. Cabe a destacar que las configuraciones en este JSON son solo un ejemplo de lo que se puede crear, configurar y/o validar con el mismo, claro, siempre y cuando exista un lenguaje (en este caso: PHP), framework o api que los interprete.</p>
+				<p class="my-text"><b>Primero:</b> el JSON dónde se cargarán todos los datos y sus respectivas configuraciones para ser mostrados en la interfaz y estos sean más atractivos o en su defecto para mejor comprensión por el usuario en turno. Cabe a destacar que las configuraciones en este JSON son solo un ejemplo de lo que se puede crear, configurar y/o validar con el mismo, claro, siempre y cuando exista un lenguaje (en este caso: PHP), framework o api que los interprete.</p>
 				<samp>JSON</samp>
 				<pre class="sb">
 					<?php $columns = $jsonCollection->collection_configuration->columns ?>
@@ -1064,9 +1083,9 @@
 					<code>				 <span class="comment">* Los snippets son configuraciones para formatear los datos de modo que estos se muestren con un mejor formato y atractivo para el usuario.</span></code>
 					<code>				 <span class="comment">* En mi caso desarrollé 4 tipos de snippets los cuales se representan con la clave "method", de los cuales son:</span></code>
 					<code>				 <span class="comment">* - "replace": En el caso de "replace" agrega contenido al dato donde el dato estará siempre representado por "{value}".</span></code>
-					<code>				 <span class="comment">* - "for": En el caso de "for" este solo funcionará con valores numéricos, este reemplaza por completo el dato y agrega n (según sea el dato) catidad de veces el elemento.</span></code>
-					<code>				 <span class="comment">* - "case": En el caso de "case" agrega contenido dependiendo del dato, vease como si este dato fuese una constante.</span></code>
-					<code>				 <span class="comment">* - "when": En el caso de "when" el funcionamiento es identico al de "case", solo que este reemplaza en función del dato de la columna relacionada ("column_related")</span></code>
+					<code>				 <span class="comment">* - "for": En el caso de "for" este solo funcionará con valores numéricos, este reemplaza por completo el dato y agrega n (según sea el dato) cantidad de veces el elemento.</span></code>
+					<code>				 <span class="comment">* - "case": En el caso de "case" agrega contenido dependiendo del dato, véase como si este dato fuese una constante.</span></code>
+					<code>				 <span class="comment">* - "when": En el caso de "when" el funcionamiento es idéntico al de "case", solo que este reemplaza en función del dato de la columna relacionada ("column_related")</span></code>
 					<code>				 <span class="comment">*/</span></code>
 					<?php foreach ($snippets as $snippetsKey => $snippetsValue) : ?>
 					<code>				{</code>
@@ -1128,7 +1147,7 @@
 					<code>	]</code>
 					<code>}</code>
 				</pre>
-				<p class="my-text">Por supuesto que en este ejemplo solo se muestra un puñado de datos de las colecciones almacedanas en este sitio, pero de todas formas este ejemplo da incapie a desarrollar configuraciones usando json's. También debo mencionar que la estructura de "collection_configuration" del json es igual para todas las colecciones que pueda agregar en un futuro, solo variarían las columnas, los snippets y sus condiciones.</p>
+				<p class="my-text">Por supuesto que en este ejemplo solo se muestra un puñado de datos de las colecciones almacenadas en este sitio, pero de todas formas este ejemplo da inca pie a desarrollar configuraciones usando json's. También debo mencionar que la estructura de "collection_configuration" del json es igual para todas las colecciones que pueda agregar en un futuro, solo variarían las columnas, los snippets y sus condiciones.</p>
 				<p class="my-text"><b>Segundo:</b> la lógica del backend que traerá los datos de la colección (en este caso de forma aleatoria). Para este caso he desarrollado 2 funciones: una para obtener una cantidad específica de datos de la colección y la otra para darle formato para mostrarse en el frontend.</p>
 				<samp>PHP</samp>
 				<pre class="sb">
@@ -1136,8 +1155,8 @@
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Esta función se encargará entregar una</span></code>
-					<code> <span class="comment">* coleccion de datos traidos desde archivos</span></code>
-					<code> <span class="comment">* .json de forma aleatoria y segun la cantidad</span></code>
+					<code> <span class="comment">* colección de datos traídos desde archivos</span></code>
+					<code> <span class="comment">* .json de forma aleatoria y según la cantidad</span></code>
 					<code> <span class="comment">* especificada por la variable $take.</span></code>
 					<code> <span class="comment">*/</code>
 					<code><span class="cyan">function</span> <span class="green">initCollection</span> (<span class="orange">$take</span> <span class="pink">=</span> <span class="purple">0</span>) {</code>
@@ -1173,13 +1192,13 @@
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Esta función se encargará de llenar y</span></code>
-					<code> <span class="comment">* darle formato a los datos de la colección</span></code>
+					<code> <span class="comment">* darles formato a los datos de la colección</span></code>
 					<code> <span class="comment">* proporcionada.</span></code>
 					<code> <span class="comment">*/</span></code>
 					<code><span class="cyan">function</span> <span class="green">initCollectionRawHTML</span> (<span class="orange">$sourceCollection</span>) {</code>
 					<code>	<span class="comment">/**</span></code>
 					<code>	 <span class="comment">*</span></code>
-					<code>	 <span class="comment">* Coleccion formateada para retornar.</span></code>
+					<code>	 <span class="comment">* Colección formateada para retornar.</span></code>
 					<code>	 <span class="comment">*/</span></code>
 					<code>	$newCollection <span class="pink">=</span> [</code>
 					<code>		<span class="yellow">"description"</span> =&gt; $sourceCollection-&gt;collection_description,</code>
@@ -1188,7 +1207,7 @@
 					<code>	];</code><br />
 					<code>	<span class="comment">/**</span></code>
 					<code>	 <span class="comment">*</span></code>
-					<code>	 <span class="comment">* Cargar configuraciones de la coleccion.</span></code>
+					<code>	 <span class="comment">* Cargar configuraciones de la colección.</span></code>
 					<code>	 <span class="comment">*/</span></code>
 					<code>	$columns <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;columns;</code>
 					<code>	$snippets <span class="pink">=</span> $sourceCollection-&gt;collection_configuration-&gt;data-&gt;snippets;</code>
@@ -1196,7 +1215,7 @@
 					<code>	$collectionItems <span class="pink">=</span> $sourceCollection-&gt;collection_items;</code><br />
 					<code>	<span class="comment">/**</span></code>
 					<code>	 <span class="comment">*</span></code>
-					<code>	 <span class="comment">* Lista de operadores logicos.</span></code>
+					<code>	 <span class="comment">* Lista de operadores lógicos.</span></code>
 					<code>	 <span class="comment">*/</span></code>
 					<code>	$operators <span class="pink">=</span> [</code>
 					<code>		<span class="yellow">"=="</span> =&gt; <span class="cyan">function</span> (<span class="orange">$a</span>, <span class="orange">$b</span>) { <span class="pink">return</span> $a <span class="pink">==</span> $b; },</code>
@@ -1211,7 +1230,7 @@
 					<code>	<span class="comment">/**</span></code>
 					<code>	 <span class="comment">*</span></code>
 					<code>	 <span class="comment">* Inicia ciclo para cargar los nombres de las</span></code>
-					<code>	 <span class="comment">* columnas de la coleccion.</span></code>
+					<code>	 <span class="comment">* columnas de la colección.</span></code>
 					<code>	 <span class="comment">*/</span></code>
 					<code>	<span class="pink">foreach</span> ($columns <span class="pink">as</span> $columnsKey =&gt; $columnsValue) $newCollection[<span class="yellow">"dataHeaders"</span>][] <span class="pink">=</span> $columnsValue;</code><br />
 					<code>	<span class="comment">/**</span></code>
@@ -1233,7 +1252,7 @@
 					<code>			$data <span class="pink">=</span> $collectionItemValue;</code><br />
 					<code>			<span class="comment">/**</span></code>
 					<code>			 <span class="comment">*</span></code>
-					<code>			 <span class="comment">* Ciclo para formatear la coleccion</span></code>
+					<code>			 <span class="comment">* Ciclo para formatear la colección</span></code>
 					<code>			 <span class="comment">* de acuerdo a los snippets configurados.</span></code>
 					<code>			 <span class="comment">*/</span></code>
 					<code>			<span class="pink">foreach</span> ($snippets <span class="pink">as</span> $snippetsIndex =&gt; $snippetsValue) {</code>
@@ -1268,7 +1287,7 @@
 					<code>			}</code><br />
 					<code>			<span class="comment">/**</span></code>
 					<code>			 <span class="comment">*</span></code>
-					<code>			 <span class="comment">* Ciclo para formatear la coleccion</span></code>
+					<code>			 <span class="comment">* Ciclo para formatear la colección</span></code>
 					<code>			 <span class="comment">* de acuerdo a las condiciones de cada</span></code>
 					<code>			 <span class="comment">* campo configurado.</span></code>
 					<code>			 <span class="comment">*/</span></code>
@@ -1286,7 +1305,7 @@
 					<code>	<span class="pink">return</span> (<span class="cyan">object</span>)$newCollection; <span class="comment">// Lo retorno como objeto en lugar de arreglo asociativo.</span></code>
 					<code>}</code>
 				</pre>
-				<p class="my-text">Teniendo estas 2 funciones, se pueden incluir en un web service para traer datos en todo momento, o se pueden incluir directamente en el archivo HTML. De cualquier forma dará el mismo resultado.</p>
+				<p class="my-text">Teniendo estas 2 funciones, se pueden incluir en un web service para traer datos en todo momento, o se pueden incluir directamente en el archivo HTML. De cualquier forma, dará el mismo resultado.</p>
 				<p class="my-text"><b>Forma 1 - Adjuntando las funciones en el archivo HTML:</b> de esta forma solo variarán los datos cada vez que el usuario refresque la página (forma que a mi parecer es muy anticuada y cansada, pero igual la incluyo por aquello del que dirán)</p>
 				<samp>PHP</samp>
 				<pre class="sb">
@@ -1336,7 +1355,7 @@
 					<code>				&lt;?php</code>
 					<code>				<span class="comment">/**</span></code>
 					<code>				 <span class="comment">*</span></code>
-					<code>				 <span class="comment">* Para esta condición fue complicado allar la lógica adecuada</span></code>
+					<code>				 <span class="comment">* Para esta condición fue complicado hallar la lógica adecuada</span></code>
 					<code>				 <span class="comment">* para que solo se muestren las columnas con la condición de visible</span></code>
 					<code>				 <span class="comment">* en true.</span></code>
 					<code>				 <span class="comment">*</span></code>
@@ -1437,7 +1456,7 @@
 						</pre>
 					</div>
 				</div>
-				<p class="my-text">Bueno, eso sería toda la lógica para traer datos de archivos JSON y tomarlos como colecciones. Este código se puede mejorar, simplificar y hasta optimizar; solo que ya traia esta idea desde hace rato y había tenido la oportunidad ni el como vaciaría todo el procedimiento de manera visual y explicada (si a eso se le puede llamar explicación) pero al final, a mi parecer, creo que está muy bien elaborado como para ser algo improvisado. Como dije esto se puede mejorar y hasta con mas detalle. No te quedes con un solo método / forma / manera de hacer las cosas, inspirate, crea y demuestrale a todos de lo que eres capaz.</p>
+				<p class="my-text">Bueno, eso sería toda la lógica para traer datos de archivos JSON y tomarlos como colecciones. Este código se puede mejorar, simplificar y hasta optimizar; solo que ya traía esta idea desde hace rato y había tenido la oportunidad ni el cómo vaciaría todo el procedimiento de manera visual y explicada (si a eso se le puede llamar explicación) pero al final, a mi parecer, creo que está muy bien elaborado como para ser algo improvisado. Como dije esto se puede mejorar y hasta con más detalle. No te quedes con un solo método / forma / manera de hacer las cosas, inspírate, crea y demuestrales a todos de lo que eres capaz.</p>
 				<p class="my-text">Y ya para terminar, lo que había dejado pendiente por mucho tiempo:</p>
 				<div class="row">
 					<div class="col">
@@ -2118,9 +2137,9 @@
 							<code>	&lt;/<span class="pink">div</span>&gt;</code>
 							<code>&lt;/<span class="pink">form</span>&gt;</code>
 						</pre>
+						<p class="my-text">De momento solo tenemos el formulario, aún no valida ni nada por el estilo. Por eso continuaré con las funciones para validar y luego el evento que activará dichas validaciones.</p>
 					</div>
 				</div>
-				<p class="my-text">De momento solo tenémos el formulario, aún no valida ni nada por el estilo. Por eso continuaré con las funciones para validar y luego el eveto que activará dichas validaciones.</p>
 				<div class="row">
 					<div class="col-md-6">
 						<samp>JS</samp>
@@ -2445,19 +2464,58 @@
 							<code>}</code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* La función "isValidFileExtencion" tiene la finalidad</span></code>
+							<code> <span class="comment">* La función "isValidFileExtention" tiene la finalidad</span></code>
 							<code> <span class="comment">* validar si la extención de o los archivos coincide</span></code>
-							<code> <span class="comment">* con el parámetro de extensions.</span></code>
+							<code> <span class="comment">* con el parámetro de extentions.</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Parámetros esperados:</span></code>
 							<code> <span class="comment">*  - $el (jQuery object): Campo a validar</span></code>
-							<code> <span class="comment">*  - extensions (string | string's array): Extención o extenciones a validar</span></code>
+							<code> <span class="comment">*  - extentions (string's array): Extención o extenciones a validar</span></code>
 							<code> <span class="comment">*  - message (string): Mensaje de error a mostrar</span></code>
 							<code> <span class="comment">*/</span></code>
-							<code><span class="cyan">const</span> <span class="green">isValidFileExtencion</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">extensions</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
+							<code><span class="cyan">const</span> <span class="green">isValidFileExtention</span> <span class="pink">=</span> (<span class="orange">$el</span>, <span class="orange">extentions</span>, <span class="orange">message</span>) <span class="cyan">=&gt;</span> {</code>
 							<code>	$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">''</span>);</code>
 							<code>	<span class="cyan">let</span> $validFeedback <span class="pink">= $</span>(<span class="yellow">`#vf-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
 							<code>	<span class="cyan">let</span> $invalidFeedback <span class="pink">= $</span>(<span class="yellow">`#if-</span>${$el.<span class="cyan">prop</span>(<span class="yellow">'id'</span>)}<span class="yellow">`</span>);</code>
+							<code>	<span class="cyan">let</span> valid <span class="pink">=</span> <span class="purple">true</span>;</code><br />
+							<code>	<span class="pink">try</span> {</code>
+							<code>		<span class="pink">if</span> (extentions.<span class="orange">constructor</span> <span class="pink">===</span> <span class="cyan">Array</span>) {</code>
+							<code>			<span class="pink">if</span> (extentions.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
+							<code>				extentions.<span class="cyan">every</span>((<span class="orange">index</span>, <span class="orange">value</span>) <span class="cyan">=&gt;</span> {</code>
+							<code>					<span class="pink">if</span> (<span class="pink">typeof</span>(value) <span class="pink">!=</span> <span class="yellow">'string'</span>) {</code>
+							<code>						$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`Todos los elementos del array deben ser del tipo string`</span>);</code>
+							<code>						$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; Todos los elementos del array deben ser del tipo string`</span>);</code>
+							<code>						<span class="pink">return</span> (valid <span class="pink">=</span> <span class="purple">false</span>);</code>
+							<code>					}</code>
+							<code>					<span class="pink">return</span> <span class="purple">true</span></code>
+							<code>				});</code>
+							<code>			} <span class="pink">else</span> {</code>
+							<code>				$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El array debe contener por lo menos un elemento del tipo string`</span>);</code>
+							<code>				$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El array debe contener por lo menos un elemento del tipo string`</span>);</code>
+							<code>				valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>			}</code>
+							<code>		} <span class="pink">else</span> {</code>
+							<code>			$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(<span class="yellow">`El parámetro extentions debe ser del tipo array de strings`</span>);</code>
+							<code>			$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt; El parámetro extentions debe ser del tipo array de strings`</span>);</code>
+							<code>			valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>		}</code><br />
+							<code>		<span class="pink">if</span> (valid) {</code>
+							<code>			<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> (files <span class="pink">=</span> $el[<span class="purple">0</span>].files).length; i<span class="pink">++</span>)</code>
+							<code>				<span class="pink">if</span> (<span class="pink">!</span>extentions.<span class="cyan">contains</span>(files[i].type)) {</code>
+							<code>					$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(message);</code>
+							<code>					$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${message}<span class="yellow">`</span>);</code>
+							<code>					valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>					<span class="pink">break</span>;</code>
+							<code>				}</code>
+							<code>		}</code>
+							<code>	} <span class="pink">catch</span> (exception) {</code>
+							<code>		$el[<span class="purple">0</span>].<span class="cyan">setCustomValidity</span>(exception.message);</code>
+							<code>		$invalidFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${exception.message}<span class="yellow">`</span>);</code>
+							<code>		valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	} <span class="pink">finally</span> {</code>
+							<code>		<span class="pink">if</span> (valid) $validFeedback.<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-regular fa-thumbs-up"&gt;&lt;/i&gt; Ok`</span>);</code>
+							<code>		<span class="pink">return</span> valid;</code>
+							<code>	}</code>
 							<code>}</code>
 						</pre>
 					</div>
@@ -2479,7 +2537,8 @@
 							<code>	<span class="pink">if</span> (<span class="cyan">isEmpty</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaDescription'</span>), <span class="yellow">'Este campo no debe de estar vacío'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
 							<code>	<span class="pink">if</span> (<span class="pink">!</span><span class="cyan">hasFiles</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), <span class="purple">1</span>, <span class="yellow">'Debe seleccionar un avatar para su fursona'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
 							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidFileName</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), <span class="yellow">'El archivo contiene caracteres no permitidos'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
-							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidFileSize</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), (<span class="comment">/* bytes */</span> <span class="purple">1024</span> <span class="pink">*</span> <span class="comment">/* kylobytes */</span> <span class="purple">500</span>), <span class="yellow">'El archivo excede los 500KB permitidos'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
+							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidFileSize</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), (<span class="comment">/* bytes */</span> <span class="purple">1024</span> <span class="pink">*</span> <span class="comment">/* kylobytes */</span> <span class="purple">500</span>), <span class="yellow">'El archivo excede los 500KB permitidos'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	<span class="pink">else if</span> (<span class="pink">!</span><span class="cyan">isValidFileExtention</span>(<span class="pink">$</span>(<span class="yellow">'#fursonaProfilePic'</span>), [<span class="yellow">'image/jpeg'</span>, <span class="yellow">'image/png'</span>, <span class="yellow">'image/gif'</span>, <span class="yellow">'image/webp'</span>], <span class="yellow">'El archivo debe de ser: .jpg, .png, .gif o .webm'</span>)) valid <span class="pink">=</span> <span class="purple">false</span>;</code><br />
 							<code>	<span class="pink">$</span>(<span class="yellow">'#formFursona'</span>).<span class="cyan">addClass</span>(<span class="yellow">'was-validated'</span>);</code><br />
 							<code>	<span class="pink">return</span> valid;</code>
 							<code>}</code><br />
@@ -2500,6 +2559,34 @@
 						</pre>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<samp>PHP</samp>
+						<pre class="sb">
+							<code>&lt;?php</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* validateFursona.php </span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="pink">try</span> {</code>
+							<code>	$jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/furry_characters.json"</span>);</code>
+							<code>	$isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>	$jsonData <span class="pink">=</span> <span class="cyan">json_decode</span>($jsonFile, $isArrayAssociative);</code>
+							<code>	$valid <span class="pink">=</span> <span class="purple">true</span>;</code><br />
+							<code>	$fursonas <span class="pink">=</span> $jsonData-&gt;collection_items;</code><br />
+							<code>	<span class="pink">foreach</span> ($fursonas <span class="pink">as</span> $key =&gt; $value)</code>
+							<code>		<span class="pink">if</span> (<span class="cyan">strtolower</span>($value-&gt;name) <span class="pink">==</span> <span class="cyan">strtolower</span>(<span class="orange">$_POST</span>[<span class="yellow">"toValidate"</span>])) {</code>
+							<code>			$valid <span class="pink">=</span> <span class="purple">false</span>;</code>
+							<code>			<span class="pink">break</span>;</code>
+							<code>		}</code><br />
+							<code>	<span class="cyan">echo</span> <span class="cyan">json_encode</span>([ <span class="yellow">"success"</span> =&gt; <span class="purple">true</span>, <span class="yellow">"message"</span> =&gt; <span class="yellow">"Se ha consultado la fursona."</span>, <span class="yellow">"data"</span> =&gt; [ <span class="yellow">"valid"</span> =&gt; $valid ] ]);</code>
+							<code>} <span class="pink">catch</span> (<span class="cyan">Exception</span> $e) {</code>
+							<code>	<span class="cyan">echo</span> <span class="cyan">json_encode</span>([ <span class="yellow">"success"</span> =&gt; <span class="purple">false</span>, <span class="yellow">"message"</span> =&gt; $e-><span class="cyan">getMessage</span>(), <span class="yellow">"data"</span> =&gt; <span class="purple">null</span> ]);</code>
+							<code>}</code>
+						</pre>
+					</div>
+				</div>
+				<p class="my-text">Y para concluir con este ejemplo, quiero mencionar que hay muchas formas de validar formularios, algunas más optimizadas, otras más completas y otras más sencillas. Solo dejo este ejemplo para sirva de inca pie a un desarrollo más completo y optimo; y para mostrar de lo que soy capaz de hacer con algo de paciencia, música y librerías de desarrollo :3. </p>
 			</div>
 		</div>
 		<!-- ./validationWithJS -->
@@ -2556,6 +2643,7 @@
 		if (!hasFiles($('#inputValidationJSFursonaProfilePic'), 1, 'Debe seleccionar un avatar para su fursona')) valid = false;
 		else if (!isValidFileName($('#inputValidationJSFursonaProfilePic'), 'El archivo contiene caracteres no permitidos')) valid = false;
 		else if (!isValidFileSize($('#inputValidationJSFursonaProfilePic'), (/* bytes */ 1024 * /* kylobytes */ 500), 'El archivo excede los 500KB permitidos')) valid = false;
+		else if (!isValidFileExtention($('#inputValidationJSFursonaProfilePic'), ['image/jpeg', 'image/png', 'image/gif', 'image/webp'], 'El archivo debe de ser: .jpg, .png, .gif o .webm')) valid = false;
 
 		$('#formValidationJS').addClass('was-validated');
 
@@ -2725,7 +2813,6 @@
 	});
 
 	/*
-
 	function onChangeHandlerSimpleAjaxUploader (files = []) {
 		let $dropZone = $('#divFileSimpleAjaxUploader');
 
@@ -2919,6 +3006,8 @@
 
 	$('#slideDown').click(function (e) {
 		e.preventDefault();
+
+		$('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top - 10 }, 1000);
 	});
 
 	/*
