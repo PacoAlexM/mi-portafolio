@@ -114,6 +114,10 @@
 	</header>
 
 	<div class="container-fluid">
+		<div class="alert alert-warning" role="alert">
+			<strong>Aviso:</strong> Algunas de las funciones de esta página puede que no funcionen correctamente debido a que esta parte del sitio quedó desactualizado.
+		</div>
+
 		<!-- upload-files -->
 		<div id="upload-files" class="card card-yellow">
 			<div class="card-header">
