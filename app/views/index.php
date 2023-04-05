@@ -30,6 +30,9 @@
 		case 0:
 			$urlmImg = "header-title-goes-here.png";
 			break;
+		case 1:
+			$urlmImg = "furry-pride.png";
+			break;
 		case 2:
 			$urlmImg = "no-olvidamos.png";
 			break;
