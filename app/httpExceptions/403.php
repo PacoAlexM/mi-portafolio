@@ -9,31 +9,9 @@
 	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
 	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_CSS_URL"] ?>bootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_FA_URL"] ?>all.min.css" />
-	<style>
-	html, body {
-		width: 100%;
-		height: 100%;
-	}
-	body {
-		display: table;
-		vertical-align: middle;
-		background-color: #000;
-	}
-	header {
-		text-align: center;
-		display: table-cell;
-		vertical-align: middle;
-	}
-	h1 {
-		font-size: 50px;
-		color: #fff;
-	}
-	.fa-red {
-		color: red;
-	}
-	</style>
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_CSS_URL"] ?>style.css" />
 </head>
-<body>
+<body class="exceptions">
 	<header>
 		<span class="fa-stack fa-8x mb-3">
 			<i class="fa-solid fa-circle fa-stack-2x fa-red"></i>
