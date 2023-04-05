@@ -262,8 +262,8 @@
 							<code>		<span class="comment">/**</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* Esta variable servirá para validar si</span></code>
-							<code>		 <span class="comment">* el archivo estrará al arreglo interno de</span></code>
-							<code>		 <span class="comment">* archivos por cargar de a propia libreía.</span></code>
+							<code>		 <span class="comment">* el archivo entrará al arreglo interno de</span></code>
+							<code>		 <span class="comment">* archivos por cargar de a propia librería.</span></code>
 							<code>		 <span class="comment">*/</span></code>
 							<code>		<span class="cyan">let</span> _isValidToUpload <span class="pink">=</span> <span class="purple">true</span>;</code><br />
 							<code>		<span class="pink">$</span>(<span class="yellow">'#generalProgressbar'</span>).<span class="cyan">attr</span>(<span class="yellow">'aria-valuenow'</span>, <span class="purple">0</span>);</code>
@@ -471,7 +471,7 @@
 							<code>		 <span class="comment">* 1.- La variable "_uploadedFiles" tomará el valor de</span></code>
 							<code>		 <span class="comment">* máximo de "QueueSize" ya que este en cada archivo</span></code>
 							<code>		 <span class="comment">* que se procesa para su carga, este mismo va disminuyendo</span></code>
-							<code>		 <span class="comment">* su valor. De ahi la comparativa de si "_uploadedFiles"</span></code>
+							<code>		 <span class="comment">* su valor. De ahí la comparativa de si "_uploadedFiles"</span></code>
 							<code>		 <span class="comment">* es menor a "QueueSize", resultando en "true" en la 1ra</span></code>
 							<code>		 <span class="comment">* vuelta (archivo) y su valor será constante.</span></code>
 							<code>		 <span class="comment">*</span></code>
@@ -479,7 +479,7 @@
 							<code>		 <span class="comment">* para su manipulación.</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* 3.- Del mismo renglón que declaramos, buscamos una celda o table-data</span></code>
-							<code>		 <span class="comment">* con la clase "td-status" para asignarle en que estado está el archivo</span></code>
+							<code>		 <span class="comment">* con la clase "td-status" para asignarle en qué estado está el archivo</span></code>
 							<code>		 <span class="comment">* por cargar (en este caso estará en "Cargando")</span></code>
 							<code>		 <span class="comment">*</span></code>
 							<code>		 <span class="comment">* 4.- Se manda a llamar el método de "setPctBox" o asignar elemento para</span></code>
@@ -1155,13 +1155,13 @@
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Esta función se encargará entregar una</span></code>
-					<code> <span class="comment">* colección de datos traídos desde archivos</span></code>
+					<code> <span class="comment">* colección de datos obtenidos desde archivos</span></code>
 					<code> <span class="comment">* .json de forma aleatoria y según la cantidad</span></code>
 					<code> <span class="comment">* especificada por la variable $take.</span></code>
 					<code> <span class="comment">*/</code>
 					<code><span class="cyan">function</span> <span class="green">initCollection</span> (<span class="orange">$take</span> <span class="pink">=</span> <span class="purple">0</span>) {</code>
 					<code>	$jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/<?php echo $jsonCollection->collection_name ?>.json"</span>); <span class="comment">// NOTA: El nombre del archivo json no se actualiza dinámicamente al refrescar la tabla.</span></code>
-					<code>	$isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>; <span class="comment">// Esto indica que será un objeto en lugar de un arreglo asociativo</span></code>
+					<code>	$isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>; <span class="comment">// Esto indica que será un objeto en lugar de un arreglo asociativo.</span></code>
 					<code>	$jsonData <span class="pink">=</span> <span class="cyan">json_decode</span>($jsonFile, $isArrayAssociative);</code><br />
 					<code>	<span class="comment">/**</span></code>
 					<code>	 <span class="comment">*</span></code>
@@ -1404,11 +1404,11 @@
 					<div class="col-md-6">
 						<samp>JS</samp>
 						<pre class="sb">
-							<code><span class="comment">// Evento para el botonsote verde de "Recargar Tabla".</span></code>
+							<code><span class="comment">// Evento para el botón de "Recargar Tabla".</span></code>
 							<code><span class="pink">$</span>(<span class="yellow">'#buttonReloadTableCollection'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
 							<code>	<span class="comment">// Limpiar todo el contenido de la tabla.</span></code>
 							<code>	<span class="pink">$</span>(<span class="yellow">'#tableCollection &gt; thead, #tableCollection &gt; tbody, #tableCollection &gt; caption'</span>).<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
-							<code>	<span class="comment">// Petición a web service de "collections/getNewCollection.php".</span></code>
+							<code>	<span class="comment">// Petición a web service de "ws/getNewCollection.php".</span></code>
 							<code>	<span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
 							<code>		url: <span class="yellow">'ws/getNewCollection.php'</span>,</code>
 							<code>		type: <span class="yellow">'POST'</span>,</code>
@@ -1485,7 +1485,7 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Efecto de desvanecimiento usando <var>opacity</var> <del>y <var>visibility</var></del></h2>
-				<p class="my-text">Este ejemplo tiene el sencillo propósito de mostrar los efectos y ventajas de la propiedad <var>transition</var> de CSS. En esta ocación será de la desaparecer y reaparecer un elemento HTML.</p>
+				<p class="my-text">Este ejemplo tiene el sencillo propósito de mostrar los efectos y ventajas de la propiedad <var>transition</var> de CSS. En esta ocasión será de la desaparecer y reaparecer un elemento HTML.</p>
 				<p class="my-text">También quiero aprovechar la oportunidad de mostrar un input de tipo check con estilo de iOS para este ejemplo.</p>
 				<div class="row">
 					<div class="col-md-6">
@@ -1654,7 +1654,7 @@
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* .my-fade-effect</span></code>
 							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Vease el ejemplo de: <a href="#vanishEfect">Efecto de desvanecimiento</a></span></code>
+							<code> <span class="comment">* Véase el ejemplo de: <a href="#vanishEfect">Efecto de desvanecimiento</a></span></code>
 							<code> <span class="comment">*/</span></code><br />
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
@@ -1685,7 +1685,7 @@
 					<div class="col-md-7">
 						<samp>JS</samp>
 						<pre class="sb">
-							<code><span class="comment">// Despues: el evento del bóton.</span></code>
+							<code><span class="comment">// Después: el evento del botón.</span></code>
 							<code><span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
 							<code>	e.<span class="cyan">preventDefault</span>();</code><br />
 							<code>	<span class="comment">// Con efecto de "scroll":</span></code>
@@ -1693,12 +1693,12 @@
 							<code>	<span class="comment">// Sin efecto de "scroll":</span></code>
 							<code>	<span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">scrollTop</span>(<span class="purple">0</span>);</code>
 							<code>});</code><br />
-							<code><span class="comment">// Y por último: la función para mostrar / ocultar el boton.</span></code>
+							<code><span class="comment">// Y, por último: la función para mostrar / ocultar el botón.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">on</span>(<span class="yellow">'scroll'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
 							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> (<span class="pink">$</span>(<span class="orange">this</span>).<span class="cyan">height</span>() <span class="pink">*</span> <span class="purple">2</span>)) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
 							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
 							<code>});</code><br />
-							<code><span class="comment">// Este último es para en caso de que el usuario refresque la página y el botón aparesca sin necesidad de hacer scroll.</span></code>
+							<code><span class="comment">// Este último es para en caso de que el usuario refresque la página y el botón aparezca sin necesidad de hacer scroll.</span></code>
 							<code><span class="pink">$</span>(<span class="cyan">document</span>).<span class="cyan">ready</span>(<span class="cyan">function</span> (<span class="orange">e</span>) {</code>
 							<code>	<span class="pink">if</span> (<span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">scrollTop</span>() <span class="pink">&gt;=</span> (<span class="pink">$</span>(<span class="cyan">window</span>).<span class="cyan">height</span>() <span class="pink">*</span> <span class="purple">2</span>)) <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-off'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-on'</span>);</code>
 							<code>	<span class="pink">else</span> <span class="pink">$</span>(<span class="yellow">'#buttonToTop'</span>).<span class="cyan">addClass</span>(<span class="yellow">'my-fade-effect-on'</span>).<span class="cyan">removeClass</span>(<span class="yellow">'my-fade-effect-off'</span>);</code>
@@ -1710,7 +1710,7 @@
 					<div class="col">
 						<div class="alert alert-warning" role="alert">
 							<h4 class="alert-heading">Algo que Debo Mencionar</h4>
-							<p>Debido a que este sitio usa la versión 5.2.3 de la librería de estilos de Bootstrap, este ejemplo puede tener conflictos, por ejemplo: al hacer el efecto de "scroll" se atasque en ciertas zonas del sitio; a la hora de ponerse en práctica cuando se incluye la mencionda librería. Esto se debe a que la misma tiene configurada la propiedad <var>scroll-behavior</var> como <var>smooth</var> provocando conflictos en la función <var>$.animate()</var> de la librería de jQuery.</p>
+							<p>Debido a que este sitio usa la versión 5.2.3 de la librería de estilos de Bootstrap, este ejemplo puede tener conflictos, por ejemplo: al hacer el efecto de "scroll" se atasque en ciertas zonas del sitio; a la hora de ponerse en práctica cuando se incluye la mencionada librería. Esto se debe a que la misma tiene configurada la propiedad <var>scroll-behavior</var> como <var>smooth</var> provocando conflictos en la función <var>$.animate()</var> de la librería de jQuery.</p>
 							<hr />
 							<p>Este conflicto puede ser resuelto fácilmente agregando la siguiente línea a nuestra hoja de estilos:</p>
 							<pre class="sb">
@@ -1742,7 +1742,7 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Escala de grises</h2>
-				<p class="my-text">Vaya título mas largo. Bueno en este ejemplo no tengo mucho que decir mas que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenia una función al hacer scroll y las fotos del mismo sitio cambiaban de color, asi que decidí a hacer algo similar.</p>
+				<p class="my-text">Vaya título más largo. Bueno en este ejemplo no tengo mucho que decir más que hace ya tiempo que vi un sitio (no recuerdo su nombre ni dirección) en donde tenía una función al hacer scroll y las fotos del mismo sitio cambiaban de color, así que decidí a hacer algo similar.</p>
 				<?php $grayScaleImgs = ["zakumi-barcelona.png", "zakumi-berlin.png"] ?>
 				<?php $grayScaleImgUrl = $grayScaleImgs[rand(0, (count($grayScaleImgs) - 1))] ?>
 				<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] . $grayScaleImgUrl ?>" alt="img-zakumi" class="img-fluid my-gray-scale-on" id="imgTestGrayScale" />
@@ -1822,7 +1822,7 @@
 				<div class="row">
 					<div class="col-md-7">
 						<h3>Primero: Dividir la pantalla en 3</h3>
-						<p class="my-text">Al dividir la pantalla entre 3 resulta más fácil asignar los valores a las variables en la función de scroll, estas mismas estarán cambiando su valor conforme el usuario se vaya deslizando (o scrollee) por la página. El valor de las variables dentro de la función, son solamente coordenadas de la página entera, primero toma el tamaño de la pantalla y luego la divide en 3 partes, después el valor en coordenadas de la imagen y su altura. A todo esto, ¿Porque en 3? simple, porque se tomarían 2 secciones, la del tope y la del fondo, dejando la sección sobrante del medio libre para activar el efecto de la imagen. Pero no lo hará.</p>
+						<p class="my-text">Al dividir la pantalla entre 3 resulta más fácil asignar los valores a las variables en la función de scroll, estas mismas estarán cambiando su valor conforme el usuario se vaya deslizando (o al hacer scroll) por la página. El valor de las variables dentro de la función, son solamente coordenadas de la página entera, primero toma el tamaño de la pantalla y luego la divide en 3 partes, después el valor en coordenadas de la imagen y su altura. A todo esto, ¿Porque en 3? simple, porque se tomarían 2 secciones, la del tope y la del fondo, dejando la sección sobrante del medio libre para activar el efecto de la imagen. Pero no lo hará.</p>
 					</div>
 					<div class="col-md-5">
 						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] ?>scroll-gray-example-1.gif" alt="scroll-example-1" class="img-fluid mb-3" />
@@ -1831,7 +1831,7 @@
 				<div class="row">
 					<div class="col-md-7 order-md-2">
 						<h3>Segundo: Tomar 1/3 de la pantalla</h3>
-						<p class="my-text">Se supone que la sección sobrante haría el trabajo de accionar el efecto. Bueno en realidad quien acciona el efecto es la imagen misma. ¿Cómo pasa eso? simple (pero no tanto), al momento de deslizarse (o hacer scroll) la función pregunta por la coordenada de la imagen con el efecto, dicha coordenada se le resta la 3ra parte del tamaño de la pantalla, o sea que no tomara en si la coordina absoluta de la imagen. Por ejemplo: si la imagen está a 1900px en (Y) y la pantalla mide 960px de altura, esto entre 3 resulta en 320px, entonces la coordenada de la imagen menos la 3ra parte de la pantalla seria 1580px, es en esta coordenada donde se le da el efecto a la imagen. Y esto es solo para accionarlo cuando la imagen aparezca desde abajo de la pantalla.</p>
+						<p class="my-text">Se supone que la sección sobrante haría el trabajo de accionar el efecto. Bueno en realidad quien acciona el efecto es la imagen misma. ¿Cómo pasa eso? simple (pero no tanto), al momento de deslizarse (o al hacer scroll) la función pregunta por la coordenada de la imagen con el efecto, dicha coordenada se le resta la 3ra parte del tamaño de la pantalla, o sea que no tomara en si la coordina absoluta de la imagen. Por ejemplo: si la imagen está a 1900px en (Y) y la pantalla mide 960px de altura, esto entre 3 resulta en 320px, entonces la coordenada de la imagen menos la 3ra parte de la pantalla seria 1580px, es en esta coordenada donde se le da el efecto a la imagen. Y esto es solo para accionarlo cuando la imagen aparezca desde abajo de la pantalla.</p>
 					</div>
 					<div class="col-md-5 order-md-1">
 						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] ?>scroll-gray-example-2.gif" alt="scroll-example-2" class="img-fluid mb-3" />
@@ -1840,13 +1840,13 @@
 				<div class="row">
 					<div class="col-md-7">
 						<h3>Tercero: Tomar los 2/3 restantes de la pantalla</h3>
-						<p class="my-text">Para agregar el efecto pero esta vez cuando la imagen aparezca desde arriba de la pantalla. De nuevo, la función toma la coordenada de la imagen que contiene el efecto, solo que ahora también toma el tamaño de la misma y en lugar de tomar una 3ra parte de la pantalla, serán 2. Por ejemplo: la imagen mide 800px de alto, esto más 1900px (coordenada Y de la misma) resulta en 2700px, menos 320px por 2 será igual a 2060px, es en esta coordenada donde se le da el efecto a la imagen cuando el usuario se deslice desde abajo. ¿Loco no? para nada, solo es aplicar algo de lógica y clases css.</p>
+						<p class="my-text">Para agregar el efecto, pero esta vez cuando la imagen aparezca desde arriba de la pantalla. De nuevo, la función toma la coordenada de la imagen que contiene el efecto, solo que ahora también toma el tamaño de la misma y en lugar de tomar una 3ra parte de la pantalla, serán 2. Por ejemplo: la imagen mide 800px de alto, esto más 1900px (coordenada Y de la misma) resulta en 2700px, menos 320px por 2 será igual a 2060px, es en esta coordenada donde se le da el efecto a la imagen cuando el usuario se deslice desde abajo. ¿Loco no? para nada, solo es aplicar algo de lógica y clases css.</p>
 					</div>
 					<div class="col-md-5">
 						<img src="<?php echo $_SESSION["ASSETS_IMG_URL"] ?>scroll-gray-example-3.gif" alt="scroll-example-3" class="img-fluid mb-3" />
 					</div>
 				</div>
-				<p class="my-text">Es tedioso y hasta un poco difícil de entender, pero no tiene pierde. Solo es dividir la pantalla en 3 partes (casi iguales) y hacer el cálculo de donde esta el elemento al que se le aplicará el efecto. Por esa razón decidí seprar todo por variables en la función de scroll de jQuery.</p>
+				<p class="my-text">Es tedioso y hasta un poco difícil de entender, pero no tiene pierde. Solo es dividir la pantalla en 3 partes (casi iguales) y hacer el cálculo de donde está el elemento al que se le aplicará el efecto. Por esa razón decidí separar todo por variables en la función de scroll de jQuery.</p>
 			</div>
 		</div>
 		<!-- ./grayScaleScrolling -->
@@ -1874,7 +1874,7 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Generando cadenas de texto totalmente aleatorias</h2>
-				<p class="my-text">Este ejemplo sirve para mostrar como generar una cada de caracteres de manera aleatoria (incluyendo caracteres númericos y especiales) y utilizar la misma cadena para distintos propósitos: como una contraseña segura por ejemplo. El desarrollo es simple, el único detalle es que en este ejemplo omití 2 caracteres especiales (¡ y ¿) por lo tanto siento que este ejemplo no estará completo del todo pero cumple su propósito.</p>
+				<p class="my-text">Este ejemplo sirve para mostrar como generar una cada de caracteres de manera aleatoria (incluyendo caracteres numéricos y especiales) y utilizar la misma cadena para distintos propósitos: como una contraseña segura, por ejemplo. El desarrollo es simple, el único detalle es que en este ejemplo omití 2 caracteres especiales (¡ y ¿) por lo tanto siento que este ejemplo no estará completo del todo, pero cumple su propósito.</p>
 				<div class="row">
 					<div class="col-md-4">
 						<form role="form" class="needs-validation" id="formRandomString" novalidate>
@@ -1902,7 +1902,7 @@
 						</pre>
 						<samp>JS</samp>
 						<pre class="sb">
-							<code><span class="comment">// Evento del boton para generar la cade aleatoria.</span></code>
+							<code><span class="comment">// Evento del botón para generar la cadena aleatoria.</span></code>
 							<code><span class="pink">$</span>(<span class="yellow">'#send'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
 							<code>	<span class="cyan">let</span> length <span class="pink">= $</span>(<span class="yellow">'#length'</span>).<span class="cyan">val</span>();</code><br />
 							<code>	<span class="pink">$</span>.<span class="cyan">ajax</span>({</code>
@@ -1932,7 +1932,7 @@
 							<code><span class="pink">try</span> {</code>
 							<code>	<span class="comment">/**</span></code>
 							<code>	<span class="comment"> *</span></code>
-							<code>	<span class="comment"> * En caso de que se mande un dato no númerico</span></code>
+							<code>	<span class="comment"> * En caso de que se mande un dato no numérico</span></code>
 							<code>	<span class="comment"> * o que este tenga punto decimal, se retornará</span></code>
 							<code>	<span class="comment"> * un mensaje de error.</span></code>
 							<code>	<span class="comment"> */</span></code>
@@ -1942,7 +1942,7 @@
 							<code>		<span class="comment">// El rango de "length" será de entre 8 y 60.</span></code>
 							<code>		$length <span class="pink">=</span> <span class="orange">$_POST</span>[<span class="yellow">"length"</span>] <span class="pink">&lt;</span> <span class="purple">8</span> <span class="pink">?</span> <span class="purple">8</span> <span class="pink">:</span> (<span class="orange">$_POST</span>[<span class="yellow">"length"</span>] <span class="pink">&gt;</span> <span class="purple">60</span> <span class="pink">?</span> <span class="purple">60</span> <span class="pink">:</span> <span class="orange">$_POST</span>[<span class="yellow">"length"</span>]);</code>
 							<code>		$newString <span class="pink">=</span> <span class="yellow">""</span>;</code>
-							<code>		<span class="comment">// En la variable "chars" se encuentran la mayoría de caracteres alfa-númericos y especiales (con excepción de ¡ y ¿)</span></code>
+							<code>		<span class="comment">// En la variable "chars" se encuentran la mayoría de los caracteres alfa-numéricos y especiales (con excepción de ¡ y ¿)</span></code>
 							<code>		$chars <span class="pink">=</span> <span class="yellow">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?"</span><span class="purple">\'</span><span class="yellow">`#$%&amp;@|()[]{}^*+-/_.,:;\=&lt;&gt;'</span>;</code><br />
 							<code>		<span class="comment">/**</span></code>
 							<code>		 <span class="comment">*</span></code>
@@ -1988,7 +1988,7 @@
 			</div>
 			<div class="my-panel-body">
 				<h2>Validando formularios y mostrando el estatus de validación distinta a la que sugiere Bootstrap</h2>
-				<p class="my-text">Para este ejemplo usaré parte de la librería de estilos de Bootstrap (versión 5.3) para solo indicar si un campo del formulario es válido o no. En la propia documentación de <a href="https://getbootstrap.com/docs/5.3/forms/validation/" target="_blank">Bootstrap/Forms/Validation</a> muestra una forma de como crear el evento para que valide todos los campos de un formulario. Pero en este ejemplo mostraré otra forma de validación.</p>
+				<p class="my-text">Para este ejemplo usaré parte de la librería de estilos de Bootstrap (versión 5.3) para solo indicar si un campo del formulario es válido o no. En la propia documentación de <a href="https://getbootstrap.com/docs/5.3/forms/validation/" target="_blank">Bootstrap/Forms/Validation</a> muestra una forma de cómo crear el evento para que valide todos los campos de un formulario. Pero en este ejemplo mostraré otra forma de validación.</p>
 				<p class="my-text">El formulario a continuación será para crear una <a href="https://es.wiktionary.org/wiki/fursona#:~:text=Sustantivo%20femenino,-Singular&text=Personaje%20animal%20antropom%C3%B3rfico%20que%20representa%20a%20alguien%20en%20el%20furry%20fandom." target="_blank" title="¿Que es eso?">Fursona</a> (no me critiquen por ello, solo es un ejemplo) También usaré mi json de <var>Mis Furrys Favoritos</var> para validar solo el campo de "Nombre de su Fursona" de este ejemplo con el propósito de mostrar el funcionamiento de una validación remota.</p>
 				<div class="row">
 					<div class="col-md-5">
@@ -2170,7 +2170,7 @@
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* La función "is" devolverá true</span></code>
 							<code> <span class="comment">* si el campo que se está validando</span></code>
-							<code> <span class="comment">* coincide con la opración de los</span></code>
+							<code> <span class="comment">* coincide con la operación de los</span></code>
 							<code> <span class="comment">* parámetros $el, operator y value.</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Parámetros esperados:</span></code>
@@ -2302,7 +2302,7 @@
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* La función "isValidOnServer" tiene la finalidad</span></code>
 							<code> <span class="comment">* de validar desde un web service, ya sea si ya existe</span></code>
-							<code> <span class="comment">* o debe tener un formato especial o se valiede desde</span></code>
+							<code> <span class="comment">* o debe tener un formato especial o se valide desde</span></code>
 							<code> <span class="comment">* una API externa.</span></code>
 							<code> <span class="comment">* Esta función devolverá true si es válido desde el</span></code>
 							<code> <span class="comment">* web service, en caso contrario devolverá false.</span></code>
@@ -2465,7 +2465,7 @@
 							<code><span class="comment">/**</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* La función "isValidFileExtention" tiene la finalidad</span></code>
-							<code> <span class="comment">* validar si la extención de o los archivos coincide</span></code>
+							<code> <span class="comment">* validar si la extensión de o los archivos coincide</span></code>
 							<code> <span class="comment">* con el parámetro de extentions.</span></code>
 							<code> <span class="comment">*</span></code>
 							<code> <span class="comment">* Parámetros esperados:</span></code>
