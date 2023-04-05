@@ -11,9 +11,9 @@
 	<title>Paco Alex M | Mi Portafolio Personal de Ejemplos de Desarrollo Web</title>
 	<link rel="shortcut icon" href="<?php echo $_SESSION["MAIN_URL"] ?>favicon.png" type="image/png" />
 	<link rel="apple-touch-icon-precomposed" href="<?php echo $_SESSION["MAIN_URL"] ?>apple-touch-icon.png" sizes="196x196" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/fontawesome/css/all.min.css" />
-	<link rel="stylesheet" href="<?php echo $_SESSION["MAIN_URL"] ?>assets/css/style.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_CSS_URL"] ?>bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_FA_URL"] ?>all.min.css" />
+	<link rel="stylesheet" href="<?php echo $_SESSION["ASSETS_CSS_URL"] ?>style.css" />
 	<?php $titles = [
 		"<h1>&gt; header title goes here &lt;</h1>",
 		"<h1><i>Hi, I'm a Furry</i> =n///n=</h1>",
