@@ -1008,13 +1008,14 @@
 				<h3 class="my-panel-header-title"><del>Conteo de elementos en tabla</del> colecciones.json</h3>
 			</div>
 			<div class="my-panel-body">
-				<h2><var>$jsonFile</var> = <var>file_get_contents(</var>../collection.json<var>);</var></h2>
+				<h2><var>$jsonFile</var> = <var>file_get_contents( </var>../collection.json<var> );</var></h2>
 				<p class="my-text">Desde hace un buen rato que esta sección la he dejado olvidada (creo que por allá en el 2016 o 2017, no recuerdo bien) y no había tenido alguna idea de que hacer aquí. Hasta que vi algo interesante que se pueden hacer con los json's y objetos en PHP. A continuación, lo que les mostraré es algo muy especial para mí, porque no solo pone a prueba mis habilidades en PHP, sino que también puedo crear configuraciones con los mismos json's. Y no, no me he olvidado de dejar código para contar los renglones en la tabla.</p>
 				<div class="table-responsive">
 					<table class="table table-borderless table-hover caption-top" id="tableCollection">
-						<?php $description = $jsonCollectionRawHTML->description ?>
-						<?php $dataHeaders = $jsonCollectionRawHTML->dataHeaders ?>
-						<?php $dataRows = $jsonCollectionRawHTML->dataRows ?>
+						<?php if ($jsonCollectionRawHTML->success) : ?>
+						<?php $description = $jsonCollectionRawHTML->data->description ?>
+						<?php $dataHeaders = $jsonCollectionRawHTML->data->dataHeaders ?>
+						<?php $dataRows = $jsonCollectionRawHTML->data->dataRows ?>
 						<caption><?php echo $description ?></caption>
 						<thead>
 							<tr>
@@ -1036,6 +1037,19 @@
 							</tr>
 							<?php endforeach ?>
 						</tbody>
+						<?php else : ?>
+							<caption><i class="fa-solid fa-triangle-exclamation"></i> Error</caption>
+							<thead class="table-dark">
+								<tr>
+									<th>Message</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table-danger">
+									<td><?php echo $jsonCollectionRawHTML->message ?></td>
+								</tr>
+							</tbody>
+						<?php endif ?>
 					</table>
 				</div>
 				<div class="row">
@@ -1050,10 +1064,11 @@
 				<p class="my-text"><b>Primero:</b> el JSON dónde se cargarán todos los datos y sus respectivas configuraciones para ser mostrados en la interfaz y estos sean más atractivos o en su defecto para mejor comprensión por el usuario en turno. Cabe a destacar que las configuraciones en este JSON son solo un ejemplo de lo que se puede crear, configurar y/o validar con el mismo, claro, siempre y cuando exista un lenguaje (en este caso: PHP), framework o api que los interprete.</p>
 				<samp>JSON</samp>
 				<pre class="sb">
-					<?php $columns = $jsonCollection->collection_configuration->columns ?>
-					<?php $snippets = $jsonCollection->collection_configuration->data->snippets ?>
-					<?php $conditions = $jsonCollection->collection_configuration->data->conditions ?>
-					<?php $collectionItems = $jsonCollection->collection_items ?>
+					<?php if ($jsonCollection->success) : ?>
+					<?php $columns = $jsonCollection->data->collection_configuration->columns ?>
+					<?php $snippets = $jsonCollection->data->collection_configuration->data->snippets ?>
+					<?php $conditions = $jsonCollection->data->collection_configuration->data->conditions ?>
+					<?php $collectionItems = $jsonCollection->data->collection_items ?>
 					<code><span class="comment">/**</span></code>
 					<code> <span class="comment">*</span></code>
 					<code> <span class="comment">* Este solo es un extracto de la colección de datos almacenados en este sitio.</span></code>
@@ -1132,8 +1147,8 @@
 					<?php endif ?>
 					<code>		}</code>
 					<code>	},</code>
-					<code>	<span class="yellow">"collection_name"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_name ?>"</span>, <span class="comment">// Nombre del archivo JSON.</span></code>
-					<code>	<span class="yellow">"collection_description"</span>: <span class="yellow">"<?php echo $jsonCollection->collection_description ?>"</span>, <span class="comment">// Descripción GUI del archivo.</span></code>
+					<code>	<span class="yellow">"collection_name"</span>: <span class="yellow">"<?php echo $jsonCollection->data->collection_name ?>"</span>, <span class="comment">// Nombre del archivo JSON.</span></code>
+					<code>	<span class="yellow">"collection_description"</span>: <span class="yellow">"<?php echo $jsonCollection->data->collection_description ?>"</span>, <span class="comment">// Descripción GUI del archivo.</span></code>
 					<code>	<span class="yellow">"collection_items"</span>: [</code>
 					<code>		<span class="comment">/**</span></code>
 					<code>		 <span class="comment">*</span></code>
@@ -1149,6 +1164,13 @@
 					<?php endforeach ?>
 					<code>	]</code>
 					<code>}</code>
+					<?php else : ?>
+					<code>{</code>
+					<code>	<span class="yellow">"success"</span>: <span class="purple">false</span>,</code>
+					<code>	<span class="yellow">"message"</span>: <span class="yellow">"<?php echo $jsonCollection->message ?>"</span>,</code>
+					<code>	<span class="yellow">"data"</span>: <span class="purple">null</span></code>
+					<code>}</code>
+					<?php endif ?>
 				</pre>
 				<p class="my-text">Por supuesto que en este ejemplo solo se muestra un puñado de datos de las colecciones almacenadas en este sitio, pero de todas formas este ejemplo da inca pie a desarrollar configuraciones usando json's. También debo mencionar que la estructura de "collection_configuration" del json es igual para todas las colecciones que pueda agregar en un futuro, solo variarían las columnas, los snippets y sus condiciones.</p>
 				<p class="my-text"><b>Segundo:</b> la lógica del backend que traerá los datos de la colección (en este caso de forma aleatoria). Para este caso he desarrollado 2 funciones: una para obtener una cantidad específica de datos de la colección y la otra para darle formato para mostrarse en el frontend.</p>
@@ -1163,7 +1185,7 @@
 					<code> <span class="comment">* especificada por la variable $take.</span></code>
 					<code> <span class="comment">*/</code>
 					<code><span class="cyan">function</span> <span class="green">initCollection</span> (<span class="orange">$take</span> <span class="pink">=</span> <span class="purple">0</span>) {</code>
-					<code>	$jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/<?php echo $jsonCollection->collection_name ?>.json"</span>); <span class="comment">// NOTA: El nombre del archivo json no se actualiza dinámicamente al refrescar la tabla.</span></code>
+					<code>	$jsonFile <span class="pink">=</span> <span class="cyan">file_get_contents</span>(<span class="yellow">"collections/<?php echo $jsonCollection->data->collection_name ?>.json"</span>); <span class="comment">// NOTA: El nombre del archivo json no se actualiza dinámicamente al refrescar la tabla.</span></code>
 					<code>	$isArrayAssociative <span class="pink">=</span> <span class="purple">false</span>; <span class="comment">// Esto indica que será un objeto en lugar de un arreglo asociativo.</span></code>
 					<code>	$jsonData <span class="pink">=</span> <span class="cyan">json_decode</span>($jsonFile, $isArrayAssociative);</code><br />
 					<code>	<span class="comment">/**</span></code>
@@ -3180,7 +3202,7 @@
 				} else {
 					$('#tableCollection > caption').html(`<i class="fa-solid fa-triangle-exclamation"></i> Error`);
 					$('#tableCollection > thead').html(`<tr><th>Message</th></tr>`).addClass('table-dark');
-					$('#tableCollection > tbody').html(`<tr class="table-danger"><td>${response.data.message}</td></tr>`);
+					$('#tableCollection > tbody').html(`<tr class="table-danger"><td>${response.message}</td></tr>`);
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
