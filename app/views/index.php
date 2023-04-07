@@ -699,11 +699,25 @@
 				<h3 class="my-panel-header-title"><del>Número de archivos por cargar</del> Drop Zone</h3>
 			</div>
 			<div class="my-panel-body">
-				<pre class="sb">
-					<code>Debo una codificación.</code>
-				</pre>
-				<h1>No hay archivos seleccionados...</h1>
-				<input name="to-load" id="to-load" type="file" multiple />
+				<h2>Arrastra y Suelta <i class="fa-solid fa-hand-holding-droplet"></i></h2>
+				<p class="my-text">Anteriormente tenía en pensado usar esta sección para un ejemplo sencillo de conteo de archivos seleccionados mediante un input de tipo "file", pero al final lo dejé de lado (junto con el ejemplo de Conteo de elementos en tabla: ahora conocido como colecciones.json) por un largo tiempo. Y como verás en el título que dice Drop zone, mostraré cómo hacer un drop zone funcional. </p>
+				<p class="my-text">También debo mencionar que el ejemplo a continuación lo quería incluir en el ejemplo de &gt; Carga de archivos &lt;, pero por limitaciones de la propia api de SimpleAjaxUploader tuve que descartar esa idea. </p>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="my-drop-zone" id="divDropZone">
+							<input type="file" id="inputDropZone" name="inputDropZone" multiple />
+							<label for="inputDropZone">
+								<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>
+							</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<samp>OUTPUT</samp>
+						<pre class="sb">
+							<code>No hay archivos seleccionados</code>
+						</pre>
+					</div>
+				</div>
 
 				<!--
 				<div class="row">
