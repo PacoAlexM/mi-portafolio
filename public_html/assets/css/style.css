@@ -84,9 +84,10 @@ body::-webkit-scrollbar-thumb {
 }
 .my-div-quote > figure > blockquote > p {
   color: #fff;
-  font-size: 25px;
+  font-size: 16px;
 }
 .my-div-quote > figure > figcaption {
+  font-size: 11px;
   color: #fff;
 }
 @media (min-width: 768px) {
@@ -487,6 +488,7 @@ body.uploading-files {
   -webkit-transition: all .3s;
   transition: all .3s;
   color: #000;
+  margin-bottom: 15px;
 }
 .my-drop-zone > input {
   display: none;
