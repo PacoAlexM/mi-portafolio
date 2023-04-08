@@ -703,6 +703,16 @@
 				<p class="my-text">Anteriormente tenía en pensado usar esta sección para un ejemplo sencillo de conteo de archivos seleccionados mediante un input de tipo "file", pero al final lo dejé de lado (junto con el ejemplo de Conteo de elementos en tabla: ahora conocido como colecciones.json) por un largo tiempo. Y como verás en el título que dice Drop zone, mostraré cómo hacer un drop zone funcional. </p>
 				<p class="my-text">También debo mencionar que el ejemplo a continuación lo quería incluir en el ejemplo de &gt; Carga de archivos &lt;, pero por limitaciones de la propia api de SimpleAjaxUploader tuve que descartar esa idea. </p>
 				<div class="row">
+					<div class="col">
+						<label class="mb-3">¿Reemplazar archivos seleccionados anteriormente?
+							<label class="my-switch">
+								<input type="checkbox" id="checkReplaceFilesDropZone" checked />
+								<span class="my-slider"></span>
+							</label>
+						</label>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-6">
 						<div class="my-drop-zone" id="divDropZone">
 							<input type="file" id="inputDropZone" name="inputDropZone" multiple />
@@ -718,90 +728,19 @@
 						</pre>
 					</div>
 				</div>
-
-				<!--
-				<div class="row">
-					<div class="col">
-						<div class="my-drop-zone" id="divFileSimpleAjaxUploader">
-							<input type="file" id="inputFileSimpleAjaxUploader" name="inputFileSimpleAjaxUploader" multiple />
-							<label for="inputFileSimpleAjaxUploader">
-								<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>
-							</label>
-						</div>
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="col">
-						<div class="table-responsive">
-							<table class="table table-borderless table-hover" id="tableFilesSimpleAjaxUploader">
-								<thead>
-									<tr>
-										<th>Archivo</th>
-										<th>Tipo</th>
-										<th>Tamaño (Aproximado)</th>
-										<th>Última Modificación</th>
-										<th>Porcentaje de Carga</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="5" class="text-center">No hay archivos por cargar.</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 offset-md-1">
-						<div class="d-grid gap-1">
-							<button type="button" class="btn btn-success" id="buttonUploadSimpleAjaxUploader"><i class="fa-solid fa-cloud-arrow-up"></i> Cargar Archivos</button>
-						</div>
-					</div>
-					<div class="col-md-4 offset-md-2">
-						<div class="d-grid gap-1">
-							<button type="button" class="btn btn-light" id="buttonResetSimpleAjaxUploader" disabled><i class="fa-solid fa-eraser"></i> Eliminar Archivos</button>
-						</div>
-					</div>
-				</div>
-				<br />
 				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<samp>HTML</samp>
+				<pre class="sb">
+					<code><span class="comment">&lt;!-- Todo este div actuará como receptor de archivos al arrastrarlos y soltarlos. --&gt;</span></code>
+					<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"my-drop-zone"</span> <span class="green">id</span>=<span class="yellow">"dropZone"</span>&gt;</code>
+					<code>	<span class="comment">&lt;!-- Este input estará invisible y solo se accionará mediante su label. --&gt;</span></code>
+					<code>	&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">id</span>=<span class="yellow">"inputDropZone"</span> <span class="green">name</span>=<span class="yellow">"inputDropZone"</span> <span class="green">multiple</span> /&gt;</code>
+					<code>	&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"inputDropZone"</span>&gt;</code>
+					<code>		&lt;<span class="pink">strong</span>&gt;Seleccione sus archivos&lt;/<span class="pink">strong</span>&gt; o arrástrelos aquí &lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-hand-point-down"</span>&gt;&lt;/<span class="pink">i</span>&gt;</code>
+					<code>	&lt;/<span class="pink">label</span>&gt;</code>
+					<code>&lt;/<span class="pink">div</span>&gt;</code>
+				</pre>
 				<div class="row">
-					<div class="col-md-7">
-						<samp>HTML</samp>
-						<pre class="sb">
-							<code><span class="comment">&lt;!-- Aquí estará el input que cargará los archivos. --&gt;</span></code>
-							<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"my-drop-zone"</span> <span class="green">id</span>=<span class="yellow">"divFile"</span>&gt;</code>
-							<code>    &lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">id</span>=<span class="yellow">"inputFile"</span> <span class="green">name</span>=<span class="yellow">"inputFile"</span> <span class="green">multiple</span> /&gt;</code>
-							<code>    &lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"inputFile"</span>&gt;</code>
-							<code>        &lt;<span class="pink">strong</span>&gt;Seleccione sus archivos&lt;/<span class="pink">strong</span>&gt</code>
-							<code>    &lt;/<span class="pink">label</span>&gt;</code>
-							<code>&lt;/<span class="pink">div</span>&gt;</code><br />
-							<code><span class="comment">&lt;!-- Tabla donde se mostrarán los archivos por cargar. --&gt;</span></code>
-							<code>&lt;<span class="pink">table</span> <span class="green">id</span>=<span class="yellow">"tableFiles"</span>&gt;</code>
-							<code>    &lt;<span class="pink">thead</span>&gt;</code>
-							<code>        &lt;<span class="pink">tr</span>&gt;</code>
-							<code>            &lt;<span class="pink">th</span>&gt;Archivo&lt;/<span class="pink">th</span>&gt;</code>
-							<code>            &lt;<span class="pink">th</span>&gt;Tipo&lt;/<span class="pink">th</span>&gt;</code>
-							<code>            &lt;<span class="pink">th</span>&gt;Tamaño (Aproximado)&lt;/<span class="pink">th</span>&gt;</code>
-							<code>            &lt;<span class="pink">th</span>&gt;Última Modificación&lt;/<span class="pink">th</span>&gt;</code>
-							<code>            &lt;<span class="pink">th</span>&gt;Porcentaje de Carga&lt;/<span class="pink">th</span>&gt;</code>
-							<code>        &lt;/<span class="pink">tr</span>&gt;</code>
-							<code>    &lt;/<span class="pink">thead</span>&gt;</code>
-							<code>    &lt;<span class="pink">tbody</span>&gt;</code>
-							<code>        &lt;<span class="pink">tr</span>&gt;</code>
-							<code>            &lt;<span class="pink">td</span> <span class="green">colspan</span>=<span class="yellow">"5"</span> <span class="green">style</span>=<span class="yellow">"</span><span class="cyan">text-align</span>: <span class="cyan">center</span>;<span class="yellow">"</span>&gt;No hay archivos por cargar.&lt;/<span class="pink">td</span>&gt;</code>
-							<code>        &lt;/<span class="pink">tr</span>&gt;</code>
-							<code>    &lt;/<span class="pink">tbody</span>&gt;</code>
-							<code>&lt;/<span class="pink">table</span>&gt;</code><br />
-							<code><span class="comment">&lt;!-- Botones de carga y eliminación de archivos por cargar. --&gt;</span></code>
-							<code><span class="comment">&lt;!-- Estarán desactivados por defecto hasta que se seleccionen archivos por cargar. --&gt;</span></code>
-							<code>&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">id</span>=<span class="yellow">"buttonUpload"</span> <span class="green">disabled</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-cloud-arrow-up"</span>&gt;&lt;/<span class="pink">i</span>&gt; Cargar Archivos&lt;/<span class="pink">button</span>&gt;</code>
-							<code>&lt;<span class="pink">br</span> /&gt;</code>
-							<code>&lt;<span class="pink">button</span> <span class="green">type</span>=<span class="yellow">"button"</span> <span class="green">id</span>=<span class="yellow">"buttonReset"</span> <span class="green">disabled</span>&gt;&lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-eraser"</span>&gt;&lt;/<span class="pink">i</span>&gt; Eliminar Archivos&lt;/<span class="pink">button</span>&gt;</code>
-						</pre>
-					</div>
 					<div class="col-md-5">
 						<samp>CSS</samp>
 						<pre class="sb">
@@ -818,6 +757,7 @@
 							<code>  <span class="cyan">-webkit-transition</span>: <span class="cyan">all</span> <span class="purple">.3</span><span class="cyan">s</span>;</code>
 							<code>  <span class="cyan">transition</span>: <span class="cyan">all</span> <span class="purple">.3</span><span class="cyan">s</span>;</code>
 							<code>  <span class="cyan">color</span>: <span class="purple">#000</span>;</code>
+							<code>  <span class="cyan">margin-bottom</span>: <span class="purple">15</span><span class="cyan">px</span>;</code>
 							<code>}</code>
 							<code><span class="green">.my-drop-zone</span> <span class="pink">&gt; input</span> {</code>
 							<code>  <span class="cyan">display</span>: <span class="cyan">none</span>;</code>
@@ -826,12 +766,6 @@
 							<code>  <span class="cyan">cursor</span>: <span class="cyan">pointer</span>;</code>
 							<code>  <span class="cyan">margin</span>: <span class="purple">0</span>;</code>
 							<code>}</code>
-							<code><span class="comment">/**</span></code>
-							<code> <span class="comment">*</span></code>
-							<code> <span class="comment">* Los colores de los bordes, textos y fondos</span></code>
-							<code> <span class="comment">* fueron tomados de la librería de estilos de</span></code>
-							<code> <span class="comment">* Bootstrap 5.</span></code>
-							<code> <span class="comment">*/</span></code>
 							<code><span class="green">.my-drop-zone.my-drop-zone-blue</span> {</code>
 							<code>  <span class="cyan">background-color</span>: <span class="purple">#cfe2ff</span>;</code>
 							<code>  <span class="cyan">color</span>: <span class="purple">#0a58ca</span>;</code>
@@ -854,7 +788,47 @@
 							<code>}</code>
 						</pre>
 					</div>
+					<div class="col-md-7">
+						<samp>JS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Esta variable será para asignarle</span></code>
+							<code> <span class="comment">* el valor de lista de archivos al</span></code>
+							<code> <span class="comment">* input.</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="cyan">var</span> _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* Función para manejar los</span></code>
+							<code> <span class="comment">* cambios del input/dropZone.</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="cyan">const</span> <span class="green">onChangeDropZone</span> <span class="pink">=</span> <span class="orange">files</span> <span class="cyan">=&gt;</span> {</code>
+							<code>	<span class="cyan">let</span> $dropZone <span class="pink">= $</span>(<span class="yellow">'#dropZone'</span>);</code>
+							<code>	<span class="cyan">let</span> tempDataTransfer <span class="pink">=</span> _dataTransferFiles;</code><br />
+							<code>	$dropZone</code>
+							<code>		.<span class="cyan">removeClass</span>(<span class="yellow">'my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow'</span>);</code><br />
+							<code>	<span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
+							<code>	} <span class="pink">else</span> {</code>
+							<code>		<span class="comment">/**</span></code>
+							<code>		 <span class="comment">*</span></code>
+							<code>		 <span class="comment">* Supongamos que aquí hay una</span></code>
+							<code>		 <span class="comment">* condición que indique que</span></code>
+							<code>		 <span class="comment">* reemplace o no los archivos</span></code>
+							<code>		 <span class="comment">* seleccionados.</span></code>
+							<code>		 <span class="comment">*/</span></code>
+							<code>		_dataTransferFiles <span class="pink">= new</span> DataTransfer();</code>
+							<code>		<span class="comment">/**</span></code>
+							<code>		 <span class="comment">*</span></code>
+							<code>		 <span class="comment">* Fin de la instrucción.</span></code>
+							<code>		 <span class="comment">*/</span></code><br />
+							<code>		<span class="pink">$</span>(<span class="yellow">'#inputDropZone'</span>)[<span class="purple">0</span>].files <span class="pink">=</span> _dataTransferFiles.files;</code>
+							<code>	}</code>
+							<code>}</code>
+						</pre>
+					</div>
 				</div>
+				<!--
 				<samp>JS</samp>
 				<pre class="sb">
 					<code><span class="comment">/**</span></code>
@@ -996,10 +970,6 @@
 					<code>    _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
 					<code>    <span class="cyan">onChangeHandler</span>();</code>
 					<code>});</code>
-				</pre>
-				<samp>OUTPUT</samp>
-				<pre class="sb" id="preOutPutSimpleAjaxUploader">
-					<code><a href="#">Verificar si el input tiene archivos cargados</a></code>
 				</pre>
 				<p class="my-text">Hasta este punto solo he mostrado la parte del frontend y su lógica, ahora continuare con la lógica para la subida de archivos y el comportamiento del backend.</p>
 				<div class="row">
@@ -2649,7 +2619,7 @@
 	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>SimpleAjaxUploader.min.js"></script>
 	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>myValidator.js"></script>
 	<script type="text/javascript">
-	// var _dataTransferFiles = new DataTransfer();
+	var _dataTransferFiles = new DataTransfer();
 	var _arrayInfoFiles = new Array();
 	var _generalPct = 0;
 	var _uploadedFiles = 0;
@@ -2687,6 +2657,37 @@
 		$('#formValidationJS').addClass('was-validated');
 
 		return valid;
+	}
+	const onChangeDropZone = files => {
+		let $dropZone = $('#divDropZone');
+		let tempDataTransfer = _dataTransferFiles;
+
+		$dropZone
+			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow');
+
+		if (files.length > 0) {
+			_dataTransferFiles = new DataTransfer();
+
+			if (!$('#checkReplaceFilesDropZone').is(':checked')) {
+				for (let i = 0; i < (fileList = tempDataTransfer.files).length; i++)
+					_dataTransferFiles.items.add(new File([fileList[i]], fileList[i].name, {
+						type: fileList[i].type,
+						lastModified: fileList[i].lastModified
+					}));
+			}
+
+			for (let i = 0; i < files.length; i++) {
+				_dataTransferFiles.items.add(new File([files[i]], files[i].name, {
+					type: files[i].type,
+					lastModified: files[i].lastModified
+				}));
+			}
+		} else {
+			if ($('#checkReplaceFilesDropZone').is(':checked'))
+				_dataTransferFiles = new DataTransfer();
+
+			$('#inputDropZone')[0].files = _dataTransferFiles.files;
+		}
 	}
 
 	var _simpleAjaxUploader = new ss.SimpleUpload({
@@ -2947,38 +2948,6 @@
 		return newString;
 	}
 
-	// /*async*/ function sortBySizeSimpleAjaxUploader () {
-		// let filesToSort = Array.from(_dataTransferFiles.files);
-		// let sortedFiles = new DataTransfer();
-
-		// let filesToSort = _arrayInfoFiles;
-
-		/*
-		for (var i = 0; i < filesToSort.length; i++) {
-			for (var j = 0; j < (filesToSort.length - 1); j++) {
-				if (filesToSort[j].size > filesToSort[j + 1].size) {
-					let first = filesToSort[j];
-					let next = filesToSort[j + 1];
-					filesToSort[j] = next;
-					filesToSort[j + 1] = first;
-				}
-			}
-		}
-		*/
-
-		/*
-		for (var i = 0; i < filesToSort.length; i++)
-			await sortedFiles.items.add(new File([filesToSort[i]], filesToSort[i].name, {
-				type: filesToSort[i].type,
-				lastModified: filesToSort[i].lastModified
-			}));
-		*/
-
-		// return sortedFiles;
-
-		// return filesToSort;
-	// }
-
 	$(document).ready(function (e) {
 		if ($(window).scrollTop() >= ($(window).height() * 2)) $('#buttonToTop').addClass('my-fade-effect-off').removeClass('my-fade-effect-on');
 		else $('#buttonToTop').addClass('my-fade-effect-on').removeClass('my-fade-effect-off');
@@ -3050,12 +3019,6 @@
 	});
 
 	/*
-	$('#inputFileSimpleAjaxUploader').on('change', function (e) {
-		e.preventDefault();
-
-		onChangeHandlerSimpleAjaxUploader(e.target.files);
-	});
-
 	$('#divFileSimpleAjaxUploader').on('drop', function (e) {
 		e.preventDefault();
 
@@ -3232,6 +3195,12 @@
 
 	$('#buttonRowsCount').click(function () {
 		$('#spanRowsCount').html($('#tableCollection > tbody > tr').length);
+	});
+
+	$('#inputDropZone').on('change', function (e) {
+		e.preventDefault();
+
+		onChangeDropZone(e.target.files);
 	});
 
 	$('#checkApplyOpacity').on('change', function () {
