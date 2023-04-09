@@ -699,7 +699,7 @@
 				<h3 class="my-panel-header-title"><del>Número de archivos por cargar</del> Drop Zone</h3>
 			</div>
 			<div class="my-panel-body">
-				<h2>Arrastra y Suelta <i class="fa-solid fa-hand-holding-droplet"></i></h2>
+				<h2>Arrastra y suelta <i class="fa-solid fa-hand-holding-droplet"></i></h2>
 				<p class="my-text">Anteriormente tenía en pensado usar esta sección para un ejemplo sencillo de conteo de archivos seleccionados mediante un input de tipo "file", pero al final lo dejé de lado (junto con el ejemplo de Conteo de elementos en tabla: ahora conocido como colecciones.json) por un largo tiempo. Y como verás en el título que dice Drop zone, mostraré cómo hacer un drop zone funcional. </p>
 				<p class="my-text">También debo mencionar que el ejemplo a continuación lo quería incluir en el ejemplo de &gt; Carga de archivos &lt;, pero por limitaciones de la propia api de SimpleAjaxUploader tuve que descartar esa idea. </p>
 				<div class="row">
@@ -713,17 +713,17 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-7">
 						<div class="my-drop-zone" id="divDropZone">
-							<input type="file" id="inputDropZone" name="inputDropZone" multiple />
+							<input type="file" id="inputDropZone" name="inputDropZone" accept=".jpg, .png, .gif, .webm" multiple />
 							<label for="inputDropZone">
-								<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>
+								<strong>Seleccione sus archivos (.jpg, .png, .gif o .webm)</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>
 							</label>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<samp>OUTPUT</samp>
-						<pre class="sb">
+						<pre class="sb" id="preOutPutDropZone">
 							<code>No hay archivos seleccionados</code>
 						</pre>
 					</div>
@@ -731,12 +731,19 @@
 				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
 				<samp>HTML</samp>
 				<pre class="sb">
+					<code><span class="comment">&lt;!-- Este checkbox tendrá la utilidad de conservar o reemplazar los archivos seleccionados. --&gt;</span></code>
+					<code>&lt;<span class="pink">label</span> <span class="green">class</span>=<span class="yellow">"mb-3"</span>&gt;¿Reemplazar archivos seleccionados anteriormente?</code>
+					<code>	&lt;<span class="pink">label</span> <span class="green">class</span>=<span class="yellow">"my-switch"</span>&gt;</code>
+					<code>		&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"checkbox"</span> <span class="green">id</span>=<span class="yellow">"checkReplaceFiles"</span> <span class="green">checked</span> /&gt;</code>
+					<code>		&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"my-slider"</span>&gt;&lt;/<span class="pink">span</span>&gt;</code>
+					<code>	&lt;/<span class="pink">label</span>&gt;</code>
+					<code>&lt;/<span class="pink">label</span>&gt;</code><br />
 					<code><span class="comment">&lt;!-- Todo este div actuará como receptor de archivos al arrastrarlos y soltarlos. --&gt;</span></code>
 					<code>&lt;<span class="pink">div</span> <span class="green">class</span>=<span class="yellow">"my-drop-zone"</span> <span class="green">id</span>=<span class="yellow">"dropZone"</span>&gt;</code>
 					<code>	<span class="comment">&lt;!-- Este input estará invisible y solo se accionará mediante su label. --&gt;</span></code>
-					<code>	&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">id</span>=<span class="yellow">"inputDropZone"</span> <span class="green">name</span>=<span class="yellow">"inputDropZone"</span> <span class="green">multiple</span> /&gt;</code>
+					<code>	&lt;<span class="pink">input</span> <span class="green">type</span>=<span class="yellow">"file"</span> <span class="green">id</span>=<span class="yellow">"inputDropZone"</span> <span class="green">name</span>=<span class="yellow">"inputDropZone"</span> <span class="green">accept</span>=<span class="yellow">".jpg, .png, .gif, .webm"</span> <span class="green">multiple</span> /&gt;</code>
 					<code>	&lt;<span class="pink">label</span> <span class="green">for</span>=<span class="yellow">"inputDropZone"</span>&gt;</code>
-					<code>		&lt;<span class="pink">strong</span>&gt;Seleccione sus archivos&lt;/<span class="pink">strong</span>&gt; o arrástrelos aquí &lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-hand-point-down"</span>&gt;&lt;/<span class="pink">i</span>&gt;</code>
+					<code>		&lt;<span class="pink">strong</span>&gt;Seleccione sus archivos (.jpg, .png, .gif o .webm)&lt;/<span class="pink">strong</span>&gt; o arrástrelos aquí &lt;<span class="pink">i</span> <span class="green">class</span>=<span class="yellow">"fa-solid fa-hand-point-down"</span>&gt;&lt;/<span class="pink">i</span>&gt;</code>
 					<code>	&lt;/<span class="pink">label</span>&gt;</code>
 					<code>&lt;/<span class="pink">div</span>&gt;</code>
 				</pre>
@@ -806,182 +813,76 @@
 							<code><span class="cyan">const</span> <span class="green">onChangeDropZone</span> <span class="pink">=</span> <span class="orange">files</span> <span class="cyan">=&gt;</span> {</code>
 							<code>	<span class="cyan">let</span> $dropZone <span class="pink">= $</span>(<span class="yellow">'#dropZone'</span>);</code>
 							<code>	<span class="cyan">let</span> tempDataTransfer <span class="pink">=</span> _dataTransferFiles;</code><br />
-							<code>	$dropZone</code>
-							<code>		.<span class="cyan">removeClass</span>(<span class="yellow">'my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow'</span>);</code><br />
-							<code>	<span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
-							<code>	} <span class="pink">else</span> {</code>
-							<code>		<span class="comment">/**</span></code>
-							<code>		 <span class="comment">*</span></code>
-							<code>		 <span class="comment">* Supongamos que aquí hay una</span></code>
-							<code>		 <span class="comment">* condición que indique que</span></code>
-							<code>		 <span class="comment">* reemplace o no los archivos</span></code>
-							<code>		 <span class="comment">* seleccionados.</span></code>
-							<code>		 <span class="comment">*/</span></code>
-							<code>		_dataTransferFiles <span class="pink">= new</span> DataTransfer();</code>
-							<code>		<span class="comment">/**</span></code>
-							<code>		 <span class="comment">*</span></code>
-							<code>		 <span class="comment">* Fin de la instrucción.</span></code>
-							<code>		 <span class="comment">*/</span></code><br />
-							<code>		<span class="pink">$</span>(<span class="yellow">'#inputDropZone'</span>)[<span class="purple">0</span>].files <span class="pink">=</span> _dataTransferFiles.files;</code>
-							<code>	}</code>
+							<code>	<span class="comment">// Manejar excepciones.</span></code>
+							<code>	<span class="pink">try</span> {</code>
+							<code>		<span class="comment">// Retirar las clases del elemento drop zone.</span></code>
+							<code>		$dropZone</code>
+							<code>			.<span class="cyan">removeClass</span>(<span class="yellow">'my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow'</span>);</code><br />
+							<code>		<span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
+							<code>			_dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
+							<code>			<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">`Archivo(s) seleccionado(s):`</span>);</code><br />
+							<code>			<span class="comment">/**</span></code>
+							<code>			 <span class="comment">*</span></code>
+							<code>			 <span class="comment">* Esta condición será de uso</span></code>
+							<code>			 <span class="comment">* para que los nuevos archivos</span></code>
+							<code>			 <span class="comment">* se agreguen a la lista de</span></code>
+							<code>			 <span class="comment">* archivos seleccionados</span></code>
+							<code>			 <span class="comment">* anteriormente y no reemplazarlos</span></code>
+							<code>			 <span class="comment">* por una lista nueva. </span></code>
+							<code>			 <span class="comment">*/</span></code>
+							<code>			<span class="pink">if</span> (<span class="pink">!$</span>(<span class="yellow">'#checkReplaceFiles'</span>).<span class="cyan">is</span>(<span class="yellow">':checked'</span>)) {</code>
+							<code>				<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> (fileList <span class="pink">=</span> tempDataTransfer.files).length; i<span class="pink">++</span>) {</code>
+							<code>					<span class="comment">// Validar el tipo de archivo.</span></code>
+							<code>					<span class="pink">if</span> ([<span class="yellow">'image/jpeg'</span>, <span class="yellow">'image/png'</span>, <span class="yellow">'image/gif'</span>, <span class="yellow">'image/webp'</span>].<span class="cyan">includes</span>(fileList[i].type))</code>
+							<code>						<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">` - [OK]</span> ${fileList[i].name}<span class="yellow">`</span>);</code>
+							<code>					<span class="pink">else</span></code>
+							<code>						<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">` - [ERROR]</span> ${fileList[i].name} <span class="yellow">| tipo de archivo no válido`</span>);</code><br />
+							<code>					_dataTransferFiles.items.<span class="cyan">add</span>(<span class="pink">new</span> File([fileList[i]], fileList[i].name, {</code>
+							<code>						type: fileList[i].type,</code>
+							<code>						lastModified: fileList[i].lastModified</code>
+							<code>					}));</code>
+							<code>				}</code>
+							<code>			}</code><br />
+							<code>			<span class="pink">for</span> (<span class="cyan">let</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> files.length; i<span class="pink">++</span>) {</code>
+							<code>				<span class="comment">// Validar el tipo de archivo.</span></code>
+							<code>				<span class="pink">if</span> ([<span class="yellow">'image/jpeg'</span>, <span class="yellow">'image/png'</span>, <span class="yellow">'image/gif'</span>, <span class="yellow">'image/webp'</span>].<span class="cyan">includes</span>(files[i].type))</code>
+							<code>					<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">` - [OK]</span> ${files[i].name}<span class="yellow">`</span>);</code>
+							<code>				<span class="pink">else</span></code>
+							<code>					<span class="cyan">console</span>.<span class="cyan">log</span>(<span class="yellow">` - [ERROR]</span> ${files[i].name} <span class="yellow">| tipo de archivo no válido`</span>);</code><br />
+							<code>				_dataTransferFiles.items.<span class="cyan">add</span>(<span class="pink">new</span> File([files[i]], files[i].name, {</code>
+							<code>					type: files[i].type,</code>
+							<code>					lastModified: files[i].lastModified</code>
+							<code>				}));</code>
+							<code>			}</code><br />
+							<code>			<span class="comment">/**</span></code>
+							<code>			 <span class="comment">*</span></code>
+							<code>			 <span class="comment">* Se declaran las variables de "length"</span></code>
+							<code>			 <span class="comment">* y "singlePlural" para mostrar el número</span></code>
+							<code>			 <span class="comment">* de archivos seleccionados en el drop</span></code>
+							<code>			 <span class="comment">* zone.</span></code>
+							<code>			 <span class="comment">*/</span></code>
+							<code>			<span class="cyan">let</span> length <span class="pink">=</span> _dataTransferFiles.files.length;</code>
+							<code>			<span class="cyan">let</span> singlePlural <span class="pink">=</span> length <span class="pink">==</span> <span class="purple">1</span> <span class="pink">?</span> [<span class="yellow">'archivo'</span>, <span class="yellow">'seleccionado'</span>] <span class="pink">:</span> [<span class="yellow">'archivos'</span>, <span class="yellow">'seleccionados'</span>];</code><br />
+							<code>			<span class="pink">$</span>(<span class="yellow">'#divDropZone'</span>)</code>
+							<code>				.<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-green'</span>)</code>
+							<code>				.<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+							<code>				.<span class="cyan">html</span>(<span class="yellow">`&lt;strong&gt;</span>${length} ${singlePlural[<span class="purple">0</span>]}<span class="yellow">&lt;/strong&gt;</span> ${singlePlural[<span class="purple">1</span>]}<span class="yellow">.`</span>);</code>
+							<code>		} <span class="pink">else</span> {</code>
+							<code>			<span class="pink">if</span> (<span class="pink">$</span>(<span class="yellow">'#checkReplaceFiles'</span>).<span class="cyan">is</span>(<span class="yellow">':checked'</span>)) _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code>
+							<code>		}</code>
+							<code>	} <span class="pink">catch</span> (exception) {</code>
+							<code>		_dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
+							<code>		$dropZone</code>
+							<code>			.<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-red'</span>)</code>
+							<code>			.<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
+							<code>			.<span class="cyan">html</span>(<span class="yellow">`&lt;strong&gt;&lt;i class="fa-solid fa-exclamation"&gt;&lt;/i&gt;</span> ${exception.message}<span class="yellow">&lt;/strong&gt;`</span>);</code>
+							<code>	}</code><br />
+							<code>	<span class="pink">$</span>(<span class="yellow">'#inputDropZone'</span>)[<span class="purple">0</span>].files <span class="pink">=</span> _dataTransferFiles.files;</code>
 							<code>}</code>
 						</pre>
 					</div>
 				</div>
-				<!--
-				<samp>JS</samp>
-				<pre class="sb">
-					<code><span class="comment">/**</span></code>
-					<code> <span class="comment">*</span></code>
-					<code> <span class="comment">* Antes que nada, debo mencionar que este</span></code>
-					<code> <span class="comment">* ejemplo lo hice con modalidad para arrastrar</span></code>
-					<code> <span class="comment">* y soltar también, y no me había percatado de</span></code>
-					<code> <span class="comment">* que la librería de SimpleAjaxUploader solo</span></code>
-					<code> <span class="comment">* funciona con elementos inputs y/o elementos</span></code>
-					<code> <span class="comment">* con dragAndDrop habilitado y no con arreglos.</span></code>
-					<code> <span class="comment">*</span></code>
-					<code> <span class="comment">* Afortunadamente un héroe o heroína sin capa</span></code>
-					<code> <span class="comment">* comentó una <a href="https://stackoverflow.com/a/70485949" target="_blank">respuesta muy buena</a> en Stack Overflow.</span></code>
-					<code> <span class="comment">*</span></code>
-					<code> <span class="comment">* Postdata: Si alguien lo o la vé, diganle</span></code>
-					<code> <span class="comment">* que le debo una cerveza bien fría.</span></code>
-					<code> <span class="comment">*/</span></code><br />
-					<code><span class="comment">/**</span></code>
-					<code> <span class="comment">*</span></code>
-					<code> <span class="comment">* _files: Variable que contendría los blob's pero este lo sustituye la variable "_dataTransferFiles".</span></code>
-					<code> <span class="comment">* _dataTransferFiles: Variable que contendrá los blob's y establecerá el valor del input de archivos por cargar.</span></code>
-					<code> <span class="comment">* _MAXSIZE: Constante del tamaño máximo por archivo.</span></code>
-					<code> <span class="comment">* _DAYSOFTHEWEEK: Constante de días de la semana.</span></code>
-					<code> <span class="comment">* _MONTHS: Constante de meses del año.</span></code>
-					<code> <span class="comment">*/</span></code>
-					<code><span class="comment">// var _files = [];</span></code>
-					<code><span class="cyan">var</span> _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code>
-					<code><span class="cyan">const</span> _MAXSIZE <span class="pink">=</span> ((<span class="comment">/*byte*/</span> <span class="purple">1</span> <span class="pink">*</span> <span class="comment">/*bytes*/</span> <span class="purple">1024</span>) <span class="comment">/* = kilobyte*/</span> <span class="pink">*</span> <span class="comment">/*kilobytes*/</span> <span class="purple">1024</span>) <span class="comment">/* = megabyte*/</span>;</code>
-					<code><span class="cyan">const</span> _DAYSOFTHEWEEK <span class="pink">=</span> [<span class="yellow">'Domingo'</span>, ...];</code>
-					<code><span class="cyan">const</span> _MONTHS <span class="pink">=</span> [<span class="yellow">'Enero'</span>, ...];</code><br />
-					<code><span class="comment">// Función para llenar la tabla de archivos por cargar.</span></code>
-					<code><span class="cyan">function</span> <span class="green">fillTable</span> (<span class="orange">files</span> <span class="pink">=</span> []) {</code>
-					<code>    <span class="cyan">let</span> $tbody <span class="pink">= $</span>(<span class="yellow">'#tableFiles &gt; tbody'</span>);</code><br />
-					<code>    <span class="comment">// Limpiamos la tabla por completo.</span></code>
-					<code>    $tbody.<span class="cyan">html</span>(<span class="purple">null</span>);</code><br />
-					<code>    <span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span>) {</code>
-					<code>        <span class="pink">$</span>.<span class="cyan">each</span>(files, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
-					<code>            <span class="cyan">let</span> date <span class="pink">= new</span> <span class="cyan">Date</span>(value.lastModified);</code>
-					<code>            <span class="cyan">let</span> fileName <span class="pink">=</span> value.name; <span class="comment">// Nombre del archivo.</span></code>
-					<code>            <span class="cyan">let</span> fileType <span class="pink">=</span> value.type; <span class="comment">// Tipo de archivo.</span></code>
-					<code>            <span class="cyan">let</span> fileSize <span class="pink">=</span> <span class="cyan">Math</span>.<span class="cyan">round</span>((value.size <span class="pink">/</span> _MAXSIZE) <span class="pink">*</span> <span class="purple">100</span>) <span class="pink">/</span> <span class="purple">100</span>; <span class="comment">// Calcular el tamaño aproximado del archivo.</span></code>
-					<code>            <span class="cyan">let</span> fileLastModified <span class="pink">=</span> <span class="yellow">`</span>${_DAYSOFTHEWEEK[date.<span class="cyan">getDay</span>()]}<span class="yellow">,</span> ${date.<span class="cyan">getDate</span>()} <span class="yellow">de</span> ${_MONTHS[date.<span class="cyan">getMonth</span>()]} <span class="yellow">de</span> ${date.<span class="cyan">getFullYear</span>()} <span class="yellow">a las</span> ${date.<span class="cyan">getHours</span>()}<span class="yellow">:</span>${date.<span class="cyan">getMinutes</span>()}<span class="yellow">:</span>${date.<span class="cyan">getSeconds</span>()}<span class="yellow">`</span>; <span class="comment">// Y la fecha de la última modificación del archivo.</span></code><br />
-					<code>            <span class="comment">// Y con las variables declaradas agregamos cada renglon a la tabla.</span></code>
-					<code>            $tbody.<span class="cyan">append</span>(<span class="yellow">`&lt;tr&gt;</span></code>
-					<code>                <span class="yellow">&lt;td&gt;</span>${fileName}<span class="yellow">&lt;/td&gt;</span></code>
-					<code>                <span class="yellow">&lt;td&gt;</span>${fileType}<span class="yellow">&lt;/td&gt;</span></code>
-					<code>                <span class="yellow">&lt;td&gt;</span>${fileSize}<span class="yellow">MB&lt;/td&gt;</span></code>
-					<code>                <span class="yellow">&lt;td&gt;</span>${fileLastModified}<span class="yellow">&lt;/td&gt;</span></code>
-					<code>                <span class="yellow">&lt;td&gt;0%&lt;/td&gt;</span></code>
-					<code>            <span class="yellow">&lt;/tr>`</span>);</code>
-					<code>        });</code>
-					<code>    } <span class="pink">else</span> $tbody</code>
-					<code>        .<span class="cyan">html</span>(<span class="yellow">`&lt;tr&gt;&lt;td colspan="5" style="text-align: center;"&gt;No hay archivos por cargar.&lt;/td&gt;&lt;/tr&gt;`</span>);</code>
-					<code>}</code><br />
-					<code><span class="comment">// Función para validar cada archivo.</span></code>
-					<code><span class="cyan">function</span> <span class="green">onChangeHandler</span> (<span class="orange">files</span> <span class="pink">=</span> []) {</code>
-					<code>    <span class="cyan">let</span> $divInput <span class="pink">= $</span>(<span class="yellow">'#divFile'</span>);</code><br />
-					<code>    <span class="comment">// Removemos cualquier clase del contenedor del input.</span></code>
-					<code>    $divInput</code>
-					<code>        .<span class="cyan">removeClass</span>(<span class="yellow">'my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow'</span>);</code><br />
-					<code>    <span class="comment">// Validamos que la cantidad de archivos sea la indicada.</span></code>
-					<code>    <span class="pink">if</span> (files.length <span class="pink">&gt;</span> <span class="purple">0</span> <span class="pink">&amp;&amp;</span> files.length <span class="pink">&lt;=</span> <span class="purple">5</span>) {</code>
-					<code>        <span class="cyan">let</span> areFilesValid <span class="pink">=</span> <span class="purple">true</span>; <span class="comment">// Bandera de validación de archivos.</span></code>
-					<code>        <span class="cyan">let</span> filesToAdd <span class="pink">=</span> []; <span class="comment">// Este arreglo reemplazará la variable de "_files" en caso de que "areFilesValid" siga siendo true.</span></code><br />
-					<code>        <span class="comment">// Descomentar esta línea para ver comportamiento de "files".</span></code>
-					<code>        <span class="comment">// console.log(files);</span></code><br />
-					<code>        <span class="comment">// Ciclo para validar cada archivo.</span></code>
-					<code>        <span class="pink">for</span> (<span class="cyan">var</span> i <span class="pink">=</span> <span class="purple">0</span>; i <span class="pink">&lt;</span> files.length; i<span class="pink">++</span>) {</code>
-					<code>            <span class="pink">if</span> (files[i].size <span class="pink">&gt;</span> _MAXSIZE) {</code>
-					<code>                areFilesValid <span class="pink">=</span> <span class="purple">false</span>;</code>
-					<code>                <span class="pink">break</span>;</code>
-					<code>            } <span class="pink">else</span> filesToAdd.<span class="cyan">push</span>(files[i]);</code>
-					<code>        }</code><br />
-					<code>        <span class="pink">if</span> (areFilesValid) {</code>
-					<code>            <span class="comment">// _files = filesToAdd;</span></code><br />
-					<code>            _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
-					<code>            <span class="pink">$</span>.<span class="cyan">each</span>(filesToAdd, <span class="cyan">function</span> (<span class="orange">index</span>, <span class="orange">value</span>) {</code>
-					<code>                _dataTransferFiles.items.<span class="cyan">add</span>(<span class="pink">new</span> File([value], value.name, {</code>
-					<code>                    type: value.type,</code>
-					<code>                    lastModified: value.lastModified</code>
-					<code>                }));</code>
-					<code>            });</code><br />
-					<code>            $divInput</code>
-					<code>                .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-green'</span>)</code>
-					<code>                .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
-					<code>                .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-check"&gt;&lt;/i&gt;</span> ${files.length} <span class="yellow">archivo</span>${files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>} <span class="yellow">cargado</span>${files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>}<span class="yellow">`</span>);</code><br />
-					<code>            <span class="comment">// Habilitamos los botones de subida y borrado de archivos.</span></code>
-					<code>            <span class="pink">$</span>(<span class="yellow">'#buttonUpload, #buttonReset'</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">false</span>);</code>
-					<code>        } <span class="pink">else</span> $divInput</code>
-					<code>            .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-red'</span>)</code>
-					<code>            .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
-					<code>            .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Uno o más archivos excede el tamaño permitido de 1MB`</span>);</code>
-					<code>    } <span class="pink">else if</span> (files.length <span class="pink">&gt;</span> <span class="purple">5</span>) $divInput</code>
-					<code>        .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-red'</span>)</code>
-					<code>        .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
-					<code>        .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-triangle-exclamation"&gt;&lt;/i&gt; Solo se permite la carga de 5 archivos`</span>);</code>
-					<code>    <span class="pink">else</span> {</code>
-					<code>        <span class="comment">/**</span></code>
-					<code>         <span class="comment">*</span></code>
-					<code>         <span class="comment">* Debido a que el comportamiento del evento "onChange"</span></code>
-					<code>         <span class="comment">* del input de carga de archivos, agregué esta condición</span></code>
-					<code>         <span class="comment">* puesto a que cambia su valor cada vez que se lanza el</span></code>
-					<code>         <span class="comment">* evento. Es decir puede pasar de tener mil archivos a</span></code>
-					<code>         <span class="comment">* ninguno en cualquier momento.</span></code>
-					<code>         <span class="comment">*/</span></code>
-					<code>        <span class="comment">// if (_files.length &gt; 0) $divInput</span></code>
-					<code>        <span class="pink">if</span> (_dataTransferFiles.files.length <span class="pink">&gt;</span> <span class="purple">0</span>) $divInput</code>
-					<code>            .<span class="cyan">addClass</span>(<span class="yellow">'my-drop-zone-green'</span>)</code>
-					<code>            .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
-					<code>            <span class="comment">// .html(`&lt;i class="fa-solid fa-check"&gt;&lt;/i&gt; ${_files.length} archivo${_files.length &gt; 1 ? 's' : ''} cargado${_files.length &gt; 1 ? 's' : ''}`);</span></code>
-					<code>            .<span class="cyan">html</span>(<span class="yellow">`&lt;i class="fa-solid fa-check"&gt;&lt;/i&gt;</span> ${_dataTransferFiles.files.length} <span class="yellow">archivo</span>${_dataTransferFiles.files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>} <span class="yellow">cargado</span>${_dataTransferFiles.files.length <span class="pink">&gt;</span> <span class="purple">1</span> <span class="pink">?</span> <span class="yellow">'s'</span> <span class="pink">:</span> <span class="yellow">''</span>}<span class="yellow">`</span>);</code>
-					<code>        <span class="pink">else</span> {</code>
-					<code>            $divInput</code>
-					<code>                .<span class="cyan">find</span>(<span class="yellow">'label'</span>)</code>
-					<code>                .<span class="cyan">html</span>(<span class="yellow">`&lt;strong&gt;Seleccione sus archivos&lt;/strong&gt;`</span>);</code><br />
-					<code>            <span class="comment">// Deshabilitamos los botones de subida y borrado de archivos.</span></code>
-					<code>            <span class="pink">$</span>(<span class="yellow">'#buttonUpload, #buttonReset'</span>).<span class="cyan">attr</span>(<span class="yellow">'disabled'</span>, <span class="purple">true</span>);</code>
-					<code>        }</code>
-					<code>    }</code><br />
-					<code>    <span class="comment">/**</span></code>
-					<code>     <span class="comment">*</span></code>
-					<code>     <span class="comment">* Sea el resultado que sea, válido</span></code>
-					<code>     <span class="comment">* o no, el input tomará la colección</span></code>
-					<code>     <span class="comment">* de la propiedad "files" de la variable</span></code>
-					<code>     <span class="comment">* global "_dataTransferFiles".</span></code>
-					<code>     <span class="comment">*/</span></code>
-					<code>    <span class="pink">$</span>(<span class="yellow">'#inputFile'</span>)[<span class="purple">0</span>].files <span class="pink">=</span> _dataTransferFiles.files;</code><br />
-					<code>    <span class="comment">// fillTable(_files);</span></code><br />
-					<code>    <span class="cyan">fillTable</span>(_dataTransferFiles.files);</code>
-					<code>}</code><br />
-					<code><span class="comment">// Evento del input al cargar archivos.</span></code>
-					<code><span class="pink">$</span>(<span class="yellow">'#inputFile'</span>).<span class="cyan">on</span>(<span class="yellow">'change'</span>, <span class="cyan">function</span> (<span class="orange">e</span>) {</code>
-					<code>    e.<span class="cyan">preventDefault</span>();</code><br />
-					<code>    <span class="cyan">onChangeHandler</span>(e.target.files);</code>
-					<code>});</code><br />
-					<code><span class="comment">// Evento para quitar archivos por cargar.</span></code>
-					<code><span class="pink">$</span>(<span class="yellow">'#buttonReset'</span>).<span class="cyan">click</span>(<span class="cyan">function</span> () {</code>
-					<code>    <span class="comment">// _files = [];</span></code><br />
-					<code>    _dataTransferFiles <span class="pink">= new</span> DataTransfer();</code><br />
-					<code>    <span class="cyan">onChangeHandler</span>();</code>
-					<code>});</code>
-				</pre>
-				<p class="my-text">Hasta este punto solo he mostrado la parte del frontend y su lógica, ahora continuare con la lógica para la subida de archivos y el comportamiento del backend.</p>
-				<div class="row">
-					<div class="col-md-6">
-						<samp>JS</samp>
-						<pre class="sb">
-							<code><span class="comment">// Declaramos la variable de "ss.SimpleUpload"</span></code>
-						</pre>
-					</div>
-					<div class="col-md-6"></div>
-				</div>
-				-->
+				<p class="my-text">Todo esto fue posible gracias a DataTransfer() ¡claro que sí! :3</p>
 			</div>
 		</div>
 		<!-- ./dropZone -->
@@ -2623,8 +2524,6 @@
 	var _arrayInfoFiles = new Array();
 	var _generalPct = 0;
 	var _uploadedFiles = 0;
-	// const _DATATRANSFERNULL = new DataTransfer();
-	// const _MAXSIZE = ((/*byte*/ 1 * /*bytes*/ 1024) /* = kilobyte*/ * /*kilobytes*/ 1024) /* = megabyte*/;
 	const _MAXSIZE = /*kilobytes*/ 1024 * /*megabytes*/ 10;
 	const _MAXFILESTOUPLOAD = 5;
 	const _DAYSOFTHEWEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -2660,34 +2559,69 @@
 	}
 	const onChangeDropZone = files => {
 		let $dropZone = $('#divDropZone');
+		let $preOutput = $('#preOutPutDropZone');
 		let tempDataTransfer = _dataTransferFiles;
 
-		$dropZone
-			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow');
+		try {
+			$dropZone
+				.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow');
 
-		if (files.length > 0) {
-			_dataTransferFiles = new DataTransfer();
-
-			if (!$('#checkReplaceFilesDropZone').is(':checked')) {
-				for (let i = 0; i < (fileList = tempDataTransfer.files).length; i++)
-					_dataTransferFiles.items.add(new File([fileList[i]], fileList[i].name, {
-						type: fileList[i].type,
-						lastModified: fileList[i].lastModified
-					}));
-			}
-
-			for (let i = 0; i < files.length; i++) {
-				_dataTransferFiles.items.add(new File([files[i]], files[i].name, {
-					type: files[i].type,
-					lastModified: files[i].lastModified
-				}));
-			}
-		} else {
-			if ($('#checkReplaceFilesDropZone').is(':checked'))
+			if (files.length > 0) {
 				_dataTransferFiles = new DataTransfer();
 
-			$('#inputDropZone')[0].files = _dataTransferFiles.files;
+				$preOutput.html(`<code>Archivo(s) seleccionado(s):</code>`);
+
+				if (!$('#checkReplaceFilesDropZone').is(':checked')) {
+					for (let i = 0; i < (fileList = tempDataTransfer.files).length; i++) {
+						if (['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(fileList[i].type))
+							$preOutput.append(`<code> - [<span class="green">OK</span>] ${fileList[i].name}</code>`);
+						else
+							$preOutput.append(`<code> - [<span class="pink">ERROR</span>] ${fileList[i].name} <span class="pink">|</span> tipo de archivo no válido</code>`);
+
+						_dataTransferFiles.items.add(new File([fileList[i]], fileList[i].name, {
+							type: fileList[i].type,
+							lastModified: fileList[i].lastModified
+						}));
+					}
+				}
+
+				for (let i = 0; i < files.length; i++) {
+					if (['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(files[i].type))
+						$preOutput.append(`<code> - [<span class="green">OK</span>] ${files[i].name}</code>`);
+					else
+						$preOutput.append(`<code> - [<span class="pink">ERROR</span>] ${files[i].name} <span class="pink">|</span> tipo de archivo no válido</code>`);
+
+					_dataTransferFiles.items.add(new File([files[i]], files[i].name, {
+						type: files[i].type,
+						lastModified: files[i].lastModified
+					}));
+				}
+
+				let length = _dataTransferFiles.files.length;
+				let singlePlural = length == 1 ? ['archivo', 'seleccionado'] : ['archivos', 'seleccionados'];
+
+				$('#divDropZone')
+					.addClass('my-drop-zone-green')
+					.find('label')
+					.html(`<strong>${length} ${singlePlural[0]}</strong> ${singlePlural[1]}.`);
+			} else
+				if ($('#checkReplaceFilesDropZone').is(':checked')) {
+					_dataTransferFiles = new DataTransfer();
+
+					$preOutput.html(`<code>No hay archivos seleccionados</code>`);
+				}
+		} catch (exception) {
+			_dataTransferFiles = new DataTransfer();
+
+			$preOutput.html(`<code>No hay archivos seleccionados</code>`);
+
+			$dropZone
+				.addClass('my-drop-zone-red')
+				.find('label')
+				.html(`<strong><i class="fa-solid fa-exclamation"></i> ${exception.message}</strong>`);
 		}
+
+		$('#inputDropZone')[0].files = _dataTransferFiles.files;
 	}
 
 	var _simpleAjaxUploader = new ss.SimpleUpload({
@@ -2852,70 +2786,6 @@
 		}
 	});
 
-	/*
-	function onChangeHandlerSimpleAjaxUploader (files = []) {
-		let $dropZone = $('#divFileSimpleAjaxUploader');
-
-		$dropZone
-			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow');
-
-		if (files.length > 0 && files.length <= 5) {
-			let areFilesValid = true;
-			let filesToAdd = [];
-
-			// console.log(files);
-
-			for (var i = 0; i < files.length; i++) {
-				if (files[i].size > _MAXSIZE) {
-					areFilesValid = false;
-					break;
-				} else filesToAdd.push(files[i]);
-			}
-
-			if (areFilesValid) {
-				_dataTransferFiles = new DataTransfer();
-
-				$.each(filesToAdd, function (index, value) {
-					_dataTransferFiles.items.add(new File([value], value.name, {
-						type: value.type,
-						lastModified: value.lastModified
-					}));
-				});
-
-				$dropZone
-					.addClass('my-drop-zone-green')
-					.find('label')
-					.html(`<i class="fa-solid fa-check"></i> ${files.length} archivo${files.length > 1 ? 's' : ''} cargado${files.length > 1 ? 's' : ''}`);
-
-				$('#buttonUploadSimpleAjaxUploader, #buttonResetSimpleAjaxUploader').attr('disabled', false);
-			} else $dropZone
-				.addClass('my-drop-zone-red')
-				.find('label')
-				.html(`<i class="fa-solid fa-triangle-exclamation"></i> Uno o más archivos excede el tamaño permitido de 1MB`);
-		} else if (files.length > 5) $dropZone
-			.addClass('my-drop-zone-red')
-			.find('label')
-			.html(`<i class="fa-solid fa-triangle-exclamation"></i> Solo se permite la carga de 5 archivos`);
-		else {
-			if (_dataTransferFiles.files.length > 0) $dropZone
-				.addClass('my-drop-zone-green')
-				.find('label')
-				.html(`<i class="fa-solid fa-check"></i> ${_dataTransferFiles.files.length} archivo${_dataTransferFiles.files.length > 1 ? 's' : ''} cargado${_dataTransferFiles.files.length > 1 ? 's' : ''}`);
-			else {
-				$dropZone
-					.find('label')
-					.html(`<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>`);
-
-				$('#buttonUploadSimpleAjaxUploader, #buttonResetSimpleAjaxUploader').attr('disabled', true);
-			}
-		}
-
-		$('#inputFileSimpleAjaxUploader')[0].files = _dataTransferFiles.files;
-
-		fillTableSimpleAjaxUploader(_dataTransferFiles.files);
-	}
-	*/
-
 	function fillTableSimpleAjaxUploader (files = []) {
 		let $tbody = $('#tableFilesSimpleAjaxUploader > tbody');
 
@@ -3017,62 +2887,6 @@
 
 		$('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top - 10 }, 1000);
 	});
-
-	/*
-	$('#divFileSimpleAjaxUploader').on('drop', function (e) {
-		e.preventDefault();
-
-		onChangeHandlerSimpleAjaxUploader(e.originalEvent.dataTransfer.files);
-	});
-
-	$('#divFileSimpleAjaxUploader').on('dragover', function (e) {
-		e.preventDefault();
-
-		$(this)
-			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow')
-			.addClass('my-drop-zone-blue')
-			.find('label')
-			.html(`<strong>Suelte aquí sus archivos</strong> <i class="fa-solid fa-hand"></i>`);
-	});
-
-	$('#divFileSimpleAjaxUploader').on('dragleave', function (e) {
-		e.preventDefault();
-
-		$(this)
-			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow')
-
-		if (_dataTransferFiles.files.length > 0) $(this)
-			.addClass('my-drop-zone-green')
-			.find('label')
-			.html(`<i class="fa-solid fa-check"></i> ${_dataTransferFiles.files.length} archivo${_dataTransferFiles.files.length > 1 ? 's' : ''} cargado${_dataTransferFiles.files.length > 1 ? 's' : ''}`);
-		else $(this)
-			.find('label')
-			.html(`<strong>Seleccione sus archivos</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>`);
-	});
-
-	$('#preOutPutSimpleAjaxUploader').on('click', 'a', function (e) {
-		e.preventDefault();
-
-		$('#preOutPutSimpleAjaxUploader').html(`<code><a href="#">Verificar si el input tiene archivos cargados</a></code>`);
-		$('#preOutPutSimpleAjaxUploader').append(`<code>Número de archivos que contiene: <span class="purple">${$('#inputFileSimpleAjaxUploader')[0].files.length}</span></code>`);
-
-		if ($('#inputFileSimpleAjaxUploader')[0].files.length > 0) {
-			$('#preOutPutSimpleAjaxUploader').append(`<code>[<span class="yellow">"files"</span>] =&gt; [</code>`);
-
-			$.each($('#inputFileSimpleAjaxUploader')[0].files, function (index, value) {
-				$('#preOutPutSimpleAjaxUploader')
-					.append(`<code>    [<span class="purple">${index}</span>] =&gt; {</code>`)
-					.append(`<code>        [<span class="yellow">"name"</span>] =&gt; <span class="yellow">"${value.name}"</span>,</code>`)
-					.append(`<code>        [<span class="yellow">"type"</span>] =&gt; <span class="yellow">"${value.type}"</span>,</code>`)
-					.append(`<code>        [<span class="yellow">"size"</span>] =&gt; <span class="purple">${value.size}</span>,</code>`)
-					.append(`<code>        [<span class="yellow">"lastModified"</span>] =&gt; <span class="purple">${value.lastModified}</span></code>`)
-					.append(`<code>    }${index < $('#inputFileSimpleAjaxUploader')[0].files.length - 1 ? ',' : '' }</code>`);
-			});
-
-			$('#preOutPutSimpleAjaxUploader').append(`<code>]</code>`);
-		}
-	});
-	*/
 
 	$('#checkApplyScreenProtectorSimpleAjaxUploader').on('change', function () {
 		let $chkProgressBar = $('#checkApplyProgressBarSimpleAjaxUploader');
@@ -3201,6 +3015,40 @@
 		e.preventDefault();
 
 		onChangeDropZone(e.target.files);
+	});
+
+	$('#divDropZone').on('drop', function (e) {
+		e.preventDefault();
+
+		onChangeDropZone(e.originalEvent.dataTransfer.files);
+	});
+
+	$('#divDropZone').on('dragover', function (e) {
+		e.preventDefault();
+
+		$(this)
+			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow')
+			.addClass('my-drop-zone-blue')
+			.find('label')
+			.html(`<strong>Suelte su(s) archivo(s)</strong> <i class="fa-solid fa-hand"></i>`);
+	});
+
+	$('#divDropZone').on('dragleave', function (e) {
+		e.preventDefault();
+
+		$(this)
+			.removeClass('my-drop-zone-blue my-drop-zone-red my-drop-zone-green my-drop-zone-yellow');
+
+		if ((length = _dataTransferFiles.files.length) > 0) {
+			let singlePlural = length == 1 ? ['archivo', 'seleccionado'] : ['archivos', 'seleccionados'];
+
+			$(this)
+				.addClass('my-drop-zone-green')
+				.find('label')
+				.html(`<strong>${length} ${singlePlural[0]}</strong> ${singlePlural[1]}.`);
+		} else $(this)
+			.find('label')
+			.html(`<strong>Seleccione sus archivos (.jpg, .png, .gif o .webm)</strong> o arrástrelos aquí <i class="fa-solid fa-hand-point-down"></i>`);
 	});
 
 	$('#checkApplyOpacity').on('change', function () {
