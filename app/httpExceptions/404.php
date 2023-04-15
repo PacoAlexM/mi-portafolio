@@ -18,5 +18,8 @@
 		</span>
 		<h1>Enlace no Encontrado :(<br /><small>404</small></h1>
 	</header>
+
+	<script src="<?php echo $_SESSION["JS_URL"] ?>jquery.min.js"></script>
+	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>removeHostingerBanner.min.js"></script>
 </body>
 </html>

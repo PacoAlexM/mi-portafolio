@@ -17,5 +17,8 @@
 		</span>
 		<h1>Internal Server Error!<br /><small>500</small></h1>
 	</header>
+
+	<script src="<?php echo $_SESSION["JS_URL"] ?>jquery.min.js"></script>
+	<script src="<?php echo $_SESSION["ASSETS_JS_URL"] ?>removeHostingerBanner.min.js"></script>
 </body>
 </html>
