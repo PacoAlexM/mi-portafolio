@@ -1888,6 +1888,124 @@
 			<div class="my-panel-header">
 				<h3 class="my-panel-header-title">Codificación al estilo Monokai de Sublime Text 3</h3>
 			</div>
+			<div class="my-panel-body">
+				<h2>Sección solo para mostrar codificación</h2>
+				<p class="my-text">Este ejemplo será uno de los más laboriosos, debido a que utilizo demasiadas etiquetas "span" para pintar cada fragmento del código de muestra y este lusca idéntico al tema de "Monokai" de Sublime Text 3. Solo echa un vistazo a la codificación y al resultado de este. </p>
+				<h2><i class="fa-solid fa-code"></i> Codificación</h2>
+				<div class="row">
+					<div class="col-md-5">
+						<samp>OUTPUT</samp>
+						<pre class="sb">
+							<code><span class="comment"># Muestras de las clases de .sb &gt; code &gt; span.{color}.</span></code>
+							<code>Sin clase alguna</code>
+							<code><span class="comment">Comment</span></code>
+							<code><span class="cyan">Cyan</span></code>
+							<code><span class="green">Green</span></code>
+							<code><span class="orange">Orange</span></code>
+							<code><span class="pink">Pink</span></code>
+							<code><span class="purple">Purple</span></code>
+							<code><span class="yellow">Yellow</span></code>
+						</pre>
+					</div>
+					<div class="col-md-7">
+						<samp>HTML</samp>
+						<pre class="sb">
+							<code><span class="comment">&lt;!-- Este ejemplo es el de las muestras de colores. --&gt;</span></code>
+							<code>&lt;<span class="pink">samp</span>&gt;OUTPUT&lt;/<span class="pink">samp</span>&gt;</code>
+							<code>&lt;<span class="pink">pre</span> <span class="green">class</span>=<span class="yellow">"sb"</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"comment"</span>&gt;# Muestras de las clases de .sb &gt; code &gt; span.{color}.&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;Sin clase alguna&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"comment"</span>&gt;Comment&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"cyan"</span>&gt;Cyan&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"green"</span>&gt;Green&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"orange"</span>&gt;Orange&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"pink"</span>&gt;Pink&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"purple"</span>&gt;Purple&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>	&lt;<span class="pink">code</span>&gt;&lt;<span class="pink">span</span> <span class="green">class</span>=<span class="yellow">"yellow"</span>&gt;Yellow&lt;/<span class="pink">span</span>&gt;&lt;/<span class="pink">code</span>&gt;</code>
+							<code>&lt;/<span class="pink">pre</span>&gt;</code>
+						</pre>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<samp>CSS</samp>
+						<pre class="sb">
+							<code><span class="comment">/**</span></code>
+							<code> <span class="comment">*</span></code>
+							<code> <span class="comment">* .sb</span></code>
+							<code> <span class="comment">*/</span></code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> {</code>
+							<code>  <span class="cyan">margin</span>: <span class="purple">0 0 15</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">padding</span>: <span class="purple">10</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">font-size</span>: <span class="purple">16</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">font-family</span>: <span class="cyan">monospace</span>;</code>
+							<code>  <span class="cyan">word-wrap</span>: <span class="cyan">normal</span>;</code>
+							<code>  <span class="cyan">white-space</span>: <span class="cyan">nowrap</span>;</code>
+							<code>  <span class="cyan">overflow</span>: <span class="cyan">auto</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="purple">#fff</span>;</code>
+							<code>  <span class="cyan">background-color</span>: <span class="cyan">hsl</span>(<span class="purple">70</span>, <span class="purple">8</span><span class="cyan">%</span>, <span class="purple">15</span><span class="cyan">%</span>);</code>
+							<code>  <span class="cyan">-moz-tab-size</span>: <span class="purple">4</span>;</code>
+							<code>  <span class="cyan">-o-tab-size</span>: <span class="purple">4</span>;</code>
+							<code>  <span class="cyan">tab-size</span>: <span class="purple">4</span>;</code>
+							<code>  <span class="cyan">word-break</span>: <span class="cyan">normal</span>;</code>
+							<code>  <span class="cyan">position</span>: <span class="cyan">relative</span>;</code>
+							<code>  <span class="cyan">border-radius</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">max-height</span>: <span class="purple">400</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">line-height</span>: <span class="cyan">normal</span>;</code>
+							<code>  <span class="cyan">-webkit-overflow-scrolling</span>: <span class="cyan">touch</span>;</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span>::<span class="cyan">-webkit-</span>scrollbar {</code>
+							<code>  <span class="cyan">width</span>: <span class="purple">8</span><span class="cyan">px</span>;</code>
+							<code>  <span class="cyan">height</span>: <span class="purple">8</span><span class="cyan">px</span>;</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span>::<span class="cyan">-webkit-</span>scrollbar-thumb {</code>
+							<code>  <span class="cyan">background</span>: <span class="purple">#000</span>;</code>
+							<code>  <span class="cyan">border-radius</span>: <span class="purple">5</span><span class="cyan">px</span>;</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span>::<span class="cyan">-webkit-</span>scrollbar-corner {</code>
+							<code>  <span class="cyan">display</span>: <span class="cyan">none</span>;</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="orange">*</span>::selection {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="cyan">rgba</span>(<span class="purple">255</span>, <span class="purple">255</span>, <span class="purple">255</span>, <span class="purple">.1</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="orange">*</span>::<span class="cyan">-moz-</span>selection {</code>
+							<code>  <span class="cyan">background-color</span>: <span class="cyan">rgba</span>(<span class="purple">255</span>, <span class="purple">255</span>, <span class="purple">255</span>, <span class="purple">.1</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code</span> {</code>
+							<code>  <span class="cyan">tab-size</span>: <span class="purple">4</span>;</code>
+							<code>  <span class="cyan">padding</span>: <span class="purple">0</span>;</code>
+							<code>  <span class="cyan">font-size</span>: <span class="cyan">inherit</span>;</code>
+							<code>  <span class="cyan">font-family</span>: <span class="cyan">inherit</span>;</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">inherit</span>;</code>
+							<code>  <span class="cyan">white-space</span>: <span class="cyan">pre</span>;</code>
+							<code>  <span class="cyan">display</span>: <span class="cyan">block</span>;</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.comment</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">50</span>, <span class="purple">11</span><span class="cyan">%</span>, <span class="purple">41</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.cyan</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">190</span>, <span class="purple">81</span><span class="cyan">%</span>, <span class="purple">67</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.green</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">80</span>, <span class="purple">76</span><span class="cyan">%</span>, <span class="purple">53</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.orange</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">33</span>, <span class="purple">92</span><span class="cyan">%</span>, <span class="purple">55</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.pink</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">338</span>, <span class="purple">95</span><span class="cyan">%</span>, <span class="purple">56</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.purple</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">261</span>, <span class="purple">100</span><span class="cyan">%</span>, <span class="purple">75</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+							<code><span class="pink">pre</span><span class="green">.sb</span> <span class="pink">&gt; code &gt; span</span><span class="green">.yellow</span> {</code>
+							<code>  <span class="cyan">color</span>: <span class="cyan">hsl</span>(<span class="purple">54</span>, <span class="purple">71</span><span class="cyan">%</span>, <span class="purple">68</span><span class="cyan">%</span>);</code>
+							<code>}</code>
+						</pre>
+					</div>
+				</div>
+				<p class="my-text">Y para concluir solo diré que realmente es muy laborioso mostrar la codificación de esta manera, pero vale la pena puesto que el estilo y presentación cuentan mucho y dejar ejemplos del código no recae en la monotonía monocromática al estilo de un bloc de notas. Por cierto, desarrollo usando Sublime Text 3, así que conozco el color de cada palabra reservada de cada lenguaje de programación.</p>
+			</div>
 		</div>
 		<!-- ./sublimeText3Monokai -->
 
